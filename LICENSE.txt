@@ -1,0 +1,16 @@
+This work is licensed under a Creative Commons Attribution 
+4.0 International License.
+
+http://creativecommons.org/licenses/by/4.0/
+
+Any and all source code included in this work is licensed 
+under the ISC License per the AllSeen Alliance IP Policy.
+
+https://allseenalliance.org/allseen/ip-policy
+
+AllJoyn is a trademark of Qualcomm Innovation Center, Inc. 
+AllJoyn is used here with permission to identify unmodified 
+materials originating in the AllJoyn open source project.
+
+Other products and brand names may be trademarks or registered 
+trademarks of their respective owners.

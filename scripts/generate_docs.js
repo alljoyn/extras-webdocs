@@ -18,15 +18,14 @@
 
 var marked = require('marked');
 var fs = require('fs');
-var htmlparser = require('htmlparser2');
-var html = require('htmlparser-to-html');
 var highlight = require('highlight.js')
+var yaml = require('yamljs')
 
 // Note, there are some hard coded paths sprinkled through code.
 var docs_dir = 'docs/';
 var files_dir = 'files/';
 var templates_dir = 'templates/';
-var nav_file = docs_dir + 'nav.md';
+var nav_file = docs_dir + 'nav.yaml';
 
 var page_pre_filename = templates_dir + 'page_pre.html';
 var page_postnav_filename = templates_dir + 'page_postnav.html';
@@ -36,95 +35,6 @@ var out_base_dir = 'out/public/';
 var for_import_base_dir = 'out/for_import/';
 var deploy_html_dir_prefix = 'develop/';
 var deploy_files_dir_prefix = 'sites/default/files/develop/';
-
-// ==========================================================================
-// Functions to manipulate left nav to show/hide based on current page
-// ==========================================================================
-
-function set_hidden(node, hidden) {
-    if (node && hidden && node.name != 'a' && "attribs" in node) {
-        node.attribs.hidden=1;
-    }
-    if (node && !hidden && ("attribs" in node) && ("hidden" in node.attribs)) {
-        delete node.attribs['hidden'];
-    }
-}
-
-function set_all_children_hidden(root) {
-    if ("children" in root) {
-        for (var i=0; i<root.children.length; i++) {
-            var node = root.children[i];
-            set_hidden(node, true);
-            set_all_children_hidden(node);
-        }
-    }
-}
-
-function set_all_parents_children_not_hidden(root) {
-    set_hidden(root, false);
-    if ("children" in root) {
-        for (var i=0; i<root.children.length; i++) {
-            var node = root.children[i];
-            set_hidden(node, false);
-        }
-    }
-    if ("parent" in root && root.parent) {
-        set_all_parents_children_not_hidden(root.parent);
-    }
-}
-
-function find_page(url, root) {
-    if (("type" in root) && (root.type == 'tag') && (root.name == 'a') &&
-        (root.attribs.href == url)) {
-        return root;
-    }
-    if ("children" in root) {
-        for (var j=0; j<root.children.length; j++) {
-            var node = root.children[j];
-            var found_node = find_page(url,node);
-            if (typeof found_node != "undefined") {
-                return found_node;
-            }
-        }
-    }
-}
-
-function get_nav(file) {
-    var url = file.slice(5,-3); // remove leading "docs/" and trailing ".md"
-    if (url.slice(-5) == 'index') url = url.slice(0,-6);  // remove trailing "/index"
-    url = '/' + deploy_html_dir_prefix + url;
-
-    var processed_nav_dom;
-    var handler = new htmlparser.DomHandler(function(err, dom) {
-        // Mark all nodes not at the root level as hidden
-        for (var i=0; i<dom[0].children.length; i++) {
-            var child = dom[0].children[i];
-            set_all_children_hidden(child);
-        }
-
-        var node = find_page(url, dom[0]);
-        if (node) {
-            // set class so current page is highlighted in nav
-            node.attribs.id = 'active';
-
-            // show all of the node's "children"
-            if ('next' in node && node.next && 'type' in node.next && node.next.type == 'tag' &&
-                'name' in node.next && (node.next.name == 'ul') && 'children' in node.next) {
-                set_hidden(node.next, false);
-                for (var i=0; i<node.next.children.length; i++) {
-                    set_hidden(node.next.children[i], false);
-                }
-            }
-
-            // show all of the node's parents and parent's children
-            set_all_parents_children_not_hidden(node);
-        }
-        processed_nav_dom = dom;
-    });
-
-    new htmlparser.Parser(handler).parseComplete(nav);
-    return html(processed_nav_dom);
-}
 
 // ==========================================================================
 // File/dir manipulation helpers
@@ -157,15 +67,9 @@ function rmdir(path) {
 }
 
 // ==========================================================================
-// Main processing functions
+// Main processing functions - helpers
 // ==========================================================================
 
-var pre = fs.readFileSync(page_pre_filename, 'utf8');
-var postnav = fs.readFileSync(page_postnav_filename, 'utf8');
-var post = fs.readFileSync(page_post_filename, 'utf8');
-var nav;
-
-var renderer = new marked.Renderer();
 function adjust_href(href) {
     var adj_href = href;
 
@@ -176,6 +80,83 @@ function adjust_href(href) {
     }
     return adj_href;
 }
+
+// ==========================================================================
+// Main processing functions - left nav
+// ==========================================================================
+
+function adj_nav(objs, path, show) {
+    // if path found, show children, siblings, parents, parents siblings, 
+    // grandparents and grandparent siblings, etc
+    var path_found = false
+    for (var i=0; i<objs.length; i++) {
+        var obj = objs[i];
+        var show_children = false
+        
+        if (!show)
+            obj.hidden = 1
+        if ('path' in obj) {
+            obj.path = adjust_href(obj.path)
+            if (obj.path == path) {
+                obj.id = 'active'
+                path_found = true
+                show_children = true
+            }
+        }
+        if ('contents' in obj && obj.contents) {
+            path_found |= adj_nav(obj.contents, path, show_children)
+        }
+    }
+
+    if (path_found) {
+        for (var i=0; i<objs.length; i++) {
+            var obj = objs[i];
+            obj.hidden = 0
+        }
+    }
+    return path_found
+}
+
+function get_indent_str(cnt) {
+    var str = "";
+    for (var i=0; i < cnt; i++) {
+        str += " ";
+    }
+    return str
+}
+function gen_nav_html(objs, indent) {
+    if (!objs) return "";
+
+    str = "";
+    str += get_indent_str(indent) + "<ul>\n"
+    for (var i=0; i<objs.length; i++) {
+        var obj = objs[i];
+        if ('name' in obj && 'path' in obj) {
+            var hidden_str = ""
+            var id_str = ""
+            if (obj.hidden == 1)
+                hidden_str = " hidden=1"
+            if ('id' in obj)
+                id_str = " id='active'"
+            str += get_indent_str(indent+4) + '<li' + hidden_str + '><a href="' + obj.path + 
+                   '"' + id_str + '>' + obj.name + '</a></li>\n'
+        }
+        if ('contents' in obj && obj.contents)
+            str += gen_nav_html(obj.contents, indent+4)
+    }
+    str += get_indent_str(indent) + "</ul>\n"
+    return str;
+}
+
+// ==========================================================================
+// Main processing function - doc html generation
+// ==========================================================================
+
+var pre = fs.readFileSync(page_pre_filename, 'utf8');
+var postnav = fs.readFileSync(page_postnav_filename, 'utf8');
+var post = fs.readFileSync(page_post_filename, 'utf8');
+
+var renderer = new marked.Renderer();
 
 renderer.link = function(href, title, text) {
     title_str = '';
@@ -203,7 +184,6 @@ marked.setOptions({
   renderer: renderer
 });
 
-
 function parse_file(file) {
     console.log("Parsing file", file);
 
@@ -215,11 +195,15 @@ function parse_file(file) {
 
     var content = marked(fs.readFileSync(file, 'utf8'));
 
-    var gh = 'https://github.qualcomm.com/waynelee/docuthon2014/edit/master/';
-    var edit = "<div>Edit: <a href='" + gh + "docs/nav.md'>Nav</a> | " + 
-               "<a href='" + gh + file + "'>Page</a></div>";
+    var path = file.slice(5,-3); // remove leading "docs/" and trailing ".md"
+    if (path.slice(-5) == 'index') path = path.slice(0,-6);  // remove trailing "/index"
+    path = '/' + deploy_html_dir_prefix + path;
 
-    var out = pre + edit + get_nav(file) + postnav + content + post
+    var nav_objs = yaml.parse(fs.readFileSync(nav_file, 'utf8'))
+    adj_nav(nav_objs, path, false)
+    var nav_html = gen_nav_html(nav_objs, 0)
+
+    var out = pre + nav_html + postnav + content + post
 
     // Create file for development/preview
     create_parent_dirs(out_file);
@@ -244,6 +228,10 @@ function parse_dir(path) {
     }
 }
 
+// ==========================================================================
+// Main processing function - files
+// ==========================================================================
+
 function copy_files(path) {
     //console.log("Copying dir ", path);
     var files = fs.readdirSync(path);
@@ -266,48 +254,27 @@ function copy_files(path) {
     }
 }
 
-function generate_nav_yaml() {
-    var nav = fs.readFileSync(nav_file, {encoding:'utf8'});
-    var out = "";
-
-    lines = nav.split(/\r?\n/);
-    for (var i=0; i<lines.length; i++) {
-        var line = lines[i];
-        matches = line.match(/(\s*)\* \[([^\]]+)\]\(([^\)]+)/);
-        if (matches && matches.length == 4) {
-            var indent = matches[1] + matches[1];
-            var name = matches[2];
-            var path = matches[3];
-
-            out += indent + '- name: ' + name + '\n' +
-                   indent + '  path: ' + path + '\n' +
-                   indent + '  contents:' + '\n';
-        } else {
-            console.log("error processing nav line", i, line)
-        }
-    }
-    fs.writeFileSync(for_import_base_dir + 'nav.yaml', out);
-}
+// ==========================================================================
+// Main processing function
+// ==========================================================================
 
 function build_html() {
     console.log("Building html");
     rmdir(out_base_dir);
-    nav = marked(fs.readFileSync(nav_file, 'utf8'));
     parse_dir(docs_dir);
     copy_files(files_dir);
+
+    fs.writeFileSync(for_import_base_dir + 'nav.yaml', 
+        fs.readFileSync(nav_file, 'utf8'));
 
     // Add top level index to redirect to first page of content
     fs.writeFileSync(out_base_dir + 'index', '<meta http-equiv="refresh" content="1;url=/' + 
         deploy_html_dir_prefix + '">');
-
-    // Generate the nav file for Drupal import
-    generate_nav_yaml();
 }
 
 // ==========================================================================
 // Main program
 // ==========================================================================
-
 build_html();
 
 // If 'watch' argument specified, watch for file changesa and generate html

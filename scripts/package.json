@@ -4,11 +4,10 @@
   "private": true,
   "dependencies": {
     "marked": ">= 0.3.2",
-    "htmlparser2": ">= 1.7.7",
-    "htmlparser-to-html": ">= 0.0.5",
     "express": ">= 4.7.2",
     "isbinaryfile": ">=2.0.1",
     "node-watch": ">=0.3.4",
-    "highlight.js": ">=8.1.0"
+    "highlight.js": ">=8.1.0",
+    "yamljs": ">=0.1.5"
   }
 }

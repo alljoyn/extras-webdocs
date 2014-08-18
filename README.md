@@ -65,10 +65,3 @@ Additional Tips
 * Renaming pages/links.  This trick should work.
 
     grep -l -r '/learn/core-architecture' * |xargs sed -i 's!/learn/core-architecture!/learn/core-framework!g'
-
-Test Server
------------
-
-This server will pull from this github repo every 30 seconds and generate new HTML.  Ping waynelee if it no workie.
-
-http://bspencer-linux:8888/

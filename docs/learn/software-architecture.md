@@ -48,10 +48,6 @@ Service frameworks are broken out into AllJoyn Working Groups:
   * [Control Panel][controlpanel]. Allows devices to advertise a virtual control
     panel to be controlled remotely.
 
-* [Lighting Service][lighting-service]
-  * [Lamp][lamp]
-  * [Lighting Controller][lighting-controller]
-
 Developers are encouraged to use AllJoyn services where possible. If an existing service is not available, then the developer is encouraged to work with the AllSeen Alliance to create a standard service.  In some cases, using private services and intefaces makes the most sense; howerver, those services would not be able to interoperate and take advantage of the larger AllJoyn ecosystem of devices and apps.
 
 [Learn more about AllJoyn Service Frameworks][learn-services].
@@ -97,9 +93,5 @@ The application can use both the Service Framework and Core APIs side by side.
 [base-services]: /learn/base-services
 [onboarding]: /learn/base-services/onboarding
 [configuration]: /learn/base-services/configuration
-[notifications]: /learn/base-services/notifications
+[notifications]: /learn/base-services/notification
 [controlpanel]: /learn/base-services/controlpanel
-
-[lighting-service]: /learn/lighting-services
-[lamp]: /learn/lighting-services/lamp
-[lighting-controller]: /learn/lighting-services/lighting-controller

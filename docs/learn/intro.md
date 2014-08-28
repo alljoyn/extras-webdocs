@@ -77,9 +77,9 @@ Learn more about example [use-cases][].  Then mosey over to learn about the
 overall [Network Architecture][network-arch], [Software Architecture][software-arch],
 [Core Framework][core], and [Service Frameworks][services].
 
-[onboarding]: /learn/base-services/base-frameworks#onboarding
-[notifs]: /learn/base-services/base-frameworks#notifications
-[controlpanel]: /learn/base-services/base-frameworks#controlpanel
+[onboarding]: /learn/base-services/onboarding
+[notifs]: /learn/base-services/notification
+[controlpanel]: /learn/base-services/controlpanel
 
 [use-cases]: /learn/use-cases
 [network-arch]: /learn/network-architecture

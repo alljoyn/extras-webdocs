@@ -10,7 +10,7 @@ as more contributions are made to the AllSeen Alliance project.
 * [Configuration][configuration]. Allows one to configure certain attributes of 
   an application/device, such as its friendly name.
 
-* [Notifications][notifications]. Allows text-based notifications to be sent and 
+* [Notification][notification]. Allows text-based notifications to be sent and 
   received by devices on the AllJoyn network. Also supports audio and images
   via URLs.
 
@@ -19,5 +19,5 @@ as more contributions are made to the AllSeen Alliance project.
 
 [onboarding]: /learn/base-services/onboarding
 [configuration]: /learn/base-services/configuration
-[notifications]: /learn/base-services/notifications
+[notification]: /learn/base-services/notification
 [controlpanel]: /learn/base-services/controlpanel

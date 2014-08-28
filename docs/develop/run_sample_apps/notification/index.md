@@ -39,5 +39,5 @@ The samples can be run on the following platforms:
 [ios_osx]: /develop/run_sample_apps/notification/ios_osx
 [thin_linux]: /develop/run_sample_apps/notification/thin_linux
 
-[learn_notif]: /learn/base-services/notifications
+[learn_notif]: /learn/base-services/notification
 [sessionless_signal]: /learn/core-framework#sessionless-signal

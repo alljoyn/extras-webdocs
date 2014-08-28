@@ -9,7 +9,7 @@ Open two terminal windows.   In each, navigate to the AllJoyn root dir, then:
 
             export AJ_ROOT=`pwd`
 
-            # <TARGET CPU> can be either x86_64, x86, or whatever value you set for "CPU=" when running SCons.
+            # &lt;TARGET CPU&gt; can be either x86_64, x86, or whatever value you set for "CPU=" when running SCons.
             export TARGET_CPU=x86
             
             export LD_LIBRARY_PATH=$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/cpp/lib:$LD_LIBRARY_PATH

@@ -9,9 +9,12 @@ This application is supported on the following platforms:
 * OS X
 
 The Sessions application is found inside the build dist folder under:
-<build dist folder>/cpp/bin/<sessions or session.exe>
 
-##Usage
+'''
+<build dist folder>/cpp/bin/<sessions or session.exe>
+'''
+
+## Usage
 Regardless of the platform, when the application runs, you can use the following commands:
 ```
 debug <module_name> <level>                                   - Set debug level for a module

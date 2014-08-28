@@ -28,4 +28,4 @@
  1. In your project, create a "libs/armeabi" dir if it doesn't already exist.
  2. Copy "alljoyn-android/core/alljoyn-14.02.00-rel/java/lib/liballjoyn_java.so" to the "libs/armeabi" dir.
  3. Copy "alljoyn-android/core/alljoyn-14.02.00-rel/java/jar/alljoyn.jar" to the "libs" dir.
- 4. If using a Service Framework, copy the jars from the "alljoyn-android/services/<SERVICE FRAMEWORK>/java/libs/*.jar" to the "libs" dir.
+ 4. If using a Service Framework, copy the jars from the "alljoyn-android/services/&lt;SERVICE FRAMEWORK&gt;/java/libs/*.jar" to the "libs" dir.

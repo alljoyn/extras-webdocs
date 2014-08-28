@@ -118,5 +118,5 @@ Follow the steps in the 'Develop->Building->iOS' section to get your environment
   
 Refer to the Notification Service Sample App source code and API documentation for examples and more details.  
 
-[learn_notif]: /learn/base-services/notifications
+[learn_notif]: /learn/base-services/notification
 [sessionless_signal]: /learn/core-framework#sessionless-signal

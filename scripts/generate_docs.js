@@ -258,6 +258,52 @@ function copy_files(path) {
 // Main processing function
 // ==========================================================================
 
+// Execute a series of shell scripts, and callback with an array of outputs
+function exec_scripts(scripts, cb) {
+    var script = scripts.shift();
+    if (script === undefined) {
+        cb([]);
+    } else {
+        var exec = require('child_process').exec;
+        exec(script, function(err, stdout, stderr) {
+            exec_scripts(scripts, function(outputs) {
+                cb([stdout].concat(outputs));
+            });
+        });
+    }
+}
+
+function generate_docuthon_status() {
+    var scripts = {
+        commit: 'git rev-parse HEAD',
+        branch: 'git rev-parse --abbrev-ref HEAD',
+        status: 'git status --short',
+        diff: 'git diff',
+    };
+
+    var keys = [], commands = [];
+    for (var k in scripts) {
+        keys.push(k);
+        commands.push(scripts[k]);
+    }
+
+    exec_scripts(commands, function(outputs) {
+        var json = {};
+        for (var i = 0; i < keys.length; ++i) {
+            var out = outputs[i];
+
+            // Remove trailing newline if it's the only one
+            if (!out.match(/\n./)) {
+                out = out.replace(/\n$/, '');
+            }
+
+            json[keys[i]] = out;
+        }
+        fs.writeFileSync(for_import_base_dir + 'docuthon.status',
+            JSON.stringify(json, null, 2));
+    });
+}
+
 function build_html() {
     console.log("Building html");
     rmdir(out_base_dir);
@@ -270,6 +316,8 @@ function build_html() {
     // Add top level index to redirect to first page of content
     fs.writeFileSync(out_base_dir + 'index', '<meta http-equiv="refresh" content="1;url=/' + 
         deploy_html_dir_prefix + '">');
+
+    generate_docuthon_status();
 }
 
 // ==========================================================================

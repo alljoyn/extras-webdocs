@@ -31,8 +31,9 @@ var page_pre_filename = templates_dir + 'page_pre.html';
 var page_postnav_filename = templates_dir + 'page_postnav.html';
 var page_post_filename = templates_dir + 'page_post.html';
 
-var out_base_dir = 'out/public/';
-var for_import_base_dir = 'out/for_import/';
+var out_dir = 'out/';
+var out_public_dir = out_dir + 'public/';
+var for_import_base_dir = out_dir + 'for_import/';
 var deploy_html_dir_prefix = 'develop/';
 var deploy_files_dir_prefix = 'sites/default/files/develop/';
 
@@ -190,7 +191,7 @@ function parse_file(file) {
     // only process .md files
     if (file.slice(-3) != '.md') return;
 
-    var out_file = out_base_dir + deploy_html_dir_prefix + '/' + file.slice(5,-3);
+    var out_file = out_public_dir + deploy_html_dir_prefix + '/' + file.slice(5,-3);
     var for_import_file = for_import_base_dir + deploy_html_dir_prefix + '/' + file.slice(5,-3);
 
     var content = marked(fs.readFileSync(file, 'utf8'));
@@ -242,7 +243,7 @@ function copy_files(path) {
             copy_files(file + '/');
         } else {
             // Copy files into directory for development/preview
-            var out_file = out_base_dir + deploy_files_dir_prefix + path.substring(6) + '/' + files[i];
+            var out_file = out_public_dir + deploy_files_dir_prefix + path.substring(6) + '/' + files[i];
             create_parent_dirs(out_file);
             fs.writeFileSync(out_file, fs.readFileSync(file))
 
@@ -306,7 +307,7 @@ function generate_docuthon_status() {
 
 function build_html() {
     console.log("Building html");
-    rmdir(out_base_dir);
+    rmdir(out_dir);
     parse_dir(docs_dir);
     copy_files(files_dir);
 
@@ -314,7 +315,7 @@ function build_html() {
         fs.readFileSync(nav_file, 'utf8'));
 
     // Add top level index to redirect to first page of content
-    fs.writeFileSync(out_base_dir + 'index', '<meta http-equiv="refresh" content="1;url=/' + 
+    fs.writeFileSync(out_public_dir + 'index', '<meta http-equiv="refresh" content="1;url=/' + 
         deploy_html_dir_prefix + '">');
 
     generate_docuthon_status();

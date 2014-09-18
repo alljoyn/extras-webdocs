@@ -31,9 +31,12 @@ var page_pre_filename = templates_dir + 'page_pre.html';
 var page_postnav_filename = templates_dir + 'page_postnav.html';
 var page_post_filename = templates_dir + 'page_post.html';
 
+var timestamp = new Date().getTime();
 var out_dir = 'out/';
 var out_public_dir = out_dir + 'public/';
-var for_import_base_dir = out_dir + 'for_import/';
+var for_import_wrapper_dir = out_dir + 'for_import/';
+var for_import_base_dir = for_import_wrapper_dir + timestamp + '/';
+var for_import_prev_dir = for_import_wrapper_dir + 'latest/';
 var deploy_html_dir_prefix = 'develop/';
 var deploy_files_dir_prefix = 'sites/default/files/develop/';
 
@@ -58,10 +61,10 @@ function rmdir(path) {
     var files = fs.readdirSync(path);
     for (var i=0; i<files.length; i++) {
         var file = path + '/' + files[i];
-        if (fs.statSync(file).isFile()) {
-            fs.unlinkSync(file);
-        } else {
+        if (fs.lstatSync(file).isDirectory()) {
             rmdir(file);
+        } else {
+            fs.unlinkSync(file);
         }
     }
     fs.rmdirSync(path);
@@ -192,7 +195,7 @@ function parse_file(file) {
     if (file.slice(-3) != '.md') return;
 
     var out_file = out_public_dir + deploy_html_dir_prefix + '/' + file.slice(5,-3);
-    var for_import_file = for_import_base_dir + deploy_html_dir_prefix + '/' + file.slice(5,-3);
+    var for_import_path = deploy_html_dir_prefix + '/' + file.slice(5,-3);
 
     var content = marked(fs.readFileSync(file, 'utf8'));
 
@@ -211,8 +214,7 @@ function parse_file(file) {
     fs.writeFileSync(out_file, out, 'utf8');
 
     // Create file for Drupal import
-    create_parent_dirs(for_import_file);
-    fs.writeFileSync(for_import_file, content, 'utf8');
+    write_import_file(for_import_path, content, 'utf8');
 }
 
 function parse_dir(path) {
@@ -248,10 +250,31 @@ function copy_files(path) {
             fs.writeFileSync(out_file, fs.readFileSync(file))
 
             // Copy files into directory for import into Drupal
-            var out_file = for_import_base_dir + deploy_files_dir_prefix + path.substring(6) + '/' + files[i];
-            create_parent_dirs(out_file);
-            fs.writeFileSync(out_file, fs.readFileSync(file))
+            var out_file = deploy_files_dir_prefix + path.substring(6) + '/' + files[i];
+            write_import_file(out_file, fs.readFileSync(file))
         }
+    }
+}
+
+// Write a file for import. Try to save disk space by using hard-links where
+// possible.
+function write_import_file(relative_path, content, options) {
+    var abs_path = for_import_base_dir + relative_path;
+    var prev = for_import_prev_dir + relative_path;
+
+    create_parent_dirs(abs_path);
+    var identical = false;
+    if (fs.existsSync(prev)) {
+        var prev_content = fs.readFileSync(prev, options);
+        if (prev_content.toString() == content.toString()) {
+            identical = true;
+        }
+    }
+
+    if (identical) {
+        fs.linkSync(prev, abs_path);
+    } else {
+        fs.writeFileSync(abs_path, content, options);
     }
 }
 
@@ -300,18 +323,28 @@ function generate_docuthon_status() {
 
             json[keys[i]] = out;
         }
+
+        json['timestamp'] = timestamp;
         fs.writeFileSync(for_import_base_dir + 'docuthon.status',
             JSON.stringify(json, null, 2));
     });
 }
 
+function set_import_symlink() {
+    var latest_path = for_import_wrapper_dir + 'latest';
+    if (fs.existsSync(latest_path)) {
+        fs.unlinkSync(latest_path);
+    }
+    fs.symlinkSync(timestamp.toString(), latest_path);
+}
+
 function build_html() {
     console.log("Building html");
-    rmdir(out_dir);
+    rmdir(out_public_dir);
     parse_dir(docs_dir);
     copy_files(files_dir);
 
-    fs.writeFileSync(for_import_base_dir + 'nav.yaml', 
+    write_import_file('nav.yaml',
         fs.readFileSync(nav_file, 'utf8'));
 
     // Add top level index to redirect to first page of content
@@ -319,6 +352,7 @@ function build_html() {
         deploy_html_dir_prefix + '">');
 
     generate_docuthon_status();
+    set_import_symlink();
 }
 
 // ==========================================================================

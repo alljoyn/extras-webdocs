@@ -335,7 +335,12 @@ function set_import_symlink() {
     if (fs.existsSync(latest_path)) {
         fs.unlinkSync(latest_path);
     }
-    fs.symlinkSync(timestamp.toString(), latest_path);
+
+    try {
+	    fs.symlinkSync(timestamp.toString(), latest_path);
+    } catch (ex) {
+	    // Probably missing platform support, just continue.
+    }
 }
 
 function build_html() {

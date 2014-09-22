@@ -1,4 +1,5 @@
 # UUID                                  	Group Name
 #
 baff6526bbb0e61de631f437984556bdd614c7e6	Administrators
+db8b1b24cf2e675bf50d90ad6b7833d22d988214	GitHub Replication for extras
 ldap:cn=extras_webdocs,ou=groups,cn=allseen,dc=codeaurora,dc=org	ldap/extras_webdocs

@@ -2,6 +2,10 @@
   "name": "webdocs",
   "description": "Scripts to generate webdocs",
   "private": true,
+  "engines": { 
+    "node" : ">=0.10.20",
+    "npm" : ">=1.3.11"
+  },
   "dependencies": {
     "marked": ">= 0.3.2",
     "express": ">= 4.7.2",

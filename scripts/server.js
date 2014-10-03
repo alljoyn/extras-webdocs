@@ -61,6 +61,16 @@ var port = 8000;
 if (process.argv.length >= 3) { 
     port = process.argv[2];
 }
-app.listen(port);
-console.log('Started server: http://' + os.hostname() + ':' + port);
+
+var server = app.listen(port, function() {
+    console.log('Started server: http://' + os.hostname() + ':' + port);
+});
+
+server.on('error', function(err) {
+    if (err.syscall == 'listen' && err.code == 'EADDRINUSE') {
+      console.log("Port", port, "already in use")
+    } else {
+      console.log(err.message);
+    }
+});
 

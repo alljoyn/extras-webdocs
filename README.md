@@ -1,5 +1,5 @@
-docuthon2014
-============
+webdocs
+=======
 
 Interim space to hold revamped content for AllSeen Alliance developer content.
 
@@ -10,6 +10,7 @@ Organization
 * `templates/` - templates used to generate HTML
 * `scripts/` - scripts to generate HTML and to host server
 * `out/public/` - generated HTML files.
+* `out/for_import/` - generated HTML for Drupal import
 
 How to run scripts
 ------------------

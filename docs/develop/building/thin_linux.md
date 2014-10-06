@@ -1,8 +1,10 @@
-# Building Thin – Linux
+# Building Thin - Linux
 
 ## Setup
 
-*Note that the installation commands below refer specifically to Debian/Ubuntu Linux. Equivalent commands are available for other distributions of Linux.* 
+NOTE: The installation commands below refer specifically to 
+Debian/Ubuntu Linux. Equivalent commands are available for other distributions of Linux.
+
 * Build tools and libs
 ```sh 
 sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev 
@@ -11,7 +13,7 @@ sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs
 ```sh
 sudo apt-get install python
 ```
-* Installl SCons v2.0
+* Installl SCons v2.0.
 ```sh
 sudo apt-get install scons
 ```
@@ -20,7 +22,8 @@ sudo apt-get install scons
 sudo apt-get install libssl-dev
 ```
 
-1. Download the AllJoyn Thin Library Core and AllJoyn Thin Library Services packages from the AllSeen Alliance Website.
+1. Download the AllJoyn&trade; Thin Library Core and AllJoyn Thin Library 
+Services packages from the [AllSeen Alliance web site](https://allseenalliance.org/source-code).
  * core/ajtcl
  * services/base_tcl
 
@@ -57,5 +60,8 @@ The binary for the AC Server sample is located at `$AJ_ROOT/services/sample_apps
 
 ## Add the AllJoyn framework to an application
 
-Link to the “Writing your own Thin App section”
+See the [Build an Application using the Thin Library section][build-app-thin-library] for instructions.
 
+
+
+[build-app-thin-library]:  /develop/tutorial/thin-app

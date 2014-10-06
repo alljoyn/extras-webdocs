@@ -24,7 +24,7 @@ The following are the steps to onboard a device.
 
 When an Onboardable device is first plugged in, it will advertise its SSID 
 over Wi-Fi. The SSID is either prefixed with "AJ_" or postfixed with "_AJ" 
-to help indicate that this device that supports AllJoyn Onboarding.
+to help indicate that this device that supports the AllJoyn&trade; Onboarding service.
 
 ### 2. Onboarder connects to Onboardable
 
@@ -58,9 +58,9 @@ the Onboardable device fully onboarded.
   [run the sample apps][sample-apps]
 * [Learn more about the APIs][api-guide]
 
-[about-announcement]: /learn/core-framework/about-announcement
+[about-announcement]: /learn/core/about-announcement
 [onboarding-interface]: /learn/base-services/onboarding/interface
 [download]: /download
 [build]: /develop/building
-[sample-apps]: /develop/run_sample_apps/onboarding
+[sample-apps]: /develop/run-sample-apps/onboarding
 [api-guide]: /develop/api-guides

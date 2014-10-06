@@ -4,18 +4,18 @@
 
 The lifecycle defined here allows for:
 
-  1. Simple Project incubation
-  2. Clear guidance for Projects to graduate to a healthy Mature 
+  * Simple Project incubation
+  * Clear guidance for Projects to graduate to a healthy Mature 
      state
-  3. A clear process for assigning Projects to new or existing
+  * A clear process for assigning Projects to new or existing
      Working Groups
-  4. A straightforward lifecycle that ensures inactive Projects 
-     can be retired when necessary
+  * A straightforward lifecycle that ensures inactive Projects 
+     can be retired when necessary.
 
 The release cycle proposed for mature Working Groups
 
-  1. Is simple and lightweight
-  2. Provides sufficient visibility to allow Working Groups 
+  * Is simple and lightweight
+  * Provides sufficient visibility to allow Working Groups 
      to coordinate with one another and avoid unnecessary 
      duplication of effort.
 
@@ -28,7 +28,7 @@ single unified, integrated, mutually interoperating release.
 ### Service
 
 A Service is a body of code that extends the capabilities 
-of the Core.  Examples of Services include support for 
+of the Core. Examples of Services include support for 
 device-specific features (such as the power setting on a 
 microwave or the input source on a TV), or bridges that 
 provide backwards and lateral compatibility support for 
@@ -38,10 +38,10 @@ protocols like DLNA.
 
 A Project is the organizational unit that produces one or 
 more Services that perform a specific function within the 
-context of the Alliance.  Its use cases should be narrowly 
-scoped, and it should do those things well.  Projects operate 
+context of the AllSeen Alliance. Its use cases should be narrowly 
+scoped, and it should do those things well. Projects operate 
 within the open source model as defined by the Alliance, and 
-are overseen by one or more Committers.  Each Project must 
+are overseen by one or more Committers. Each Project must 
 belong to only one Working Group.
 
 ### Working Group
@@ -50,14 +50,14 @@ A Working Group is logical grouping of one or more Projects.
 The Working Group is a meritocratic organization that follows 
 open source best practices to produce code within the scope of 
 the policy as set by the Technical Steering Committee and the 
-Board.  Project Committers make decisions within the Working 
+Board. Project Committers make decisions within the Working 
 Group, and elect the Working Group Chair as a leader and to 
 represent the Working Group on the Technical Steering Committee.
 
 ## Overview
 
 Projects are the most fundamental units of organization within 
-the Alliance.  They are code-driven, meritocratic open source
+the AllSeen Alliance. They are code-driven, meritocratic open source
 projects that produce features and functionality within the 
 scope of the policy as set by the Technical Steering Committee
 and the board.
@@ -69,16 +69,16 @@ that the person or persons responsible for applying code into
 the mainline repository is familiar with the codebase.
 
 Working Groups are logical groupings of Projects that have 
-achieved Mature status.  In the simplest situation, a newly 
-created Project would be its own Working Group.  In the case 
+achieved Mature status. In the simplest situation, a newly 
+created Project would be its own Working Group. In the case 
 that multiple related Projects are created, they may be grouped 
-into the same Working Group.  If a Working Group no longer 
+into the same Working Group. If a Working Group no longer 
 contains any Mature Projects, it will be removed.
 
 Each Working Group is comprised of the Contributors and Committers 
-of its Projects.  The Committers in the Working Group will, from 
+of its Projects. The Committers in the Working Group will, from 
 time to time, elect a single leader called the Working Group 
-Chair.  The Working Group Chair is responsible for overseeing 
+Chair. The Working Group Chair is responsible for overseeing 
 the activities of the Working Group, and represents the Working 
 Group and its Projects on the Technical Steering Committee.
 
@@ -199,7 +199,8 @@ From time to time Projects may have reason to change Working Group membership.  
   2. Review and approval by Committers in new Working Group
   3. Review by TSC and approval
 
-Once a Project has been approved to move, they can participate immediately in Working Group activities.
+Once a Project has been approved to move, they can participate 
+immediately in Working Group activities.
 
 ## Working Groups
 
@@ -275,8 +276,8 @@ Working Groups with at least one Mature Project cannot be terminated.
 ## Bootstrap Process
 
 At the time of the formation of the Alliance, there are expected
-to be several initial Projects contributed.  These initial 
-Projects will come in at various levels of maturity.  In order 
+to be several initial Projects contributed. These initial 
+Projects will come in at various levels of maturity. In order 
 to sort these Projects into the most appropriate Lifecycle state 
 and Working Groups in a way that is clear, consistent, and fair:
 

@@ -11,7 +11,7 @@ Depending on the target platform, check out the recommended steps to get you up 
 * [iOS/OSX][ios_osx]
 * [Windows][windows]
 
-*Note   If changes are required to the AllJoyn Core, see the relevant section on how to build.*
+NOTE: If changes are required to the AllJoyn Core, see the relevant section on how to build.
 
 [android]: /develop/building/android
 [linux]: /develop/building/linux

@@ -1,8 +1,8 @@
 # Contribute
 
-As is common with most consortia and open source projects there 
+As is common with most consortia and open-source projects, there 
 are many ways to participate in the AllSeen Alliance. If you are 
-new to AllSeen and the AllJoyn open source project, below are some 
+new to AllSeen and the AllJoyn&trade; open-source project, below are some 
 helpful links to get started.
 
 * [Learn about AllJoyn concepts][learn]
@@ -14,7 +14,7 @@ helpful links to get started.
 
 [learn]: /learn
 [download]: /download
-[run-sample-apps]: /develop/run_sample_apps
+[run-sample-apps]: /develop/run-sample-apps
 [build]: /develop/building
 [source-code]: https://git.allseenalliance.org/gerrit/#/admin/projects/
 [lifecycle]: /contribute/project-lifecycle

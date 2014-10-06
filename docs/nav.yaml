@@ -10,28 +10,64 @@
     - name: Use Cases
       path: /learn/use-cases
       contents:
-    - name: Network Architecture
-      path: /learn/network-architecture
-      contents:
-    - name: Software Architecture
-      path: /learn/software-architecture
+    - name: Architecture
+      path: /learn/architecture
       contents:
     - name: Core Framework
-      path: /learn/core-framework
+      path: /learn/core
       contents:
         - name: About Announcement
-          path: /learn/core-framework/about-announcement
+          path: /learn/core/about-announcement
           contents:
             - name: Interface
-              path: /learn/core-framework/about-announcement/interface
+              path: /learn/core/about-announcement/interface              
+              contents:
+            - name: Interface 14.02
+              path: /learn/core/about-announcement/interface-14-02
               hidden: 1
               contents:
-        - name: Well Known Name
-          path: /learn/core-framework/well-known-name
+        - name: Well-Known Name
+          path: /learn/core/well-known-name
           contents:
         - name: Events and Actions
-          path: /learn/core-framework/events-and-actions
+          path: /learn/core/events-and-actions
           contents:
+        - name: Standard Core
+          path: /learn/core/standard-core
+          contents:
+        - name: Thin Core
+          path: /learn/core/thin-core
+          contents:          
+        - name: System Description
+          path: /learn/core/system-description
+          contents:
+            - name: Overview
+              path: /learn/core/system-description/frontmatter-overview
+              contents:          
+            - name: System Architecture
+              path: /learn/core/system-description/system-architecture
+              contents:
+            - name: Advertisement and Discovery
+              path: /learn/core/system-description/advertisement-discovery
+              contents:
+            - name: Data Exchange
+              path: /learn/core/system-description/data-exchange
+              contents:
+            - name: AllJoyn Session
+              path: /learn/core/system-description/alljoyn-session
+              contents:
+            - name: Sessionless Signal
+              path: /learn/core/system-description/sessionless-signal
+              contents:
+            - name: AllJoyn Security
+              path: /learn/core/system-description/alljoyn-security
+              contents:
+            - name: Thin Apps
+              path: /learn/core/system-description/thin-apps
+              contents:
+            - name: Events and Actions
+              path: /learn/core/system-description/events-actions
+              contents:         
     - name: Base Services
       path: /learn/base-services
       contents:
@@ -41,11 +77,19 @@
             - name: Interface
               path: /learn/base-services/onboarding/interface
               contents:
+            - name: Interface 14.02
+              path: /learn/base-services/onboarding/interface-14-02
+              hidden: 1
+              contents:
         - name: Configuration
           path: /learn/base-services/configuration
           contents:
             - name: Interface
               path: /learn/base-services/configuration/interface
+              contents:
+            - name: Interface 14.02
+              path: /learn/base-services/configuration/interface-14-02
+              hidden: 1
               contents:
         - name: Notification
           path: /learn/base-services/notification
@@ -53,11 +97,25 @@
             - name: Interface
               path: /learn/base-services/notification/interface
               contents:
+            - name: Interface 14.02
+              path: /learn/base-services/notification/interface-14-02
+              hidden: 1
+              contents:
         - name: ControlPanel
           path: /learn/base-services/controlpanel
           contents:
             - name: Interface
               path: /learn/base-services/controlpanel/interface
+              contents:
+            - name: Interface 14.02
+              path: /learn/base-services/controlpanel/interface-14-02
+              hidden: 1
+              contents:
+        - name: Audio Streaming
+          path: /learn/base-services/audiostreaming
+          contents:
+            - name: Interface
+              path: /learn/base-services/audiostreaming/interface
               contents:
     - name: Glossary
       path: /learn/glossary
@@ -65,6 +123,9 @@
 - name: Download
   path: /download
   contents:
+    - name: Supported Platforms
+      path: /download/supported-platforms
+      contents:
 - name: Develop
   path: /develop
   contents:
@@ -74,180 +135,258 @@
         - name: Android
           path: /develop/building/android
           contents:
+            - name: Build Source
+              path: /develop/building/android/build-source
+              contents:
         - name: Linux
           path: /develop/building/linux
           contents:
-        - name: iOS/OSX
+            - name: Build Source
+              path: /develop/building/linux/build-source
+              contents:
+        - name: iOS/OS X
           path: /develop/building/ios_osx
           contents:
+            - name: Build Source
+              path: /develop/building/ios_osx/build-source
+              contents:
         - name: Windows
           path: /develop/building/windows
           contents:
+            - name: Build Source
+              path: /develop/building/windows/build-source
+              contents:
         - name: Thin - Linux
           path: /develop/building/thin_linux
           contents:
+        - name: Thin - Windows
+          path: /develop/building/thin_windows
+          contents:
     - name: Running Samples
-      path: /develop/run_sample_apps
+      path: /develop/run-sample-apps
       contents:
         - name: Basic
-          path: /develop/run_sample_apps/basic
+          path: /develop/run-sample-apps/basic
           contents:
             - name: Android
-              path: /develop/run_sample_apps/basic/android
+              path: /develop/run-sample-apps/basic/android
               contents:
             - name: Linux
-              path: /develop/run_sample_apps/basic/linux
+              path: /develop/run-sample-apps/basic/linux
               contents:
-            - name: iOS/OSX
-              path: /develop/run_sample_apps/basic/ios_osx
+            - name: iOS/OS X
+              path: /develop/run-sample-apps/basic/ios_osx
               contents:
             - name: Windows
-              path: /develop/run_sample_apps/basic/windows
+              path: /develop/run-sample-apps/basic/windows
               contents:
             - name: Thin - Linux
-              path: /develop/run_sample_apps/basic/thin_linux
+              path: /develop/run-sample-apps/basic/thin_linux
               contents:
             - name: Thin - Windows
-              path: /develop/run_sample_apps/basic/thin_windows
+              path: /develop/run-sample-apps/basic/thin_windows
               contents:
         - name: Chat
-          path: /develop/run_sample_apps/chat
+          path: /develop/run-sample-apps/chat
           contents:
             - name: Android
-              path: /develop/run_sample_apps/chat/android
+              path: /develop/run-sample-apps/chat/android
               contents:
             - name: Linux
-              path: /develop/run_sample_apps/chat/linux
+              path: /develop/run-sample-apps/chat/linux
               contents:
-            - name: iOS/OSX
-              path: /develop/run_sample_apps/chat/ios_osx
+            - name: iOS/OS X
+              path: /develop/run-sample-apps/chat/ios_osx
               contents:
             - name: Windows
-              path: /develop/run_sample_apps/chat/windows
+              path: /develop/run-sample-apps/chat/windows
               contents:
             - name: Thin - Linux
-              path: /develop/run_sample_apps/chat/thin_linux
+              path: /develop/run-sample-apps/chat/thin_linux
               contents:
         - name: About
-          path: /develop/run_sample_apps/about
+          path: /develop/run-sample-apps/about
           contents:
             - name: Android
-              path: /develop/run_sample_apps/about/android
+              path: /develop/run-sample-apps/about/android
               contents:
             - name: Linux
-              path: /develop/run_sample_apps/about/linux
+              path: /develop/run-sample-apps/about/linux
               contents:
-            - name: iOS/OSX
-              path: /develop/run_sample_apps/about/ios_osx
+            - name: iOS/OS X
+              path: /develop/run-sample-apps/about/ios_osx
               contents:
             - name: Thin - Linux
-              path: /develop/run_sample_apps/about/thin_linux
+              path: /develop/run-sample-apps/about/thin_linux
               contents:
         - name: Config
-          path: /develop/run_sample_apps/config
+          path: /develop/run-sample-apps/config
           contents:
             - name: Android
-              path: /develop/run_sample_apps/config/android
+              path: /develop/run-sample-apps/config/android
               contents:
             - name: Linux
-              path: /develop/run_sample_apps/config/linux
+              path: /develop/run-sample-apps/config/linux
               contents:
-            - name: iOS/OSX
-              path: /develop/run_sample_apps/config/ios_osx
+            - name: iOS/OS X
+              path: /develop/run-sample-apps/config/ios_osx
               contents:
             - name: Thin - Linux
-              path: /develop/run_sample_apps/config/thin_linux
+              path: /develop/run-sample-apps/config/thin_linux
               contents:
         - name: Control Panel
-          path: /develop/run_sample_apps/controlpanel
+          path: /develop/run-sample-apps/controlpanel
           contents:
             - name: Android
-              path: /develop/run_sample_apps/controlpanel/android
+              path: /develop/run-sample-apps/controlpanel/android
               contents:
             - name: Linux
-              path: /develop/run_sample_apps/controlpanel/linux
+              path: /develop/run-sample-apps/controlpanel/linux
               contents:
-            - name: iOS/OSX
-              path: /develop/run_sample_apps/controlpanel/ios_osx
+            - name: iOS/OS X
+              path: /develop/run-sample-apps/controlpanel/ios_osx
               contents:
             - name: Thin - Linux
-              path: /develop/run_sample_apps/controlpanel/thin_linux
+              path: /develop/run-sample-apps/controlpanel/thin_linux
               contents:
         - name: Notification
-          path: /develop/run_sample_apps/notification
+          path: /develop/run-sample-apps/notification
           contents:
             - name: Android
-              path: /develop/run_sample_apps/notification/android
+              path: /develop/run-sample-apps/notification/android
               contents:
             - name: Linux
-              path: /develop/run_sample_apps/notification/linux
+              path: /develop/run-sample-apps/notification/linux
               contents:
-            - name: iOS/OSX
-              path: /develop/run_sample_apps/notification/ios_osx
+            - name: iOS/OS X
+              path: /develop/run-sample-apps/notification/ios_osx
               contents:
             - name: Thin - Linux
-              path: /develop/run_sample_apps/notification/thin_linux
+              path: /develop/run-sample-apps/notification/thin_linux
               contents:
         - name: Onboarding
-          path: /develop/run_sample_apps/onboarding
+          path: /develop/run-sample-apps/onboarding
           contents:
             - name: Android
-              path: /develop/run_sample_apps/onboarding/android
+              path: /develop/run-sample-apps/onboarding/android
               contents:
             - name: Linux
-              path: /develop/run_sample_apps/onboarding/linux
+              path: /develop/run-sample-apps/onboarding/linux
               contents:
-            - name: iOS/OSX
-              path: /develop/run_sample_apps/onboarding/ios_osx
+            - name: iOS/OS X
+              path: /develop/run-sample-apps/onboarding/ios_osx
               contents:
             - name: Thin - Linux
-              path: /develop/run_sample_apps/onboarding/thin_linux
+              path: /develop/run-sample-apps/onboarding/thin_linux
               contents:
         - name: AC Server
-          path: /develop/run_sample_apps/acserver
+          path: /develop/run-sample-apps/acserver
           contents:
             - name: Linux
-              path: /develop/run_sample_apps/acserver/linux
+              path: /develop/run-sample-apps/acserver/linux
               contents:
             - name: Thin - Linux
-              path: /develop/run_sample_apps/acserver/thin_linux
+              path: /develop/run-sample-apps/acserver/thin_linux
               contents:
         - name: Command Line Apps
-          path: /develop/run_sample_apps/test
+          path: /develop/run-sample-apps/test
           contents:
             - name: Sessions
-              path: /develop/run_sample_apps/test/sessions
+              path: /develop/run-sample-apps/test/sessions
               contents:
     - name: API Guides
       path: /develop/api-guides
       contents:
-        - name: Android
-          path: /develop/api-guides/android
+        - name: Core
+          path: /develop/api-guides/core
           contents:
-            - name: About
-              path: /develop/api-guides/android/about
+            - name: Android
+              path: /develop/api-guides/core/android
               contents:
-        - name: Linux
-          path: /develop/api-guides/linux
+            - name: iOS
+              path: /develop/api-guides/core/ios
+              contents:
+        - name: About
+          path: /develop/api-guides/about
           contents:
-            - name: About
-              path: /develop/api-guides/linux/about
+            - name: Android
+              path: /develop/api-guides/about/android
               contents:
-        - name: iOS
-          path: /develop/api-guides/ios
+            - name: Linux
+              path: /develop/api-guides/about/linux
+              contents:
+            - name: iOS
+              path: /develop/api-guides/about/ios
+              contents:
+            - name: Thin Linux
+              path: /develop/api-guides/about/thin-linux
+              contents:
+        - name: Onboarding
+          path: /develop/api-guides/onboarding
           contents:
-            - name: About
-              path: /develop/api-guides/ios/about
+            - name: Android
+              path: /develop/api-guides/onboarding/android
               contents:
-            - name: Notification
-              path: /develop/api-guides/ios/notification
+            - name: iOS
+              path: /develop/api-guides/onboarding/ios
               contents:
-        - name: Thin - Linux
-          path: /develop/api-guides/thin-linux
+        - name: Configuration
+          path: /develop/api-guides/config
           contents:
-            - name: About
-              path: /develop/api-guides/thin-linux/about
+            - name: Android
+              path: /develop/api-guides/config/android
               contents:
+            - name: Linux
+              path: /develop/api-guides/config/linux
+              contents:
+            - name: iOS
+              path: /develop/api-guides/config/ios
+              contents:
+            - name: Thin Linux
+              path: /develop/api-guides/config/thin-linux
+              contents:
+        - name: Notification
+          path: /develop/api-guides/notification
+          contents:
+            - name: Android
+              path: /develop/api-guides/notification/android
+              contents:
+            - name: Linux
+              path: /develop/api-guides/notification/linux
+              contents:
+            - name: iOS
+              path: /develop/api-guides/notification/ios
+              contents:
+            - name: Thin Linux
+              path: /develop/api-guides/notification/thin-linux
+              contents:
+        - name: Control Panel
+          path: /develop/api-guides/controlpanel
+          contents:
+            - name: Android
+              path: /develop/api-guides/controlpanel/android
+              contents:
+            - name: Linux
+              path: /develop/api-guides/controlpanel/linux
+              contents:
+            - name: iOS
+              path: /develop/api-guides/controlpanel/ios
+              contents:
+            - name: Thin Linux
+              path: /develop/api-guides/controlpanel/thin-linux
+              contents:
+        - name: Audio Streaming
+          path: /develop/api-guides/audio-streaming
+          contents:
+            - name: Linux
+              path: /develop/api-guides/audio-streaming/linux
+              contents:
+        - name: Events and Actions
+          path: /develop/api-guides/events-and-actions
+          contents:
+    - name: API Reference
+      path: /develop/api-reference
+      contents:
     - name: Debug
       path: /develop/debug
       contents:
@@ -260,9 +399,28 @@
         - name: Core
           path: /develop/tutorial/core
           contents:
+            - name: Walkthrough
+              path: /develop/tutorial/core/walkthrough
+              contents:
+        - name: iOS
+          path: /develop/tutorial/ios
+          contents:
+        - name: Thin App
+          path: /develop/tutorial/thin-app
+          contents:
+        - name: Thin Core and WSL
+          path: /develop/tutorial/thin-core-and-wsl
+          contents:
+        - name: Videos
+          path: /develop/tutorial/videos
+          contents:
 - name: Ask
-  path: https://ask.allseenalliance.org/
+  path: /ask
   contents:
+    - name: Popular
+      path: /ask/popular
+      hidden: 1
+      contents:
 - name: Contribute
   path: /contribute
   contents:
@@ -270,14 +428,14 @@
       path: /contribute/project-lifecycle
       contents:
     - name: Contributor's Wiki
-      path: https://wiki.allseenalliance.org/
+      path: /contribute/wiki
       contents:
     - name: Git Repository
-      path: https://git.allseenalliance.org/gerrit/#/admin/projects/
+      path: /contribute/git
       contents:
     - name: Bug/Feature Request
-      path: https://jira.allseenalliance.org/
+      path: /contribute/jira
       contents:
     - name: Mailing Lists
-      path: https://lists.allseenalliance.org/
+      path: /contribute/mailing-list
       contents:

@@ -15,8 +15,22 @@ Writing your first application using:
     * [Onboarding][onboarding]
 -->
 
+
+## More Tutorials
+
+* [iOS Tutorial][ios]
+* [Thin App][thin-app]
+* [Thin Core and WSL][thin-wsl]
+* [Videos][videos]
+
 [core]: /develop/tutorial/core
 [notification]: /develop/tutorial/notification
 [controlpanel]: /develop/tutorial/controlpanel
 [config]: /develop/tutorial/config
 [onboarding]: /develop/tutorial/onboarding
+
+[ios]: /develop/tutorial/ios
+[thin-app]: /develop/tutorial/thin-app
+[thin-wsl]: /develop/tutorial/thin-core-and-wsl
+
+[videos]: /develop/tutorial/videos

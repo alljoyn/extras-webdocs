@@ -1,10 +1,10 @@
-Learn Configuration Service
-===========================
+# Configuration Service
+
+TODO
 
 More to come.
 
-Interface Definition
---------------------
+## Interface Definition
 
 [Learn more about the Configuration Interface Definition][config-interface]
 

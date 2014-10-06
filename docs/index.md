@@ -1,7 +1,7 @@
 # AllJoyn&trade; framework
 
-AllJoyn is an open-source software framework that makes it easy 
-for devices and apps to discover and communicate with each
+AllJoyn is a collaborative open-source software framework that makes 
+it easy for devices and apps to discover and communicate with each
 other. It supports many language bindings and can be easily integrated
 into platforms small and large. The AllJoyn framework defines a common way for 
 devices and apps to communicate with one another ushering a new 
@@ -14,7 +14,7 @@ Features:
 * Provides abstracts communications via object model or generic streams
 * Supports many platforms, including RTOS, Arduino, Linux, Android, iOS, Windows, Mac, Unity
 * Supports many bindings including C, C++, Obj-C, Java
-* Flexible security model
+* Flexible security models
 * Works equally well with and without the Cloud
 
 From here, you can:
@@ -27,5 +27,5 @@ From here, you can:
 [learn]: /learn
 [download]: /download
 [build]: /develop/building
-[run_samples]: /develop/run_sample_apps
+[run_samples]: /develop/run-sample-apps
 [api_guides]: /develop/api-guides

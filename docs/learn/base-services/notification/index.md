@@ -1,11 +1,11 @@
 # Notification
 
-The AllJoyn Notification Service framework provides a common mechanism for
-devices/apps to send human readable text to be displayed or otherwise rendered
-(e.g. text to speech can render the text as audio). Notifications are broadcasted
+The AllJoyn&trade; Notification Service framework provides a common mechanism for
+devices/apps to send human-readable text to be displayed or otherwise rendered
+(e.g., text to speech can render the text as audio). Notifications are broadcasted
 on the AllJoyn network for all devices/apps to receive, and persists for a 
 specified TTL defined by the producer of the notification. In addition to text,
-extra meta data like audio, images, control panel objects, or other custom 
+other metadata like audio, images, control panel objects, or other custom 
 attributes can be sent; it is up to the receipient to determine the best 
 way to handle and render custom attributes. Also, Notifications can be
 globally dismissed on all consumers.
@@ -22,7 +22,7 @@ Two roles exist:
 ### Message Types
 
 Notifications can be one of three types: Info, Warning, and Emergency. Info
-should be used most of the time. When appropriate a Warning can be used to
+should be used most of the time. When appropriate, a Warning can be used to
 draw more attention to the notification. Similary, Emergency can be used 
 prudently in situations when extreme attention is required.
 
@@ -37,8 +37,8 @@ Additionally, messages using the same Message Type overwrite one
 another. So, at any given time, no more than 1 message from each of
 the 3 Message Types can be valid for a given Producer. For example, 
 if a Producer sends an Info message 20 seconds after sending the 
-previous Info message that had a 100 second TTL, the new message will 
-overwrite the previous message; Consumers from this point forward 
+previous Info message that had a 100-second TTL, the new message will 
+overwrite the previous message. Consumers from this point forward 
 would only receive the new message and not the old message, even 
 though the TTL of the old message did not yet expire.
 
@@ -61,7 +61,7 @@ Dismissing notifications can occur in 3 ways:
    Consumers on the network to dimiss. Consumers, upon receiving this 
    signal, is expected to remove the notification from view.
 
-3. A Consuemr can tell the Producer to stop broadcasting the notification
+3. A Consumer can tell the Producer to stop broadcasting the notification
    Subsequently, new Consumers will no longer receive the notification.
 
 ### Audio and Image
@@ -69,15 +69,15 @@ Dismissing notifications can occur in 3 ways:
 Notifications allows for attributes to be specified. This gives the 
 notification an extra dimension beyond just text. Most common attributes
 are audio and image. The attribute can either be specified as a URL or as
-an AllJoyn object path. If the URL is provdied, the consumer can optionally 
+an AllJoyn object path. If the URL is provided, the consumer can optionally 
 fetch the audio and/or image via the specified URL and render it locally as
-appropriate. If the object path is provided, the consumer can optionally
+appropriate.
 
 ### Control Panel Object Path
 
 A special attribute is the control panel object path. The producer fills
 out this attribute to provide extra direction to the consumer. When the
-consumer receives this notificaiton, if it supports control panel, it
+consumer receives this notificaiton, if it supports the Control Panel service, it
 is encouraged to fetch the control panel at the object path and render
 it to the user. Typically this is done to allow the consumer to perform
 an action associated with a notification. 
@@ -88,32 +88,32 @@ to provide to the user the option of turning off the oven.
 
 ### Custom Attributes
 
-A notifiation can contain any number of custom key/value pair attributes.
-The Connsumer can optionally use this information to display a richer
-notification. Custom attributse are completely application specific, so
-the Consumer would generally need to have special informationa about the
+A notification can contain any number of custom key/value pair attributes.
+The Consumer can optionally use this information to display a richer
+notification. Custom attributes are application-specific, so
+the Consumer needs to have special informationa about the
 Producer in order to properly use the custom attributes
 
 As an example, imagine a radio sent a notification every time a 
 new song was played. This notification contains the artist and 
 title as the notification text and a custom attribute for the 
-album art url. A normal Consumer would receive the notification 
-and only display the notification text, that is the artist and 
+album art URL. A normal Consumer would receive the notification 
+and only display the notification text, that is, the artist and 
 title. But a Consumer that is aware of this Producer, could also
-get the album art url and dispaly that along side with the 
+get the album art URL and display that along with the 
 notification text to provide a richer custom notificaiton.
 
-How It works?
+How Does It Work?
 -------------
 
 Under the hood, notifications are sent using AllJoyn Sessionless Signals.
-Sessionless Siganls provides everything that is needed to send and receive
+Sessionless Signals provide everything that is needed to send and receive
 the notification:
 
 * A mechanism for a Producer to broadcast information to AllJoyn 
-  apps/devices on the AllJoyn netowrk.
+  apps/devices on the AllJoyn network.
 
-* A concept of a TTL
+* A concept of a TTL.
 
 * A mechanism for new Consumers to join the network to be informed
   of previously broadcasted notifications whose TTL had not expired.
@@ -127,17 +127,17 @@ Dismissing notifications are also handled by sessionless signals.
 
 In summary, this is how things work:
 
-* A Produer sends a sessionless signal containing the notification
+* A Producer sends a sessionless signal containing the notification.
 
-* Consumers will receive this signal and display the notification
+* Consumers will receive this signal and display the notification.
 
-* Consumers joining the netowrk later will also receive this signal
+* Consumers joining the network later will also receive this signal
   and display the information.
 
 * When the TTL expires, the Procuder will stop broadcasting this
-  sessionless signal. Consumers will stop displayting the notification
+  sessionless signal. Consumers will stop displaying the notification
 
-* At anytime, a Producer or Consumer can send a sessionless signal 
+* At any time, a Producer or Consumer can send a sessionless signal 
   to dismiss the notificaiton. Consumers, upon receiving this, will
   stop displaying the notification.
 
@@ -156,5 +156,5 @@ Learn More
 [notif-interface]: /learn/base-services/notification/interface
 [download]: /download
 [build]: /develop/building
-[sample-apps]: /develop/run_sample_apps/notification
+[sample-apps]: /develop/run-sample-apps/notification
 [api-guide]: /develop/api-guides

@@ -90,13 +90,13 @@ function adjust_href(href) {
 // ==========================================================================
 
 function adj_nav(objs, path, show) {
-    // if path found, show children, siblings, parents, parents siblings, 
+    // if path found, show children, siblings, parents, parents siblings,
     // grandparents and grandparent siblings, etc
     var path_found = false
     for (var i=0; i<objs.length; i++) {
         var obj = objs[i];
         var show_children = false
-        
+
         if (!show)
             obj.hidden = 1
         if ('path' in obj) {
@@ -142,7 +142,7 @@ function gen_nav_html(objs, indent) {
                 hidden_str = " hidden=1"
             if ('id' in obj)
                 id_str = " id='active'"
-            str += get_indent_str(indent+4) + '<li' + hidden_str + '><a href="' + obj.path + 
+            str += get_indent_str(indent+4) + '<li' + hidden_str + '><a href="' + obj.path +
                    '"' + id_str + '>' + obj.name + '</a></li>\n'
         }
         if ('contents' in obj && obj.contents)
@@ -170,7 +170,7 @@ renderer.link = function(href, title, text) {
     return '<a href="' + adjust_href(href) + '"' + title_str + '>' + text + '</a>';
 }
 
-renderer.image = function(href, title, alt) { 
+renderer.image = function(href, title, alt) {
     title_str = '';
     alt_str = '';
     if (title) title_str = ' title="' + title + '"';
@@ -303,6 +303,7 @@ function generate_docuthon_status() {
         branch: 'git rev-parse --abbrev-ref HEAD',
         status: 'git status --short',
         diff: 'git diff',
+        log: 'git log -n1 --pretty=format:%s',
     };
 
     var keys = [], commands = [];
@@ -353,7 +354,7 @@ function build_html() {
         fs.readFileSync(nav_file, 'utf8'));
 
     // Add top level index to redirect to first page of content
-    fs.writeFileSync(out_public_dir + 'index', '<meta http-equiv="refresh" content="1;url=/' + 
+    fs.writeFileSync(out_public_dir + 'index', '<meta http-equiv="refresh" content="1;url=/' +
         deploy_html_dir_prefix + '">');
 
     generate_docuthon_status();

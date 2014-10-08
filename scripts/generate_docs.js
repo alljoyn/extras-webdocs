@@ -343,6 +343,12 @@ function set_import_symlink() {
     }
 }
 
+function copy_redirects() {
+    if (fs.existsSync('redirect.csv')) {
+        write_import_file('redirect.csv', fs.readFileSync('redirect.csv'));
+    }
+}
+
 function build_html() {
     console.log("Building html");
     rmdir(out_public_dir);
@@ -357,6 +363,7 @@ function build_html() {
         deploy_html_dir_prefix + '">');
 
     generate_docuthon_status();
+    copy_redirects();
     set_import_symlink();
 }
 

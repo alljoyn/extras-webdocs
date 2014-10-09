@@ -18,7 +18,6 @@
 
 var marked = require('marked');
 var fs = require('fs');
-var highlight = require('highlight.js')
 var yaml = require('yamljs')
 
 // Note, there are some hard coded paths sprinkled through code.
@@ -179,12 +178,6 @@ renderer.image = function(href, title, alt) {
 }
 
 marked.setOptions({
-  highlight: function (code, lang) {
-    if (lang)
-        return highlight.highlightAuto(code, [lang]).value;
-    else
-        return highlight.highlightAuto(code).value;
-  },
   renderer: renderer
 });
 

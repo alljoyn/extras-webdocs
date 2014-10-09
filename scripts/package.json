@@ -7,7 +7,6 @@
     "express": ">= 4.7.2",
     "isbinaryfile": ">=2.0.1",
     "node-watch": ">=0.3.4",
-    "highlight.js": ">=8.1.0",
     "yamljs": ">=0.1.5"
   }
 }

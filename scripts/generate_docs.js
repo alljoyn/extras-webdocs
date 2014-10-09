@@ -178,6 +178,12 @@ renderer.image = function(href, title, alt) {
 }
 
 marked.setOptions({
+  highlight: function (code, lang) {
+    if (lang)
+        return '<code class="' + lang + '">' + code + '</code>';
+    else
+        return '<code>' + code + '</code>';
+  },
   renderer: renderer
 });
 

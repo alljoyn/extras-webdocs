@@ -19,6 +19,7 @@
 var marked = require('marked');
 var fs = require('fs');
 var yaml = require('yamljs')
+var escape = require('escape-html');
 
 // Note, there are some hard coded paths sprinkled through code.
 var docs_dir = 'docs/';
@@ -180,9 +181,9 @@ renderer.image = function(href, title, alt) {
 marked.setOptions({
   highlight: function (code, lang) {
     if (lang)
-        return '<code class="' + lang + '">' + code + '</code>';
+        return '<code class="' + lang + '">' + escape(code) + '</code>';
     else
-        return '<code>' + code + '</code>';
+        return '<code>' + escape(code) + '</code>';
   },
   renderer: renderer
 });

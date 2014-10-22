@@ -40,6 +40,8 @@ var for_import_prev_dir = for_import_wrapper_dir + 'latest/';
 var deploy_html_dir_prefix = 'develop/';
 var deploy_files_dir_prefix = 'sites/default/files/develop/';
 
+var doImport = false;
+
 // ==========================================================================
 // File/dir manipulation helpers
 // ==========================================================================
@@ -213,8 +215,10 @@ function parse_file(file) {
     create_parent_dirs(out_file);
     fs.writeFileSync(out_file, out, 'utf8');
 
-    // Create file for Drupal import
-    write_import_file(for_import_path, content, 'utf8');
+    if (doImport) {
+        // Create file for Drupal import
+        write_import_file(for_import_path, content, 'utf8');
+    }
 }
 
 function parse_dir(path) {
@@ -249,9 +253,11 @@ function copy_files(path) {
             create_parent_dirs(out_file);
             fs.writeFileSync(out_file, fs.readFileSync(file))
 
-            // Copy files into directory for import into Drupal
-            var out_file = deploy_files_dir_prefix + path.substring(6) + '/' + files[i];
-            write_import_file(out_file, fs.readFileSync(file))
+            if (doImport) {
+                // Copy files into directory for import into Drupal
+                var out_file = deploy_files_dir_prefix + path.substring(6) + '/' + files[i];
+                write_import_file(out_file, fs.readFileSync(file))
+            }
         }
     }
 }
@@ -297,7 +303,7 @@ function exec_scripts(scripts, cb) {
     }
 }
 
-function generate_docuthon_status() {
+function generate_webdocs_status() {
     var scripts = {
         commit: 'git rev-parse HEAD',
         branch: 'git rev-parse --abbrev-ref HEAD',
@@ -356,21 +362,25 @@ function build_html() {
     parse_dir(docs_dir);
     copy_files(files_dir);
 
-    write_import_file('nav.yaml',
-        fs.readFileSync(nav_file, 'utf8'));
-
     // Add top level index to redirect to first page of content
     fs.writeFileSync(out_public_dir + 'index', '<meta http-equiv="refresh" content="1;url=/' +
         deploy_html_dir_prefix + '">');
 
-    generate_docuthon_status();
-    copy_redirects();
-    set_import_symlink();
+    if (doImport) {
+        write_import_file('nav.yaml', fs.readFileSync(nav_file, 'utf8'));
+        generate_webdocs_status();
+        copy_redirects();
+        set_import_symlink();
+    }
 }
 
 // ==========================================================================
 // Main program
 // ==========================================================================
+if (process.argv.length >= 3 && process.argv[2] == 'import') {
+    doImport = true;
+}
+
 build_html();
 
 // If 'watch' argument specified, watch for file changesa and generate html

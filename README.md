@@ -1,7 +1,7 @@
 webdocs
 =======
 
-Interim space to hold revamped content for AllSeen Alliance developer content.
+Project contains content for AllSeen Alliance developer website.
 
 Organization
 ------------
@@ -10,7 +10,7 @@ Organization
 * `templates/` - templates used to generate HTML
 * `scripts/` - scripts to generate HTML and to host server
 * `out/public/` - generated HTML files.
-* `out/for_import/` - generated HTML for Drupal import
+* `out/for_import/` - generated HTML for Drupal import (usually not needed)
 
 How to run scripts
 ------------------
@@ -45,24 +45,19 @@ Optionally, you can specify a port:
 Doc layout and format
 ---------------------
 
-* All docs are located in `docs/` with the `.md` extension.  Each file will be a web page.  
-* The organization of dirs within `docs/` follow our outline.
+* All docs are located in `docs/` with the `.md` extension.  Each file will be a web page.
 * Docs use [markdown formatting][].  There are lots of resources on the interwebs, like this [cheatsheet][]
 * `docs/path/to/dir/index.md` is special.  It is what will be rendered at `http://server/path/to/dir/`.
-* `docs/nav.md` is special. It is used to create left nav.
+* `docs/nav.yaml` is special. It is used to create left nav.
 
 [markdown formatting]: http://daringfireball.net/projects/markdown/
 [cheatsheet]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
-Additional Tips
----------------
+How to run script for import into Drupal
+----------------------------------------
 
-* Markdown supports lots of formatting, like `code` or code blocks.  If you have questions, lmk.
-* There are a few ways to do links. Follow the examples in `docs/` for link references.  It's easier to read.
-* You can edit/preview and commit directly in github on the web.
-* http://dillinger.io/ is a great live Markdown editor.  It shows you formatting as you type.  You can save files.  
-  It auto-saves as you type.  You can close the tab and reopen it and your content will still be there.  
-  Pretty darn cool!
-* Renaming pages/links.  This trick should work.
+If you want to generte the for_import directory to create content in a format
+for the Drupal import scripts, then run like the following. Note, most everyone
+will not need to do this.
 
-    grep -l -r '/learn/core-architecture' * |xargs sed -i 's!/learn/core-architecture!/learn/core-framework!g'
+    scripts/generate.js import

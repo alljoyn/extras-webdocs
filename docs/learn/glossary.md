@@ -579,7 +579,6 @@ has the Event Picker application installed.
 Well Known names are used as the basis for AllJoyn discovery 
 for announcements. Typically applications will use About
 announcements and not the lower level Well-Known Names.
-[Learn more][wkn]
 
 ### Widget
 
@@ -601,4 +600,3 @@ access properties.
 [ajtcl]: #ajtcl
 [alljoyn-app]: #alljoyn-app
 [distributed-alljoyn-bus]: #distributed-alljoyn-bus
-[wkn]: /learn/core/well-known-name

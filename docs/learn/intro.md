@@ -27,11 +27,11 @@ transports. And since the AllJoyn framework is open-source, this flexibility
 can be extended further in the future to support even more transports, bindings,
 and features.
 
-* Transports: Wi-Fi, Ethernet
+* Transports: Wi-Fi, Ethernet, Bluetooth LE
 * Bindings: C, C++, Obj-C, Java
-* Platforms: RTOS, Arduino, Linux, Android, iOS, Windows, Mac, Unity
+* Platforms: RTOS, Arduino, Linux, Android, iOS, Windows, Mac
 * Security: peer-to-peer encryption and authentication (PSK, ECDSA)
-* RAM/ROM: XX/YY (for Standard) AA/BB (for Thin)
+* RAM/ROM: 50-100KB (for Thin), 500KB-1MB (for Standard)
 
 ## Common language for Internet of Things
 
@@ -62,8 +62,9 @@ to function. Apps and devices talk to each other directly -- fast, efficient, an
 securely. No need to go out and wait for the cloud when the device is right
 next to you. And in cases where the cloud is needed, the AllJoyn framework 
 supports that as well through a Gateway Agent.  One main advantage of this 
-architecture is security. Only the Gateway Agent is directly connected to the 
-Internet, so only that one device needs to be hardened.
+architecture is security: only the Gateway Agent is directly connected to the 
+Internet, reducing the number of devices connected to the Internet, and thus
+reducing the attack surface.
 
 ## Momentum
 

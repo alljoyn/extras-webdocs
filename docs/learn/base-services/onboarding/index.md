@@ -63,4 +63,4 @@ the Onboardable device fully onboarded.
 [download]: /download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/onboarding
-[api-guide]: /develop/api-guides
+[api-guide]: /develop/api-guide

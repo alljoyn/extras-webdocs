@@ -1272,8 +1272,8 @@ instructions on how to organize and set up the build process
 to incorporate the necessary files to compile your Thin Library application.
 
 
-[about-api-guide-thin-library]: /develop/api-guides/about/thin-linux
-[about-api-guides]: /develop/api-guides/about
+[about-api-guide-thin-library]: /develop/api-guide/about/thin-linux
+[about-api-guides]: /develop/api-guide/about
 [connect-alljoyn-bus]: #connect-alljoyn-bus
 [set-up-remote-access]: #set-up-remote-access
 [continue-main-loop]: #continue-main-loop
@@ -1286,7 +1286,7 @@ to incorporate the necessary files to compile your Thin Library application.
 [about-data-fields]: #about-data-fields
 [config-data-fields]: #config-data-fields
 [config-interface-definition]: /learn/base-service/configuration/interface
-[config-api-guide-thin-library]: /develop/api-guides/config/thin-linux
-[controlpanel-api-guide-thin-library]: /develop/api-guides/controlpanel/thin-linux
+[config-api-guide-thin-library]: /develop/api-guide/config/thin-linux
+[controlpanel-api-guide-thin-library]: /develop/api-guide/controlpanel/thin-linux
 
  

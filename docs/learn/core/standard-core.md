@@ -1,4 +1,4 @@
-# Introduction to the AllJoyn&trade; Framework
+# AllJoyn&trade; Standard Core
 
 ## Overview
 

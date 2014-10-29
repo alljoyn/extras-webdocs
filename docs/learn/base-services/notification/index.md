@@ -157,4 +157,4 @@ Learn More
 [download]: /download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/notification
-[api-guide]: /develop/api-guides
+[api-guide]: /develop/api-guide

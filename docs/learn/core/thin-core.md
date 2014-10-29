@@ -1,8 +1,8 @@
-# Introduction to Thin Library
+# AllJoyn&trade; Thin Core
 
 ## Overview
 
-AllJoyn&trade; is an open source software system that provides an 
+AllJoyn is an open source software system that provides an 
 environment for distributed applications running across different 
 device classes, with an emphasis on mobility, security, and 
 dynamic configuration. AllJoyn is "platform-neutral", meaning 

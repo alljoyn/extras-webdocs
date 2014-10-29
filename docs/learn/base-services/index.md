@@ -1,8 +1,10 @@
 # Base Services
 
-Base Services are basic services used by many devices. Below are the 
-currently supported base services. This list will continue to expand
-as more contributions are made to the AllSeen Alliance project.
+Base Services are common services used by many devices, providing a 
+set of interfaces for different devices to interact and interoperate
+with one another. Below are the currently supported base services. 
+This list will continue to expand as more contributions are made to 
+the AllSeen Alliance project.
 
 * [Onboarding][onboarding]. Provide a consistent way to bring a new device onto 
   the Wi-Fi network.

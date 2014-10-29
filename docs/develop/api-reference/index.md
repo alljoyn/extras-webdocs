@@ -1,74 +1,45 @@
 # API Reference
 
-## Core
-* [C++][core-cpp]
-* [Java][core-java]
-* [C][core-c]
-* [C (Thin)][core-thin-c]
+
+|API             |C++             |Java               |Objective-C              |C             |C(Thin)
+|----------------|----------------|--- ---------------|-------------------------|--------------|-------
+|Core            |[C++][core-cpp] |[Java][core-java]  |&nbsp;                   |[C][core-c]   |[C (Thin)][core-thin-c]
+|Onboarding      |[C++][onb-cpp]  |[Java][onb-java]   |[Objective-C][onb-objc]  |&nbsp;        |[C (Thin)][onb-thin-c]
+|Configuration   |[C++][conf-cpp] |[Java][conf-java]  |[Objective-C][conf-objc] |&nbsp;        |[C (Thin)][conf-thin-c]
+|Notification    |[C++][not-cpp]  |[Java][not-java]   |[Objective-C][not-objc]  |&nbsp;        |[C (Thin)][not-thin-c]
+|Control Panel   |[C++][cp-cpp]   |[Java][cp-java]    |[Objective-C][cp-objc]   |&nbsp;        |[C (Thin)][cp-thin-c]
+|Services Common |[C++][sc-cpp]   |&nbsp;             |[Objective-C][sc-objc]   |&nbsp;        |[C (Thin)][sc-thin-c]
+|Sample Apps     |[C++][sa-cpp]   |&nbsp;             |&nbsp;                   |&nbsp;        |&nbsp;
 
 [core-cpp]: https://allseenalliance.org/docs/api/cpp/index.html
 [core-java]: https://allseenalliance.org/docs/api/java/index.html
 [core-c]: https://allseenalliance.org/docs/api/c/index.html
 [core-thin-c]: https://allseenalliance.org/docs/api/thin-client/index.html
 
-## About
+[onb-cpp]: https://allseenalliance.org/docs/framework/cpp/onboarding/index.html
+[onb-java]: https://allseenalliance.org/docs/framework/java/onboarding/index.html
+[onb-objc]: https://allseenalliance.org/docs/framework/objc/onboarding/index.html
+[onb-thin-c]: https://allseenalliance.org/docs/framework/tcl/onboarding/index.html
 
-## Onboarding
-* [C++][onboarding-cpp]
-* [Java][onboarding-java]
-* [Objective-C][onboarding-objc]
-* [C (Thin)][onboarding-thin-c]
+[conf-cpp]: https://allseenalliance.org/docs/framework/cpp/config/index.html
+[conf-java]: https://allseenalliance.org/docs/framework/java/config/index.html
+[conf-objc]: https://allseenalliance.org/docs/framework/objc/config/index.html
+[conf-thin-c]: https://allseenalliance.org/docs/framework/tcl/config/index.html
 
-[onboarding-cpp]: https://allseenalliance.org/docs/framework/cpp/onboarding/index.html
-[onboarding-java]: https://allseenalliance.org/docs/framework/java/onboarding/index.html
-[onboarding-objc]: https://allseenalliance.org/docs/framework/objc/onboarding/index.html
-[onboarding-thin-c]: https://allseenalliance.org/docs/framework/tcl/onboarding/index.html
+[not-cpp]: https://allseenalliance.org/docs/framework/cpp/notification/index.html
+[not-java]: https://allseenalliance.org/docs/framework/java/notification/index.html
+[not-objc]: https://allseenalliance.org/docs/framework/objc/notification/index.html
+[not-thin-c]: https://allseenalliance.org/docs/framework/tcl/notification/index.html
 
-## Configuration
-* [C++][config-cpp]
-* [Java][config-java]
-* [Objective-C][config-objc]
-* [C (Thin)][config-thin-c]
+[cp-cpp]: https://allseenalliance.org/docs/framework/cpp/controlpanel/index.html
+[cp-java]: https://allseenalliance.org/docs/framework/java/controlpanel/index.html
+[cp-objc]: https://allseenalliance.org/docs/framework/objc/controlpanel/index.html
+[cp-thin-c]: https://allseenalliance.org/docs/framework/tcl/controlpanel/index.html
 
-[config-cpp]: https://allseenalliance.org/docs/framework/cpp/config/index.html
-[config-java]: https://allseenalliance.org/docs/framework/java/config/index.html
-[config-objc]: https://allseenalliance.org/docs/framework/objc/config/index.html
-[config-thin-c]: https://allseenalliance.org/docs/framework/tcl/config/index.html
+[sc-cpp]: https://allseenalliance.org/docs/framework/cpp/services_common/index.html
+[sc-objc]: https://allseenalliance.org/docs/framework/objc/services_common/index.html
+[sc-thin-c]: https://allseenalliance.org/docs/framework/tcl/services_common/index.html
 
-## Notification
-* [C++][notif-cpp]
-* [Java][notif-java]
-* [Objective-C][notif-objc]
-* [C (Thin)][notif-thin-c]
-
-[notif-cpp]: https://allseenalliance.org/docs/framework/cpp/notification/index.html
-[notif-java]: https://allseenalliance.org/docs/framework/java/notification/index.html
-[notif-objc]: https://allseenalliance.org/docs/framework/objc/notification/index.html
-[notif-thin-c]: https://allseenalliance.org/docs/framework/tcl/notification/index.html
-
-## Control Panel
-* [C++][controlpanel-cpp]
-* [Java][controlpanel-java]
-* [Objective-C][controlpanel-objc]
-* [C (Thin)][controlpanel-thin-c]
-
-[controlpanel-cpp]: https://allseenalliance.org/docs/framework/cpp/controlpanel/index.html
-[controlpanel-java]: https://allseenalliance.org/docs/framework/java/controlpanel/index.html
-[controlpanel-objc]: https://allseenalliance.org/docs/framework/objc/controlpanel/index.html
-[controlpanel-thin-c]: https://allseenalliance.org/docs/framework/tcl/controlpanel/index.html
-
-## Services Common
-* [C++][services-common-cpp]
-* [Objective-C][services-common-objc]
-* [C (Thin)][services-common-thin-c]
-
-[services-common-cpp]: https://allseenalliance.org/docs/framework/cpp/services_common/index.html
-[services-common-objc]: https://allseenalliance.org/docs/framework/objc/services_common/index.html
-[services-common-thin-c]: https://allseenalliance.org/docs/framework/tcl/services_common/index.html
-
-## Sample Apps
-* [C++][sample-apps-cpp]
-
-[sample-apps-cpp]: https://allseenalliance.org/docs/framework/cpp/sample_apps/index.html
+[sa-cpp]: https://allseenalliance.org/docs/framework/cpp/sample_apps/index.html
 
 

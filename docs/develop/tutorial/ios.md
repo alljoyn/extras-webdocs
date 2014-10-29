@@ -969,7 +969,7 @@ to quickly write apps that work on different platforms and
 talk to each other, which is a very important thing in today's 
 mobile application development ecosystem.
 
-[programming-guide-objective-c]: /develop/api-guides/core/ios
+[programming-guide-objective-c]: /develop/api-guide/core/ios
 
 [code-3]: #code-3
 [code-5]: #code-5

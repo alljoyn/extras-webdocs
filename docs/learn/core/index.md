@@ -13,11 +13,11 @@ that object to connect to the AllJoyn Router.
 ## Advertisement and Discovery
 
 AllJoyn applications can advertise its services via two mechanisms: 
-[About Announcements][about] and [Well-Known Name][well-known-name].
-Depending on available transports, the AllJoyn framework will use different mechanisms 
+About Announcements and Well-Known Name. Depending on available 
+transports, the AllJoyn framework will use different mechanisms 
 to ensure the that the application can be discovered by other AllJoyn 
-applications. For IP-based transports, a combination of multicast and 
-broadcast UDP packets are used.
+applications. For IP-based transports, mDNS and a combination of 
+multicast and broadcast UDP packets are used.
 
 **About Announcements** are the recommended mechanism for advertising. It
 provides a common way for applications to advertise a consistent set
@@ -35,7 +35,6 @@ applications identified by its UniqueName. This value is used to
 subsequently create sessions for further communications.
 
 [Learn more about About Announcements][about].  
-[Learn more about Well-Known Names][well-known-name].
 
 ## Session and Port
 
@@ -155,7 +154,6 @@ properties, receiving signals.
 * [Learn more about the low-level details of the AllJoyn system][aj-system]
 
 [about]: /learn/core/about-announcement
-[well-known-name]: /learn/core/well-known-name
 [events-and-actions]: /learn/core/events-and-actions
 [alljoyn-core-sessions]: /files/learn/alljoyn-core-sessions.png
 [alljoyn-core-busobject]: /files/learn/alljoyn-core-busobject.png

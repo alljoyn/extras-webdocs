@@ -53,4 +53,4 @@ Here's roughly what happens behind the scenes:
 [download]: /download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/about
-[api-guide]: /develop/api-guides
+[api-guide]: /develop/api-guide

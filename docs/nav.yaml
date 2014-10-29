@@ -4,9 +4,6 @@
 - name: Learn
   path: /learn
   contents:
-    - name: Intro
-      path: /learn/intro
-      contents:
     - name: Use Cases
       path: /learn/use-cases
       contents:
@@ -26,9 +23,6 @@
               path: /learn/core/about-announcement/interface-14-02
               hidden: 1
               contents:
-        - name: Well-Known Name
-          path: /learn/core/well-known-name
-          contents:
         - name: Events and Actions
           path: /learn/core/events-and-actions
           contents:
@@ -41,9 +35,6 @@
         - name: System Description
           path: /learn/core/system-description
           contents:
-            - name: Overview
-              path: /learn/core/system-description/frontmatter-overview
-              contents:          
             - name: System Architecture
               path: /learn/core/system-description/system-architecture
               contents:
@@ -294,95 +285,95 @@
             - name: Sessions
               path: /develop/run-sample-apps/test/sessions
               contents:
-    - name: API Guides
-      path: /develop/api-guides
+    - name: API Guide
+      path: /develop/api-guide
       contents:
         - name: Core
-          path: /develop/api-guides/core
+          path: /develop/api-guide/core
           contents:
             - name: Android
-              path: /develop/api-guides/core/android
+              path: /develop/api-guide/core/android
               contents:
             - name: iOS
-              path: /develop/api-guides/core/ios
+              path: /develop/api-guide/core/ios
               contents:
         - name: About
-          path: /develop/api-guides/about
+          path: /develop/api-guide/about
           contents:
             - name: Android
-              path: /develop/api-guides/about/android
+              path: /develop/api-guide/about/android
               contents:
             - name: Linux
-              path: /develop/api-guides/about/linux
+              path: /develop/api-guide/about/linux
               contents:
             - name: iOS
-              path: /develop/api-guides/about/ios
+              path: /develop/api-guide/about/ios
               contents:
             - name: Thin Linux
-              path: /develop/api-guides/about/thin-linux
+              path: /develop/api-guide/about/thin-linux
               contents:
         - name: Onboarding
-          path: /develop/api-guides/onboarding
+          path: /develop/api-guide/onboarding
           contents:
             - name: Android
-              path: /develop/api-guides/onboarding/android
+              path: /develop/api-guide/onboarding/android
               contents:
             - name: iOS
-              path: /develop/api-guides/onboarding/ios
+              path: /develop/api-guide/onboarding/ios
               contents:
         - name: Configuration
-          path: /develop/api-guides/config
+          path: /develop/api-guide/config
           contents:
             - name: Android
-              path: /develop/api-guides/config/android
+              path: /develop/api-guide/config/android
               contents:
             - name: Linux
-              path: /develop/api-guides/config/linux
+              path: /develop/api-guide/config/linux
               contents:
             - name: iOS
-              path: /develop/api-guides/config/ios
+              path: /develop/api-guide/config/ios
               contents:
             - name: Thin Linux
-              path: /develop/api-guides/config/thin-linux
+              path: /develop/api-guide/config/thin-linux
               contents:
         - name: Notification
-          path: /develop/api-guides/notification
+          path: /develop/api-guide/notification
           contents:
             - name: Android
-              path: /develop/api-guides/notification/android
+              path: /develop/api-guide/notification/android
               contents:
             - name: Linux
-              path: /develop/api-guides/notification/linux
+              path: /develop/api-guide/notification/linux
               contents:
             - name: iOS
-              path: /develop/api-guides/notification/ios
+              path: /develop/api-guide/notification/ios
               contents:
             - name: Thin Linux
-              path: /develop/api-guides/notification/thin-linux
+              path: /develop/api-guide/notification/thin-linux
               contents:
         - name: Control Panel
-          path: /develop/api-guides/controlpanel
+          path: /develop/api-guide/controlpanel
           contents:
             - name: Android
-              path: /develop/api-guides/controlpanel/android
+              path: /develop/api-guide/controlpanel/android
               contents:
             - name: Linux
-              path: /develop/api-guides/controlpanel/linux
+              path: /develop/api-guide/controlpanel/linux
               contents:
             - name: iOS
-              path: /develop/api-guides/controlpanel/ios
+              path: /develop/api-guide/controlpanel/ios
               contents:
             - name: Thin Linux
-              path: /develop/api-guides/controlpanel/thin-linux
+              path: /develop/api-guide/controlpanel/thin-linux
               contents:
         - name: Audio Streaming
-          path: /develop/api-guides/audio-streaming
+          path: /develop/api-guide/audio-streaming
           contents:
             - name: Linux
-              path: /develop/api-guides/audio-streaming/linux
+              path: /develop/api-guide/audio-streaming/linux
               contents:
         - name: Events and Actions
-          path: /develop/api-guides/events-and-actions
+          path: /develop/api-guide/events-and-actions
           contents:
     - name: API Reference
       path: /develop/api-reference
@@ -399,9 +390,6 @@
         - name: Core
           path: /develop/tutorial/core
           contents:
-            - name: Walkthrough
-              path: /develop/tutorial/core/walkthrough
-              contents:
         - name: iOS
           path: /develop/tutorial/ios
           contents:
@@ -414,13 +402,13 @@
         - name: Videos
           path: /develop/tutorial/videos
           contents:
-- name: Ask
-  path: /ask
-  contents:
-    - name: Popular
-      path: /ask/popular
-      hidden: 1
+    - name: Ask
+      path: /develop/ask
       contents:
+        - name: Popular
+          path: /develop/ask/popular
+          hidden: 1
+          contents:
 - name: Contribute
   path: /contribute
   contents:

@@ -12,7 +12,7 @@ Features:
 
 * Manages advertisment, discovery, and connections
 * Provides abstracts communications via object model or generic streams
-* Supports many platforms, including RTOS, Arduino, Linux, Android, iOS, Windows, Mac, Unity
+* Supports many platforms, including RTOS, Arduino, Linux, Android, iOS, Windows, Mac
 * Supports many bindings including C, C++, Obj-C, Java
 * Flexible security models
 * Works equally well with and without the Cloud
@@ -28,4 +28,4 @@ From here, you can:
 [download]: /download
 [build]: /develop/building
 [run_samples]: /develop/run-sample-apps
-[api_guides]: /develop/api-guides
+[api_guides]: /develop/api-guide

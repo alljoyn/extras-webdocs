@@ -404,10 +404,9 @@ by the AllJoyn framework.
 | AUTH [mechanism] [initial-response] | Consumer->Provider | Start the authentication. |
 | CANCEL | Consumer->Provider | Cancel the authentication. |
 | BEGIN | * Consumer->Provider | * On the consumer side, acknowledge that the consumer has received an OK command from the provider, and that the stream of messages is about to begin. |
-| | * Provider->Consumer | |
-| | | * From the provider side, sent by the provider as response to BEGIN command from the consumer. |
+| | * Provider->Consumer | * From the provider side, sent by the provider as response to BEGIN command from the consumer. |
 | DATA | * Consumer->Provider | On the consumer or provider side, contains a hex-encoded block of data to be interpreted according to the auth mechanism in use. |
- | | * Provider->Consumer | |
+| | * Provider->Consumer | |
 | OK | Consumer->Provider  | The client has been authenticated. |
 | REJECTED | Consumer->Provider | On the consumer side, indicates that the current authentication exchange has failed, and further exchange of DATA is inappropriate. The consumer tries another mechanism, or tries providing different responses to challenges. |
 | ERROR | * Consumer->Provider | On the consumer or provider side, either the provider or consumer did not know a command, does not accept the given command in the current context, or did not understand the arguments to the command. |
@@ -583,7 +582,7 @@ app via the AllJoyn router.
 9. The provider app generates a 28 bytes server random string s_rand.
 10. The provider app computes a premaster secret using the 
 algorithm in section 2.6 of [RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt). 
-The premaster secret is based on the client’s public value (A), 
+The premaster secret is based on the client's public value (A), 
 the server's public value (B), and password among other parameters.
 11. The provider app computes a master secret based on 
 the premaster secret, c_rand, and s_rand as per the algorithm 

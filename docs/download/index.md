@@ -7,7 +7,7 @@
 
 |Platform  |Package   |Version   |Information
 |----------|----------|----------|-----------
-|Source    |[alljoyn-suite-14.06.00a-src.tar.gz][source]
+|Source    |[alljoyn-suite-14.06.00a-src.tar.gz][source]|&nbsp;|&nbsp;
 |Android   |[Core SDK - release][android-core-rel]|14.06.00a|[Release Notes][core-notes]
 |          |[Core SDK - debug][android-core-debug]|14.06.00a|[Release Notes][core-notes]
 |          |[Onboarding SDK][android-onboarding]  |14.06.00 |[Release Notes][base-services-notes]
@@ -22,7 +22,7 @@
 |Windows   |[Windows SDK (32-bit)][win-32bit-core]|14.06.00a|[Release Notes][core-notes]
 |          |[Windows SDK (64-bit)][win-64bit-core]|14.06.00a|[Release Notes][core-notes]
 |          |[Windows Thin Core SDK][win-thin]     |14.06.00a|[Release Notes][core-notes]
-|Misc      |[All Releases][all-releases]
+|Misc      |[All Releases][all-releases]          |&nbsp;   |&nbsp;
 
 [source]: https://allseenalliance.org/releases/alljoyn/14.06.00/alljoyn-suite-14.06.00a-src.tar.gz
 [git-repo]: https://git.allseenalliance.org/gerrit/#/admin/projects/

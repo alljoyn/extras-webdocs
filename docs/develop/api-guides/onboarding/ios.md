@@ -50,7 +50,7 @@ you in this process:
 * [Building iOS/OS X section][building-ios]
 * [About API Guide][about-api-guide-ios]
 
-## Implementing the Omboarder Application
+## Implementing the Onboarder Application
 
 ### Initialize the AllJoyn framework
 

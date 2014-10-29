@@ -492,8 +492,8 @@ interface methods and signals used for session-related functions.
 |---|---|---|
 | | **Parameter name** / **Description** | |
 | ExchangeNames | uniqueName / List of one or more unique names available on the local AllJoyn router. | A signal that informs remote AllJoyn router of names available on the local AllJoyn router. |
-| | WKNs / List of one or more well-known names registered with each of the known unique name on the local AllJoyn router. | |
-| DetachSession | sessionId | AllJoyn session ID | A signal sent out to detach a joiner from an existing session |
+| | WKNs / List of one or more well-known names registered with each of the known unique name on the local AllJoyn router. |&nbsp; |
+| DetachSession | sessionId / AllJoyn session ID | A signal sent out to detach a joiner from an existing session |
 | | Joiner / Unique name of the joiner | |
 
 ### org.alljoyn.Bus

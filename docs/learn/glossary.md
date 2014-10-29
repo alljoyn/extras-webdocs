@@ -477,9 +477,9 @@ An event this is sent with guaranteed delivery to all interested consumers.
 
 ### Remote application
 
-Typically AllJoyn applications communicate with one another.
-A remote applicateion is the peer that a particular application
-is communicating with
+Typically, AllJoyn applications communicate with one another.
+A remote application is the peer that a particular application
+is communicating with.
 
 ### Rule
 

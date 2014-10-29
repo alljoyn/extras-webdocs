@@ -669,12 +669,12 @@ snd_strerror(err));
 bufferSizeInFrames, err); 
    return err > 0;
 }
-
+```
 
 
 [about-api-guides]: /develop/api-guides/about
 [set-up-alljoyn-framework]: #setting-up-the-alljoyn-framework
 [config-build-env-linux]: /learn/core/linux/config-build-env-linux
-[about-best-practices]: 
+[about-best-practices]: /develop/api-guides/about
 [create-register-streamobject]: #create-and-register-streamobject
 [declare-sinksearcher-subclass]: #declare-sinksearcher-subclass

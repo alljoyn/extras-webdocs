@@ -894,9 +894,9 @@ records types that can be present in the query or response messages:
 | Name | Type | Record-specific data |
 |---|---|---|
 | * alljoyn._udp.local. | PTR | The service name is alljoyn as allocated through IANA. |
-| | | In the 14.06 release, the protocol used in the service description is TCP. When UDP transport is supported in future, the protocol for service name will be UDP. |
-| | | The discovery scope is the local network. |
-| * alljoyn._tcp.local. | | 
+|&nbsp; |&nbsp; | In the 14.06 release, the protocol used in the service description is TCP. When UDP transport is supported in future, the protocol for service name will be UDP. |
+|&nbsp; |&nbsp; | The discovery scope is the local network. |
+| * alljoyn._tcp.local. |&nbsp; |&nbsp; | 
 
 ##### DNS-SD query: Additional section
 
@@ -976,9 +976,9 @@ summarizes usage guidelines for the two AllJoyn discovery methods.
 
 | Name-based discovery usage | Announcement-based discovery usage |
 |---|---|
-| * App-to-app discovery | |
+| * App-to-app discovery | AllJoyn service interfaces discovery on the AllJoyn network. |
 | * Sessionless signals | |
-| * AllJoyn router discovery for thin apps | AllJoyn service interfaces discovery on the AllJoyn network. |
+| * AllJoyn router discovery for thin apps | |
 
 
 

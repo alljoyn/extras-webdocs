@@ -1,6 +1,6 @@
 # Control Panel Interface Definition - 14.02
 
-__Warning: This is not the latest inteface definition.__
+__Warning: This is not the latest interface definition.__
 
 [Go here for latest Control Panel Interface Definition][controlpanel-latest]
 
@@ -29,8 +29,8 @@ using the tools provided by the Control Panel service framework.
 Except for supporting information, the following are reference 
 documents found on the AllSeen Alliance web site's Docs/Downloads section.
 
-* AllJoyn&trade; Framework Tutorial
-* Introduction to AllJoyn&trade; Thin Client
+* *AllJoyn&trade; Framework Tutorial*
+* *Introduction to AllJoyn&trade; Thin Client*
 * AllJoyn Data Type Signature
 * [RFC3339: (Date and Time on the Internet: Timestamps)](http://www.ietf.org/rfc/rfc3339.txt)
 

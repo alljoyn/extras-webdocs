@@ -1,6 +1,6 @@
 # About Interface Specification - 14.02
 
-__Warning: This is not the latest inteface definition.__
+__Warning: This is not the latest interface definition.__
 
 [Go here for latest About Interface Definition][about-latest]
 
@@ -173,7 +173,7 @@ implemented by each of objects.
 |---|---|---|---|
 | | **Name** / **Signature** | | |
 | Announce | (listed below) | yes | This signal is used to announce the application information and the service framework interfaces that it supports. The following information is provided in the signal: |
-|  | | version / q | * version - Version number of the About interface. |
+|  | version / q |  | * version - Version number of the About interface. |
 |  | port / q |  | * port - Session port. The app will listen on this port for incoming sessions. |
 |  | objectDescription / a(oas) |  | * objectDescription --Array of object paths and the list of supported interfaces provided by each object. |
 |  | metaData / a{sv} |  | * metaData - Metadata. All the fields listed in [Field information][field-information] with a yes value in the Announced column are provided in this signal. |

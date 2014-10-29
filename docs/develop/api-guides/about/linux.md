@@ -205,7 +205,7 @@ languages[2] = "fr";
 aboutStore ->setSupportedLangs(languages);
 
 aboutStore ->setDescription("This is an AllJoyn application", "en"); 
-aboutStore ->setDescription("Esta es una AllJoyn aplicación", "es"); 
+aboutStore ->setDescription("Esta es una AllJoyn aplicacion", "es"); 
 aboutStore ->setDescription("C'est une AllJoyn application", "fr");
 
 aboutStore ->setManufacturer("Company", "en"); 

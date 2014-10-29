@@ -1,6 +1,6 @@
 # Notification Interface Definition - 14.02
 
-__Warning: This is not the latest inteface definition.__
+__Warning: This is not the latest interface definition.__
 
 [Go here for latest Notification Interface Definition][notification-latest]
 
@@ -32,8 +32,8 @@ This document is targeted to the developers for AllJoyn applications.
 Except for supporting information, the following are reference 
 documents found on the AllSeen Alliance web site's Docs/Downloads section.
 
-* AllJoyn&trade; Framework Tutorial
-* Introduction to AllJoyn&trade; Thin Library
+* *AllJoyn&trade; Framework Tutorial*
+* *Introduction to AllJoyn&trade; Thin Library*
 * AllJoyn Data Type Signature
 * AllJoyn&trade; About Feature Interface Specification
 

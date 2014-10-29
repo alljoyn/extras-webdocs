@@ -185,7 +185,7 @@ device scans the network, it can find all producer devices.
 |---|---|---|---|
 | | **Name** / **Mandatory** / **Signature** | | |
 | Notify | (listed below) | yes | AllJoyn signal carrying notification message. |
-|  | | version / yes / q | Version of the Notification protocol. |
+|  | version / yes / q |  | Version of the Notification protocol. |
 |  | msgId / yes / i |  | Unique identification assigned to the notification message by the Notification service framework. |
 |  | msgType / yes / q |  | Type of notification message. |
 |  |  |  | * 0 - Emergency |

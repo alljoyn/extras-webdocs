@@ -700,7 +700,7 @@ if(mBus != null) {
    mBus.release(); 
    mBus = null;
 }
-
+```
 
 
 [building-android]: /develop/building/android

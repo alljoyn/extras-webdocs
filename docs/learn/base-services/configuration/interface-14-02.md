@@ -1,6 +1,6 @@
 # Configuration Interface Definition - 14.02
 
-__Warning: This is not the latest inteface definition.__
+__Warning: This is not the latest interface definition.__
 
 [Go here for latest Configuration Interface Definition][config-latest]
 
@@ -27,8 +27,8 @@ develop or extend the Configuration service framework on their own.
 Except for supporting information, the following are reference 
 documents found on the AllSeen Alliance web site's Docs/Downloads section.
 
-* AllJoyn&trade; Framework Tutorial
-* Introduction to AllJoyn&trade; Thin Client
+* *AllJoyn&trade; Framework Tutorial*
+* *Introduction to AllJoyn&trade; Thin Client*
 * AllJoyn&trade; Data Type Signature
 * [RFC 5646: Tags for Identifying Languages](http://tools.ietf.org/html/rfc5646)
 

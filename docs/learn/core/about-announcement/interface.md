@@ -158,7 +158,7 @@ implemented by each of objects.
 |---|---|---|---|
 | | **Name** / **Mandatory** / **Signature** | | |
 | Announce | (listed below) | yes | This signal is used to announce the application information and the service framework interfaces that it supports. The following information is provided in the signal: |
-|  | | version / yes / q | * version - Version number of the About interface. |
+|  | version / yes / q |  | * version - Version number of the About interface. |
 |  | port / yes / q |  | * port - Session port. The app will listen on this port for incoming sessions. |
 |  | objectDescription / yes / a(oas) |  | * objectDescription --Array of object paths and the list of supported interfaces provided by each object. |
 |  | metaData / yes / a{sv} |  | * metaData - Metadata. All the fields listed in [About data interface fields][about-data-interface-fields] with a yes value in the Announced column are provided in this signal. |

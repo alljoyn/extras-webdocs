@@ -1,6 +1,6 @@
 # Onboarding Interface Definition - 14.02
 
-__Warning: This is not the latest inteface definition.__
+__Warning: This is not the latest interface definition.__
 
 [Go here for latest Onboarding Interface Definition][onboarding-latest]
 
@@ -22,8 +22,8 @@ Onboarding service framework or extend the provided Onboarding service framework
 Except for supporting information, the following are reference 
 documents found on the AllSeen Alliance web site's Docs/Downloads section.
 
-* AllJoyn&trade; Framework Tutorial
-* Introduction to AllJoyn&trade; Thin Client
+* *AllJoyn&trade; Framework Tutorial*
+* *Introduction to AllJoyn&trade; Thin Client*
 * AllJoyn Data Type Signature
 
 ### Acronyms and terms

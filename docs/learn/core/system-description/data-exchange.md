@@ -400,10 +400,10 @@ represents a standard data type.
 | UINT32 | 117 | 'u' | 32-bit unsigned integer. |
 | UINT64 | 120 | 'x' | 64-bit signed integer. |
 | DOUBLE | 100 | 'd' | IEEE 754 double. |
-| STRING  115 | 's' | UTF-8 string (must be valid UTF-8). Must be null terminated and contain no other null bytes. |
+| STRING | 115 | 's' | UTF-8 string (must be valid UTF-8). Must be null terminated and contain no other null bytes. |
 | OBJECT_PATH | 111 | 'o' | Name of an object instance. |
 | SIGNATURE | 103 | 'g' | A type signature. |
-| ARRAY	97 | 'a' | Array |
+| ARRAY	| 97 | 'a' | Array |
 | STRUCT | 114, 40, 41 | 'r', '(', ')' | Struct |
 | VARIANT | 118 | 'v' | Variant type (the type of the value is part of the value itself). |
 | DICT_ENTRY | 101, 123, 125 | 'e','{','}' | Entry in a dict or map (array of key-value pairs). |
@@ -450,7 +450,7 @@ Figure: AllJoyn message format
 | Message Body Length | Length (in bytes) of the message body, starting from the end of the header. |
 | Serial Number | Serial number of this message. This is assigned by the sender and used as a cookie by the sender to identify the reply corresponding to this request. This must not be zero. |
 | List of Header Fields | This specifies an array of zero or more header fields where each field is a 1-byte field code followed by a field value.  This is represented as ARRAY of STRUCT of (BYTE, VARIANT). A header must contain the required header fields for its message type, and zero or more of any optional header fields. Implementations must ignore fields they do not understand. |
-| | The AllJoyn framework has extended the list of D-Bus defined header fields. [Header Field definitions][header-field-definitions] lists all the header fields supported by AllJoyn and mandatory/optional requirement for these fields for different message types. |
+| | The AllJoyn framework has extended the list of D-Bus defined header fields. [Header Fields definitions][header-fields-definitions] lists all the header fields supported by AllJoyn and mandatory/optional requirement for these fields for different message types. |
 | Message Body | Body of the message. The content of message body is interpreted based on SIGNATURE header field. |
 
 ### Message Type definitions
@@ -478,7 +478,7 @@ Figure: AllJoyn message format
 | COMPRESSED | 0x40 | Indicates that the AllJoyn message header is compressed. |
 | ENCRYPTED | 0x80 | Indicates that the AllJoyn message body is encrypted. |
 
-### Header Field definitions
+### Header Fields definitions
 
 | Name | Field code | Type | Required in | Description |
 |---|---|---|---|---|
@@ -500,8 +500,7 @@ Figure: AllJoyn message format
 | N/A | 9 | N/A | N/A | Unused |
 | TIMESTAMP | 10 | UINT32 | optional | Timestamp when the message was packaged. |
 | TIME_TO_LIVE | 11 | UINT16 | optional | TTL associated with the message. A message gets discarded by the AllJoyn router when the TTL expires. |
-| | | | If not specified, TTL is assumed to be infinite. | |
-| | | | | * For sessionless signal, the TTL value is specified in seconds. |
+| | | | If not specified, TTL is assumed to be infinite. | * For sessionless signal, the TTL value is specified in seconds. |
 | | | | | * For other messages, the TTL value is specified in msec. |
 | COMPRESSION_TOKEN | 12 | UINT32 | optional | Token generated for the messages with header compression on. |
 | SESSION_ID | 13 | UINT32 | optional | Session ID for the session over which this message is being sent. |
@@ -681,7 +680,7 @@ app endpoint over local bus connection.
 [match-rule-keys]: #match-rule-keys-supported-by-the-alljoyn-framework
 [message-type-definitions]: #message-type-definitions
 [header-flag-definitions]: #header-flag-definitions
-[header-field-definitions]: #header-field-definitions
+[header-fields-definitions]: #header-fields-definitions
 [sample-routing-table-on-provider-device]: #sample-routing-table-on-provider-device
 
 

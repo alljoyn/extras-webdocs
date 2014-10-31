@@ -73,13 +73,13 @@ For more information about the About feature, see the [About API Guide][about-ap
 
 #### Initialize the About feature
 
-```
+```java
 aboutService = AboutServiceImpl.getInstance();
 ```
 
 #### Create a PropertyStore
 
-```
+```java
 PropertyStore propertyStore = new PropertyStoreImpl(this); 
 Map<String, Object> config = propertyStore.ReadAll(Property.NO_LANGUAGE,Filter.READ);
 String deviceName = (String)config.get(AboutKeys.ABOUT_DEVICE_NAME);
@@ -95,7 +95,7 @@ catch (Exception e) {
 
 ### Initialize the Notification service framework
 
-```
+```java
 notificationService = NotificationService.getInstance();
 ```
 
@@ -104,7 +104,7 @@ notificationService = NotificationService.getInstance();
 Start the Notification service framework, and pass it the 
 bus attachment and the newly created PropertyStore.
 
-```
+```java
 notificationSender = notificationService.initSend(bus, propertyStore);
 isSenderStarted	= true;
 ```
@@ -114,7 +114,7 @@ isSenderStarted	= true;
 
 #### Prepare the text per language to be sent
 
-```
+```java
 List<NotificationText> text = new LinkedList<NotificationText>(); 
 text.add(new NotificationText("en", "The fridge door is open")); 
 text.add(new NotificationText("ru", "????? ???????????? ???????"));
@@ -125,7 +125,7 @@ text.add(new NotificationText("ru", "????? ???????????? ???????"));
 Create a notification object where you can set all the optional 
 fields such as an audio URL, etc.
 
-```
+```java
 Notification notif = new Notification(messageType, text);
 ```
 
@@ -135,14 +135,14 @@ The following optional parameters can be added to the notification:
 
 * Icon URL - Set an icon URL that can be used to display along with the notification.
 
-  ```
+  ```java
    notif.setRichIconUrl("http://iconUrl.com/notification.jpeg");
   ```
 
 * Audio URL - Set an audio URL that can be used to enrich the 
 notification. Each audio URL is set per language.
 
-  ```
+  ```java
    List< RichAudioUrl> audioUrl = new LinkedList< RichAudioUrl>(); 
    audioUrl.add(new NotificationText("en", "http://audioUrl.com/notif_en.wav")); 
    audioUrl.add(new NotificationText("ru", "http://audioUrl.com/notif_ru.wav""));
@@ -153,14 +153,14 @@ notification. Each audio URL is set per language.
 * Icon object path - Set an icon object path so that the receiver 
 can fetch the content of the icon to display along with the notification.
 
-  ``
+  ```java
    notif.setRichIconObjPath("/OBJ/PATH/ICON");
   ```
 
 * Audio object path - Set an audio object path so that the receiver 
 can fetch the audio content to play along with the notification.
 
-  ```
+  ```java
    notif.setRichAudioObjPath("/OBJ/PATH/AUDIO");
   ``` 
 
@@ -168,13 +168,13 @@ can fetch the audio content to play along with the notification.
 be used to interact with a bus object to allow the user to 
 perform a control action as a result of a notification.
 
-  ```
+  ```java
    notif.setResponseObjectPath(/CPS/OBJ/PATH);
   ```
 
 #### Send the notification
 
-```
+```java
 notificationSender.send(notif, ttl);
 ```
 
@@ -186,7 +186,7 @@ sent for an event that no longer occurs, and the TTL is still
 valid, use the deleteLastMsg API to delete the last notification 
 for a given messageType.
 
-```
+```java
 notificationSender.deleteLastMsg(messageType);
 ``` 
 
@@ -205,7 +205,7 @@ For more information about the About feature, see the [About API Guide][about-ap
 
 #### Initialize the About feature
 
-```
+```java
 aboutService = AboutServiceImpl.getInstance();
 ```
 
@@ -213,13 +213,13 @@ aboutService = AboutServiceImpl.getInstance();
 
 Start the client to receive announcements. 
 
-```
+```java
 aboutService.startAboutClient(bus);
 ```
 
 ### Initialize the Notification service framework
 
-```
+```java
 notificationService = NotificationService.getInstance();
 ```
 
@@ -239,7 +239,7 @@ When a notification is received by the service, it will call
 the `receive` method of the implemented notificationReceiver 
 interface with the notification.
 
-```
+```java
 @Override
 public void receive(Notification notification)
 
@@ -256,13 +256,13 @@ Implement this method to receive dismiss signals that were
 sent on the network so you can dismiss notifications that 
 were received and should not be shown.
 
-```
+```java
 notification.dismiss();
 ```
 
 Arguments that describe the device and app it were received from follow.
 
-```
+```java
 UUID notifAppId	 = notification.getAppId(); 
 String notifAppName	= notification.getAppName(); 
 String notifDeviceId	= notification.getDeviceId(); 
@@ -271,14 +271,14 @@ String notifDeviceName	= notification.getDeviceName();
 
 Arguments that describe the message follow.
 
-```
+```java
 int msgID	= notification.getMessageId(); 
 String msgType = notification.getMessageType();
 ```
 
 Arguments that give the content of the message follow.
 
-```
+```java
 List<NotificationText> text	= notification.getText(); 
 List<RichAudioUrl> richAudioUrlL = notification.getRichAudioUrl();
 
@@ -296,7 +296,7 @@ When a dismiss signal is received by the service it calls the
 `dismiss` method the application writer provided the service, 
 so that the application can remove the application from the UI:
 
-```
+```java
 @Override
 public void dismiss(int notifId, UUID appId)
 ```
@@ -306,7 +306,7 @@ public void dismiss(int notifId, UUID appId)
 Start the consumer and pass it the bus attachment and the 
 notificationReceiver from above.
 
-```
+```java
 notificationService.initReceive(bus, notificationReceiver);
 ```
 

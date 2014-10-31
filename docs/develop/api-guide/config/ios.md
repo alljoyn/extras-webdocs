@@ -53,7 +53,7 @@ NOTE:  Code in this chapter references a variable
 For an application to discover peer applications that are 
 ConfigService providers, it requires an instance of AJNAnnouncementReceiver.
 
-```
+```objc
 self.announcementReceiver = [[AJNAnnouncementReceiver alloc] 
 initWithAnnouncementListener:self andBus:self.clientBusAttachment]; 
 const char* interfaces[] = { "org.alljoyn.Config" }; 
@@ -69,14 +69,14 @@ an instance of the ConfigService class. AJCFGConfigService is
 an implementation wrapper around AllJoyn native calls that 
 handle the interactions with the Config Server.
 
-```
+```objc
 self.configService = [[AJCFGConfigService alloc]initWithBus:self.
    busAttachment propertyStore:self.propertyStore listener:self.configServiceListenerImpl];
 ```
 
 ### Start Client mode
 
-```
+```objc
 [[AJCFGConfigClient alloc] initWithBus:self.clientBusAttachment];
 ```
 
@@ -90,7 +90,7 @@ whose Announcement was received.
 Generate an instance of ConfigClient to receive and send 
 ConfigData to and from a peer Config Server.
 
-```
+```objc
 self.configClient = [[AJCFGConfigClient alloc]
 initWithBus:self.clientBusAttachment];
 ```
@@ -103,7 +103,7 @@ method call. The structure that is returned can be iterated through
 to determine the contents. The content definition is found in 
 the [Configuration Interface Definition][config-interface-definition].
 
-```
+```objc
 NSMutableDictionary *configDict = [[NSMutableDictionary alloc] init]; 
 self.configClient configurationsWithBus:self.annBusName languageTag:@"" 
 configs:&configDict sessionId:self.sessionId];
@@ -117,7 +117,7 @@ that was returned by GetConfigurations() can be iterated
 through to determine the contents. The content definition 
 is found in the [Configuration Interface Definition][config-interface-definition].
 
-```
+```objc
 NSMutableDictionary *configElements = [[NSMutableDictionary alloc] init]; 
 NSString *key = [self.writableElements allKeys][textField.tag]; 
 AJNMessageArgument *msgArgValue = [[AJNMessageArgument alloc] init];
@@ -137,7 +137,7 @@ was returned by GetConfigurations() can be iterated through to
 determine the list of reset fields. The content definition is 
 found in the [Configuration Interface Definition][config-interface-definition].
 
-```
+```objc
 NSMutableArray *names = [[NSMutableArray alloc]
 initWithArray:@[@"DeviceName"]];
 [self.configClient resetConfigurationsWithBus:self.annBusName languageTag:@"" 
@@ -152,7 +152,7 @@ factory defaults through the ConfigClient via the
 
 NOTE: This is a no-reply call, so its success cannot be determined directly.
 
-```
+```objc
 [self.configClient factoryResetWithBus:self.annBusName 
    sessionId:self.sessionId];
 ```
@@ -165,7 +165,7 @@ via the Restart() method call.
 NOTE:  This is a no-reply call, so its success cannot be 
 determined directly.
 
-```
+```objc
 [self.configClient factoryResetWithBus:self.annBusName 
    sessionId:self.sessionId];
 ```
@@ -179,7 +179,7 @@ ones based on the new shared secret, namely the passcode.
 
 NOTE: The realm name is currently ignored.
 
-```
+```objc
 NSString *pass = @"123456";
 NSData *passcodeData = [pass dataUsingEncoding:NSUTF8StringEncoding];
 const void *bytes = [passcodeData bytes];
@@ -199,12 +199,11 @@ variables used in the application.
 The ARC takes care of releasing some objects so no need to 
 do it explicitly.
 
-```
+```objc
 const char* interfaces[] = { "org.alljoyn.Config" }; 
    [self.announcementReceiver unRegisterAnnouncementReceiverForInterfaces:interfaces withNumberOfInterfaces:1];
 self.announcementReceiver = nil;
 ```
-
 
 [building-ios]: /develop/building/ios_osx
 [config-interface-definition]: /learn/base-services/configuration/interface

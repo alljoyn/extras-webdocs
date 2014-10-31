@@ -174,7 +174,7 @@ known location (e.g., `C:\apache-ant-1.9.0`).
       by a semicolon (adjust the path of each item, as necessary, 
       to account for the install location):
       
-      ```
+      ```bat
       C:\Python27;C:\Python27\Scripts;C:\Program Files\doxygen\bin; 
       C:\Program Files\Graphviz2.30.1\bin;C:\OpenSSL-Win32\bin; 
       C:\Program Files\Git\cmd;C:\uncrustify-0.57-win32;
@@ -186,7 +186,7 @@ known location (e.g., `C:\apache-ant-1.9.0`).
       semicolon (adjust the path of each item, as necessary, 
       to account for the install location):
 
-      ```
+      ```bat
       C:\Python27;C:\Python27\Scripts;C:\Program Files\doxygen\bin; 
       C:\Program Files\Graphviz2.30.1\bin;C:\OpenSSL-Win32\bin; 
       C:\Program Files\Git\cmd;C:\uncrustify-0.57-win32;
@@ -208,7 +208,7 @@ directories:
    2. Set `ANT_HOME=C:\apache-ant-1.9.0`.
    3. Add the following to the %PATH% variable:
 
-      ```
+      ```bat
       %ANT_HOME%\bin
       ```
 
@@ -217,7 +217,7 @@ directories:
 Open the command window, and check that you can run the 
 following commands:
 
-```
+```bat
 C:\>python --version
 Python 2.7.1
 
@@ -244,7 +244,7 @@ NOTE: OpenSSL not needed for all installations see
 [openSSL v1.0.1e for Windows][openssl-version-windows] and 
 [Msysgit version 1.8.1.2 for Windows][msysgit-version-windows] for more information
 
-```
+```bat
 C:\>uncrustify -v
 uncrustify 0.57
 ```
@@ -255,7 +255,7 @@ Obtain a copy of each repository using the `git clone` command.
 
 1. Create a workspace for the AllJoyn project.
 
-   ```
+   ```bat
    C:\>mkdir allseen
    C:\>cd allseen
 
@@ -268,7 +268,7 @@ Obtain a copy of each repository using the `git clone` command.
 
 2. Make a clone of the Git repository associated with the AllJoyn project.
 
-   ```
+   ```bat
    c:\allseen\core\alljoyn> git clone 
    https://git.allseenalliance.org/gerrit/core/alljoyn.git.git
    ```
@@ -284,7 +284,7 @@ modified and does not let you pull from the repository,
 check the files, or even merge changes. The current solution 
 is to tell git to ignore the CRLF issues using the following command:
 
-```
+```bat
 git config core.autocrlf false
 ``` 
 
@@ -295,7 +295,7 @@ Use the following instructions to build the AllJoyn project.
 1. From the command line, go to the AllJoyn allseen folder. 
 The path used here is just an example.
 
-   ```
+   ```bat
    cd c:\allseen\core\alljoyn
    ```
 
@@ -308,14 +308,14 @@ variables default values can be set as environment variables.
 
 For 32-bit x86 target:
 
-```
+```bat
 C:\>cd allseen\core\alljoyn
 C:\allseen\core\alljoyn>scons OS=win7 CPU=x86 MSVC_VERSION=10.0 BINDINGS=cpp
 ```
 
 For 64-bit x86-64 target:
 
-```
+```bat
 C:\>cd allseen\core\alljoyn
 C:\allseen\core\alljoyn>scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 BINDINGS=cpp
 ```
@@ -328,7 +328,7 @@ the AllJoyn framework.
 
 For 32-bit x86 target:
 
-```
+```bat
 C:\>cd allseen\core\alljoyn
 C:\allseen\core\alljoyn>scons OS=winxp CPU=x86 MSVC_VERSION=10.0 BINDINGS=cpp
 OPENSSL_BASE=<openssl_base_directory>
@@ -340,7 +340,7 @@ A 64-bit version of the AllJoyn framework cannot be built on Windows XP.
 
 For 32-bit x86 target:
 
-```
+```bat
 C:\>cd allseen\core\alljoyn
 C:\allseen\core\alljoyn>scons OS=windows CPU=x86 MSVC_VERSION=10.0 BINDINGS=cpp
 OPENSSL_BASE=<openssl_base_directory>
@@ -348,7 +348,7 @@ OPENSSL_BASE=<openssl_base_directory>
 
 For 64-bit x86-64 target:
 
-```
+```bat
 C:\>cd allseen\core\alljoyn
 C:\allseen\core\alljoyn>scons OS=windows CPU=x86_64 MSVC_VERSION=10.0
 BINDINGS=cpp OPENSSL_BASE=<openssl_base_directory>
@@ -385,7 +385,7 @@ with the AllJoyn framework.
 
 Example:
 
-```
+```bat
 scons OS=win7 CPU=IA64 VARIANT=release MSVC_VERSION=10.0 BINDINGS=cpp
 ```
 
@@ -400,13 +400,13 @@ tools and junit are located.
 
 Set an environment variable to tell scons the location of the build tools:
 
-```
+```bat
 set JAVA_HOME="C:\Program Files\Java\jdk1.6.0_43"
 ```
 
 Here is the path used on a development setup:
 
-```
+```bat
 set CLASSPATH="C:\junit\junit-4.11.jar"
 ```
 
@@ -417,7 +417,7 @@ As noted, to build Java code, use the same commands as were
 used to make AllJoyn core for Windows; e.g., a Java for Windows 
 release variant. For example:
 
-```
+```bat
 scons OS=win7 CPU=x86_64 VARIANT=release MSVC_VERSION=10.0 BINDINGS=core,java
 ``` 
 
@@ -444,7 +444,8 @@ policy. This will automatically apply the changes that
 are shown when using the detail option.
 * off - don't check the code for adherence to the 
 AllJoyn whitespace policy. Example:
-  ```
+
+  ```bat
   scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 WS=off BINDINGS=cpp,java
   ```
 
@@ -479,7 +480,7 @@ The output will override the output from the HTML option.
  
 Example:
 
-```
+```bat
 scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 DOCS=html BINDINGS=cpp,java
 ```
 
@@ -520,7 +521,7 @@ built-in bundled router
 
 Example:
 
-```
+```bat
 scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 BR=on BINDINGS=cpp,java
 ```
 
@@ -539,7 +540,7 @@ option to specify the location of Google Test source code.
  
 Example:
 
-```
+```bat
 scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 GTEST_DIR=c:\gtest\gtest-1.6.0
 BINDINGS=cpp
 ``` 
@@ -564,7 +565,7 @@ another available port to use for device-to-device communication.
 
 1. From the command line, navigate to:
 
-   ```
+   ```bat
    <allseen\core\alljoyn>\build{OS}{CPU}{VARIANT}\dist\cpp\bin\samples
    ```
 
@@ -613,7 +614,7 @@ The cmtest executable, tests the code from the common project
 and does not require the AllJoyn router to be running. 
 Run cmtest as follows: 
 
-```
+```bat
 build\{OS}\{CPU}\{VARIANT}\test\cpp\bin\cmtest.exe
 ```
 
@@ -626,7 +627,7 @@ test bus-to-bus (i.e., device-to-device) communication.
 
 Run ajtest as follows:
 
-```
+```bat
 build\{OS}\{CPU}\{VARIANT}\test\cpp\bin\ajtest.exe
 ```
 
@@ -638,19 +639,21 @@ The junit tests are specifically designed to test the Java bindings.
 1. Copy and rename from `alljoyn_java\ build.xml.top` to the 
 top `build.xml` folder.
 
-   ```
+   ```bat
    copy alljoyn_java\build.xml.top build.xml
    ```
 
 2. From the top build folder use ant to start the test.
 
-   ```
+   ```bat
    ant test -DOS={OS} -DCPU={CPU} -DVARIANT={VARIANT}
    ```
 
 3. html version of the results can be found in this location:
 
-   `build\{OS}\{CPU}\{VARIANT}\test\java\reports\junit\`
+   ```bat
+   build\{OS}\{CPU}\{VARIANT}\test\java\reports\junit\
+   ```
 
 For all paths and commands, replace {OS}, {CPU}, and {VARIANT} 
 with the actual value used when the code was built 
@@ -730,8 +733,6 @@ used by Visual Studio to 7.x
 3. Select **Run**.
 4. Proceed though the wizard to complete the Visual C++ 2008 
 Feature Pack Release installation.
-
-
 
 [legacy-build-options]: #legacy-build-options
 [vs-2008-legacy-build-ms-windows-sdk-7x]: #visual-studio-2008-legacy-build-microsoft-windows-sdk-7-x

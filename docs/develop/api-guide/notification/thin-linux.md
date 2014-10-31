@@ -55,7 +55,7 @@ for instructions.
 
 #### Create a notification content structure and helper structures
 
-```
+```c
 static AJNS_NotificationContent notificationContent;
 struct AJNS_DictionaryEntry textToSend[2] customAttributesToSend[2] 
    richAudioUrls[2]
@@ -63,7 +63,7 @@ struct AJNS_DictionaryEntry textToSend[2] customAttributesToSend[2]
 
 #### Set text per language to be sent
 
-```
+```c
 notificationContent.numTexts = 2; 
 textToSend[0].key = "en"; 
 textToSend[0].value = "Hello AJL World"; 
@@ -90,7 +90,7 @@ notification content.
  
 ##### Custom attributes
 
-```
+```c
 notificationContent.numCustomAttributes = 2; 
 customAttributesToSend[0].key = "key 0"; 
 customAttributesToSend[0].value = "val 0"; 
@@ -101,7 +101,7 @@ notificationContent.customAttributes = customAttributesToSend;
 
 ##### Audio URLs
 
-```
+```c
 notificationContent.numAudioUrls = 2;
 richAudioUrls[0].key = "en";
 richAudioUrls[0].value = "http://www.getAudio1.org"; 
@@ -112,25 +112,25 @@ notificationContent.richAudioUrls = richAudioUrls;
 
 ##### Icon URLs
 
-```
+```c
 notificationContent.richIconUrl = "http://www.getIcon1.org";
 ```
 
 ##### Icon object path
 
-```
+```c
 notificationContent.richIconObjectPath = "/icon/MyDevice";
 ```
 
 ##### Audio object path
 
-```
+```c
 notificationContent.richAudioObjectPath = "/audio/MyDevice";
 ```
 
 ##### Control panel service response object path
 
-```
+```c
 notificationContent.controlPanelServiceObjectPath = "/ControlPanel/MyDevice/mainpanel";
 ```
 
@@ -149,7 +149,7 @@ The serial number is required to cancel a notification prior
 to the TTL expiration. See [Cancel a specific notification 
 message][cancel-specific-notification] for more information
 
-```
+```c
 uint16_t messageType = AJNS_NOTIFICATION_MESSAGE_TYPE_INFO;
 uint32_t ttl = 20000;
 uint32_t serialNum;
@@ -174,7 +174,7 @@ if the notification was sent for an event that no longer occurs,
 use the DeleteLastNotification API to delete the last notification 
 for a given message type.
 
-```
+```c
 AJNS_Producer_DeleteLastNotification(&busAttachment, messageType);
 ```
 
@@ -186,7 +186,7 @@ message by its serial number that was returned by the `SendNotification`
 call.Use the CancelNotification API to do so. The message's 
 serial number must be included.
 
-```
+```c
 AJNS_Producer_CancelNotification(&busAttachment, serialNum)
 ```
 
@@ -203,8 +203,6 @@ necessary files to compile your Thin Library application.
 For more details on how to combine this AllJoyn service 
 framework with other AllJoyn service framework softwarem, 
 see the [Build an Application using the Thin Library section][build-app-using-thin-library].
-
-
 
 [intro-thin-library]: /learn/core/thin/intro-thin-library
 [build-app-thin-library]: /develop/tutorial/thin-app

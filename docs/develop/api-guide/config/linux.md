@@ -63,7 +63,7 @@ to set up the AllJoyn framework.
 
 #### Create bus attachment
 
-```
+```cpp
 bus->Start();
 bus->Connect();
 ```
@@ -76,7 +76,7 @@ Create a KeyListener class that inherits from ajn::AuthListener.
 It needs to implement two functions: RequestCredentials and 
 AuthenticationComplete.
 
-```
+```cpp
 class SrpKeyXListener : public ajn::AuthListener {
    public:
       bool RequestCredentials(const char* authMechanism, 
@@ -92,14 +92,14 @@ class SrpKeyXListener : public ajn::AuthListener {
 `RequestCredentials()` needs to set the password using Creds 
 and return true.
 
-```
+```cpp
 creds.SetPassword(Password);
 return true;
 ``` 
 
 Instantiate the keylistener class and enable peer security.
 
-```
+```cpp
 SrpKeyXListener* keyListener = new SrpKeyXListener();
 bus->EnablePeerSecurity("ALLJOYN_PIN_KEYX ALLJOYN_SRP_KEYX ALLJOYN_ECDHE_PSK", keyListener);
 ```
@@ -134,7 +134,7 @@ This implementation extends the example AboutStore implementation
 in the [About API Guide][about-api-guide-linux] and is 
 passed to the AboutService instead of AboutStore.
 
-```
+```cpp
 PropertyStoreImpl::PropertyStoreImpl(const char* factoryConfigFile, const char*
 configFile) : m_IsInitialized(false)
 {
@@ -569,7 +569,7 @@ property.getIsAnnouncable());
 
 ### Instantiate a ConfigStore
 
-```
+```cpp
 propertyStore = new PropertyStoreImpl(FACTORYCONFIGFILENAME, CONFIGFILENAME);
 propertyStore->setDeviceName(deviceName); 
 propertyStore->setAppId(appIdHex); 
@@ -631,7 +631,7 @@ BusListener and SessionPortListener classes.
 
 The class must contain the following function:
 
-```
+```cpp
 bool AcceptSessionJoiner(SessionPort sessionPort, const char* joiner, const
 SessionOpts& opts)
 ```
@@ -649,7 +649,7 @@ of the following:
 
 Here is an example of a full class declaration for the listener class.
 
-```
+```cpp
 class CommonBusListener : public ajn::BusListener, public ajn::SessionPortListener {
 
 public: 
@@ -666,7 +666,7 @@ public:
 
 ### Initialize the AboutService in server mode
 
-```
+```cpp
 busListener = new CommonBusListener(); 
 AboutServiceApi::Init(*bus, *propertyStore);
 AboutServiceApi* aboutService = AboutServiceApi::getInstance();
@@ -686,7 +686,7 @@ API Guide][about-api-guide-linux].
 
 ### Implement the callbacks required by the Config Server
 
-```
+```cpp
 ConfigServiceListenerImpl::ConfigServiceListenerImpl(PropertyStoreImpl& store, BusAttachment& bus) :
    ConfigService::Listener(), m_PropertyStore(&store), m_Bus(&bus)
 {
@@ -740,7 +740,7 @@ void ConfigServiceListenerImpl::PersistPassword(const char* daemonRealm, const c
 
 ### Initialize the ConfigService in server mode, providing it with the ConfigStore and callbacks
 
-```
+```cpp
 configServiceListenerImpl = new ConfigServiceListenerImpl(*propertyStoreImpl,
 *msgBus);
 configService = new ConfigService(*msgBus, *propertyStoreImpl,
@@ -756,7 +756,7 @@ msgBus->RegisterBusObject(*configService);
 
 ### Advertise name and announce
 
-```
+```cpp
 AdvertiseName(SERVICE_TRANSPORT_TYPE);
 aboutService->Announce();
 ``` 
@@ -765,7 +765,7 @@ aboutService->Announce();
 
 When your process is done with the ConfigService delete variables used:
 
-```
+```cpp
 if (configService) { 
    delete configService; 
    configService = NULL;
@@ -810,7 +810,7 @@ instructions to set up the AllJoyn framework.
 
 #### Create bus attachment
 
-```
+```cpp
 busAttachment ->Start();
 busAttachment ->Connect();
 ```
@@ -823,7 +823,7 @@ Create a KeyListener class that inherits from ajn::AuthListener.
 It needs to implement two functions: RequestCredentials and 
 AuthenticationComplete.
 
-```
+```cpp
 class SrpKeyXListener : public ajn::AuthListener {
    public:
       bool RequestCredentials(const char* authMechanism, const char* authPeer, uint16_t authCount, const char* userId,
@@ -835,14 +835,14 @@ authPeer, bool success);
 
 RequestCredentials needs to set the password using Creds and return true.
 
-```
+```cpp
 creds.SetPassword(Password);
 return true;
 ```
 
 Instantiate the keylistener class and enable peer security.
 
-```
+```cpp
 SrpKeyXListener* keyListener = new SrpKeyXListener();
 bus->EnablePeerSecurity("ALLJOYN_PIN_KEYX ALLJOYN_SRP_KEYX ALLJOYN_ECDHE_PSK", keyListener);
 ```
@@ -861,7 +861,7 @@ API Guide][about-api-guide-linux].
 
 ### Create the ConfigService client object
 
-```
+```cpp
 configClient = new ConfigClient(*busAttachment);
 ```
 
@@ -872,7 +872,7 @@ method call. Configurations can be iterated through to determine
 the contents. The content definition is found in the [Configuration 
 Interface Definition][config-interface-definition].
 
-```
+```cpp
 ConfigClient::Configurations configurations;
 if ((status = configClient->GetConfigurations(busname.c_str(), 
       "en", configurations, id)) == ER_OK) {
@@ -900,7 +900,7 @@ value.Signature().compare("as") == 0) {
 The received data can be updated through the ConfigClient 
 using the `UpdateConfigurations()` method call.
 
-```
+```cpp
 configurations.insert(std::pair<qcc::String, ajn::MsgArg>("DeviceName", MsgArg("s", "New Device Name")));
 configClient->UpdateConfigurations(busname.c_str(), NULL, configurations, id);
 ```
@@ -910,7 +910,7 @@ configClient->UpdateConfigurations(busname.c_str(), NULL, configurations, id);
 The peer device/application configuration can query for the 
 interface version.
 
-```
+```cpp
 int version;
 configClient->GetVersion(busname.c_str(), version, id);
 ```
@@ -920,7 +920,7 @@ configClient->GetVersion(busname.c_str(), version, id);
 The ConfigData can be reset to default through the ConfigClient 
 using the `ResetConfigurations()` method call.
 
-```
+```cpp
 std::vector<qcc::String> configNames;
 configNames.push_back("DeviceName");
 configClient->ResetConfigurations(busname.c_str(), "en", configNames, id);
@@ -935,7 +935,7 @@ factory defaults through the ConfigClient using the
 NOTE: This is a no-reply call, so its success cannot be 
 determined directly.
 
-```
+```cpp
 configClient->FactoryReset(busname.c_str(), id);
 ```
 
@@ -947,7 +947,7 @@ using the Restart() method call.
 NOTE: This is a no-reply call, so its success cannot be 
 determined directly.
 
-```
+```cpp
 configClient->Restart(busname.c_str(), id);
 ```
 
@@ -960,7 +960,7 @@ ones based on the new shared secret, namely the passcode.
 
 NOTE: The realm name is currently ignored.
 
-```
+```cpp
 configClient->SetPasscode(busname.c_str(), "MyDeamonRealm", 8, (const uint8_t*) NEW_PASSCODE, id);
    srpKeyXListener->setPassCode(NEW_PASSCODE);
    qcc::String guid;
@@ -974,7 +974,7 @@ Once you are done using the Config Service, Configuration
 service framework, and the AllJoyn framework, free the variables 
 used in the application.
 
-```
+```cpp
 if (configClient) { 
    delete configClient; 
    configClient = NULL;
@@ -982,7 +982,6 @@ if (configClient) {
 busAttachment->Stop();
 delete busAttachment;
 ```
-
 
 [building-linux]: /develop/building/linux
 [about-api-guide-linux]: /develop/api-guide/about/linux

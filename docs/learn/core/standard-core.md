@@ -493,7 +493,7 @@ where multiple implementations of this interface were described
 by the following object paths corresponding to an implementation 
 of the interface for two separate physical disks in a system:
 
-```
+```sh
 /org/freedesktop/DeviceKit/Disks/sda1
 
 /org/freedesktop/DeviceKit/Disks/sda2
@@ -583,7 +583,7 @@ requirement to append some form of suffix to ensure uniqueness.
 This could take the form of a user name, or a unique number. 
 In the chat example, one could then imagine multiple bus attachments:
 
-```
+```sh
 org.alljoyn.sample.chat.bob 
 
 org.alljoyn.sample.chat.carol
@@ -736,7 +736,7 @@ Technically, these from or to addresses, in the context of
 computer networking, are called half-associations. 
 In the AllJoyn framework, this to (service) address has the following form:
 
-```
+```c
 {session options, bus name, session port}
 ```
 
@@ -761,7 +761,7 @@ The from address, corresponding to the client information, is
 similarly formed. A client must have its own half-association 
 in order to communicate with the service.
 
-```
+```c
 {session options, unique name, session ID}
 ```
 
@@ -779,7 +779,7 @@ uses an ephemeral port to describe a similar half-association.
 During the session establishment procedure, the two half-associations 
 are effectively joined:
 
-```
+```c
 {session options, bus name, session port}	Service
 
 {session options, unique name, session ID}	Client
@@ -795,7 +795,7 @@ Once a session has been formed, the half-associations of
 the client and service side describe a unique AllJoyn 
 communication path:
 
-```
+```c
 {session options, bus name, unique name, session ID}
 ```
 
@@ -946,7 +946,7 @@ advertisement and request to join the implied session.
 The service must define a half-association before it advertises 
 its service. Abstractly this will look something like the following:
 
-```
+```c
 {reliable IP messages, org.alljoyn.samples.chat.a, 42}
 ```
 
@@ -961,7 +961,7 @@ routing node. It will provide its half association to the
 system and a new session ID will be assigned and communicated 
 to both sides of the conversation:
 
-```
+```c
 {reliable IP messages, org.alljoyn.samples.chat.a, :2.1, 1025}
 ```
 
@@ -1165,8 +1165,6 @@ might be seen in ad-hoc systems built from various pieces.
 We believe that the AllJoyn system can make development and 
 deployment of distributed applications significantly simpler 
 than those developed on other platforms.
-
-
 
 [overview]: #overview
 [prototypical-alljoyn-bus]: /files/learn/standard-core/prototypical-alljoyn-bus.png

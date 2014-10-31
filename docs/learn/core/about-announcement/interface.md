@@ -165,10 +165,9 @@ implemented by each of objects.
 
 ## AllJoyn Introspection XML
 
-```
+```xml
 <node name="/About" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/ introspect.xsd">
+      xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/ introspect.xsd">
    <interface name="org.alljoyn.About">
       <property name="Version" type="q" access="read"/>
       <method name="GetAboutData">

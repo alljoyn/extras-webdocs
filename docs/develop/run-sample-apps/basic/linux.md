@@ -14,7 +14,8 @@ prints out the string return value.
 
 1. Open two terminal windows.
 2. In each, navigate to the AllJoyn root dir, then:
-   ```
+   
+   ```sh
    export AJ_ROOT=`pwd`
 
    # <TARGET CPU> can be either x86_64, x86, or whatever value you set for "CPU=" when running SCons.
@@ -27,13 +28,14 @@ prints out the string return value.
 
 In one of the terminal windows, run `basic_client`:
 
-```
+```sh
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/cpp/bin/samples/basic_client
 ```
 
 ### Run the Linux BasicService Sample App
 
 In the other terminal window, run `basic_service`:
-```
+
+```sh
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/cpp/bin/samples/basic_service
 ```

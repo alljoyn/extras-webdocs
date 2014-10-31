@@ -273,11 +273,10 @@ attributes field, as per [Attributes][attributes].
 
 The following XML provides the Notification interface introspection XML.
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <node xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd"
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <interface name="org.alljoyn.Notification">
       <property name="Version" type="q" access="read"/>
       <signal name="Notify">
@@ -325,10 +324,10 @@ when a device scans the network, it can find all producer devices.
 
 The following XML provides the Notification Producer interface introspection XML.
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <node xsi:noNamespaceSchemaLocation="https://www.alljoyn.org/schemas/introspect.xsd"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <interface name="org.alljoyn.Notification.Producer">
       <method name="Dismiss">
          <arg name="msgId" type="i" direction="in"/>
@@ -369,10 +368,10 @@ been dismissed.
 
 The following XML provides the Notification Dismisser interface introspection XML.
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <node xsi:noNamespaceSchemaLocation="https://www.alljoyn.org/schemas/introspect.xsd"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <interface name="org.alljoyn.Notification.Dismisser">
       <signal name="Dismiss">
          <arg name="msgId" type="i" direction="in"/>

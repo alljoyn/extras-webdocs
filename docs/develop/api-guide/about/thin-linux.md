@@ -142,7 +142,7 @@ the application and passed to `AJ_AboutIcon_Start()` in AboutSample.c.
 
 An example provisioning is provided in the ServerSample's ServerSample.c:
 
-```
+```c
 /**
 * Mime type of the About Device icon
 */
@@ -172,7 +172,7 @@ and optionally `AJ_AboutIcon_Start()`.
 
 An example is in About_Init() of AboutSample.c.
 
-```
+```c
 AJ_Status About_Init(AJ_Object* announceObjects, const char* aboutIconMimetype, 
    const uint8_t* aboutIconContent, const size_t aboutIconContentSize, 
    const char* aboutIconUrl) {
@@ -198,8 +198,6 @@ necessary files to compile your Thin Library application.
 For more details on how to combine this AllJoyn feature with 
 other AllJoyn service framework software, see the [Build an 
 Application Using Thin Library section][build-app-thin-library].
-
-
 
 [build-app-thin-library]: /develop/tutorial/thin-app
 [about-interface-definition]: /learn/core/about-announcement/interface

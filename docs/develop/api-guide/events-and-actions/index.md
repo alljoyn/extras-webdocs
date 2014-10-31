@@ -98,7 +98,7 @@ contained that define the arguments.
 
 ### Example interface XML
 
-```
+```xml
 <node>
   <node name="child"/>
 
@@ -133,7 +133,7 @@ The org.allseen.Introspectable interface provides access to
 the introspection XML containing the description attributes. 
 The following subsection detail the interface's methods and properties.
 
-```
+```xml
 <interface name="org.allseen.Introspectable">
    <method name="GetDescriptionLanguages">
       <arg name="languageTags" type="as" direction="out"/>
@@ -185,7 +185,7 @@ NOTE: The AllJoyn library does not provide IETF language tag matching logic.
 The following is a sample of the XML that is returned by 
 IntrospectWithDescription.
 
-```
+```xml
 <node>
    <description>Your lightbulb</description>
 
@@ -300,7 +300,7 @@ must be specified in the APIs.
 BusObject and InterfaceDescription support setting a single 
 description and its language with the following API methods.
 
-```
+```cpp
 void BusObject::SetDescription(const char* language, const char* text)
 void InterfaceDescription::SetDescriptionLanguage(const char* language)
 void InterfaceDescription::SetDescription(const char* description)
@@ -327,14 +327,14 @@ translate to by implementing the following methods which
 provide the AllJoyn framework with the ability to iterate 
 over the Translator's target languages:
 
-```
+```cpp
 size_t NumTargetLanguages()
 void GetTargetLanguage(size_t index, qcc::String& ret)
 ```
 
 In most cases, a Translator provides translations at runtime using the following:
 
-```
+```cpp
 const char* Translate(const char* sourceLanguage, const char* targetLanguage, 
    const char* source)
 ```
@@ -350,7 +350,7 @@ In special cases where your application needs to return
 a string that must be freed at some point after it is used, 
 use this version of the Translate method instead:
 
-```
+```cpp
 const char* Translate(const char* sourceLanguage,
    const char* targetLanguage, const char* source, qcc::String& buffer)
 ```
@@ -359,7 +359,7 @@ The "buffer" parameter of this function should hold the memory
 returned by the function. The following is an example of how 
 to implement this taken from AllJoyn's own code:
 
-```
+```cpp
 const char* JTranslator::Translate(const char* sourceLanguage, 
       const char* targetLanguage,
       const char* source, qcc::String& buffer)
@@ -382,7 +382,7 @@ const char* JTranslator::Translate(const char* sourceLanguage,
 Translators are set on the BusAttachment, BusObject, or 
 InterfaceDescription using the following functions:
 
-```
+```cpp
 void BusAttachment::SetDescriptionTranslator(Translator* translator)
 void BusObject::SetDescriptionTranslator(Translator* translator)
 void InterfaceDescription::SetDescriptionTranslator(Translator* translator)
@@ -394,7 +394,7 @@ void InterfaceDescription::SetDescriptionTranslator(Translator* translator)
 
 To set a BusObject's description, specify it when you register the object:
 
-```
+```java
 public Status registerBusObject(BusObject busObj,
 String objPath, boolean secure, String languageTag, String description)
 ```
@@ -418,13 +418,13 @@ interface is equivalent to the Linux ajn::Translator abstract class.
 
 To specify a Translator on the BusAttachment:
 
-```
+```java
 BusAttachment.setDescriptionTranslator(Translator translator)
 ```
 
 To specify a Translator on the BusObject with the call to BusAttachment.registerBusObject:
 
-```
+```java
 public Status registerBusObject(BusObject busObj, String objPath, 
 boolean secure, String languageTag, String description,
 Translator dt)
@@ -441,13 +441,13 @@ Translator class no matter how many interfaces you specify it on.
 
 To set descriptions on a BusObject, use AJNBusObject's method:
 
-```
+```objc
 - (void)setDescription:(NSString*)description inLanguage:(NSString*)language
 ```
 
 To set descriptions on an Interface, use AJNInterfaceDescription's methods:
 
-```
+```objc
 - (void)setDescriptionLanguage:(NSString *)language;
 
 - (void)setDescription:(NSString *)description;
@@ -467,7 +467,7 @@ The AJNTranslator protocol is equivalent to the C++ ajn::Translator
 abstract base class. To set the Translator, the following method 
 is supported by AJNBusAttachment, AJNBusObject, and AJNInterfaceDescription:
 
-```
+```objc
 - (void)setDescriptionTranslator:(id<AJNTranslator>)translator;
 ```
 
@@ -482,7 +482,7 @@ a "language" attribute.
  
 The following is an example of an XML containing descriptions:
 
-```
+```xml
 <xml>
    <node name="org/alljoyn/Bus/sample">
       <description language="en">This is a sample object</description>
@@ -535,7 +535,7 @@ In order to provide this support, create a static array that
 contains an IETF language tag, for example, "en" for English, 
 "es" for Spanish, etc.
 
-```
+```c
 static const char* const languages[] = { "en", "es" };
 ```
 
@@ -556,13 +556,13 @@ aj_introspect.h to help encode the messages.
 
 For example, an encoding for the first AJ_Object would be:
 
-```
+```c
 AJ_DESCRIPTION_ID(SAMPLE_OBJECT_ID, 0, 0, 0)
 ```
 
 An encoding for the first interface in the above object would be:
 
-```
+```c
 AJ_DESCRIPTION_ID(SAMPLE_OBJECT_ID, 1, 0, 0)
 ```
 
@@ -570,7 +570,7 @@ AJ_DESCRIPTION_ID(SAMPLE_OBJECT_ID, 1, 0, 0)
 
 The Translator method is a function pointer matching the signature of:
 
-```
+```c
 typedef const char* (*AJ_DescriptionLookupFunc)(uint32_t descId, 
 const char* lang);
 ```
@@ -595,7 +595,7 @@ is registered using the C API AJ_RegisterObjetListWithDescriptions.
 
 To set a specific Translator for an AJ_ObjectList, use the following APIs:
 
-```
+```c
 AJ_RegisterDescriptionLanguages(const char* const* languages);
 AJ_Status AJ_RegisterObjectListWithDescriptions(const AJ_Object* objList, 
 uint8_t index, AJ_DescriptionLookupFunc descLookup);
@@ -617,7 +617,7 @@ IntrospectWithDescriptions call is made on the application,
 it appends the attribute of sessionless=true to the signal 
 introspection tag. For example:
 
-```
+```c
 static const char* const sampleInterface[] = { 
    "org.alljoyn.Bus.eventaction.sample",	/* The first entry
       is the interface name. */
@@ -728,7 +728,7 @@ The sample compiles together with alljoyn_core.
 
 Run the application at the following location:
 
-```
+```sh
 build/<os>/<cpu>/<debug|release>/dist/cpp/bin/samples/signal_service
 ```
 
@@ -747,15 +747,15 @@ The samples compile together with alljoyn_java.
 
 To run the service: 
 
-```
-Java -jar
+```sh
+java -jar
 build/<os>/<cpu>/<debug|release>/dist/java/jar/JavaSDKDocIntrospectWithDescriptionService.jar
 ```
 
 To run the client: 
 
-```
-Java -jar
+```sh
+java -jar
 build/<os>/<cpu>/<debug|release>/dist/java/jar/JavaSDKDocIntrospectWithDescriptionClient.jar
 ```
 
@@ -773,7 +773,7 @@ under ajtcl/samples/basic/. Run this application to exercise
 the ability to offer descriptions when an IntrospectionWithDescriptions 
 call is made.
 
-```
+```sh
 $ ./samples/basic/eventaction_service
 ``` 
 
@@ -876,5 +876,4 @@ sample is through an AllJoyn interface and is done as a sample,
 not a final solution.
 
 [what-should-translator-do]: #what-should-a-translator-method-do-
-
 [events-actions-sample-arch]: /files/develop/api-guide/events-and-actions/events-actions-sample-arch.png

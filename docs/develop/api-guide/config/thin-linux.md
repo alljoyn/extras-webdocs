@@ -117,7 +117,7 @@ set the `mode3Init` bit to 1 and add the relevant code to initialize it.
 by modifying the default implementation of `IsValueValid()` in 
 ConfigSample.c file.
 
-   ```
+   ```c
    uint8_t IsValueValid(const char* key, const char* value) {return TRUE;}
    ```
 
@@ -160,7 +160,7 @@ by the application via a call to `AJCFG_Start()`.
 
 An example is in `Config_Init()` of ConfigSample.c:
 
-```
+```c
 /**
 * Actions to perform when factory reset is requested.
 */
@@ -199,7 +199,7 @@ authentication mechanism. An example implementation that uses
 this facility is included in the sample server application 
 in the Services_Handlers.c file as shown below.
 
-```
+```c
 uint32_t PasswordCallback(uint8_t* buffer, uint32_t bufLen)
 {
    AJ_Status status = AJ_OK; 
@@ -229,7 +229,7 @@ service framework session using the dedicated `SetPasscode()` method.
 The stored Passcode is limited to the size of
 65 allowing for 64 characters long secret:
 
-```
+```c
 #define PASSWORD_VALUE_LENGTH 65
 ```
 
@@ -237,20 +237,20 @@ This is achieved using the field definition that masks the
 field as writable yet private, as shown in the propertyStoreProperties 
 initialization in PropertyStore.c:
 
-```
+```c
 { "Passcode",	1, 0, 0, 0, 0, 0, 0, 0 }
 ```
 
 The default value is provisioned in ServerSample.c as follows:
 
-```
+```c
 static const char* DEFAULT_PASSCODES[] = { "303030303030" };
 // HEX encoded { '0', '0', '0', '0', '0', '0' }
 ```
 
 and added to propertyStoreDefaultValues.
 
-```
+```c
 DEFAULT_PASSCODES,	/*Passcode*/
 ```
 
@@ -261,7 +261,7 @@ its modified value is persisted.
 Also, when `SetPasscode()` is called remotely, the `SetPasscode()` 
 callback is invoked with the example implementation in ConfigSample.c file shown below:
 
-```
+```c
 static AJ_Status SetPasscode(const char* daemonRealm, 
    const uint8_t* newPasscode, uint8_t newPasscodeLen)
 {
@@ -337,7 +337,6 @@ the necessary files to compile your Thin Library application.
 For more details on how to combine this AllJoyn service 
 framework with other AllJoyn service framework software, 
 see the [Build an Application using the Thin Library section][build-app-thin-library].
-
 
 [intro-thin-library]: /learn/core/thin/intro-thin-library
 [build-app-thin-library]: /develop/tutorial/thin-app

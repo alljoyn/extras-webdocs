@@ -67,7 +67,7 @@ For more information about the About feature, see the [About API Guide][about-ap
 
 #### Initialize the About feature
 
-```
+```java
 aboutClient = AboutServiceImpl.getInstance();
 aboutClient.startAboutClient(bus);
 ```
@@ -77,7 +77,7 @@ aboutClient.startAboutClient(bus);
 Register an announcement handler to receive announcements 
 from the About feature.
 
-```
+```java
 aboutClient.addAnnouncementHandler(announcementHandler, 
 new String[] { "org.alljoyn.ControlPanel.*" });
 ```
@@ -86,7 +86,7 @@ For each announcement that is received, check if it implements
 the ControlPanel interface. If it does, save it as a controllable 
 device for later use.
 
-```
+```java
 @Override
 public void onAnnouncement(String busName, short port, BusObjectDescription[]
 objectDescriptions, Map<String, Variant> aboutMap) {
@@ -124,7 +124,7 @@ get its ControllableDevice proxy object.
 The ControllableDevice is used to later create a session 
 with the Controllee.
 
-```
+```java
 controllableDevice = ControlPanelService.getInstance()
    .getControllableDevice(deviceContext.deviceId, deviceContext.busName);
 ```
@@ -135,7 +135,7 @@ To get the control panels of a Controllee, you must create a
 session with it. This is an asynchronous call and requires a 
 DeviceEventsListener as a callback.
 
-```
+```java
 controllableDevice.startSession(DeviceEventsListener);
 ```
 
@@ -148,7 +148,7 @@ intended for a different use. For example, one for the home user
 and another for a technician. Each element of the container is a 
 DeviceControlPanel and provided per language.
 
-```
+```java
 @Override
 public void sessionEstablished(ControllableDevice device, 
    Collection<ControlPanelCollection> controlPanelContainer)
@@ -164,7 +164,7 @@ There are other methods of the DeviceEventsListener
 to receive session-related events from the Control Panel 
 service framework.
 
-```
+```java
 public void sessionLost(ControllableDevice device);
 
 public void errorOccured(ControllableDevice device, String reason);
@@ -178,7 +178,7 @@ For more information, refer to the API documentation.
 Get a collection of device control panels and select the one 
 with the desired language.
 
-```
+```java
 Collection<DeviceControlPanel> controlPanels =
       controlPanelCollection.getControlPanels();
 for(DeviceControlPanel controlPanel : controlPanels) { 
@@ -200,7 +200,7 @@ contains all the child UI elements of the selected DeviceControlPanel.
 Detect the type of the root container. It may be either a ContainerWidget 
 or an AlertDialogWidget (mostly used for notification with action).
 
-```
+```java
 UIElement rootContainerElement =
    deviceControlPanel.getRootElement(ControlPanelEventsListener); 
 UIElementType elementType = rootContainerElement.getElementType();
@@ -212,7 +212,7 @@ The ControlPanelEventsListener interface should be implemented
 to receive changes that occurred in the control panel on the 
 Controllee and should be reflected on the UI accordingly.
 
-```
+```java
 public void valueChanged(DeviceControlPanel panel, UIElement uielement, Object newValue);
 
 public void metadataChanged(DeviceControlPanel panel, UIElement uielement);
@@ -220,7 +220,7 @@ public void metadataChanged(DeviceControlPanel panel, UIElement uielement);
 public void notificationActionDismiss(DeviceControlPanel panel);
 
 public void errorOccured(DeviceControlPanel panel, String reason);
-``
+```
 
 For more information, refer to the API documentation.
 
@@ -232,7 +232,7 @@ contained Android views.
  
 The application can embed this inside an activity.
 
-```
+```java
 ControlPanelAdapter  controlPanelAdapter =
 new ControlPanelAdapter(Context, ControlPanelExceptionHandler);
 
@@ -251,7 +251,6 @@ A typical method is to show a toast to the user that an error occurred.
 
 See the [Building Android section][building-android] for instructions on how to 
 compile the application with this service framework.
-
 
 [building-android]: /develop/building/android
 [about-api-guide-android]: /develop/api-guide/about/android

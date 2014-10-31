@@ -115,7 +115,7 @@ instructions to set up the AllJoyn framework.
 
 #### Create bus attachment
 
-```
+```cpp
 BusAttachment* bus = CommonSampleUtil::prepareBusAttachment();
 ```
 
@@ -128,7 +128,7 @@ API Guide][about-api-guide-linux].
 
 #### Create a PropertyStore and fill it with the needed values
 
-```
+```cpp
 propertyStore = new AboutPropertyStoreImpl();; propertyStore->setDeviceName(deviceName); propertyStore->setAppId(appIdHex); propertyStore->setAppName(appName); std::vector<qcc::String> languages(3); languages[0] = "en";
 languages[1] = "sp";
 languages[2] = "fr";
@@ -167,7 +167,7 @@ and SessionPortListener classes.
 
 The class must contain the following function:
 
-```
+```cpp
 bool AcceptSessionJoiner(SessionPort sessionPort, 
    const char* joiner, const SessionOpts& opts)
 ```
@@ -185,7 +185,7 @@ include any of the following:
 
 Here is an example of a full class declaration for the listener class.
 
-```
+```cpp
 class CommonBusListener : public ajn::BusListener, 
    public ajn::SessionPortListener
 {
@@ -203,7 +203,7 @@ class CommonBusListener : public ajn::BusListener,
 
 #### Instantiate a BusListener and initialize the About feature
 
-```
+```cpp
 busListener = new CommonBusListener(); 
 AboutServiceApi::Init(*bus, *propertyStore);
 AboutServiceApi* aboutService = AboutServiceApi::getInstance();
@@ -221,7 +221,7 @@ bus->RegisterBusObject(*aboutService);
 
 ### Initialize the Control Panel service and the Controllee
 
-```
+```cpp
 ControlPanelService* controlPanelService = ControlPanelService::getInstance(); 
 ControlPanelControllee* controlPanelControllee = 0; 
 ControlPanelGenerated::PrepareWidgets(controlPanelControllee); 
@@ -230,7 +230,7 @@ controlPanelService->initControllee(bus, controlPanelControllee);
 
 ### Send an Announcement
 
-```
+```cpp
 AboutServiceApi* aboutService = AboutServiceApi::getInstance();
 aboutService->Announce();
 ```
@@ -239,7 +239,7 @@ aboutService->Announce();
 
 #### Callback signature for GetCode of property
 
-```
+```cpp
 uint16_t getTemperature() - Returns the property value. 
 dataType is specific to the applications needs
 ```
@@ -253,7 +253,7 @@ the new value the property should be set to.
 
 For example:
 
-```
+```cpp
 void SetTemperature(uint16 newTemperature);
 ```
 
@@ -264,13 +264,13 @@ framework and can be chosen based on the specific application's need.
  
 For example:
 
-```
+```cpp
 void StartOven();
 ```
 
 ### Create XML definition of UI
 
-```
+```xml
 <controlPanelDevice xmlns="http://www.allseenalliance.org/controlpanel/gen">
    <name>MyDevice</name>
    <headerCode>#include "ControlPanelProvided.h"</headerCode>
@@ -307,7 +307,7 @@ samples of names that follow these conventions.
 
 #### Create a controlPanelDevice tag with the XML schema
 
-```
+```xml
 <controlPanelDevice xmlns="http://www.allseenalliance.org/controlpanel/gen">
 </controlPanelDevice>
 ```
@@ -316,7 +316,7 @@ samples of names that follow these conventions.
 
 Define the name of the unit between the controlPanelDevice tags.
 
-```
+```xml
 <name>MyDevice</name>
 ``` 
 
@@ -326,7 +326,7 @@ Add the include statements after the name tag. More than one
 header file can be added. See [Initialize the Control Panel 
 service and the Controllee][initialize-controlpanel-service-controllee] for more information.
 
-```
+```xml
 <headerCode>#include "ControlPanelProvided.h"</headerCode>
 ```
 
@@ -336,7 +336,7 @@ Add this after the headerCode tag. This must include a list of
 languages that the control panel can display labels and messages 
 in. More than one language set can be defined.
 
-```
+```xml
 <languageSet name="myLanguages">
    <language>en</language>
    <language>de</language>
@@ -349,7 +349,7 @@ in. More than one language set can be defined.
 Add this after the languageSets tag. Each control panel must 
 define the preferred language set. More than one control panel can be defined.
 
-```
+```xml
 <controlPanels>
    <controlPanel languageSet="myLanguages">
    </controlPanel>
@@ -366,7 +366,7 @@ all the widgets that make up the control panel. For more
 information on Container Widgets and possible child widgets, 
 see [Widget modules][widget-modules] and [XML UI Element Descriptions][xml-ui-element-descriptions].
 
-```
+```xml
 <rootContainer>
 //rootContainer properties and child elements go here.
 </rootContainer>
@@ -377,7 +377,7 @@ see [Widget modules][widget-modules] and [XML UI Element Descriptions][xml-ui-el
 In the CPSAppGenerator directory, run the generator command 
 to produce the Control Panel Generated Code from the XML.
 
-```
+```sh
 python generateCPSApp.py <XML file the generate code from> 
    -p <destination path for generated files>
 ``` 
@@ -412,7 +412,7 @@ for a full description of each interface.
 
 #### Sample XML for Container
 
-```
+```xml
 <container>
    <name>rootContainer</name>
    <secured>false</secured>
@@ -458,7 +458,7 @@ for a full description of each interface.
 The onAction tag includes the execute code and dialog options. 
 Both options cannot be included in the same tag.
 
-```
+```xml
 <action>
    <name>ovenAction</name>
    <onAction>
@@ -502,7 +502,7 @@ Both options cannot be included in the same tag.
 
 #### Sample XML for labelProperty
 
-```
+```xml
 <labelProperty>
    <name>CurrentTemp</name>
    <enabled>true</enabled>
@@ -543,7 +543,7 @@ information for each supported signature are provided here.
 
 #### Sample XML for stringProperty
 
-```
+```xml
 <stringProperty>
    <name>modeStringProperty</name>
    <getCode>getStringVar</getCode>
@@ -604,7 +604,7 @@ information for each supported signature are provided here.
 
 #### Sample XML for Boolean property
 
-```
+```xml
 <booleanProperty>
    <name>checkboxProperty</name>
    <getCode>getTurboModeVar</getCode>
@@ -644,7 +644,7 @@ information for each supported signature are provided here.
 
 #### Sample XML for Date property
 
-```
+```xml
 <dateProperty>
    <name>startDateProperty</name>
    <getCode>getStartDateVar</getCode>
@@ -684,7 +684,7 @@ information for each supported signature are provided here.
 
 #### Sample XML for Time property
 
-```
+```xml
 <timeProperty>
    <name>startTimeProperty</name>
    <getCode>getStartTimeVar</getCode>
@@ -727,7 +727,7 @@ information for each supported signature are provided here.
 The constraintDefs tag includes the value and range example. 
 Both cannot be included in the same tag.
 
-```
+```xml
 <scalarProperty dataType="UINT16">
    <name>heatProperty</name>
    <getCode>getTemperatureVar</getCode>
@@ -814,7 +814,7 @@ Both cannot be included in the same tag.
 
 #### Sample XML for a Dialog
 
-```
+```xml
 <dialog>
    <name>LightConfirm</name>
    <secured>false</secured>
@@ -870,7 +870,6 @@ Both cannot be included in the same tag.
 | button | Label and executeCode | Yes - can have up to 3 | Each button must contain the following: |
 | | | | * A Label tag that contains the text that appears on the button. |
 | | | | * An executeCode tag which contains the code to be executed on the Controllee when the button is pressed. |
-
 
 [building-linux]:  /develop/building/linux 
 [run-code-generator-tool]: #run-the-code-generator-tool

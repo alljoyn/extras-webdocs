@@ -11,8 +11,7 @@
 
 2. Extract the downloaded packages and setup the directory structure:
 
-```
-sh
+```sh
 mkdir alljoyn-ios
 mkdir alljoyn-ios/core
 unzip alljoyn-14.06.00-osx_ios-sdk.zip
@@ -24,6 +23,7 @@ unzip alljoyn-onboarding-service-framework-14.06.00-ios-sdk-rel.zip
 ```
 
 #### Set up OpenSSL dependencies
+
 ```sh
 cd <parent directory of alljoyn-ios>
 pushd alljoyn-ios
@@ -45,6 +45,7 @@ popd
 ```
 
 #### Define environment variables
+
 ```sh
 cd alljoyn-ios
 launchctl setenv ALLJOYN_SDK_ROOT `pwd`
@@ -163,6 +164,3 @@ Compiler Flags__ group and set the following:
     * liballjoyn_onboarding_cpp.a
   * alljoyn-ios/services/alljoyn-onboarding-14.06.00-rel/objc/lib/
     * liballjoyn_onboarding_objc.a
-
-
-

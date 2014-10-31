@@ -753,7 +753,7 @@ without the <second> (seconds) portion.
 
 ### Introspection XML
 
-```
+```xml
 <node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
 

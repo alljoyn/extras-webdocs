@@ -73,7 +73,7 @@ to set up the AllJoyn framework.
 
 #### Create bus attachment
 
-```
+```objc
 AJNBusAttachment* bus = [[AJNBusAttachment alloc] 
 initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true]; 
 [bus start];
@@ -83,7 +83,7 @@ initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true];
 
 #### Create a PropertyStore and fill it with the needed values
 
-```
+```objc
 self.aboutPropertyStoreImpl = [[QASAboutPropertyStoreImpl alloc]
    init]; setAppId:[[NSUUID UUID] UUIDString]; 
 [self.aboutPropertyStoreImpl setAppName:@"NotificationApp"]; 
@@ -94,7 +94,7 @@ NSArray* languages = @[@"en", @"sp", @"ru"];
 
 #### Start the About Service
 
-```
+```objc
 self.aboutService = [QASAboutServiceApi sharedInstance]; 
 [self.aboutService startWithBus:self.busAttachment
    andPropertyStore:self.aboutPropertyStoreImpl];
@@ -104,7 +104,7 @@ self.aboutService = [QASAboutServiceApi sharedInstance];
 
 #### Initialize the Notification service framework 
   
-```
+```objc
   AJNSNotificationService *producerService;
   // Initialize a AJNSNotificationService object
   self.producerService =  [[AJNSNotificationService alloc] init];
@@ -113,7 +113,7 @@ self.aboutService = [QASAboutServiceApi sharedInstance];
 #### Start the Notification producer, providing the bus attachment 
 and About property store implementation
 
-```
+```objc
   AJNSNotificationSender *Sender; 
   // Call initSend
   self.Sender = [self.producerService startSendWithBus:self.busAttachment 
@@ -129,7 +129,7 @@ and About property store implementation
 
   Required parameters are `Message Type` and `Notification Text`
 
-```
+```objc
   AJNSNotification *notification;
   self.notification = [[AJNSNotification alloc] initWithMessageType:self.messageType 
      andNotificationText:self.notificationTextArr];
@@ -139,7 +139,7 @@ and About property store implementation
   `Sender` so that applications that receive and consumer the 
   notification know where it came from and who sent it.
   
-```
+```objc
   [self.notification setDeviceId:nil];
   [self.notification setDeviceName:nil];
   [self.notification setAppId:nil];
@@ -151,7 +151,7 @@ and About property store implementation
 
   Provide a valid TTL.
 
-```
+```objc
   QStatus sendStatus = [self.Sender send:self.notification ttl:nttl];
   if (sendStatus != ER_OK) {
     [self.logger infoTag:[[self class] description] 
@@ -180,7 +180,7 @@ to set up the AllJoyn framework.
 
 #### Create bus attachment
 
-```
+```objc
 AJNBusAttachment* bus = [[AJNBusAttachment alloc] 
 initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true]; 
 [bus start];
@@ -191,7 +191,7 @@ initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true];
 
 #### Initialize the Notification service framework 
 
-```
+```objc
   AJNSNotificationService *consumerService;
   self.consumerService = [AJNSNotificationService sharedInstance];
 ```
@@ -199,13 +199,12 @@ initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true];
 #### Implement the `notificationReceiver` interface (`receive` and 
 `dismissMsgId` methods)
 
-```
+```objc
   - (void)receive:(AJNSNotification *)ajnsNotification
   {
     // application logic to handle the received notification
   }
-```
-```
+
   - (void)dismissMsgId:(const int32_t)msgId appId:(NSString*) appId
   {
     // application logic to handle the dismissed notification
@@ -215,7 +214,7 @@ initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true];
 #### Start the Notification consumer, providing the bus attachment 
 and Notification receiver
 
-```
+```objc
   // Call "initReceive"
   status = [self.consumerService startReceive:self.busAttachment 
      withReceiver:self];

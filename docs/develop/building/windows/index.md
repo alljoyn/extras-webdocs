@@ -24,7 +24,10 @@
 
 5. Click the menu option **Build**>**Rebuild**.
 When the build is complete, open the (CPU)/(SDK Version) folder to find the .exe files contained.
-```e.g. cpp/samples/basic/VC2008Win7/x64/Release```
+
+```
+e.g. cpp/samples/basic/VC2008Win7/x64/Release
+```
 
 Double-click the applications to open them. A command prompt appears that contains logging information.
 

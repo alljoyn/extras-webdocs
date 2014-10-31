@@ -13,7 +13,7 @@ The About Service is used to demonstrate the use of the About Service API.  By i
 
 The About interface is defined as follows:
 
-```
+```xml
 <node name="/About">
     <interface name="org.alljoyn.About">
         <property name="Version" type="q" access="read"/>

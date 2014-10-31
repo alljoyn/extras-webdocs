@@ -59,19 +59,19 @@ See the [About API Guide][about-api-guide-thin-library] for more information.
 
 #### Initialize the AllJoyn framework
 
-```
+```c
 AJ_Initialize();
 ```
 
 #### Initialize the PropertyStore
 
-```
+```c
 PropertyStore_Init();
 ```
 
 #### Initialize the About feature
 
-```
+```c
 AJ_AboutSetIcon(aboutIconMimetype, aboutIconContent, aboutIconContentSize, aboutIconUrl);
 ```
 
@@ -82,7 +82,7 @@ Start method of the service's API passing the relevant settings
 and callbacks that integrate the service within the overall application 
 provisioning and business logic.
 
-```
+```c
 #ifdef CONFIG_SERVICE Config_Init();
 #endif
 #ifdef NOTIFICATION_SERVICE_PRODUCER NotificationProducer_Init();
@@ -95,7 +95,7 @@ provisioning and business logic.
 
 #### Set bus authentication password callback
 
-```
+```c
 SetBusAuthPwdCallback(MyBusAuthPwdCB);
 ```
 
@@ -103,7 +103,7 @@ Refer to the API Reference Manual for the SetBusAuthPwdCallback method.
 
 #### Create main loop
 
-```
+```c
 static uint8_t isBusConnected = FALSE; static AJ_BusAttachment busAttachment; 
    AJ_Status status;
 while (TRUE) { 
@@ -113,7 +113,7 @@ while (TRUE) {
 
 ##### Connect to the AllJoyn bus
 
-```
+```c
 if (!isBusConnected) {
 status = AJSVC_RoutingNodeConnect(&busAttachment, "org.alljoyn.BusNode", 
    AJAPP_CONNECT_TIMEOUT,
@@ -134,14 +134,14 @@ secured methods.
 The sample applications typically set up a shared secret-based 
 mechanism that requires a password callback as follows:
 
-```
+```c
 /* Setup password based authentication listener for secured peer-to-peer connections */
 AJ_BusSetPasswordCallback(&busAttachment, PasswordCallback);
 ```
 
 ##### Set up remote access to the services and publish their capabilities
 
-```
+```c
 status = AJApp_ConnectedHandler(&busAttachment, AJAPP_MAX_INIT_ATTEPTS, AJAPP_SLEEP_TIME);
 ```
 
@@ -152,7 +152,7 @@ to the routing node, each service must set up a dedicated
 session port or register signal matching rule(s).
 2. Bind the session port. This enables the creation of sessions.
 
-   ```
+   ```c
    #define APP_SERVICE_PORT 900
    AJ_BusBindSessionPort(&busAttachment, APP_SERVICE_PORT, NULL, 0);
    ``` 
@@ -160,7 +160,7 @@ session port or register signal matching rule(s).
 3. Advertise the unique name of the message bus. This allows 
 other applications to locate and track this device.
 
-   ```
+   ```c
    AJ_BusAdvertiseName(&busAttachment, AJ_GetUniqueName(&busAttachment), 
       AJ_TRANSPORT_ANY, AJ_BUS_START_ADVERTISING);
    ```
@@ -170,7 +170,7 @@ The About announcement will include the port, other metadata,
 and a description of the registered bus objects that are 
 flagged as announced.
 
-   ```
+   ```c
    AJ_AboutInit(&busAttachment, APP_SERVICE_PORT);
    ```
 
@@ -189,30 +189,31 @@ perform incoming message processing and idle tasks execution,
 including outgoing signal sending e.g. sending pending requests 
 for notification signals.
 
-```
+```c
 status = AJ_AboutAnnounce(&busAttachment);
 if (status == AJ_OK) {
    status = AJ_UnmarshalMsg(&busAttachment, &msg, 1000);
    isUnmarshalingSuccessful = (status == AJ_OK);
 
-if (status == AJ_ERR_TIMEOUT) {
-if (AJ_ERR_LINK_TIMEOUT == AJ_BusLinkStateProc(&busAttachment))
-   { status = AJ_ERR_READ; // something's not right. force disconnect
-} else { // nothing on bus, do our own thing
-   AJApp_DoWork();
-continue;
-}
-}
+   if (status == AJ_ERR_TIMEOUT) {
+      if (AJ_ERR_LINK_TIMEOUT == AJ_BusLinkStateProc(&busAttachment)) { 
+          status = AJ_ERR_READ; // something's not right. force disconnect
+      } else { // nothing on bus, do our own thing
+         AJApp_DoWork();
+         continue;
+      }
+   }
 
-if (isUnmarshalingSuccessful) {
-service_Status = AJApp_MessageProcessor(&msg, &status); if
-   (service_Status == SERVICE_STATUS_NOT_HANDLED) {
-//Pass to the built-in bus message handlers status = AJ_BusHandleBusMessage(&msg);
-} AJ_NotifyLinkActive();
-}
+   if (isUnmarshalingSuccessful) {
+      service_Status = AJApp_MessageProcessor(&msg, &status); 
+      if (service_Status == SERVICE_STATUS_NOT_HANDLED) {
+         //Pass to the built-in bus message handlers status = AJ_BusHandleBusMessage(&msg);
+      } 
+      AJ_NotifyLinkActive();
+   }
 
-//Unmarshaled messages must be closed to free resources
-AJ_CloseMsg(&msg);
+   //Unmarshaled messages must be closed to free resources
+   AJ_CloseMsg(&msg);
 }
 ``` 
 
@@ -236,9 +237,9 @@ indicated respectively by status values AJ_ERR_RESTART and
 AJ_ERR_RESTART_APP returned by any of the AllJoyn message 
 handling calls in the sections listed above.
 
-```
+```c
 if (status == AJ_ERR_READ || status == AJ_ERR_RESTART ||
-status == AJ_ERR_RESTART_APP) {
+    status == AJ_ERR_RESTART_APP) {
    if (isBusConnected) {
       forcedDisconnnect = (status != AJ_ERR_READ); 
          rebootRequired = (status == AJ_ERR_RESTART_APP); 
@@ -258,20 +259,20 @@ with the Wi-Fi router (these are encapsulated in the call
 
 1. Stop advertising the current unique name of the message bus.
 
-   ```
+   ```c
    AJ_BusAdvertiseName(busAttachment, AJ_GetUniqueName(busAttachment), 
       AJ_TRANSPORT_ANY, AJ_BUS_STOP_ADVERTISING, 0);
    ```
 2. Unbind the session port.
 
-   ```
+   ```c
    AJ_BusUnbindSession(busAttachment, AJ_ABOUT_SERVICE_PORT);
    ```
 
 3. Set the flag so that an Announcement will be sent upon 
 reconnect to a Wi-Fi router.
 
-   ```
+   ```c
    AJ_AboutSetShouldAnnounce();
    ```
 
@@ -292,7 +293,7 @@ outlined in [Initialize the AllJoyn framework][initialize-alljoyn-framework] thr
 NOTE: This must occur before a peer has connected or a service 
 framework API is executed to publish information or send information.
 
-```
+```c
 AJ_Status AJSVC_ConnectedHandler(AJ_BusAttachment* busAttachment)
 {
 AJ_BusSetPasswordCallback(&busAttachment, PasswordCallback);
@@ -337,7 +338,7 @@ processor evaluates the message, delegates its handling if
 relevant, and returns whether it handled the message or not. 
 The incoming message is returned by a call to `AJ_UnmarshalMsg()`.
 
-```
+```c
 AJ_Message msg;
 AJ_Status status = AJ_UnmarshalMsg(&busAttachment, &msg, 1000);
 ...
@@ -350,7 +351,7 @@ At the conclusion of the processing chain after calling
 `AJApp_MessageProcessor()`, any unprocessed messages are 
 processed by the default AllJoyn message processor.
 
-```
+```c
 if (serviceStatus == AJSVC_SERVICE_STATUS_NOT_HANDLED) {
    //Pass to the built-in bus message handlers status = AJ_BusHandleBusMessage(&msg);
 }
@@ -362,7 +363,7 @@ The common services message processor handles common services'
 messages that deal with session establishment and teardown. 
 It delegates the processed message to the relevant registered services.
 
-```
+```c
 AJSVC_ServiceStatus AJSVC_MessageProcessorAndDispatcher(AJ_BusAttachment*
 busAttachment,
    AJ_Message* msg, AJ_Status* status)
@@ -457,7 +458,7 @@ Service-side services such as the Notification service framework's
 Producer, are delegated to check whether incoming requests for 
 joining a session is targeted at it.
 
-```
+```c
 uint8_t AJSVC_CheckSessionAccepted(uint16_t port, 
    uint32_t sessionId, char* joiner)
 {
@@ -479,7 +480,7 @@ Client-side services such as the Notification service framework's
 Consumer, are delegated the replies to join session requests and 
 session lost signals.
 
-```
+```c
 AJSVC_ServiceStatus
    SessionJoinedHandler(AJ_BusAttachment*
    busAttachment, uint32_t sessionId, uint32_t replySerialNum)
@@ -543,7 +544,7 @@ processor `AJSVC_MessageProcessorAndDispatcher` method which
 identifies service-related messages and handles them. 
 See [Common (service-side) message processor][common-service-side-processor].
 
-```
+```c
 AJSVC_ServiceStatus AJApp_MessageProcessor(AJ_BusAttachment* busAttachment, 
    AJ_Message* msg, AJ_Status* status)
 {
@@ -600,17 +601,24 @@ NOTE: The message loop is considered idling when no messages
 are ready to marshal, and the MCU will sleep to conserve 
 resources for a small period of time.
 
-```
+```c
 void AJApp_DoWork(AJ_BusAttachment* busAttachment)
 {
-#ifdef CONFIG_SERVICE Config_DoWork(busAttachment);
-#endif
-#ifdef NOTIFICATION_SERVICE_PRODUCER NotificationProducer_DoWork(busAttachment);
-#endif
-#ifdef NOTIFICATION_SERVICE_CONSUMER NotificationConsumer_DoWork(busAttachment);
-#endif
-#ifdef CONTROLPANEL_SERVICE Controllee_DoWork(busAttachment);
-#endif
+   #ifdef CONFIG_SERVICE 
+   Config_DoWork(busAttachment);
+   #endif
+
+   #ifdef NOTIFICATION_SERVICE_PRODUCER
+   NotificationProducer_DoWork(busAttachment);
+   #endif
+
+   #ifdef NOTIFICATION_SERVICE_CONSUMER 
+   NotificationConsumer_DoWork(busAttachment);
+   #endif
+
+   #ifdef CONTROLPANEL_SERVICE
+   Controllee_DoWork(busAttachment);
+   #endif
 }
 ```
 
@@ -625,19 +633,28 @@ handlers are called to allow for this cleanup work to be performed.
 Complete the steps outlined in [Initialize the AllJoyn framework][initialize-alljoyn-framework] 
 through [Connect to the AllJoyn bus][connect-alljoyn-bus].
 
-```
+```c
 AJ_Status AJSVC_DisconnectHandler(AJ_BusAttachment* busAttachment)
 {
-#ifdef CONFIG_SERVICE AJCFG_DisconnectHandler(busAttachment);
-#endif
-#ifdef ONBOARDING_SERVICE AJOBS_DisconnectHandler(busAttachment);
-#endif
-#ifdef NOTIFICATION_SERVICE_CONSUMER AJNS_Consumer_DisconnectHandler(busAttachment);
-#endif
-#ifdef NOTIFICATION_SERVICE_PRODUCER AJNS_Producer_DisconnectHandler(busAttachment);
-#endif
-#ifdef CONTROLPANEL_SERVICE AJCPS_DisconnectHandler(busAttachment);
-#endif
+   #ifdef CONFIG_SERVICE 
+   AJCFG_DisconnectHandler(busAttachment);
+   #endif
+
+   #ifdef ONBOARDING_SERVICE 
+   AJOBS_DisconnectHandler(busAttachment);
+   #endif
+
+   #ifdef NOTIFICATION_SERVICE_CONSUMER 
+   AJNS_Consumer_DisconnectHandler(busAttachment);
+   #endif
+
+   #ifdef NOTIFICATION_SERVICE_PRODUCER 
+   AJNS_Producer_DisconnectHandler(busAttachment);
+   #endif
+
+   #ifdef CONTROLPANEL_SERVICE 
+   AJCPS_DisconnectHandler(busAttachment);
+   #endif
 }
 ```
 
@@ -722,7 +739,7 @@ contains ALL the fields.
 NOTE: Do NOT remove the counters (AJSVC_PROPERTY_STORE_NUMBER_OF_*)
 as the PropertyStore code refers to them!
 
-```
+```c
 typedef enum _AJSVC_PropertyStoreFieldIndices { 
    AJSVC_PROPERTY_STORE_ERROR_FIELD_INDEX = -1,
    //Start of keys 
@@ -764,7 +781,7 @@ The following constants are used to define special language indexes.
 The index is used within the supported languages' tables and the 
 various fields' tables.
 
-```
+```c
 #define AJSVC_PROPERTY_STORE_ERROR_LANGUAGE_INDEX	-1
 #define AJSVC_PROPERTY_STORE_NO_LANGUAGE_INDEX	0
 ```
@@ -773,7 +790,7 @@ The following definitions and structures in PropertyStoreOEMProvisioning.h
 are needed by the sample application in order to provision for 
 the sample PropertyStore implementation.
 
-```
+```c
 extern const uint8_t AJSVC_PROPERTY_STORE_NUMBER_OF_LANGUAGES;
 extern const char** propertyStoreDefaultLanguages;
 #define LANG_VALUE_LENGTH 7
@@ -782,7 +799,7 @@ extern const char** propertyStoreDefaultLanguages;
 The language names are provisioned in the ServerSample's ServerSample.c 
 as English and Austrian dialect of German.
 
-```
+```c
 static const char DEFAULT_LANGUAGE[] = "en";
 static const char* DEFAULT_LANGUAGES[] = { DEFAULT_LANGUAGE };
 static const char SUPPORTED_LANG2[] = "de-AT";
@@ -803,7 +820,7 @@ The following bit field structure is used to define the
 behavior of each field with respect to its exposure to 
 remote clients various calls.
 
-```
+```c
 typedef struct _PropertyStoreEntry {	const char* keyName;
    // The property key name as shown in About and Config documentation
    // msb=public/private; bit number 3 - initialise once;
@@ -823,7 +840,7 @@ The following bit field structure is used to define the
 behavior of each field with respect to its exposure to 
 remote clients various calls.
 
-```
+```c
 extern const PropertyStoreEntry propertyStoreProperties[AJSVC_PROPERTY_STORE_NUMBER_OF_KEYS]; 
 const PropertyStoreEntry propertyStoreProperties[AJSVC_PROPERTY_STORE_NUMBER_OF_KEYS] =
 {
@@ -867,7 +884,7 @@ const PropertyStoreEntry propertyStoreProperties[AJSVC_PROPERTY_STORE_NUMBER_OF_
 
 The following array is used to provision the fields' default values:
 
-```
+```c
 extern const char** propertyStoreDefaultValues[AJSVC_PROPERTY_STORE_NUMBER_OF_KEYS]; 
 // Array of Array of size 1 or AJSVC_PROPERTY_STORE_NUMBER_OF_LANGUAGES 
    constant buffers depending on whether the property is multilingual
@@ -876,7 +893,7 @@ extern const char** propertyStoreDefaultValues[AJSVC_PROPERTY_STORE_NUMBER_OF_KE
 The following array is a snippet of code for provisioning for the 
 Configuration service framework based on the ServerSample's ServerSample.c file:
 
-```
+```c
 #ifdef CONFIG_SERVICE
 static const char* DEFAULT_PASSCODES[] = { "303030303030" };
 // HEX encoded { '0', '0', '0', '0', '0', '0' }
@@ -930,7 +947,7 @@ const char** propertyStoreDefaultValues[AJSVC_PROPERTY_STORE_NUMBER_OF_KEYS] =
 The following structure is used to store runtime-provisioned 
 value or remotely modified value.
 
-```
+```c
 typedef struct _PropertyStoreRuntimeEntry {
    char** value;	// An array of size 1 or
 AJSVC_PROPERTY_STORE_NUMBER_OF_LANGUAGES mutable buffers 
@@ -942,7 +959,7 @@ depending on whether the property is multilingual
 The various length constants are appropriately set for each 
 field in order to optimize memory usage.
 
-```
+```c
 #define LANG_VALUE_LENGTH 7
 #define KEY_VALUE_LENGTH 10
 #define MACHINE_ID_LENGTH (UUID_LENGTH * 2)
@@ -955,7 +972,7 @@ field in order to optimize memory usage.
 The following array is used to maintain the runtime Config 
 fields' modified values and is implemented as part of PropertyStore.c file.
 
-```
+```c
 extern PropertyStoreConfigEntry propertyStoreRuntimeValues[AJSVC_PROPERTY_STORE_NUMBER_OF_RUNTIME_KEYS]
 ```
 
@@ -963,7 +980,7 @@ The following array is a snippet of code for provisioning
 for the Configuration service framework based on the ServerSample's 
 ServerSample.c file:
 
-```
+```c
 static char machineIdVar[MACHINE_ID_LENGTH + 1] = { 0 };
 static char* machineIdVars[] = { machineIdVar };
 static char deviceNameVar[DEVICE_NAME_VALUE_LENGTH + 1] = { 0 };
@@ -1063,7 +1080,7 @@ set the `mode3Init` bit to 1 and add the relevant code to initialize it.
 8. Add relevant validation of updated value for your custom 
 key by modifying the default implementation of `IsValueValid()` 
 in ConfigSample.c file.
-   ```
+   ```c
    uint8_t IsValueValid(const char* key, const char* value) {return TRUE;}
    ```
 9. Add entry in corresponding index of `propertyStoreDefaultValues` 
@@ -1081,13 +1098,14 @@ The following shows an example of how to add a configurable
 proprietary property named "MyProperty" that has a language-dependent value.
 * Add index MyProperty to `AJSVC_PropertyStoreFieldIndices`:
  
- ```
+  ```c
   MyProperty, AJSVC_PROPERTY_STORE_NUMBER_OF_RUNTIME_KEYS,
   ```
+
 * Add a new entry to the `propertyStoreProperties` array in 
 the index which corresponds to the enumeration value defined above:
 
-  ```
+  ```c
   //{ "Key Name	", W, A, M, I .. . . ., P },
   { "MyProperty",	1, 0, 1, 0, 0, 0, 0, 1 },
   // Add other configurable keys above this line
@@ -1096,7 +1114,7 @@ the index which corresponds to the enumeration value defined above:
 * Add a new entry to the `propertyStoreDefaultValues` array 
 in the index which corresponds to the enumeration value defined above:
 
-  ```
+  ```c
   static const char DEFAULT_MYPROPERTY_LANG1[] = "My"; 
   static const char DEFAULT_MYPROPERTY_LANG2[] = "Mein"; 
   static const char* DEFAULT_MYPROPERTIES[] =
@@ -1133,7 +1151,7 @@ authentication mechanism. An example implementation that uses
 this facility is included in the sample server application in 
 the ServicesHandlers.c file as shown below.
 
-```
+```c
 uint32_t PasswordCallback(uint8_t* buffer, uint32_t bufLen)
 {
    AJ_Status status = AJ_OK; 
@@ -1142,7 +1160,9 @@ uint32_t PasswordCallback(uint8_t* buffer, uint32_t bufLen)
    uint32_t len = 0;
 
    hexPassword = AJSVC_PropertyStore_GetValue(AJSVC_PROPERTY_STORE_PASSCODE);
-   if (hexPassword == NULL) { AJ_ErrPrintf(("Password is NULL!\n")); return len;
+   if (hexPassword == NULL) { 
+      AJ_ErrPrintf(("Password is NULL!\n")); 
+      return len;
    }
    AJ_InfoPrintf(("Retrieved password=%s\n", hexPassword));
    hexPasswordLen = strlen(hexPassword);
@@ -1154,7 +1174,6 @@ uint32_t PasswordCallback(uint8_t* buffer, uint32_t bufLen)
 
    return len;
 }
-
 ```
 
 The above implementation calls AJSVC_PropertyStore_GetValue (`AJSVC_PROPERTY_STORE_PASSCODE`) 
@@ -1166,31 +1185,28 @@ updateable via a Configuration service framework session using the
 dedicated `SetPasscode()` method. The stored Passcode is limited 
 to the size of 65, allowing for 64 characters long secret:
 
-```
-#define
-PASSWORD_VALUE_LENGTH 65
+```c
+#define PASSWORD_VALUE_LENGTH 65
 ```
 
 This is achieved using the field definition that masks the 
 field as writable yet private, as shown in the `propertyStoreProperties` 
 initialization in PropertyStore.c:
 
-```
-{
-"Passcode", 1, 0, 0, 0, 0, 0, 0, 0 }
+```c
+{"Passcode", 1, 0, 0, 0, 0, 0, 0, 0 }
 ```
 
 The default value is provisioned in ServerSample.c as follows:
 
 ```
-static
-const char* DEFAULT_PASSCODES[] = { "303030303030" }; // HEX
-encoded { '0', '0', '0', '0', '0', '0' }
+// HEX encoded { '0', '0', '0', '0', '0', '0' }
+static const char* DEFAULT_PASSCODES[] = { "303030303030" }; 
 ``` 
 
 and added to `propertyStoreDefaultValues`.
 
-```
+```c
 DEFAULT_PASSCODES,
 /*Passcode*/
 ```
@@ -1203,7 +1219,7 @@ Also, when `SetPasscode()` is called remotely, the `SetPasscode()`
 callback is invoked with the following example implementation in 
 ConfigSample.c file as shown below:
 
-```
+```c
 static AJ_Status SetPasscode(const char* daemonRealm, const uint8_t* newPasscode, uint8_t newPasscodeLen)
 {
    AJ_Status status = AJ_OK;
@@ -1249,7 +1265,7 @@ NOTES:
 * The stored passcode is HEX and is limited to the size of 32, 
 allowing for 16 bytes long secret:
 
-  ```
+  ```c
   #define PASSWORD_VALUE_LENGTH (AJ_ADHOC_LEN * 2)
   ```	
 * The default value for the Passcode field is provisioned as 

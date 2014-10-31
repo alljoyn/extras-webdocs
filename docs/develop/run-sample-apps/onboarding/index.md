@@ -17,7 +17,7 @@ AP credentials that the Onboardable application should connect to.
 
 The Onboarding interface is defined as follows:
 
-```
+```xml
 <node>
     <interface name="org.alljoyn.Onboarding">
         <property name="Version" type="q" access="read"/> 

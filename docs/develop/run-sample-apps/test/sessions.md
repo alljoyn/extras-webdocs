@@ -10,7 +10,7 @@ This application is supported on the following platforms:
 
 The Sessions application is found inside the build dist folder under:
 
-'''
+'''sh
 <build dist folder>/cpp/bin/<sessions or session.exe>
 '''
 

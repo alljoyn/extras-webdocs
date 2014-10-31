@@ -142,7 +142,7 @@ is called:
 
 #### Code 1
 
-```
+```objc
 - (void)viewDidLoad
 {
    [super viewDidLoad];
@@ -160,7 +160,7 @@ inside BasicService.h since we are calling a method of `BasicService`.
 
 #### Code 2
 
-```
+```objc
 BasicService.h
 @protocol BasicServiceDelegate <NSObject>
 - (void)didReceiveStatusUpdateMessage:(NSString *)message;
@@ -191,7 +191,7 @@ This is a common way for a model to call a method of a
 
 #### Code 3
 
-```
+```objc
 - (void)startService
 {
    dispatch_queue_t serviceQueue = dispatch_queue_create
@@ -207,7 +207,7 @@ and call the method `run`. Now let us look at the method `run`.
 
 #### Code 4
 
-```
+```objc
 [self.delegate didReceiveStatusUpdateMessage:[NSString
 stringWithFormat:@"AllJoyn Library version: %@\n", 
 [AJNVersion versionInformation]]];
@@ -232,7 +232,7 @@ See [Code 5][code-5].
 
 #### Code 5
 
-```
+```objc
 self.bus = [[AJNBusAttachment alloc] initWithApplicationName:@"BasicService" 
 allowRemoteMessages:YES];
 ```
@@ -244,7 +244,7 @@ for this sample.
 
 #### Code 6
 
-```
+```objc
 self.lostSessionCondition = [[NSCondition alloc] init]; 
 [self.lostSessionCondition lock];
 ```
@@ -255,7 +255,7 @@ lost a session, or a name owner changed condition
 
 #### Code 7
 
-```
+```objc
 [self.bus registerBusListener:self];
 ```
 
@@ -265,7 +265,7 @@ with the line in [Code 8][code-8]:
 
 #### Code 8
 
-```
+```objc
 self.basicObject = [[BasicObject alloc] initWithBusAttachment:self.bus 
 onPath:kBasicServicePath];
 ``` 
@@ -274,7 +274,7 @@ After we have instantiated the Bus Object, we start the bus:
 
 #### Code 9
 
-```
+```objc
 status = [self.bus start];
 if (ER_OK != status) {
       [self.delegate didReceiveStatusUpdateMessage:@"BusAttachment::Start 
@@ -288,7 +288,7 @@ above. We do so by calling [Code 10][code-10]:
 
 #### Code 10
 
-```
+```objc
 status = [self.bus registerBusObject:self.basicObject];
 if (ER_OK != status) {
 NSLog(@"ERROR: Could not register bus object");
@@ -308,7 +308,7 @@ discussion here since we are focusing on the sample.
 
 #### Code 11
 
-```
+```objc
 status = [self.bus connectWithArguments:@"null:"];
 if (ER_OK != status) { 
    NSLog(@"Bus connect failed.");
@@ -327,7 +327,7 @@ We do these three things with the lines of code shown in [Code 12][code-12],
  
 #### Code 12
 
-```
+```objc
 status = [self.bus requestWellKnownName:kBasicServiceName
 withFlags:kAJNBusNameFlagReplaceExisting | kAJNBusNameFlagDoNotQueue];
 if (ER_OK != status) {
@@ -346,7 +346,7 @@ someone do not queue this service waiting for the name to be released.
 
 #### Code 13
 
-```
+```objc
 //
 // bind a session to a service port
 //
@@ -368,8 +368,8 @@ as shown in [Code 14][code-14].
 
 #### Code 14
 
-```
-      status = [self.bus bindSessionOnPort:kBasicServicePort 
+```objc
+   status = [self.bus bindSessionOnPort:kBasicServicePort 
 withOptions:sessionOptions withDelegate:self];
    if (ER_OK != status) {
       NSLog(@"ERROR: Could not bind session on port (%d)", kBasicServicePort);
@@ -384,7 +384,7 @@ name to be advertised.
 
 #### Code 15
 
-```
+```objc
 // advertise a name
 //
 status = [self.bus advertiseName:kBasicServiceName withTransportMask:kAJNTransportMaskAny];
@@ -402,7 +402,7 @@ of the `sessionWasLost:` callback which is a part of the `AJNSessionListener` in
 
 #### Code 16
 
-```
+```objc
 // wait until the client leaves before tearing down the service
 // [self.lostSessionCondition waitUntilDate:[NSDate 
 dateWithTimeIntervalSinceNow:60]];
@@ -414,7 +414,7 @@ the bus property by setting it to `nil`.
 
 #### Code 17
 
-```
+```objc
 [self.bus unregisterBusObject:self.basicObject]; 
 [self.lostSessionCondition unlock];
 self.bus = nil;
@@ -428,7 +428,7 @@ by listener category is mentioned in the sections that follow.
 
 #### Code 18
 
-```
+```objc
 (void)listenerDidRegisterWithBus:(AJNBusAttachment*)busAttachment
 ```
 
@@ -437,7 +437,7 @@ successfully and the bus notifies the application about it.
 
 #### Code 19
 
-```
+```objc
 (void)listenerDidUnregisterWithBus:(AJNBusAttachment*)busAttachment
 ```
 
@@ -445,7 +445,7 @@ This is invoked when the `BusListener` unregisters from the bus.
 
 #### Code 20
 
-```
+```objc
 (void)nameOwnerChanged:(NSString*)name to:(NSString*)newOwner 
 from:(NSString*)previousOwner
 ```
@@ -455,7 +455,7 @@ The name could be a unique name or a well-known name.
 
 #### Code 21
 
-```
+```objc
 (void)busWillStop
 ```
 
@@ -464,7 +464,7 @@ is registered, is stopping.
 
 #### Code 22
 
-```
+```objc
 (void)busDidDisconnect
 ```
 
@@ -478,7 +478,7 @@ it will not have any effect on the client side.
 
 ####Code 23
 
-```
+```objc
 (BOOL)shouldAcceptSessionJoinerNamed:(NSString*)joiner 
 onSessionPort:(AJNSessionPort)sessionPort 
 withSessionOptions:(AJNSessionOptions*)options
@@ -495,7 +495,7 @@ the client wishes to use for the life of this session.
 
 #### Code 24
 
-```
+```objc
 (void)didJoin:(NSString*)joiner inSessionWithId:(AJNSessionId)sessionId 
 onSessionPort:(AJNSessionPort)sessionPort
 ```
@@ -512,7 +512,7 @@ for joining the session.
 
 #### Code 25
 
-```
+```objc
 - (void)sessionWasLost:(AJNSessionId)sessionId
 ```
 
@@ -521,7 +521,7 @@ becomes disconnected and is no longer valid.
 
 #### Code 26
 
-```
+```objc
 - (void)didAddMemberNamed:(NSString*)memberName 
 toSession:(AJNSessionId)sessionId
 ```
@@ -531,7 +531,7 @@ was added to the session with session id of the second argument.
 
 #### Code 27
 
-```
+```objc
 - (void)didRemoveMemberNamed:(NSString*)memberName 
 fromSession:(AJNSessionId)sessionId
 ```
@@ -550,7 +550,7 @@ the `didTouchCallServiceButton` method is called.
 
 #### Code 28
 
-```
+```objc
 - (IBAction)didTouchCallServiceButton:(id)sender
 {
    self.basicClient = [[BasicClient alloc] init]; 
@@ -565,7 +565,7 @@ to understand what is inside the `BasicClient.h` file
 
 #### Code 29
 
-```
+```objc
 @protocol BasicClientDelegate <NSObject>
 - (void)didReceiveStatusUpdateMessage:(NSString *)message;
 @end
@@ -595,7 +595,7 @@ to `sendHelloMessage` in `BasicClient`.
 
 #### Code 30
 
-```
+```objc
 - (void)sendHelloMessage
 {
    dispatch_queue_t clientQueue =
@@ -646,7 +646,7 @@ that the `ViewController` should have implemented.
  
 #### Code 31
 
-```
+```objc
 NSLog(@"AllJoyn Library version: %@", AJNVersion.versionInformation); 
    NSLog(@"AllJoyn Library build info: %@\n", AJNVersion.buildInformation); 
    [self.delegate didReceiveStatusUpdateMessage:AJNVersion.versionInformation];
@@ -664,7 +664,7 @@ Next, we start the bus.
 
 #### Code 32
 
-```
+```objc
 status = [self.bus start];
 ```
 
@@ -674,7 +674,7 @@ in BasicService section when we explain [Code 11][code-11].
 
 #### Code 33
 
-```
+```objc
 status = [self.bus connectWithArguments:@"null:"];
 ```
 
@@ -683,7 +683,7 @@ used to receive the indication that the session was joined.
 
 #### Code 34
 
-```
+```objc
 self.joinedSessionCondition = [[NSCondition alloc] init]; 
 [self.joinedSessionCondition lock];
 ```
@@ -692,7 +692,7 @@ We register the bus listener, which is nothing but this instance of BasicClient.
 
 #### Code 35
 
-```
+```objc
 // register a bus listener in order to receive discovery notifications
 //
 [self.bus registerBusListener:self];
@@ -702,7 +702,7 @@ Next, we want to find the well-known name advertised by the BasicService.
 
 ### Code 36
 
-```
+```objc
 // begin discovery of the well known name of the service to be called
 // [self.bus findAdvertisedName:kBasicClientServiceName];
 ```
@@ -714,7 +714,7 @@ have the prefix that we supplied to the method in [Code 36][code-36].
 
 #### Code 37
 
-```
+```objc
 - (void)didFindAdvertisedName:(NSString*)name 
 withTransportMask:(AJNTransportMask)transport namePrefix:(NSString*)namePrefix
 {
@@ -768,7 +768,7 @@ received the name, we return.
 
 #### Code 38
 
-```
+```objc
    BOOL shouldReturn;
       @synchronized(self) {
          shouldReturn = self.wasNameAlreadyFound;
@@ -787,7 +787,7 @@ which means that we can join the session.
 
 #### Code 39
 
-```
+```objc
 // Since we are in a callback we must enable concurrent 
 callbacks before calling a synchronous method.
 //
@@ -799,7 +799,7 @@ we can make a synchronous call inside an asynchronous method.
 
 #### Code 40
 
-```
+```objc
 self.sessionId = [self.bus joinSessionWithName:name 
 onPort:kBasicClientServicePort withDelegate:self options:[[AJNSessionOptions alloc] 
 initWithTrafficType:kAJNTrafficMessages supportsMultipoint:YES 
@@ -834,7 +834,7 @@ to join this session
 
 #### Code 41
 
-```
+```objc
 [self.joinedSessionCondition signal];
 ```
 And, in the end, we signal the `joinSessionCondition` so that 
@@ -862,7 +862,7 @@ the concatenated value in the string "result".
 
 #### Code 42
 
-```
+```objc
 if ([self.joinedSessionCondition waitUntilDate:[NSDate 
 dateWithTimeIntervalSinceNow:60]]) {
 
@@ -908,10 +908,10 @@ We looked at the flow the program when the user presses
 the 'Call Service' button on the UI of BasicClient. There is 
 another button on the UI on BasicClient named 'Check Presence'. 
 Let us take a look at the flow for that:
- 
+objc 
 #### Code 43
 
-```
+```objc
 - (void)sendPing
 {
    dispatch_queue_t pingQueue =
@@ -926,10 +926,10 @@ we called the function run. Let us take a look at the function ping below.
 
 #### Code 44
 
-```
+```objc
 - (void)ping
 {
-   if (self.bus == NULL) {
+   if objc(self.bus == NULL) {
       return;
    }
    QStatus status = [self.bus pingPeer:kBasicClientServiceName withTimeout:5];

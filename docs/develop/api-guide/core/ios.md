@@ -54,7 +54,7 @@ the Xcode project.
 6. Select the `SampleAllJoynObjectModel.xml` file in the 
 project **Navigator**, and add the following XML text:
 
-   ```
+   ```xml
    <xml>
       <node name="org/alljoyn/Bus/sample">
          <annotation name="org.alljoyn.lang.objc" value="SampleObject"/>
@@ -82,13 +82,13 @@ will expose to its clients. Let's go line by line through the
 XML to build an understanding of the format and how it describes 
 our bus object.
 
-```
+```xml
 <xml>
 ```
 
 The first line, shown above, is standard for all XML documents.
 
-```
+```xml
 <node name="org/alljoyn/Bus/sample">
 ```
 
@@ -99,7 +99,7 @@ node elements contain interface elements that can contain method,
 property and signal elements. Node elements may also contain 
 other child node elements, but let's keep it simple for now.
 
-```
+```xml
 <annotation name="org.alljoyn.lang.objc" value="SampleObject"/>
 ```
 
@@ -115,7 +115,7 @@ path /org/alljoyn/Bus/sample. The annotation tells the code
 generator to give the object a friendly name of "SampleObject" 
 in any Objective-C code emitted.
 
-```
+```xml
 <interface name="org.alljoyn.bus.sample">
 <annotation name="org.alljoyn.lang.objc" value="SampleObjectDelegate"/>
 ```
@@ -128,7 +128,7 @@ protocol for the interface and name it SampleObjectDelegate.
 All interfaces on bus objects are implemented in Objective-C 
 as protocols.
 
-```
+```xml
 <method name="Concatentate">
 <arg name="str1" type="s" direction="in">
 <annotation name="org.alljoyn.lang.objc" value="concatenateString:"/>
@@ -161,10 +161,8 @@ The message takes the form of a selector, with the complete
 name of the message interspersed with its parameters. Note the 
 difference below:
 
-```
+```objc
 void ConcatenateString(in String str1, in String str2, out String outStr);
-
-
 
 NSString *concatenateString:(NSString *)str1 withString:(NSString *)str2;
 ```
@@ -183,7 +181,7 @@ it is time to generate the code that will allow us to create an
 Objective-C object that you can use in your application. 
 The AllJoynCodeGenerator project is located at the following path:
 
-```
+```sh
 <AllJoyn SDK Root>/alljoyn_objc/AllJoynCodeGenerator
 ```
 
@@ -193,7 +191,7 @@ and load the project. In Xcode, select **Product > Build** to
 build the AllJoyn code generator executable. Your new executable 
 is now ready for use, and is located in the following directory:
 
-```
+```sh
 <AllJoyn SDK Root>/alljoyn_objc/bin
 ```
 
@@ -219,7 +217,7 @@ binary, which should be located in your `<ALLJOYN_SDK_ROOT>/alljoyn_objc/bin` fo
 target, enter the full path to your `SampleAllJoynObjectModel.xml` 
 file followed by a space and then `SampleObject`, as follows:
 
-   ```
+   ```sh
    $(SOURCE_ROOT)/HelloAllJoynWorld/SampleAllJoynObjectModel.xml SampleObject
    ```
 7. Select the **Generate Code** scheme and set it to your active scheme.
@@ -229,7 +227,7 @@ to your project by right-clicking on the **HelloAllJoynWorld**
 group and selecting **Add Files To HelloAllJoynWorld**.
 9. Select the following files and click **Add**:
 
-   ```
+   ```sh
    AJNSampleObject.h 
    AJNSampleObject.mm 
    SampleObject.h 
@@ -278,20 +276,20 @@ Click the **All** option at the top of the list.
 7. Set **Build Active Architecture Only** to **Yes**.
 8. Scroll down to the **Linking** section, and set **Other Linker Flags** 
 to the following:
-   ```
+   ```sh
    -lalljoyn -lajrouter -lBundledRouter.o -lssl -lcrypto
    ```
 9. Scroll down the list of settings until you see the 
 **Search Paths** group.
 10. Double-click the **Header Search Paths** field and enter the following:
-   ```
+   ```sh
    "$(SRCROOT)/../alljoyn- sdk/ 
    build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/ cpp/inc" 
    "$(SRCROOT)/../alljoyn- sdk/ 
    build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/ cpp/inc/alljoyn"
    ```
 11. Double-click the **Library Search Paths** field and enter the following:
-   ```
+   ```sh
    $(inherited) "$(SRCROOT)/../alljoyn- sdk/ 
    build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/ cpp/lib" 
    "$(SRCROOT)/../alljoyn-sdk/common/crypto/openssl/openssl- 
@@ -302,11 +300,11 @@ the **Apple LLVM compiler 3.1 - Language** group.
 13. Set **Enable C++ Exceptions* to **No**.
 14. Set **Enable C++ Runtime Types** to **No**.
 15. Set the **Other C Flags** field for Debug to the following:
-   ```
+   ```sh
    -DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN
    ```
 16. Set the **Other C Flags** field for Release to the following:
-   ```
+   ```sh
    -DNS_BLOCK_ASSERTIONS=1 -DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN
    ```
 17. Select the **Build Phases** tab.
@@ -325,7 +323,7 @@ tree and selecting **New Group** from the menu.
 24. Select the newly-created group "AllJoynFramework", and 
 choose **Add Files...**.
 25. Navigate to the following folder:
-   ```
+   ```sh
    <ALLJOYN_SDK_ROOT>/alljoyn_objc/AllJoynFramework/AllJoynFramework
    ```
 26. Select all the `.h/.m*` files in the directory, and 
@@ -340,7 +338,7 @@ Your project should build successfully. Congratulations.
 Note that there is a template project located in the following 
 folder that has the above configuration preloaded for you. 
 Check it out at:
-```
+```sh
 <ALLJOYN_SDK_ROOT>/alljoyn_objc/samples/iOS/AllJoyn iOS Project Template
 ```
 This is a good starting point for any applications you may 

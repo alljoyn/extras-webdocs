@@ -10,7 +10,7 @@ Depending on the platform, the application must have a role of Client or Service
 
 The Chat interface is as follows:
 
-```
+```xml
 <node name="/chatService">
     <interface name="org.alljoyn.bus.samples.chat">
         <signal name="Chat">

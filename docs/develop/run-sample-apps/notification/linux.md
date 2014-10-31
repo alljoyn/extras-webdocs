@@ -6,7 +6,7 @@
 
 Open two terminal windows. In each, navigate to the AllJoyn&trade; root dir, then:
 
-```
+```sh
 export AJ_ROOT=`pwd`
 
 # <TARGET CPU> can be either x86_64, x86, or whatever value you set for "CPU=" when running SCons.
@@ -19,7 +19,7 @@ export LD_LIBRARY_PATH=$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/
 
 In one of the terminal windows, run `ConsumerService`:
 
-```
+```sh
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/notification/bin/ConsumerService
 ```
 
@@ -27,6 +27,6 @@ $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/notification/bin/Consum
 
 In the other terminal window, run `ProducerBasic`:
 
-```
+```sh
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/notification/bin/ProducerBasic
 ```

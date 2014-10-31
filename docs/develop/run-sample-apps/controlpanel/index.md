@@ -19,7 +19,7 @@ developer's ecosystem and build applications that interact with a product.
 
 The ControlPanel interfaces are defined as follows:
 
-```
+```xml
 NOTE: The interfaces below are also available as secure interfaces
 
 <interface name="org.alljoyn.ControlPanel.ControlPanel">

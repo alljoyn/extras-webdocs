@@ -52,7 +52,7 @@ To use the About feature, an AllJoyn object call the BusAttachment
 is needed that is used internally by the service to leverage 
 the AllJoyn API calls.
 
-```
+```cpp
 BusAttachment* msgBus = new BusAttachment("AboutService", true);
 ```
 
@@ -64,7 +64,7 @@ higher do not require this step.
 To allow thin libraries to connect to the bundled router, 
 the router requires a password.
 
-```
+```cpp
 PasswordManager::SetCredentials("ALLJOYN_PIN_KEYX", PassCode);
 }
 ```
@@ -74,7 +74,7 @@ PasswordManager::SetCredentials("ALLJOYN_PIN_KEYX", PassCode);
 Once created, the BusAttachment must be connected to the 
 AllJoyn framework.
 
-```
+```cpp
 QStatus status = msgBus->Start();
 if( status == ER_OK ) {
    status = msgBus->Connect(NULL);
@@ -101,7 +101,7 @@ requires access to any application using AboutClient, return
 true when this callback is triggered. Use the SessionJoined 
 handler to set the session timeout to 20 seconds.
 
-```
+```cpp
 class MyListener : public SessionPortListener {
    private:
       BusAttachment *mMsgBus;
@@ -143,12 +143,12 @@ To allow incoming connections, the formation of a session is
 needed. The AllJoyn framework must be told that connections 
 are allowed.
 
-```
+```cpp
 SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, 
-   SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
+    SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
 SessionPort sPort = SERVICES_PORT;
 if( status == ER_OK )
-   status = msgBus->BindSessionPort(sPort, opts, *busListener);
+    status = msgBus->BindSessionPort(sPort, opts, *busListener);
 ```
 
 ### Create a PropertyStore implementation
@@ -180,7 +180,7 @@ An example PropertyStore implementation (AboutPropertyStoreImp)
 is provided. All fields above can easily be set by calling the 
 appropriate setter function.
 
-```
+```cpp
 aboutStore = new AboutPropertyStoreImpl(); 
 aboutStore ->setDeviceId("1231232145667745675477"); 
 aboutStore ->setDeviceName("MyDeviceName", "en"); 
@@ -222,7 +222,7 @@ of the AboutService class. AboutService is an implementation
 wrapper around AllJoyn native calls that handle the interactions 
 between AboutServer and AboutClient.
 
-```
+```cpp
 AboutService* aboutService = NULL;
 aboutService = aboutService = new AboutService(msgBus,aboutStore);
 aboutService->Register(SERVICES_PORT);
@@ -231,7 +231,7 @@ msgBus->RegisterBusObject(*aboutService);
 
 ### Add interfaces to Announcement
 
-```
+```cpp
 std::vector<qcc::String> interfaces;
 interfaces.push_back("org.alljoyn.About");
 aboutService->AddObjectDescription("/About", interfaces);
@@ -241,7 +241,7 @@ aboutService->AddObjectDescription("/About", interfaces);
 
 Register the AboutService with the obtained session port.
 
-```
+```cpp
 aboutService->Register(sPort);
 msgBus->RegisterBusObject(*aboutService);
 ```
@@ -259,16 +259,15 @@ applications that use the AboutIconClient class.
 An Icon is published directly as a byte array or a reference 
 URL, and must be provisioned as follows:
 
-```
-uint8_t aboutIconContent[] = { 0x89, 0x50, 0x4E, 0x47, 0x0D /* Add relevant data here */
-};
+```cpp
+uint8_t aboutIconContent[] = { 0x89, 0x50, 0x4E, 0x47, 0x0D /* Add relevant data here */ };
 qcc::String mimeType("image/png"); /* This should correspond to the content */
 qcc::String url("http://myurl"); /* An alternate access to the Icon */
 ```
 
 #### AddDeviceIcon object and interfaces to Announcement
 
-```
+```cpp
 std::vector<qcc::String> interfaces;
 interfaces.push_back("org.alljoyn.Icon");
 aboutService->AddObjectDescription("/About/DeviceIcon", interfaces);
@@ -276,7 +275,7 @@ aboutService->AddObjectDescription("/About/DeviceIcon", interfaces);
 
 #### Create and register DeviceIcon object
 
-```
+```cpp
 AboutIconService* aboutIconService = NULL;
 aboutIconService = new AboutIconService(msgBus, mimeType, url, 
    aboutIconContent, sizeof(aboutIconContent) / sizeof (*aboutIconContent)); 
@@ -286,7 +285,7 @@ msgBus->RegisterBusObject(*aboutIconService);
 
 ### Advertise name
 
-```
+```cpp
 if( status == ER_OK )
    status = msgBus->AdvertiseName(msgBus->GetUniqueName().c_str(), 
       opts.transports);
@@ -294,7 +293,7 @@ if( status == ER_OK )
 
 ### Announce name
 
-```
+```cpp
 if( status == ER_OK )
 status = aboutService->Announce();
 ```
@@ -305,7 +304,7 @@ When your process is done with the AboutService and no
 longer wishes to send announcements, unregister the process 
 from the AllJoyn bus and then delete variables used.
 
-```
+```cpp
 if( aboutService != NULL ) {
    msgBus->UnregisterBusObject(*aboutService);
    delete aboutService;
@@ -343,7 +342,7 @@ AnnounceHandler base class.
 This declaration of a class will allow for the signals to be 
 received. It needs to implement pure virtual function Announce.
 
-```
+```cpp
 class AnnounceHandlerImpl : public ajn::services::AnnounceHandler (){
    void Announce(unsigned short version, unsigned short port,
       const char* busName, const ObjectDescriptions& objectDescs, 
@@ -372,7 +371,7 @@ interfaces the application is interested in. The code below
 shows a listener registered to receive Announce signals that 
 include an object implementing the INTERFACE_NAME interface.
 
-```
+```cpp
 AnnounceHandlerImpl* announceHandlerImpl = new AnnounceHandlerImpl(); 
 const char* interfaces[] = { INTERFACE_NAME }; 
 AnnouncementRegistrar::RegisterAnnounceHandler(*busAttachment, 
@@ -390,7 +389,7 @@ NOTE: The BusAttachment.Ping method makes a bus call. If `Ping`
 is called inside an AllJoyn callback, `BusAttachment.EnableConcurrentCallbacks` 
 must be called first.
 
-```
+```cpp
 // when pinging a remote bus wait a max of 5 seconds
 #define PING_WAIT_TIME	5000
 msgBus->EnableConcurrentCallbacks();
@@ -413,7 +412,7 @@ in the announcement, perform the following steps.
    NOTE: The variables name and port are set from the AboutData 
    from the Announce method.
 
-   ```
+   ```cpp
    SessionId sessionId;
       SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, 
          SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
@@ -431,7 +430,7 @@ in the announcement, perform the following steps.
    Introspection XML and create an instance passing ButAttachment 
    and sessionId.
 
-   ```
+   ```cpp
    AboutProxyBusObject * aboutClient = new AboutProxyBusObject 
       (msgBus, sender_name,"\About", sessionId);
    aboutClient->GetAboutData("");
@@ -443,7 +442,7 @@ in the announcement, perform the following steps.
    Introspection XML and create an instance passing 
    ButAttachment, port, and sessionId.
 
-   ```
+   ```cpp
    IconProxyBusObject * aboutIconClient = new IconProxyBusObject
       (msgBus, sender_name, "About\DeviceIcon", sessionId);
    aboutIconClient->GetUrl();
@@ -457,7 +456,7 @@ framework, free the variables used in the application.
 NOTE: The AboutClient object must be deleted before the 
 BusAttachment object.
 
-```
+```cpp
 delete aboutClient; 
 delete aboutIconClient; 
 delete msgBus;

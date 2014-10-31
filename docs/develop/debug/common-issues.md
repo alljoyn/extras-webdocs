@@ -35,12 +35,12 @@ Below is a list of common issues, debugging tricks, and solutions.
   
 * Check the app for four essential permissions.	
 
-  ```
+  ```xml
    <uses-permission android:name= "android.permission.INTERNET">
    </uses-permission>	
   ```
 
-  ```
+  ```xml
   <uses-permission android:name= "android.permission. 
   CHANGE_WIFI_MULTICAST_STATE">
   </uses-permission>	
@@ -52,12 +52,12 @@ Below is a list of common issues, debugging tricks, and solutions.
       add these two permissions to the AndroidManifest.xmlfile 
       of the app.
 
-  ```
+  ```xml
   <uses-permission android:name= "android.permission.ACCESS_WIFI_STATE">
   </uses-permission>	
   ```
 
-  ```
+  ```xml
   <uses-permission android:name= "android.permission.CHANGE_WIFI_STATE">
   </uses-permission>
   ```

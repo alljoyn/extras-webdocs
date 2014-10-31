@@ -136,7 +136,7 @@ See the [Build an Application using the Thin Library section][build-app-thin-lib
 
 #### Callback signature for GetCode of property
 
-```
+```c
 void* getTemperature(PropertyWidget* thisWidget) - Returns address of the property of the
 provided widget casted to a void*
 ```
@@ -150,7 +150,7 @@ new value the property should be set to.
 
 For example:
 
-```
+```c
 void SetTemperature(uint16 newTemperature);
 ```
 
@@ -161,13 +161,13 @@ chosen based on the specific application's need.
 
 For example:
 
-```
+```c
 void StartOven();
 ```
 
 ### Create XML definition of UI
 
-```
+```xml
 <controlPanelDevice xmlns="http://www.allseenalliance.org/controlpanel/gen">
    <name>MyDevice</name>
    <headerCode>#include "ControlPanelProvided.h"</headerCode>
@@ -204,7 +204,7 @@ samples of names that follow these conventions.
 
 #### Create a controlPanelDevice tag with the XML schema
 
-```
+```xml
 <controlPanelDevice xmlns="http://www.allseenalliance.org/controlpanel/gen">
 </controlPanelDevice>
 ```
@@ -213,7 +213,7 @@ samples of names that follow these conventions.
 
 Define the name of the unit between the controlPanelDevice tags.
 
-```
+```xml
 <name>MyDevice</name>
 ```
 
@@ -224,7 +224,7 @@ Add the include statements after the name tag. More than one
 header file can be added. See [Create header file that declares 
 device-specific callbacks][create-header-file] for more information.
 
-```
+```xml
 <headerCode>#include "ControlPanelProvided.h"</headerCode>
 ```
 
@@ -239,7 +239,7 @@ overall user experience, it is recommended to have the textToSend
 array match the SupportedLanguages list published by the About 
 feature and provisioned for the PropertyStore in the application.
 
-```
+```xml
 <languageSet name="myLanguages">
    <language>en</language>
    <language>de</language>
@@ -253,7 +253,7 @@ Add this after the languageSets tag. Each control panel needs
 to define the preferred language set. More than one control 
 panel can be defined.
 
-```
+```xml
 <controlPanels>
    <controlPanel languageSet="myLanguages">
    </controlPanel>
@@ -270,7 +270,7 @@ all the widgets that make up the control panel. For more information
 on Container Widgets and possible child widgets, see [Widget modules][widget-modules] 
 and [XML UI Element Descriptions][xml-ui-descriptions].
 
-```
+```xml
 <rootContainer>
    //rootContainer properties and child elements go here.
 </rootContainer>
@@ -281,7 +281,7 @@ and [XML UI Element Descriptions][xml-ui-descriptions].
 In the CPSAppGenerator directory, run the generator command 
 to produce the Control Panel Generated Code from the XML.
 
-```
+```sh
 python generateCPSApp.py [nameOfXML] [DirectoryOfApplication]
 ```
 
@@ -304,7 +304,7 @@ Both the bus object list and the callbacks are implemented
 in the ControlPanelGenerated.c and are linked to the business 
 logic in ControlPanelProvided.c.
 
-```
+```c
 /**
 * Message processor for the ControlPanel generated model.
 */
@@ -366,7 +366,7 @@ for a full description of each interface.
  
 #### Sample XML for Container
  
-```
+```xml
 <container>
    <name>rootContainer</name>
    <secured>false</secured>
@@ -412,7 +412,7 @@ for a full description of each interface.
 The onAction tag includes the execute code and dialog options. 
 Both options cannot be included in the same tag.
  
-```
+```xml
 <action>
    <name>ovenAction</name>
    <onAction>
@@ -456,7 +456,7 @@ Both options cannot be included in the same tag.
 
 #### Sample XML for labelProperty
 
-```
+```xml
 <labelProperty>
    <name>CurrentTemp</name>
    <enabled>true</enabled>
@@ -497,7 +497,7 @@ information for each supported signature are provided here.
  
 #### Sample XML for stringProperty
  
-```
+```xml
 <stringProperty>
    <name>modeStringProperty</name>
    <getCode>getStringVar</getCode>
@@ -558,7 +558,7 @@ information for each supported signature are provided here.
  
 #### Sample XML for Boolean property
  
-```
+```xml
 <booleanProperty>
    <name>checkboxProperty</name>
    <getCode>getTurboModeVar</getCode>
@@ -598,7 +598,7 @@ information for each supported signature are provided here.
 
 #### Sample XML for Date property
  
-```
+```xml
 <dateProperty>
    <name>startDateProperty</name>
    <getCode>getStartDateVar</getCode>
@@ -638,7 +638,7 @@ information for each supported signature are provided here.
 
 #### Sample XML for Time property
  
-```
+```xml
 <timeProperty>
    <name>startTimeProperty</name>
    <getCode>getStartTimeVar</getCode>
@@ -681,7 +681,7 @@ information for each supported signature are provided here.
 The constraintDefs tag includes the value and range example. 
 Both cannot be included in the same tag.
  
-```
+```xml
 <scalarProperty dataType="UINT16">
    <name>heatProperty</name>
    <getCode>getTemperatureVar</getCode>
@@ -768,7 +768,7 @@ Both cannot be included in the same tag.
  
 #### Sample XML for a Dialog
 
-``` 
+```xml
 <dialog>
    <name>LightConfirm</name>
    <secured>false</secured>
@@ -824,7 +824,6 @@ Both cannot be included in the same tag.
 | button | Label and executeCode | Yes - can have up to 3 | Each button must contain the following: |
 | | | | * A Label tag that contains the text that appears on the button. |
 | | | | * An executeCode tag which contains the code to be executed on the Controllee when the button is pressed. |
-
 
 [intro-thin-library]: /learn/core/thin/intro-thin-library
 [start-controllee]: #start-the-controllee

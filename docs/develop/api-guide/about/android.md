@@ -52,22 +52,21 @@ creating a BusAttachment and connecting to the AllJoyn framework.
 
 ### Set up AllJoyn variables
 
-```
+```java
 static { System.loadLibrary("alljoyn_java"); }  
 private BusAttachment mBus;
 ```
 
 ### Prepare the AllJoyn framework
 
-```
+```java
 DaemonInit.PrepareDaemon(this); // where 'this' is an android.content.Context class
 ```
 
 ### Create a BusAttachment instance
 
-```
-mBus = new BusAttachment("AboutApplication", 
-   BusAttachment.RemoteMessage.Receive);
+```java
+mBus = new BusAttachment("AboutApplication", BusAttachment.RemoteMessage.Receive);
 ```
 
 ### Create password for the bundled router
@@ -77,10 +76,10 @@ NOTE: Thin libraries at AllSeen Alliance version 14.06 or higher do not require 
 To allow thin libraries to connect to the Android bundled router, 
 the router requires a password.
 
-```
+```java
 Status status = PasswordManager.setCredentials(ALLJOYN_PIN_KEYX, DAEMON_PWD);
 if (Status.OK != status) {
-Log.e(TAG, "Failed to set password for daemon, Error: " + status);
+    Log.e(TAG, "Failed to set password for daemon, Error: " + status);
 }
 ```
 
@@ -88,7 +87,7 @@ Log.e(TAG, "Failed to set password for daemon, Error: " + status);
 
 Once created, the BusAttachment must be connected to the AllJoyn framework.
 
-```
+```java
 Status status = mBus.connect();
 if (Status.OK != status) {
     Log.e(TAG, "Failed connect to bus, Error: '" + status + "'");;
@@ -100,12 +99,12 @@ if (Status.OK != status) {
 The application should advertise the daemon so that the 
 thin client can find it and connect to it.
 
-```
+```java
 int flag = BusAttachment.ALLJOYN_REQUESTNAME_FLAG_DO_NOT_QUEUE;
-String daemonName = ?org.alljoyn.BusNode_? + mBus.getGlobalGUIDString(); 
+String daemonName = 'org.alljoyn.BusNode_' + mBus.getGlobalGUIDString(); 
 Status status = mBus.requestName(daemonName, flag);
 if (Status.OK == status) {
-    status = mBus.advertiseName(?quiet@? +, SessionOpts.TRANSPORT_ANY);
+    status = mBus.advertiseName('quiet@' +, SessionOpts.TRANSPORT_ANY);
     if (Status.OK != status) {
         mBus.releaseName(daemonName);
     }
@@ -130,7 +129,7 @@ requires access to any application using AboutClient, return true
 when this callback is triggered. Use the SessionJoined handler 
 to set the session timeout to 20 seconds.
 
-```
+```java
 class MyListener implements SessionPortListener {
     boolean acceptSessionJoiner( short sessionPort, String joiner, SessionOpts opts ) {
         return true;
@@ -151,7 +150,7 @@ announcement. To allow incoming connections, the formation
 of a session is needed. The AllJoyn framework must be told 
 that connections are allowed.
 
-```
+```java
 final Mutable.ShortValue sPort = new Mutable.ShortValue((short) 0); 
 SessionOpts sessionOpts = new SessionOpts();
 sessionOpts.traffic = SessionOpts.TRAFFIC_MESSAGES;
@@ -169,17 +168,15 @@ Status status = m_bus.bindSessionPort(sPort, sessionOpts,
                 return false;
             }
         }
- 
 
         public void sessionJoined(short sessionPort, int id, String joiner){
-
-            Log.i(TAG,
- 
-            String.format("SessionPortListener.sessionJoined(%d, %d, %s)", sessionPort, id, joiner));
+            Log.i(TAG, 
+                String.format("SessionPortListener.sessionJoined(%d, %d, %s)", sessionPort, id, joiner));
         }
     });
     
-String logMessage = String.format("BusAttachment.bindSessionPort(%d, %s): %s", sPort.value, sessionOpts.toString(), status);
+String logMessage = 
+    String.format("BusAttachment.bindSessionPort(%d, %s): %s", sPort.value, sessionOpts.toString(), status);
 Log.d(TAG, logMessage);
 ```
 
@@ -214,7 +211,6 @@ in the AllJoyn services that make use of them.
 | HardwareVersion | no | no | s |
 | SupportUrl | no | no | s |
 
-
 #### Sample PropertyStore implementation
 
 An example PropertyStore implementation (AboutStore) is provided 
@@ -224,13 +220,13 @@ below that specifies the following dictionary of metadata fields:
 * Values are a Map of String to Object entries, where the 
 String is the language tag associated with the Object value
 
-```
+```java
 public class AboutStore implements PropertyStore
 {
     private Set < String > m_AnnounceKeys = new HashSet < String >();
     private Map < String, Map < String, Object > > m_DataMap = new HashMap < String, Map < String, Object > >();
     public AboutStore(Map < String, Map < String, Object > > defaultMap)
-        {
+    {
         // Initialize set of Announce keys m_AnnounceKeys.add("AppId"); 
         m_AnnounceKeys.add("DefaultLanguage"); 
         m_AnnounceKeys.add("DeviceName"); 
@@ -239,7 +235,8 @@ public class AboutStore implements PropertyStore
         m_AnnounceKeys.add("Manufacturer"); 
         m_AnnounceKeys.add("ModelNumber");
         m_DataMap.putAll(defaultMap);
-        }
+    }
+
     @Override
     public void readAll(String languageTag, Filter filter, Map<String, Object> dataMap) throws PropertyStoreException {
         languageTag = checkLanguage(languageTag);
@@ -275,7 +272,7 @@ public class AboutStore implements PropertyStore
     @Override
     public void update(String key, String languageTag, Object newValue) throws PropertyStoreException {}
     
-    private String checkLanguage(String languageTag) throws PropertyStoreException
+    private String checkLanguage(String languageTag) throws PropertyStoreException 
     {
         if (languageTag == null) {
             throw new PropertyStoreException(PropertyStoreException.INVALID_VALUE);
@@ -297,7 +294,7 @@ In the application, the PropertyStore instance you created
 will be loaded with the default values. In the sample implementation 
 above, the AboutStore instance is provided with a default values map.
 
-```
+```java
 Map<String, Map<String, Object> defaultMap = new HashMap<String, Map<String, Object>>();
 
 // Populate map with fields names and values. 
@@ -318,7 +315,7 @@ according to their data type.
 The AppId field is an array of bytes. It is a globally 
 unique identifier (GUID) encoded as an array of 16 bytes.
 
-```
+```java
 UUID uuid = UUID.randomUUID();
 Map <String, Object> defaultAppId = new HashMap <String, Object>(); 
 defaultAppId.put("", TransportUtil.uuidToByteArray(uuid)); 
@@ -331,7 +328,7 @@ The SupportedLanguages field is a list of text strings.
 Some fields can have language-dependent value that must 
 be provided for each of the supported languages.
 
-```
+```java
 String [] supportedLanguages = { "en", "fr" };
 Map <String, Object> defaultSupportedLanguages = new HashMap <String, Object>();
 defaultSupportedLanguages.put("", supportedLanguages);
@@ -345,7 +342,7 @@ on how to insert into the PropertyStore. The code below can
 be used with the field name being replaced by other field 
 names listed in [About interface data fields][about-interface-data-fields].
 
-```
+```java
 Map <String, Object> defaultModelNumber = new HashMap <String, Object>(); 
 defaultModelNumber.put("", "MN-123");");// An empty string means non-language specific field.
 defaultMap.put("ModelNumber", defaultModelNumber);
@@ -359,7 +356,7 @@ how to insert into the PropertyStore. The code below can
 be used with the field name being replaced by other field 
 names listed in [About interface data fields][about-interface-data-fields].
 
-```
+```java
 Map <String, Object> defaultDescription = new HashMap <String, Object>(); 
 defaultDescription.put("en", "The description in English");
 defaultDescription.put("fr", "La description en francais");
@@ -373,7 +370,7 @@ of the AboutService class. AboutServiceImpl is an implementation
 wrapper around AllJoyn native calls that handle the interactions 
 between About Server and About Client.
 
-```
+```java
 AboutService aboutService = AboutServiceImpl.getInstance();
 ```
 
@@ -382,7 +379,7 @@ AboutService aboutService = AboutServiceImpl.getInstance();
 Register the relevant BusObjects and add the relevant interfaces 
 to the Announcements ObjectDescription. Then invoke `startAboutServer`.
 
-```
+```java
 aboutService.startAboutServer(mBus, sPort.value, aboutStore);
 ```
 
@@ -398,9 +395,8 @@ applications that use the AboutIconClient class.
 An Icon is published directly as a byte array or a reference 
 URL, and must be provisioned as follows:
 
-```
-byte [] aboutIconContent = { 0x89, 0x50, 0x4E, 0x47, 0x0D /* Add relevant data here */
-};
+```java
+byte [] aboutIconContent = { 0x89, 0x50, 0x4E, 0x47, 0x0D /* Add relevant data here */ };
 String mimeType("image/png"); /* This should correspond to the content */ 
 String url("http://myurl"); /* An alternate access to the Icon */
 ```
@@ -410,19 +406,19 @@ String url("http://myurl"); /* An alternate access to the Icon */
 Register the relevant BusObjects and add the relevant interfaces 
 to the Announcements ObjectDescription. Then register the icon.
 
-```
+```java
 aboutService.registerIcon(mimeType, url, aboutIconContent);
 ```
 
 ### Advertise to allow connections
 
-```
+```java
 mBus.advertiseName(mBus.getUniqueName());
 ```
 
 ### Send the Announcement
 
-```
+```java
 aboutService.announce();
 ```
 
@@ -432,7 +428,7 @@ When your process is done with the AboutService and no longer
 wishes to send announcements, unregister the process from the 
 AllJoyn bus.
 
-```
+```java
 if (null != aboutService) {
     aboutService.unregisterIcon(); 
     aboutService.stopServer();
@@ -462,13 +458,13 @@ of the AboutService class. AboutServiceImpl is an implementation
 wrapper around AllJoyn native calls that handle the interactions 
 with the About Server.
 
-```
+```java
 AboutService aboutService = AboutServiceImpl.getInstance();
 ```
 
 ### Start Client mode
 
-```
+```java
 aboutService.startAboutClient(mBus);
 ```
 
@@ -486,7 +482,7 @@ NOTE: onDeviceLost has been deprecated. Use BusAttachment.ping
 to detect whether an application sending an Announce signal is 
 present and responding.
 
-```
+```java
 public class MyAnnouncementHandler implements AnnouncementHandler
 {
     @Override
@@ -501,8 +497,8 @@ public class MyAnnouncementHandler implements AnnouncementHandler
                 m_logger.debug(TAG, "onAnnouncement received: with parameters:
                 busName:"+deviceName+"\t, port:"+port+"\t, deviceid"+deviceId+ "\t, 
                    deviceName:"+deviceFriendlyName);
-            //create a client instance to connect to this peer. 
-               See possible implementation of this call in "Create the AboutService object".
+            // create a client instance to connect to this peer. See possible 
+            // implementation of this call in "Create the AboutService object".
             engageWithPeer(port, peerName, interfaces, newMap);
         } catch (BusException e) {
             e.printStackTrace();
@@ -525,10 +521,9 @@ the application is interested in. The code below shows a listener
 registered to receive Announce signals that include an object 
 implementing the INTERFACE_NAME interface.
 
-```
+```java
 MyAnnouncementHandler announceHandler = new MyAnnouncementHandler();
-aboutService.addAnnouncementHandler(announceHandler, new String[] { INTERFACE_NAME
-});
+aboutService.addAnnouncementHandler(announceHandler, new String[] { INTERFACE_NAME });
 ```
 
 ### Using ping to determine presence
@@ -542,15 +537,13 @@ NOTE: The BusAttachment.ping method makes a bus call. If ping is
 called inside an AllJoyn callback, BusAttachment.enableConcurrentCallbacks 
 must be called first.
 
-```
+```java
 // When pinging a remote bus name wait a max of 5 seconds 
-   private final int PING_WAIT_TIME = 5000; 
+private final int PING_WAIT_TIME = 5000; 
 mBus.enableConcurrentCallbacks();
 Status status = mBus.ping(peerName, PING_WAIT_TIME);
 if (Status.OK == status) {
-
 }
-
 ```
 
 ### Request non-announced data
@@ -570,7 +563,7 @@ feature API as described in the [About Interface Definition][about-interface-def
 The following is an example implementation of the call 
 shown in [Implement AnnounceHandler class][implement-announcehandler-class].
 
-```
+```java
 private void engageWithPeer(Short port, String peerName, BusObjectDescription[]
 interfaces, Map<String, Object> announceMap) { 
     MyAvailabilityListener availabilityListener = new MyAvailabilityListener();
@@ -591,7 +584,7 @@ AboutData is retrieved via the AboutClient. The structure that
 is returned can be iterated through to determine the contents. 
 The content definition is found in the [About Interface Definition][about-interface-definition].
 
-```
+```java
 aboutClient.getAbout((String)announceMap.get("DefaultLanaguge"));
 ```
 
@@ -604,7 +597,7 @@ the onAnnouncement() implementation of your MyAnnouncementHandler instance.
 The following is an example implementation of the call shown 
 in [Implement AnnounceHandler class][implement-announcehandler-class].
 
-```
+```java
 private void engageWithPeer(Short port, String peerName, BusObjectDescription[]
 interfaces, Map<String, Object> announceMap) {
     MyAvailabilityListener availabilityListener = new MyAvailabilityListener();
@@ -632,7 +625,7 @@ The structure that is returned can be iterated through
 to determine the contents. The content definition is found 
 in the [About Interface Definition][about-interface-definition].
 
-```
+```java
 aboutIconClient.GetContent();
 ```
 
@@ -642,7 +635,7 @@ Once you are done using the About feature and the AllJoyn
 framework, unregister listeners, disconnect and stop the 
 clients, services, and the BusAttachment used in the application.
 
-```
+```java
 if(aboutClient != null) {
     aboutClient.disconnect();
 }

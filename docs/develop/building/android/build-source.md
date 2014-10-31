@@ -121,7 +121,7 @@ emulator into the lib folder of the AllJoyn distribution.
 Attach the device (or launch the Android emulator), then 
 run the following commands:
 
-```
+```sh
 cd <alljoyn_dir>/lib
 adb pull /system/lib/libcrypto.so libcrypto.so
 ```
@@ -193,7 +193,7 @@ If you followed the instructions in [The Android source][android-source], you
 should have the repo tool and git installed on your system. 
 Enter the following commands to get the AllJoyn source:
 
-```
+```sh
 $ mkdir $HOME/alljoyn # for example
 $ cd $HOME/alljoyn
 $ repo init -u git://github.com/alljoyn/manifest.git
@@ -216,7 +216,7 @@ built for Gingerbread.
 
 Use the following commands to build the AllJoyn framework for Android:
 
-```
+```sh
 $ export JAVA_HOME="/usr/lib/jvm/java-6-sun" # or java-5-sun
 $ export CLASSPATH="/usr/share/java/junit.jar"
 $ scons OS=android CPU=arm ANDROID_NDK=/usr/local/android-ndk-r5b 
@@ -229,7 +229,6 @@ AllJoyn framework can use Uncrustify to check white space
 compliance and Doxygen for producing API documentation for 
 the C++ APIs. See [Configuring the Build Environment (Linux Platform)][config-build-environment-linux]
 for detailed instructions for installing these two tools.
-
 
 [intro-to-alljoyn-framework]: /learn/core/standard-core
 [config-build-environment-windows]: /develop/building/windows/build-source

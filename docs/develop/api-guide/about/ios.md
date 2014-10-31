@@ -55,7 +55,7 @@ BusAttachment and connecting to the AllJoyn framework.
 
 ### Create instance of BusAttachment
 
-```
+```objc
 self.clientBusAttachment = [[AJNBusAttachment alloc]
 initWithApplicationName:APPNAME allowRemoteMessages:ALLOWREMOTEMESSAGES];
 ```
@@ -68,7 +68,7 @@ do not require this step.
 To allow thin libraries to connect to the bundled router, 
 the router requires a password.
 
-```
+```objc
 [AJNPasswordManager setCredentialsForAuthMechanism:@"ALLJOYN_PIN_KEYX" usingPassword:@"000000"];
 ```
 
@@ -76,7 +76,7 @@ the router requires a password.
 
 Once created, the BusAttachment must be connected to the AllJoyn framework.
 
-```
+```objc
 [self.clientBusAttachment connectWithArguments:@""];
 ```
 
@@ -85,7 +85,7 @@ Once created, the BusAttachment must be connected to the AllJoyn framework.
 The application should advertise the router so that the thin 
 library can find it and connect to it.
 
-```
+```objc
 [self.clientBusAttachment requestWellKnownName:@"quiet@org.alljoyn.BusNode.AboutService withFlags:kAJNBusNameFlagDoNotQueue];
 
 [clientBusAttachment advertiseName:@"quiet@org.alljoyn.BusNode.AboutService.542e8562-e29b-89c2-b456-
@@ -110,7 +110,7 @@ check to allow or disallow access. Since the AboutService
 requires access to any application using AboutClient with a 
 specific port, return true when this callback is triggered.
 
-```
+```objc
 self.aboutSessionPortListener = [[CommonBusListener alloc]
 initWithServicePort:1000];
 
@@ -124,7 +124,7 @@ announcement. To allow incoming connections, the formation
 of a session is needed. The AllJoyn framework must be told 
 that connections are allowed.
 
-```
+```objc
 AJNSessionOptions *opt = [[AJNSessionOptions alloc] 
    initWithTrafficType:kAJNTrafficMessages 
    supportsMultipoint:false proximity:kAJNProximityAny 
@@ -176,7 +176,7 @@ that specifies the following dictionary of metadata fields:
 * Values are a Map of String to Object entries, where the 
 String is the language tag associated with the Object value.
 
-```
+```objc
 - (QStatus)fillAboutPropertyStoreImplData
 {
    QStatus status;
@@ -303,7 +303,7 @@ according to their data type.
 The AppId field is an array of bytes. It is a globally unique 
 identifier (GUID) encoded as an array of 16 bytes.
 
-```
+```objc
 self.uniqueID = [[NSUUID UUID] UUIDString]; 
 
 [self.aboutPropertyStoreImpl setAppId:self.uniqueID];
@@ -315,7 +315,7 @@ The SupportedLanguages field is a list of text strings.
 Some fields can have a language-dependent value that must 
 be provided for each of the supported languages.
 
-```
+```objc
 NSArray *languages = @[@"en", @"sp", @"fr"]; 
 
 [self.aboutPropertyStoreImpl setSupportedLangs:languages];
@@ -329,7 +329,7 @@ how to insert into the PropertyStore. The code below can be
 used with the field name being replaced by other field names 
 listed in [About data interface fields][about-interface-data-fields].
 
-```
+```objc
 [self.aboutPropertyStoreImpl setModelNumber:@"Wxfy388i"];
 ```
 
@@ -340,7 +340,7 @@ Below is an example for the Description field on how to insert
 into the PropertyStore. The code below can be used with the 
 field name being replaced by other field names listed in [About data interface fields][about-interface-data-fields].
 
-```
+```objc
 [self.aboutPropertyStoreImpl setDescription:@"This is an AllJoyn application" language:@"en"];
 
 [self.aboutPropertyStoreImpl setDescription:@"Esta es una AllJoyn aplicacion" language:@"sp"];
@@ -355,7 +355,7 @@ of the AboutService class. AboutServiceImpl is an implementation
 wrapper around AllJoyn native calls that handle the interactions 
 between About Service and About Client.
 
-```
+```objc
 AboutService aboutService = AboutServiceImpl.getInstance();
 ```
 
@@ -364,7 +364,7 @@ AboutService aboutService = AboutServiceImpl.getInstance();
 Register the relevant BusObjects and add the relevant interfaces 
 to the Announcement's ObjectDescription.
 
-```
+```objc
 [self.aboutServiceApi startWithBus:self.serviceBusAttachment 
    andPropertyStore:self.aboutPropertyStoreImpl];
 ```
@@ -381,7 +381,7 @@ between applications that use the AboutIconClient class.
 An Icon is published directly as a byte array or a reference 
 URL, and must be provisioned as follows:
 
-```
+```objc
 uint8_t aboutIconContent[] = { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44,
    0x52, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x0A, 0x08, 0x02, 0x00, 0x00,
@@ -403,7 +403,6 @@ uint8_t aboutIconContent[] = { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
 
 0x00, 0x00, 0x00, 0x49, 0x45, 0x4E,
    0x44, 0xAE, 0x42, 0x60, 0x82 };
- 
 
 };
 
@@ -418,7 +417,7 @@ NSString *mimeType = @"image/png"; /* This should correspond
 Register the relevant BusObjects and add the relevant interfaces 
 to the Announcement's ObjectDescription.
 
-```
+```objc
 self.aboutIconService = [[AJNAboutIconService alloc] initWithBus:self.serviceBusAttachment 
    mimeType:mimeType url:url content:aboutIconContent csize:csize];
 
@@ -427,14 +426,14 @@ self.aboutIconService = [[AJNAboutIconService alloc] initWithBus:self.serviceBus
 
 ### Advertise to allow connections
 
-```
+```objc
 [self.serviceBusAttachment advertiseName:([self.serviceBusAttachment uniqueName])
 withTransportMask:(kAJNTransportMaskAny)];
 ```
 
 ### Send the Announcement
 
-```
+```objc
 [self.aboutServiceApi announce];
 ```
 
@@ -444,7 +443,7 @@ When your process is done with the AboutService and no longer
 wishes to send announcements, unregister the process from the 
 AllJoyn bus and then delete variables used.
 
-```
+```objc
 // Stop AboutIcon
 [self.serviceBusAttachment unregisterBusObject:self.aboutIconService];
 self.aboutIconService = nil;
@@ -493,7 +492,7 @@ protocol must be created.
 This declaration of a class will allow for the signals to 
 be received. It must implement the pure virtual function Announce.
 
-```
+```objc
 @interface sampleClass <AJNAnnouncementListener>
 
 - (void)announceWithVersion:(uint16_t)version 
@@ -525,7 +524,7 @@ interfaces the application is interested in. The code below
 shows a listener registered to receive Announce signals 
 that include an object implementing the INTERFACE_NAME interface.
 
-```
+```objc
 self.announcementReceiver = [[AJNAnnouncementReceiver alloc]
 initWithAnnouncementListener:self andBus:self.clientBusAttachment];
 
@@ -547,7 +546,7 @@ NOTE: The AJNBusAttachment pingPeer method makes a bus call.
 If pingPeer is called inside an AllJoyn callback, `AJNBusAttachment 
 enableConcurrentCallbacks` must be called first.
 
-```
+```objc
 // When pinging a remote bus name wait a max of 5 seconds
 [self.clientBusAttachment enableConcurrentCallbacks];
 QStatus status = [self.clientBusAttachment pingPeer:busName 
@@ -572,7 +571,7 @@ BusAttachment JoinSession API.
 NOTE: The variables name and port are set from the AboutData 
 from the Announce method.
 
-```
+```objc
 AJNSessionOptions *opt = [[AJNSessionOptions alloc] 
 initWithTrafficType:kAJNTrafficMessages supportsMultipoint:false 
 proximity:kAJNProximityAny transportMask:kAJNTransportMaskAny];
@@ -590,7 +589,7 @@ Generate an AJNAboutClient and create an instance passing in
 the BusAttachment that was created in [Start and connect the 
 BusAttachment][start-connect-busattachment].
 
-```
+```objc
 AJNAboutClient *ajnAboutClient = [[AJNAboutClient alloc]
 initWithBus:self.clientBusAttachment];
 ```
@@ -600,7 +599,7 @@ initWithBus:self.clientBusAttachment];
 Generate an AJNAboutIconClient and create an instance passing 
 in the BusAttachment created in [Start and connect the BusAttachment][start-connect-busattachment].
 
-```
+```objc
 self.ajnAboutIconClient = [[AJNAboutIconClient alloc]
 initWithBus:self.clientBusAttachment];
 
@@ -613,7 +612,7 @@ sessionId:self.sessionID];
 Once you are done using the About feature and the AllJoyn 
 framework, free the variables used in the application.
 
-```
+```objc
 self.clientBusAttachment = nil;
 ```
 

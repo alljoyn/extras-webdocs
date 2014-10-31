@@ -109,7 +109,7 @@ Figure: GT202 kit pinout
 1. Create a project folder.
 2. Clone the ajtcl repo.
 3. Check out the master branch.
-   ```
+   ```sh
    git clone https://git.allseenalliance.org/gerrit/core/ajtcl.git
    ```
 
@@ -240,7 +240,7 @@ Complete the following procedure to edit the FreeRTOSConfig.h.
 Replace the sysclk_get_cpu_hz() function with 84000000UL.
 3. Add the following macros:
 
-   ```
+   ```c
    #define vPortSVCHandler SVC_Handler
    #define xPortPendSVHandler PendSV_Handler
    #define xPortSysTickHandler SysTick_Handler

@@ -79,7 +79,7 @@ requires access to any application using AboutClient, return
 true when this callback is triggered. Use the SessionJoined 
 handler to set the session timeout to 20 seconds.
 
-```
+```java
 class MyListener implements SessionPortListener {
    boolean acceptSessionJoiner( short sessionPort, String joiner, SessionOpts opts ) {
       return true;
@@ -100,7 +100,7 @@ NOTE: This step is not mandatory if you are only sending an announcement.
 To allow incoming connections, the formation of a session is needed. 
 The AllJoyn framework must be told that connections are allowed.
 
-```
+```java
 final Mutable.ShortValue sPort = new Mutable.ShortValue((short)0);
 
 SessionOpts sessionOpts = new SessionOpts(); 
@@ -169,7 +169,7 @@ This implementation extends the example AboutStore implementation
 in the [About API Guide][about-api-guide-android] and is passed to the 
 AboutService instead of AboutStore.
 
-```
+```java
 public class ConfigStore implements PropertyStore
 {
    private Map < String, Map < String, Object > > m_DefaultMap = new HashMap
@@ -315,7 +315,7 @@ created will be loaded with the default values. In the
 sample implementation above, the ConfigStore instance will 
 be provided with a default values map.
 
-```
+```java
 Map < String, Map < String, Object > defaultMap = new HashMap < String, Map < String, Object > >();
 // Populate map with fields' names and values.
 Map < String, Object > defaultDeviceName = new HashMap <String, Object>(); 
@@ -339,7 +339,7 @@ according to their data type.
 The AppId field is an array of bytes. It is a globally 
 unique identifier (GUID) encoded as an array of 16 bytes.
 
-```
+```java
 UUID uuid = UUID.randomUUID();
 Map < String, Object > defaultAppId = new HashMap <String, Object>(); 
 defaultAppId.put("", TransportUtil.uuidToByteArray(uuid)); 
@@ -352,7 +352,7 @@ The SupportedLanguages field is a list of text strings.
 Some fields can have language-dependent value that must 
 be provided for each of the supported languages.
 
-```
+```java
 String [] supportedLanguages = { "en", "fr" };
 Map < String, Object > defaultSupportedLanguages = new HashMap <String, Object>();
 defaultSupportedLanguages.put("", supportedLanguages);
@@ -366,7 +366,7 @@ on how to insert into the ConfigStore. The code below can be
 used with the field name being replaced by other field names 
 listed in [Config interface data fields][config-interface-data-fields].
 
-```
+```java
 Map < String, Object > defaultModelNumber = new HashMap <String, Object>(); 
 defaultModelNumber.put("", "MN-123");");// An empty string means non-language specific field.
 defaultMap.put("ModelNumber", defaultModelNumber);
@@ -380,7 +380,7 @@ into the PropertyStore. The code below can be used with the field
 name being replaced by other field names listed in 
 [Config interface data fields][config-interface-data-fields].
 
-```
+```java
 Map < String, Object > defaultDescription = new HashMap <String, Object>(); 
 defaultDescription.put("en", "The description in English"); 
 defaultDescription.put("fr", "La description en francais"); 
@@ -397,7 +397,7 @@ For more details, see the content in [Provision PropertyStore instance
 with default values][prov-propertystore] through [Send the Announcement][send-announcement] 
 in the [About API Guide][about-api-guide-android].
 
-```
+```java
 AboutService aboutService = AboutServiceImpl.getInstance();
 aboutService.startAboutServer(sPort.value, configStore, mBus);
 ```
@@ -409,7 +409,7 @@ an instance of the ConfigService class. ConfigServiceImpl is an
 implementation wrapper around AllJoyn native calls that handle 
 the interactions with the Config Server.
 
-```
+```java
 ConfigService configService = ConfigServiceImpl.getInstance();
 ```
 
@@ -423,7 +423,7 @@ Before starting in server mode, a few application callbacks
 must be implemented that allow reaction to changes in various 
 field values.
 
-```
+```java
 ConfigChangeListener configChangeListener = new ConfigChangeListener()
 {
    @Override
@@ -472,7 +472,7 @@ framework can be started. Register the relevant BusObjects,
 add the relevant interfaces to the Announcement's ObjectDescription 
 and register the callbacks.
 
-```
+```java
 configService.startConfigServer(aboutStore, configChangeListener, 
 restartHandler, factoryResetHandler, passphraseChangeListener, mBus);
 ```
@@ -483,7 +483,7 @@ A SetPasswordHandler is required to be registered with the
 ConfigService in order to handler remote calls to set a new 
 password as the secret for the key exchange encryption mechanism.
 
-```
+```java
 SetPasswordHandler setPasswordHandler = new SetPasswordHandler() {
    @Override
    public void setPassword(String peerName, char[] password)
@@ -498,13 +498,13 @@ configService.setSetPasswordHandler(setPasswordHandler);
 
 ### Advertise to allow connections
 
-```
+```java
 mBus.advertiseName(mBus.getUniqueName());
 ``` 
 
 ### Send the Announcement
 
-```
+```java
 aboutService.announce();
 ```
 
@@ -514,7 +514,7 @@ When your process is done with the ConfigService and no
 longer wishes to send announcements, unregister the process 
 from the AllJoyn bus and then delete variables used.
 
-```
+```java
 if( configService != null ) {
    configService.stopServer();
 }
@@ -551,7 +551,7 @@ is an aggregation of the content in [Create the AboutService object]
 [create-aboutservice-object] through [Set up ability to receive the 
 Announce signal][set-up-announce-signal] of the [About API Guide][about-api-guide-android].
 
-```
+```java
 AboutService aboutService = AboutServiceImpl.getInstance();
 aboutService.startClient(mBus);
 MyAnnouncementHandler announceHandler = new MyAnnouncementHandler();
@@ -566,13 +566,13 @@ instance of the ConfigService class. ConfigServiceImpl is an implementation
 wrapper around AllJoyn native calls that handle the interactions with the 
 Config Server.
 
-```
+```java
 ConfigService configService = ConfigServiceImpl.getInstance();
 ```
 
 ### Start Client mode
 
-```
+```java
 configService.startConfigClient(mBus);
 ```
 
@@ -590,7 +590,7 @@ MyAnnouncementHandler instance. The following is an example
 implementation of the call shown in [Implement AnnounceHandler class]
 [implement-announcehandler-class] of the [About API Guide][about-api-guide-android].
 
-```
+```java
 private void engageWithPeer(Short port, String peerName, BusObjectDescription[]
 interfaces, Map<String, Object> announceMap) { 
    MyAvailabilityListener availabilityListener = new
@@ -606,7 +606,7 @@ via the GetConfigurations() method call. The structure that is
 returned can be iterated through to determine the contents. 
 The content definition is found in the [Configuration Interface Definition][config-interface-definition].
 
-```
+```java
 Map <String, Variant> configMap =
 configClient.GetConfigurations((String)announceMap.get("DefaultLanguage"));
 ```
@@ -619,7 +619,7 @@ returned by `GetConfigurations()` can be iterated through to
 determine the contents. The content definition is found in the 
 [Configuration Interface Definition][config-interface-definition].
 
-```
+```java
 configMap.put("DefaultLanaguge", new Variant("fr", "s"); 
 configClient.UpdateConfigurations((String)announceMap.get("DefaultLanguage"), configMap);
 ```
@@ -632,7 +632,7 @@ that was returned by `GetConfigurations()` can be iterated
 through to determine the list of reset fields. The content 
 definition is found in the [Configuration Interface Definition][config-interface-definition].
 
-```
+```java
 String [] fieldsToReset = new String [] { "DeviceName" }; 
 configClient.ResetConfigurations((String)announceMap.get("DefaultLanguage"), fieldsToReset);
 ```
@@ -644,7 +644,7 @@ factory defaults through the ConfigClient via the `FactoryReset()` method call.
 
 NOTE: This is a no-reply call, so its success cannot be determined directly.
 
-```
+```java
 configClient.FactoryReset();
 ```
 
@@ -655,7 +655,7 @@ via the `Restart()` method call.
 
 NOTE: This is a no-reply call, so its success cannot be determined directly.
 
-```
+```java
 configClient.Restart();
 ```
 
@@ -668,7 +668,7 @@ ones based on the new shared secret, namely the passcode.
 
 NOTE: The realm name is currently ignored.
 
-```
+```java
 byte [] passcode = new byte [] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
 configClient.SetPasscode("", passcode);
 // Revoke current encryption key that was based on the previous passcode. StringValue peerGuid = new StringValue();
@@ -684,7 +684,7 @@ Once you are done using the About feature, Configuration service
 framework, and the AllJoyn framework, free the variables used 
 in the application.
 
-```
+```java
 if(configClient != null) {
    configClient.disconnect();
 }
@@ -701,7 +701,6 @@ if(mBus != null) {
    mBus = null;
 }
 ```
-
 
 [building-android]: /develop/building/android
 [create-propertystore-implementation]: #create-a-propertystore-implementation

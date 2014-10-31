@@ -17,7 +17,7 @@ an end user to control values that an OEM has offered up for changes.
 
 The Config interface is defined as follows: 
 
-```
+```xml
 <node name="/Config">
     <interface name="org.alljoyn.Config">
         <property name="Version" type="q" access="read"/> 

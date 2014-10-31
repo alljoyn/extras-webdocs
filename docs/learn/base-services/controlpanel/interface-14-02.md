@@ -192,11 +192,9 @@ of the given panel for the specific language code.
 
 The following XML defines the ControlPanel interface.
 
-```
-<node
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.ControlPanel">
       <property name="Version" type="q" access="read"/>
    </interface>
@@ -259,11 +257,9 @@ No methods are exposed by this interface.
 
 The following XML defines the Container interface.
 
-```
-<node
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-   xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.Container">
       <property name="Version" type="q" access="read"/>
       <property name="States" type="u" access="read"/>
@@ -391,11 +387,9 @@ No methods are exposed by this interface.
 
 The following XML defines the Property interface.
 
-```
-<node
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.Property">
       <property name="Version" type="q" access="read"/>
       <property name="States" type="u" access="read"/>
@@ -465,11 +459,9 @@ No methods are exposed by this interface.
 
 The following XML defines the LabelProperty interface.
 
-```
-<node
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.LabelProperty">
       <property name="Version" type="q" access="read"/>
       <property name="States" type="u" access="read"/>
@@ -553,10 +545,8 @@ Execute the action command.
 
 The following XML defines the Action interface.
 
-```
-<node
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.Action">
       <property name="Version" type="q" access="read"/>
@@ -609,10 +599,8 @@ specific language code.
 The following XML defines the NotificationAction interface.
 
 ```
-<node
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.NotificationAction">
       <property name="Version" type="q" access="read"/>
       <signal name="Dismiss" />
@@ -726,11 +714,9 @@ error will be raised.
 
 The following XML defines the Dialog interface.
 
-```
-<node
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.Dialog">
       <property name="Version" type="q" access="read"/>
       <property name="States" type="u" access="read"/>
@@ -923,11 +909,9 @@ The controller must present a Cancel button to dismiss the input form.
 
 The following XML defines the ListProperty interface.
 
-```
-<node
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.ListProperty">
       <property name="Version" type="q" access="read"/>
       <property name="States" type="u" access="read"/>
@@ -998,11 +982,9 @@ There is no signal in this interface.
 
 The following XML defines the HTTPControl interface.
 
-```
-<node
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.Control.HTTPControl">
       <property name="Version" type="q" access="read"/>
       <method name="GetRootURL">

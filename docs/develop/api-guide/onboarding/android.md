@@ -54,7 +54,7 @@ initialize the AllJoyn framework.
 
 #### Connect to the AllJoyn bus
 
-```
+```java
 busAttachment = new BusAttachment(context.getPackageName(), 
    BusAttachment.RemoteMessage.Receive); 
    busAttachment.connect();
@@ -65,7 +65,7 @@ busAttachment = new BusAttachment(context.getPackageName(),
 Register the BroadcastReceiver object to receive a NETWORK_STATE_CHANGED_ACTION 
 intent when the Android device connected to a selected AP.
 
-```
+```java
 private final static String DEFAULT_PINCODE = "000000";
 /* this step only required if there are thin libraries version 14.02 */ 
 Status pasStatus = PasswordManager.setCredentials("ALLJOYN_PIN_KEYX",
@@ -85,7 +85,7 @@ for starting the onboarding process.
 
 For additional details, see the [About API Guide][about-api-guide-android].
 
-```
+```java
 // Initialize the About service in client mode
 AboutService aboutService = AboutServiceImpl.getInstance();
 aboutService.startAboutClient(busAttachment);
@@ -100,7 +100,7 @@ String[]{OnboardingTransport.INTERFACE_NAME});
 Start OnboardingManager and pass it the application's context, 
 the bus attachment, and the AboutService.
 
-```
+```java
 try {
 OnboardingManager.getInstance().init(context, aboutService, busAttachment);
 } catch (OnboardingIllegalArgumentException e) {
@@ -116,7 +116,7 @@ The Wi-Fi scan discovers all Wi-Fi networks in the vicinity of
 the Android device. The application can then filter out the 
 potential personal APs and Onboardables.
 
-```
+```java
 // Register a broadcast receiver for Wi-Fi scans
 BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
    @Override
@@ -167,7 +167,7 @@ is notified of its progress/errors by Android intents.
 Register a broadcast receiver to receive onboarding progress 
 notifications and errors.
 
-```
+```java
 BroadcastReceiver mainReceiver = new BroadcastReceiver() {
    public void onReceive(Context context, Intent intent) {
       if (intent.getAction().equals(OnboardingManager.STATE_CHANGE_ACTION)) {
@@ -191,7 +191,7 @@ registerReceiver(mainReceiver, mainFilter);
 
 #### Prepare the Onboarding configuration
 
-```
+```java
 // Prepare the onboardable data
 WiFiNetworkConfiguration onboardable = new WiFiNetworkConfiguration(onboardableSsid, 
    onboardableAuthType, onboardablePassword);
@@ -208,7 +208,7 @@ OnboardingConfiguration config = new OnboardingConfiguration(onboardable,
 
 #### Call `runOnboarding()`
 
-```
+```java
 try { 
    OnboardingManager.getInstance().runOnboarding(config);
 } catch (OnboardingIllegalArgumentException e) {
@@ -226,7 +226,7 @@ to abort the process and return to idle state.
 NOTE: Aborting is not possible once the personal AP credentials 
 have been passed to the onboardable.
 
-```
+```java
 try { 
    OnboardingManager.getInstance().abortOnboarding();
 } catch (OnboardingIllegalStateException e) {
@@ -245,7 +245,7 @@ and the application is notified of its progress/errors by Android intents.
 
 Register a broadcast receiver offboarding progress notifications and errors :
 
-```
+```java
 BroadcastReceiver mainReceiver = new BroadcastReceiver() {
    public void onReceive(Context context, Intent intent) {
 
@@ -270,7 +270,7 @@ registerReceiver(mainReceiver, mainFilter);
 
 #### Prepare the Offboarding configuration
 
-```
+```java
 // Prepare the AJ configuration of the AJ device to be offboarded
 OffboardingConfiguration config =
 new OffboardingConfiguration(busName,port);
@@ -278,7 +278,7 @@ new OffboardingConfiguration(busName,port);
 
 #### Call `runOffboarding()`
 
-```
+```java
 try {
    OnboardingManager.getInstance().runOffboarding(config);
    } catch (OnboardingIllegalArgumentException e) {
@@ -294,7 +294,7 @@ try {
 Once you are done usingthe Onboarding SDK, free the variables 
 used in the application.
  
-```
+```java
 try {
    OnboardingManager.getInstance().shutDown();
    } catch (OnboardingIllegalStateException e) {
@@ -384,8 +384,6 @@ If the Onboardable application receives an error, show a pop-up
 with a suggestion to move the device or AP closer. It should 
 then continue to send the credentials to the device and wait 
 for the appropriate response/error messages.
-
-
 
 [building-android]: /develop/building/android
 [about-api-guide-android]: /develop/api-guide/about/android

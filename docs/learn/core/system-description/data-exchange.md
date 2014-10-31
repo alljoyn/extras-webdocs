@@ -327,7 +327,7 @@ messages from that sender through.
 
 For example:
 
-```
+```c
 Match Rule = 
 "type='signal',sender='org.freedesktop.DBus',interface='org.freedesktop.DBus',
 member='Foo',path='/bar/foo',destination=':452345.34'"
@@ -535,7 +535,7 @@ device or on a different device. For destination endpoints that
 are local to the AllJoyn router, no bus-to-bus endpoint is 
 maintained in the routing table.
 
-```
+```c
 AllJoyn routing table = List (session Id, List (destination app endpoint, 
 next hop B2B endpoint))
 ```

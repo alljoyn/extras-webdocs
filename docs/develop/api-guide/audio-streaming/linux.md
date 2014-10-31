@@ -44,23 +44,23 @@ sinks and sources.
 (Linux Platform) section][config-build-env-linux]. Stop prior to the Building AllJoyn section.
 2. Pull down the source code:
 
-   ```
-   $ repo init "u git clone git://git.allseenalliance/core/alljoyn.git
+   ```sh
+   $ repo init -u git clone git://git.allseenalliance/core/alljoyn.git
    ```
 3. Run SCons to compile the Audio service framework, test suite, and samples.
-   ```
+   ```sh
    $ cd services/audio
    ```
 
    * For 64-bit:
 
-      ```
+      ```sh
       $ scons CPU=x86_64 ABOUT_BASE=$ALLJOYN_BASE/about/cpp
       ```
 
    * For 32-bit:
 
-      ```
+      ```sh
       $ scons ABOUT_BASE=$ALLJOYN_BASE/about/cpp
       ```
 
@@ -101,7 +101,7 @@ To use the Audio service framework, an AllJoyn object called
 the BusAttachment is needed that is used internally by the 
 service to leverage the AllJoyn API calls.
 
-```
+```cpp
 BusAttachment* msgBus = new BusAttachment("SinkService", true);
 ```
 
@@ -109,11 +109,12 @@ BusAttachment* msgBus = new BusAttachment("SinkService", true);
 
 Once created, the BusAttachment must be connected to the AllJoyn framework.
 
-```
+```cpp
 QStatus status = msgBus->Start(); if( status == ER_OK ) {
 status = msgBus->Connect(NULL);
 }
 ``` 
+
 ## Implementing a Sink
 
 Implementing a Sink to receive streaming audio requires 
@@ -133,7 +134,7 @@ has a check to allow or disallow access. Since the Sink requires
 access to everyone, return true when this callback is triggered. 
 Use the SessionJoined handler to set the session timeout to 20 seconds.
 
-```
+```cpp
 class MyListener : public SessionPortListener { 
    private:
       BusAttachment *mMsgBus;
@@ -181,7 +182,7 @@ the Sink is running on.
   products. See the [About Best Practices][about-best-practices] for 
   details on generating the AppId and other values.
 
-   ```
+   ```cpp
    class AboutStore : public PropertyStore { 
      public:
          AboutStore(const char* friendlyName) 
@@ -236,7 +237,7 @@ the Sink is running on.
 2. Create an instance of the new AboutStore class to provide 
 to the StreamObject (see [Create and register StreamObject][create-register-streamobject].)
 
-   ```
+   ```cpp
       const char *friendlyName = "Living Room";
       AboutStore* aboutProps = new AboutStore(friendlyName);
    ```
@@ -246,7 +247,7 @@ to the StreamObject (see [Create and register StreamObject][create-register-stre
 To allow incoming connections, the formation of a session is needed. 
 The AllJoyn framework needs to be told that connections are allowed.
 
-```
+```cpp
 MyListener* myListener = new MyListener(msgBus); 
 SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, 
 SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
@@ -264,13 +265,13 @@ for the platform driver. The current release supports the following platforms:
 
 * Linux:
 
-  ```
+  ```cpp
   AudioDevice* audioDevice = new ALSADevice();
   ```
  
 * Android:
 
-  ```
+  ```java
   AudioDevice* audioDevice = new AndroidDevice();
   ```
 
@@ -279,7 +280,7 @@ for the platform driver. The current release supports the following platforms:
 StreamObject is an implementation wrapper around AllJoyn 
 native calls that handle the interactions between Sink and Source.
 
-```
+```cpp
 StreamObject *streamObj = NULL; if( status == ER_OK ) {
    streamObj = new StreamObject(msgBus, "/Speaker/In", audioDevice, 
       sessionPort, aboutProps);
@@ -301,7 +302,7 @@ NOTE: In most applications that use the AllJoyn framework and
 do not use the About feature, a descriptive well-known name 
 is chosen to advertise.
 
-```
+```cpp
 String name = msgBus->GetUniqueName(); 
 if( status == ER_OK ) {
    status = msgBus->AdvertiseName(name.c_str(), opts.transports); 
@@ -317,7 +318,7 @@ When your process is done with the Sink and no longer wishes
 to receive audio input, unregister the process from the AllJoyn 
 bus and then delete the StreamObject instance.
 
-```
+```cpp
 if( streamObj != NULL ) { 
    streamObj->Unregister(); 
    delete streamObj; 
@@ -358,7 +359,7 @@ After `SinkAdded` is called, call `OpenSink` on each Sink that
 should receive audio. Play and Pause commands will affect all 
 opened Sinks. Refer to the API documentation for more details.
 
-```
+```cpp
 static SinkPlayer *g_sinkPlayer = NULL; 
 class MySinkSearcher : public SinkSearcher {
    virtual void SinkFound( Service *sink ) { 
@@ -384,7 +385,7 @@ You can create and register a SinkListener to be notified when
 these calls have completed. The SinkRemoved handler is also called 
 when a sink's session is lost.
 
-```
+```cpp
 class MySinkListener : public SinkListener { 
    void SinkAdded( const char *name ) {
       printf("SinkAdded: %s\n", name);
@@ -417,7 +418,7 @@ DataSource over the AllJoyn framework to any open sinks.
 The DataSource can be set any time prior to calling the 
 `OpenSink()` method.
 
-```
+```cpp
 MySinkListener listener;
 g_sinkPlayer = new SinkPlayer(msgBus); 
 g_sinkPlayer->AddListener(&listener);
@@ -434,13 +435,13 @@ NOTE: This must be called prior to adding a Sink using `AddSink()`.
 
 To support ALAC (Apple Lossless): 
 
-```
+```cpp
 g_sinkPlayer->SetPreferredFormat(MIMETYPE_AUDIO_ALAC);
 ```
 
 To support RAW audio support:
 
-```
+```cpp
 g_sinkPlayer->SetPreferredFormat(MIMETYPE_AUDIO_RAW);
 ``` 
 
@@ -453,10 +454,9 @@ Adding support for other audio formats will require implementing
 a new class derived from DataSource.
 A .WAV file example follows.
 
-```
+```cpp
 WavDataSource dataSource;
-dataSource.Open("/path/to/file.wav"); // the WAV file to stream 
-   to the sink(s) 
+dataSource.Open("/path/to/file.wav"); // the WAV file to stream to the sink(s) 
 g_sinkPlayer->SetDataSource(&dataSource);
 ```
 
@@ -466,7 +466,7 @@ Create an object of the class that is derived from SinkSearcher
 from [Declare SinkSearcher subclass][declare-sinksearcher-subclass] 
 and register it with the BusAttachment.
 
-```
+```cpp
 MySinkSearcher searcher;
 status = searcher.Register(msgBus);
 ```
@@ -478,7 +478,7 @@ Sinks = 1 prior to calling the Play method to ensure audio will
 be played remotely. The Play method will start audio on every 
 sink that OpenSink() has been called on.
 
-```
+```cpp
 // Sleep until sink is found and then play. An alternative approach would be to
 // call Play() in the SinkListener on the SinkAdded event. 
 while( g_sinkPlayer->GetSinkCount() < 1 )
@@ -494,7 +494,7 @@ and then delete the SinkPlayer.
 
 NOTE: The SinkPlayer object must be deleted before the BusAttachment object.
 
-```
+```cpp
 searcher.Unregister(); 
 g_sinkPlayer->RemoveAllSinks();
 // Wait for sinks to be removed
@@ -513,11 +513,11 @@ card API, you must do the following:
 * When creating a StreamObject create a new instance of the AudioDevice 
 and pass it into the StreamObject constructor. For example:
 
-  ```
+  ```cpp
   audioDevice = new MyAudioDevice();
   streamObj = new StreamObject(msgBus, "/Speaker/In", audioDevice, 
   sessionPort, aboutProps);
-```
+  ```
 
 The following defines the AudioDevice methods your subclass must implement.
 
@@ -543,7 +543,7 @@ The following defines the AudioDevice methods your subclass must implement.
 
 ### Example Open() implementation
 
-```
+```cpp
 bool ALSADevice::Open( const char *format, uint32_t sampleRate, 
 uint32_t numChannels, uint32_t &bufferSize ) {
    int err;
@@ -655,7 +655,7 @@ The implementation of the audio driver presents the following options:
 for a buffer to free up.
 * In the case of ALSA, the snd_pcm_writei method is blocking.
 
-```
+```cpp
 bool ALSADevice::Write( const uint8_t *buffer, uint32_t bufferSizeInFrames ) { 
    snd_pcm_sframes_t err = snd_pcm_writei(mAudioDeviceHandle, buffer,
 bufferSizeInFrames); 
@@ -670,7 +670,6 @@ bufferSizeInFrames, err);
    return err > 0;
 }
 ```
-
 
 [about-api-guides]: /develop/api-guide/about
 [set-up-alljoyn-framework]: #setting-up-the-alljoyn-framework

@@ -71,7 +71,7 @@ For additional details, see the [About API Guide][about-api-guide-ios].
 
 ##### Create, start, connect, and register a Bus attachment
 
-```
+```objc
 clientBusAttachment = [[AJNBusAttachment alloc] initWithApplicationName:APPNAME
 allowRemoteMessages:ALLOWREMOTEMESSAGES]; 
 [clientBusAttachment start];
@@ -85,7 +85,7 @@ allowRemoteMessages:ALLOWREMOTEMESSAGES];
 
 ##### Register to receive announcements and sessionless signals
 
-```
+```objc
 announcementReceiver = [[AJNAnnouncementReceiver alloc] 
 initWithAnnouncementListener:self andBus:self.clientBusAttachment]; 
 [announcementReceiver registerAnnouncementReceiver]; 
@@ -109,7 +109,7 @@ For each announcement that is received, check if it implements
 the Onboarding interface. If it does, save it as an onboardable 
 device for later use.
 
-```
+```objc
 - (void)announceWithVersion:(uint16_t)version port:(uint16_t)port
                     busName:(NSString *)busName 
          objectDescriptions:(NSMutableDictionary *)objectDescs
@@ -142,7 +142,7 @@ NSLog(@"This announcement has the onboarding service");
 1. Initialize the OnboardingClient based from values found 
 in the About Announcement.
 
-```
+```objc
 onboardingClient =	[[AJOBSOnboardingClient alloc]
 initWithBus:clientBusName];
 ```
@@ -150,7 +150,7 @@ initWithBus:clientBusName];
 2. Provide a UI for the user to input/select the personal AP, 
 then send via OnboardingClient.
 
-```
+```objc
 AJOBInfo obInfo;
 obInfo.SSID =ssidTextField.text; 
 obInfo.passcode =ssidPassTextField.text; 
@@ -161,7 +161,7 @@ resultStatus:resultStatus sessionId:sessionId];
 
 3. Tell the Onboardable to join the network provided.
 
-```
+```objc
 [onboardingClient connectTo:onboardeeBus sessionId:sessionId] ;
 ```
 
@@ -186,7 +186,7 @@ connected to the same network, call GetLastError after connecting
 back to the soft AP by going into iOS settings and choosing 
 the soft AP in the list.
 
-```
+```objc
 onboardingClient = [[AJOBSOnboardingClient alloc] initWithBus:clientBusName];
 onboardingClient lastError:busName lastError: lastError sessionId: sessionId];
 ```
@@ -200,7 +200,7 @@ This is used when there is a need to onboard the device to a
 different AP, or if the password was changed on the personal AP, 
 and the AllJoyn device needs to reconnect to it.
 
-```
+```objc
 onboardingClient =	[[AJOBSOnboardingClient alloc] 
    initWithBus:clientBusName]; 
 QStatus status = [self.onboardingClient offboardFrom:self.onboardeeBus sessionId:self.sessionId];

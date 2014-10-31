@@ -70,7 +70,7 @@ to set up the AllJoyn framework.
 
 #### Create bus attachment
 
-```
+```cpp
 bus->Start();
 bus->Connect();
 ```
@@ -84,7 +84,7 @@ API Guide][about-api-guide-linux].
 
 #### Create a PropertyStore and fill it with the needed values
 
-````
+```cpp
 propertyStore = new AboutPropertyStoreImpl();
 propertyStore->setDeviceId(deviceId); 
 propertyStore->setAppId(appIdHex); 
@@ -116,6 +116,7 @@ propertyStore->setDefaultLang(defaultLanguage);
    } else {
       CHECK_RETURN(propertyStore->setDeviceName("Mon nom de l'appareil", "fr"));
    }
+```
 
 #### Implement a BusListener and SessionPortListener
 
@@ -125,7 +126,7 @@ BusListener and SessionPortListener classes.
 
 The class must contain the following function:
 
-```
+```cpp
 bool AcceptSessionJoiner(SessionPort sessionPort, 
    const char* joiner, const
 SessionOpts& opts)
@@ -144,7 +145,7 @@ any of the following:
 
 Here is an example of a full class declaration for the listener class.
 
-```
+```cpp
 class CommonBusListener : public ajn::BusListener, 
    public ajn::SessionPortListener {
 
@@ -160,7 +161,7 @@ class CommonBusListener : public ajn::BusListener,
 
 #### Instantiate the BusListener and initialize the About feature
 
-```
+```cpp
 busListener = new CommonBusListener(); AboutServiceApi::Init(*bus, *propertyStore);
 AboutServiceApi* aboutService = AboutServiceApi::getInstance();
 busListener->setSessionPort(port);
@@ -174,7 +175,7 @@ bus->RegisterBusObject(*aboutService);
 
 ### Initialize the Notification service framework
 
-```
+```cpp
 NotificationService* prodService = NotificationService::getInstance()
 ```
 
@@ -183,7 +184,7 @@ NotificationService* prodService = NotificationService::getInstance()
 Start the Notification service framework and pass it the 
 bus attachment and the newly created PropertyStore.
 
-```
+```cpp
 Sender = prodService->initSend(bus, propertyStoreImpl);
 ```
 
@@ -191,7 +192,7 @@ Sender = prodService->initSend(bus, propertyStoreImpl);
 
 #### Prepare the text per language to be sent
 
-```
+```cpp
 NotificationText textToSend1("en", "The fridge door is open"); 
 NotificationText textToSend2("ru", "????? ???????????? ???????");
 
@@ -205,7 +206,7 @@ vecMessages.push_back(textToSend2);
 Create a notification object where you can set all the optional 
 fields such as an audio URL, etc.
 
-```
+```cpp
 Notification notification(messageType, vecMessages);
 ```
 
@@ -218,7 +219,7 @@ The following optional parameters can be added to the notification.
   Set an icon URL that can be used to display along with 
   the notification.
    
-  ```
+  ```cpp
   notification.setRichIconUrl("http://iconUrl.com/notification.jpeg");
   ```
 
@@ -227,7 +228,7 @@ The following optional parameters can be added to the notification.
   Set an audio URL that can be used to enrich the notification. 
   Each audio URL is set per language.
    
-  ```
+  ```cpp
   richAudioUrl audio1("en", "http://audioUrl.com/notif_en.wav"); 
   richAudioUrl audio2("ru", "http://audioUrl.com/notif_ru.wav"); 
   std::vector<RichAudioUrl> richAudioUrl; 
@@ -241,7 +242,7 @@ The following optional parameters can be added to the notification.
   Set an icon object path so that the receiver can fetch the 
   content of the icon to display along with the notification.
 
-  ```
+  ```cpp
   notification.setRichIconObjectPath("/OBJ/PATH/ICON");
   ```
 
@@ -250,7 +251,7 @@ The following optional parameters can be added to the notification.
   Set an audio object path so that the receiver can fetch 
   the audio content to play along with the notification.
 
-  ```
+  ```cpp
   notification.setRichAudioObjectPath("/OBJ/PATH/AUDIO");
   ```
 
@@ -260,13 +261,13 @@ The following optional parameters can be added to the notification.
   with a bus object to allow the user to perform a control 
   action as a result of a notification.
 
-  ```
+  ```cpp
   notification.setControlPanelServiceObjectPath("/CPS/OBJ/PATH");
   ```
 
 #### Send the notification
 
-```
+```cpp
 status = Sender->send(notification, TTL);
 ```
 
@@ -278,12 +279,11 @@ notification was sent for an event that no longer occurs,
 and the TTL is still valid, the deleteLastMsg API can be 
 used to delete the last notification for a given messageType.
 
-```
+```cpp
 Sender->deleteLastMsg(deleteMessageType);
 ``` 
 
 ## Implementing a Notification Consumer
-
 
 ### Initialize the AllJoyn framework
 
@@ -292,14 +292,14 @@ to set up the AllJoyn framework.
 
 #### Create bus attachment
 
-```
+```cpp
 bus->Start();
 bus->Connect();
 ```
 
 ### Initialize the Notification service framework
 
-```
+```cpp
 conService = NotificationService::getInstance();
 ```
 
@@ -314,7 +314,7 @@ When a notification is received by the Notification service
 framework, it will call the Receive method of the implemented 
 notificationReceiver interface with the notification.
 
-```
+```cpp
 public void Receive(ajn::services::Notification const& notification);
 ```
 
@@ -322,7 +322,7 @@ The notificationObject has "getters" for all notification arguments
 that were sent in the message. Arguments that describe the device 
 and the app it was received from follow.
 
-```
+```cpp
 const char* getDeviceId() const; 
 const char* getDeviceName() const; 
 const char* getAppId() const;
@@ -331,14 +331,14 @@ const char* getAppName() const;
 
 Arguments that describe the message follow.
 
-```
+```cpp
 const int32_t getMessageId() const;
 const NotificationMessageType getMessageType() const;
 ```
 
 Arguments that give the content of the message follow.
 
-```
+```cpp
 const std::vector<NotificationText>& getText() const;
 const char* getRichIconUrl() const;
 const char* getRichIconObjectPath() const;
@@ -356,7 +356,7 @@ removing the notificartion from all entities in the proximal area.
 An application that wants to dismiss a notification must call 
 the `QStatus dismiss()` method.
 
-```
+```cpp
 At void 'derived of NotificationReceiver'::receive(Notification conast& notification)
 {
    Notification.dismiss()
@@ -365,7 +365,7 @@ At void 'derived of NotificationReceiver'::receive(Notification conast& notifica
 
 Create the actual object.
 
-```
+```cpp
 receiver = new NotificationReceiverTestImpl();
 ```
 
@@ -374,7 +374,7 @@ For more details, refer to the API documentation.
 The notificationReceiver interface has a dismiss method that 
 gets called when the receiver gets a dismiss signal.
 
-```
+```cpp
 virtual void Dismiss(const int32_t msgId, const qcc::String appId) = 0;
 ```
 
@@ -392,10 +392,9 @@ Start the consumer and pass it the bus attachment and the
 notificationReceiver implmented in [Implement the 
 notificationReceiver interface][implement-notificationreceiver-interface].
 
-```
+```cpp
 conService->initReceive(busAttachment, Receiver);
 ```
-
 
 [building-linux]:  /develop/building/linux
 [about-api-guide-linux]: /develop/api-guide/about/linux

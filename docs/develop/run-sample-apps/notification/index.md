@@ -17,7 +17,7 @@ from any application that supports the Producer side of the Notification service
 
 The Notification interface is defined as follows:
 
-```
+```xml
 <node>
     <interface name="org.alljoyn.Notification">
         <property name="Version" type="q" access="read"/>

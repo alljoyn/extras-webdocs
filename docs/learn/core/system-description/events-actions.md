@@ -83,7 +83,7 @@ to indicate whether or not it is sessionless signal.
 
 The following is an example of enhanced introspection XML format.
 
-```
+```xml
 <node name="/com/example/LightBulb">
     <description>Your lightbulb</description>
     <interface name="com.example.LightBulb">

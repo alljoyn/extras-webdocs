@@ -70,17 +70,17 @@ the new Android project.
 
 2. Create a new folder with the name **libs**.
 3. Copy the file **<AllJoyn dist folder>/java/jar/alljoyn.jar** 
-to the new libs folder.
+   to the new libs folder.
 4. In the libs folder, create another folder with the name **armeabi**.
 5. Copy the **liballjoyn_java.so** file from the AllJoyn 
-distribution to the **armeabi** folder.
+   distribution to the **armeabi** folder.
    The file is in the AllJoyn distribution in the folder 
    <AllJoyn dist folder>/java/libs/liballjoyn_java.so.
 
-  You should now have a project directory structure that is 
-  similar to this (only a partial view of a project).
+   You should now have a project directory structure that is 
+   similar to this (only a partial view of a project).
 
-  ```
+   ```
    +<project name>
    |\src
    ||-<source code files>
@@ -148,7 +148,7 @@ To do so, add the following lines to your code.
 
 #### Code 1. Load native library
 
-```
+```java
 static { 
    System.loadLibrary("alljoyn_java");
 }
@@ -167,7 +167,7 @@ Each interface can contain:
 
 ### Code 2. Example of an interface
 
-```
+```java
 @BusInterface (name = "org.my.interface.name")
 public interface MyInterface {
 
@@ -240,7 +240,7 @@ this must be specified in the @BusMethod annotation.
 
 #### Code 3. Specifying signature and replySignature
 
-```
+```java
 @BusMethod(signature="u", replySignature="u")
 public int MyMethod3(int unsignedArg) throws BusException;
 ```
@@ -256,7 +256,7 @@ cannot be obtained from the interface itself.
 
 #### Code 4. Auto assignment of signatures
 
-```
+```java
 @BusMethod
 public int MyMethod4(String sArg, 
    double dArg, 
@@ -295,7 +295,7 @@ mechanism is as simple as adding the @Secure annotation to the interface.
 
 #### Code 5. Creating a secure interface
 
-```
+```java
 @BusInterface(name = "org.sample.SecureInterface")
 @Secure
 public interface SecureInterface {
@@ -356,7 +356,7 @@ a photo; the code could look something like this:
 
 #### Code 6. Example data structure using @Position annotation
 
-```
+```java
 public class ImageInfo{
  @Position(0)
  public String fileName;
@@ -386,7 +386,7 @@ the two return values.
 
 #### Code 7. Method that accepts multiple return values
 
-```
+```java
 @BusInterface (name = "org.my.timerInterface")
 public interface MultipleReturnValuesInterface {
 
@@ -423,7 +423,7 @@ Connecting a service consists of several steps.
 
 #### Code 8. Connecting a service to the bus (no error checking)
 
-```
+```java
 mBus = new BusAttachment("applicationName"); 
 mBus.registerBusObject(this, "/servicepath"); 
 mBus.connect();
@@ -439,7 +439,7 @@ return status that should be checked.
 
 #### Code 9. Connecting a service (with error checking)
 
-```
+```java
 mBus = new BusAttachment("applicationName");
 Status status = mBus.registerBusObject(this, "/servicepath");
 if (Status.OK != status) {
@@ -469,7 +469,7 @@ NOTE: This code would have to be in a class that implements the
 BusObject. If it did not implement the BusObject, the following 
 line would not work:
 
-```
+```java
 mBus.registerBusObject(this, "/servicepath");
 ```
 
@@ -530,7 +530,7 @@ that are part of the D-Bus or AllJoyn specification.
 
 #### Code 10. Connecting a client (with error checking)
 
-```
+```java
 mBus = new BusAttachment("applicationName");
 
 Status status = mBus.connect();
@@ -572,7 +572,7 @@ from the `getProxyBusObject()` method call.
 
 #### Code 11. Multiple interfaces
 
-```
+```java
 mProxyObj = mBus.getProxyBusObject("org.my.well.known.name", 
    "/servicepath",
    BusAttachment.SESSION_ID_ANY,
@@ -645,7 +645,7 @@ than your service's own well-known name.
 
 #### Code 12. Obtaining a well-known name/advertising the well-known name
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment(getClass().getName(), 
 BusAttachment.RemoteMessage.Receive);
@@ -683,7 +683,6 @@ return false;
 }
 });
 
-
 Int flags = 0; //do not use any request name flags
 status = mBus.requestName("com.my.well.known.name", flags);
 if (status != Status.OK) { 
@@ -716,7 +715,7 @@ return;
 
 #### Code 13. Find well-known name and join session
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment(getClass().getName(), 
 BusAttachment.RemoteMessage.Receive);
@@ -762,7 +761,7 @@ Suppose you have the following interface:
 
 #### Code 14. Sample interface with AllJoyn methods
 
-```
+```java
 @BusInterface (name = "org.sample.busMethods")
 public interface SampleInterface {
 
@@ -779,7 +778,7 @@ public interface SampleInterface {
 
 #### Code 15. Implementing the SampleInterface in the Service
 
-```
+```java
 class SampleService implements SampleInterface, BusObject {
    public String Ping(String str){
       return str;
@@ -807,7 +806,7 @@ use a SampleService object when you are registering the bus object.
 
 #### Code 16. Connecting the bus using the SampleService BusObject
 
-```
+```java
 SampleService mySampleService; 
 BusAttachment mBus;
 mBus = new BusAttachment(getClass().getName(), 
@@ -871,7 +870,7 @@ if (status != Status.OK) {
 
 #### Code 17. Calling a remote method from the SampleInterface
 
-```
+```java
 private BusAttachment mBus;
 mBus = new BusAttachment(getClass().getName(), 
 BusAttachment.RemoteMessage.Receive);
@@ -934,7 +933,7 @@ if the code were implemented locally.
 
 #### Code 18. Calling the remote methods
 
-```
+```java
 try {
    // will return "Hello World"
    String strPing = mSampleInterface.Ping("Hello World");
@@ -966,7 +965,7 @@ respond to the signal for which it has registered.
 
 #### Code 19. Example interface containing signals
 
-```
+```java
 @BusInterface (name = "org.sample.busSignals")
 public interface SampleInterface {
 
@@ -980,7 +979,7 @@ public interface SampleInterface {
 
 #### Code 20. Create an empty class implementation
 
-```
+```java
 class SignalInterface implements SampleInterface, BusObject {
    public void buttonClicked(int id) {/*No code needed here*/}
    public void playerPosition(int x, int y, int z){/*No code needed here*/}
@@ -999,7 +998,7 @@ beyond defining and using the interface.
 
 #### Code 21. Connect signals to the bus and emitting the signals - service
 
-```
+```java
 private static final short CONTACT_PORT=42;
 static int sessionId;
 static String joinerName;
@@ -1015,7 +1014,6 @@ if (status != Status.OK) {
    System.exit(0);
    return;
 }
-
 
 status = mBus.connect();
 if (status != Status.OK) { 
@@ -1082,7 +1080,7 @@ System.out.println("Bus Exception: " + ex.toString());
 
 #### Code 22. Registering signal handlers - client
 
-```
+```java
 status = mBus.registerSignalHandlers(this);
 if (status != Status.OK) { 
    System.exit(0);
@@ -1099,7 +1097,7 @@ put that class as an argument for the registerSignalHandlers method.
 
 #### Code 23. Adding signal handlers - client
 
-```
+```java
 @BusSignalHandler(iface="org.sample.busSignals", signal="buttonClicked")
 public void buttonClicked(int id) {
    switch(id)
@@ -1180,7 +1178,7 @@ sessionless signal.
 
 This case can look like the following:
 
-```
+```java
 SignalEmitter emitter = new SignalEmitter(mySignalService, 0, 
 Signal.GlobalBroadcast.Off);
 emitter.setSessionlessFlag(true);
@@ -1191,7 +1189,7 @@ calls an `addMatch()` function and passes in the rule for
 sessionless signals. This looks like (where "my.signal.Service" 
 below is the name of the interface emitting the sessionless signal):
 
-```
+```java
 Status status = mBus.addMatch("interface=;my.signal.Service',sessionless='t'");
 ```
 
@@ -1211,7 +1209,7 @@ This code should closely resemble the code used for AllJoyn methods.
 
 #### Code 24. Interface using properties
 
-```
+```java
 @BusInterface (name = "org.samples.properties")
 public interface PropertiesInterface {
    @BusProperty
@@ -1223,7 +1221,7 @@ public interface PropertiesInterface {
 
 #### Code 25. Implementation of the PropertiesInterface - service
 
-```
+```java
 class AllJoynProperties implements PropertiesInterface, BusObject {
    private int mTextSize;
  
@@ -1239,7 +1237,7 @@ class AllJoynProperties implements PropertiesInterface, BusObject {
 
 #### Code 26. Connecting the Properties interface to the bus - service
 
-```
+```java
 private BusAttachment mBus;
 mBus = new BusAttachment(getClass().getName(), 
 BusAttachment.RemoteMessage.Receive);
@@ -1263,7 +1261,7 @@ Each property can be accessed using the name of the property.
 
 #### Code 27. Calling the properties interface and using the GetAll method for properties
 
-```
+```java
 private BusAttachment mBus;
 private ProxyBusObject mProxyObj;
 private PropertiesInterface mPropertiesInterface;
@@ -1274,7 +1272,6 @@ private boolean isJoined = false;
 
 mBus = new BusAttachment(getClass().getName(), 
 BusAttachment.RemoteMessage.Receive);
-
 
 mBus.registerBusListener(new BusListener {
    public void foundAdvertisedName(String name, short transport, 
@@ -1354,7 +1351,7 @@ authentication when you register a your BusObject.
 
 #### Code 28. Registering an BusObject using Object Security
 
-```
+```java
 bus.registerBusObject(myService, "/my/object/path", true);
 ```
 
@@ -1362,7 +1359,7 @@ The ProxyBusObject should also indicate that it is using peer authentication.
 
 #### Code 29. Get a ProxyBusObject that uses Object Security
 
-```
+```java
 bus.getProxyBusObject("my.wellknown.name", "/my/object/path", 
 sessionId, new Class<?>[] {MyInterface.class}, true);
 ```
@@ -1556,7 +1553,7 @@ for the service and [Code 32. SRP key exchange AuthListener - client][code-32] f
 
 #### Code 30. Registering the authentication listener
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment("myProgramName", BusAttachment.RemoteMessage.Receive); 
 
@@ -1580,7 +1577,7 @@ type of security the AuthListener is responsible for handling - in this case,
 
 #### Code 31. SRP key exchange AuthListener - service
 
-```
+```java
 /*
 * This Secure Remote Password Key Exchange listener creates a random
 * 6-digit pin code for each authentication attempt.
@@ -1636,7 +1633,7 @@ has not been called, the same password is used.
  
 #### Code 32. SRP key exchange AuthListener - client
 
-```
+```java
 /*
 * This Secure Remote Password Key eXchange listener will ask the user to
 * enter the one time password.	This password must match the six-digit
@@ -1754,7 +1751,7 @@ for the client (sender).
 
 #### Code 33. Registering the authentication listener for SRP logon
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment("myProgramName", BusAttachment.RemoteMessage.Receive); 
 
@@ -1774,7 +1771,7 @@ for a secure interface.
 
 #### Code 34. SRP Logon AuthListener - service
 
-```
+```java
 class SrpLogonListener implements AuthListener {
    private Map<String, char[]> mUserNamePassword;
 
@@ -1824,7 +1821,7 @@ the password from the user name, it requests the user name and password again.
 
 #### Code 35. SRP Logon AuthListener - client
 
-```
+```java
 class SrpLogonListener implements AuthListener {
 
 static class SrpLogonListener implements AuthListener {
@@ -1966,7 +1963,7 @@ and if they should be allowed to use the interface.
 
 #### Code 36. Registering the authentication listener
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment( "MyAppName", BusAttachment.RemoteMessage.Receive); 
 
@@ -1990,7 +1987,7 @@ and would work for both the service and client.
 
 #### Code 37. RSA key exchange AuthListener - service and client
 
-```
+```java
 /* The RSA key exchange listener uses X.509 certificates to authenticate. */
 class RsaKeyXListener implements AuthListener {
    public boolean requested(String mechanism, 
@@ -2104,7 +2101,7 @@ http://www.openssl.org/docs/HOWTO/certificates.txt
 
 To create a private key the following command was used:
 
-```
+```sh
 $ openssl genrsa -des3 -out privkey.pem 2048
 ```
 
@@ -2115,8 +2112,8 @@ This generates a private key that is 2048 bits in length.
 
 The private key is then used to generate the X.509 certificate
 
-```
-$openssl req -new -x509 -key privkey.pem -out cacert.pem -days 3650
+``` sh
+$ openssl req -new -x509 -key privkey.pem -out cacert.pem -days 3650
 ```
 
 You are asked to provide the following for the certificate:
@@ -2133,8 +2130,8 @@ You are asked to provide the following for the certificate:
 This certificate is valid for just under 10 years from the date 
 of its creation. Inspect the contents of the certificate using openssl:
 
-```
-$openssl x509 in cacert.pem -noout -text
+```sh
+$ openssl x509 in cacert.pem -noout -text
 ```
 
 [Code 38. RSA Key Exchange AuthListener - service and client][code-38] 
@@ -2142,7 +2139,7 @@ represents the sequence shown in the MSC RSA key exchange option 1 diagram.
 
 #### Code 38. RSA Key Exchange AuthListener - service and client
 
-```
+```java
 /* The RSA key exchange listener uses X.509 certificates to authenticate. */
 private static class RsaKeyXListener implements AuthListener {
    /* password used when generating the private key */
@@ -2155,55 +2152,30 @@ private static class RsaKeyXListener implements AuthListener {
       "\n" +
  
       "uIG/qraR9tvxhxyMPsLAP8ZimZBHMwJuMnRkAoU/fO/REnX7Zo+OLD+/ks4MnmBX\n" +
-
       "1ziBBP3MSRcvF47C8U5qmdHPg4ujzJgbX0F6tCMOmjdeAt+iFOjov43gfuGXY3sr\n" + 
-
       "L/28OMUqrgyYVuaytVPBWOSFKy9BBSO/h/pCVHcQC+2C4vGXgz3aAoM4euqXgGXT\n" +
-
       "xVMh8wLAMfRFJHmTmb65n8LPb5j2UOLJ3MkFXXi753qwLfqMlEO7cE5UIh+C+LwA\n" +
-
       "KhFfehtAKMlaArnlfuJMnEuHj9vj7XfhFpdH23AXUt3CBngJvuF/xi9r0bfwEgzi\n" +
-
       "0Nc4wKCyj2VTr3qH22ZYat5gkSh8p8qs8FsQyZE/IE7BUp1han25fev1ycsvLaqZ\n" +
-
       "zxhoCNJMrX3o+B8OqKN4sJPMte6/5BcJkvap4Wih1iNv+H0Aflc0A9Wrfww16bgx\n" +
- 
       "C3OtxfFWB8CC5d6DNxmc3Ef6M+wzbB4OW/umWThPLcqK7tjlq2hqeaOJnsW9CwXL\n" +
-
       "o/6LoAwrRss/Tp+1sw7FRKQ+cOdKXdjWwtpu8JV3EF9zibxMG00V2OLaHHU+JrOY\n" +
-
       "j9Mkru2ItcJEOtH1hv5iNpfTMnZbgfDF1iEhAZNKDdvoSVM8MrcrQONLZ8whiUlN\n" +
-
       "LQJU9I3oCLHJEHS23T2gMIJFyU7eb+8A+dbMEPqhvm6VK2PONEQZtQAEf+O+Hgq2\n" +
-
       "ccx94SayajiwQoPcu8uHPEeJym2rx3/IZhttymvAqxX9GzydvsPnQedRT31PjrMq\n" +
-
       "bZYdNMV2Y9+GLef/x6dwFMjzHZC2o8nglCJ/PYpebISPJLRsdYt/HuGr/XFAKPQv\n" +
-
       "jN1xbUWOYSiws/1xnidb6SYQEPHvsutaerplHeZ7XQkddKeXoz0BTF9XnY3magCd\n" +
-
       "tWnuZtznd56pggNY4skUMF8bh/sbHtF0/MfI5SOAPmrvGsC/6+lZG/HGM1LM9u5+\n" +
-
       "016U1T54DjV3yDgLen1rQ4R8wZ3DLc15VVX5L4ORKqFb3073oX+RGUeS0c5x+Pqd\n" +
-
       "/rp9CdWN3FcyC/NXsCo1GVR3qW/5/HwimQxghLqEgho1ZELIZskMP0zzBSejcUFJ\n" +
-
       "5vLiusCU8C0DdcV3sfye/8kNcIalIyBeMJviA9s4AOylZsXdJyADHpHdrMsIa0R0\n" +
-
       "FyqZBHilUMlHDbQgd0+Nkuh+zP4iXh89MJQl7Knb8Y/aqCO8LYGNLaXv8lOFnqYr\n" +
-
       "mYnR9HxLHfkKoe8qoKQqwDDrzIZGRhMYBAX2RgxSXSkfUSem9ccJ+t6vm7js5ORj\n" +
-
       "IT8JunaRFxBYkP9popYEjV0iEKWeshyulQHpScnncca0IqkHdyNfrK+zJhoi2KhU\n" +
-
       "eTlael/ACxP1GEZDd2pPTzwB/KdcoQQrjfi/zFovIOYmcIo1Q2eJZLgJyc3x1ne/\n" +
-
       "21/pYZ3FiOjr3tP9MHLg3tcdi7ZShzd81bvudFCuSI569MJpGGlLYuBn/+UvohBK\n" +
-
       "igOnHn/R60euBdsQdAxhDWJqzVDm1q5J0jmN5hk2RvQlfbX/L+cZvJsClhsO4ZX7\n" +
-
       "JoWdSxXn5gCsWAX8LZUa46tRac1QuCPSJw+q55dif6ze6/A7vnyjg3ZxDLKxcs/O\n" + 
-
       "-----END RSA PRIVATE KEY-----\n";
    /* X.509 certificate good until Jul 9 15:11:06 2021 GMT */
    private static final String mCert =
@@ -2330,7 +2302,7 @@ shows how to gain access to the certificate so that it can be verified.
 
 #### Code 39. Obtaining the X.509 certificate for verification
 
-```
+```java
 private CertificateFactory factory;
 factory = CertificateFactory.getInstance("X.509");
 
@@ -2405,7 +2377,7 @@ Yes, we are re-using the SrpKeyXListener for PIN key exchange.
  
 #### Code 40. Registering the authentication listener
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment("myProgramName", 
 BusAttachment.RemoteMessage.Receive); 
@@ -2443,7 +2415,7 @@ the name ECDHE_NULLKeyXListener.
 
 #### Code 41. ECDHE_NULL Key Exchange AuthListener - service and client
 
-```
+```java
 class ECDHE_NULLKeyXListener implements AuthListener {
 
    public ECDHE_NULLKeyXListener() {
@@ -2485,7 +2457,7 @@ shows registering an AuthListener with the name ECDHE_NULLKeyXListener.
  
 #### Code 42. Registering the authentication listener with ECDHE_NULLKeyXListener
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment("myProgramName", BusAttachment.RemoteMessage.Receive); 
    ECDHE_NULLKeyXListener myAuthListener; Status status =
@@ -2516,7 +2488,7 @@ Figure: MSC ECDHE_PSK key exchange
 
 #### Code 43. ECDHE_PSK Key Exchange AuthListener - service and client
 
-```
+```java
 class ECDHEPSKKeyXListener implements AuthListener {
 
    public ECDHEPSKKeyXListener() {
@@ -2573,7 +2545,7 @@ shows registering an AuthListener with the name ECDHE_PSKKeyXListener.
 
 #### Code 44. Registering the authentication listener with ECDHE_PSKKeyXListener
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment("myProgramName", 
 BusAttachment.RemoteMessage.Receive);
@@ -2632,7 +2604,7 @@ The code for the ECDHE_ECDSAKeyXListener is shown in
 
 #### Code 45. ECDHE_ECDSA Key Exchange AuthListener - service and client
 
-```
+```java
 class ECDHE_ECDSAKeyXListener implements AuthListener {
 
    public ECDHE_ECDSAKeyXListener() {
@@ -2717,18 +2689,12 @@ boolean authenticated) {
       PRIVATE KEY-----" +
       "CkzgQdvZSOQMmqOnddsw0BRneCNZhioNMyUoJwec9rMAAAAA" + 
       "-----END PRIVATE KEY-----";
-   private static final String CLIENT_CERT_PEM = "-----BEGIN CERTIFICATE-----
-      " + 
+   private static final String CLIENT_CERT_PEM = "-----BEGIN CERTIFICATE-----" + 
       "AAAAAZ1LKGlnpVVtV4Sa1TULsxGJR9C53Uq5AH3fxqxJjNdYAAAAAAobbdvBKaw9\n" +
-      
       "eHox7o9fNbN5usuZw8XkSPSmipikYCPJAAAAAAAAAABiToQ8L3KZLwSCetlNJwfd\n" +
-      
       "bbxbo2x/uooeYwmvXbH2uwAAAABFQGcdlcsvhdRxgI4SVziI4hbg2d2xAMI47qVB\n" +
-      
       "ZZsqJAAAAAAAAAAAAAAAAAABYGEAAAAAAAFhjQABMa7uTLSqjDggO0t6TAgsxKNt\n" +
-      
       "+Zhu/jc3s242BE0drNFJAiGa/u6AX5qdR+7RFxVuqm251vKPgWjfwN2AesHrAAAA\n" +
-      
       "ANsNwJl8Z1v5jbqo077qdQIT6aM1jc+pKXdgNMk6loqFAAAAAA==\n" + 
       "-----END CERTIFICATE-----";
 }
@@ -2739,7 +2705,7 @@ shows registering an AuthListener with the name ECDHE_ECDSAKeyXListener.
 
 #### Code 46. Registering the authentication listener with ECDHE_ECDSAKeyXListener
 
-```
+```java
 BusAttachment mBus;
 mBus = new BusAttachment("myProgramName", BusAttachment.RemoteMessage.Receive);
 
@@ -2766,19 +2732,19 @@ to read and write from.
 
 For Windows XP, the file is in:
 
-```
+```bat
 C:\Documents and Settings\<user_name>\.alljoyn_keystore\<Application name> 
 ```
 
 For Windows 7, the file is in: 
 
-```
+```bat
 C:\Users\<user_name>\.alljoyn_keystore\<Application name>
 ```
 
 For Linux, the file is in:
 
-```
+```sh
 /home/<user_name>/.alljoyn_keystore/<Application name>
 ```
 
@@ -2792,7 +2758,7 @@ have read/write permissions to access that location.
 
 #### Code 47. Overriding the default file location when registering an AuthListener
 
-```
+```java
 BusAttachment bus;
 bus = new BusAttachment("MyApp", BusAttachment.RemoteMessage.Receive);
 String strFilePath = File.separator + "foo" + File.separator + "fileName.ks"; 
@@ -2819,7 +2785,7 @@ the keystore is shared when registering the authListener.
 
 #### Code 48. Registering AuthListeners with a shared keystore
 
-```
+```java
 BusAttachment bus;
 bus = new BusAttachment("MyApp", BusAttachment.RemoteMessage.Receive);
 String strFilePath = File.separator + ".alljoyn_keystore" + File.separator +
@@ -2860,7 +2826,7 @@ logging to `stderr`).
 
 These can be accessed using the following method calls:
 
-```
+```java
 BusAttachment.useOSLogging (Boolean useOSLog );
 BusAttachment.setDebugLevel(String module, int level); 
 BusAttachment.setLogLevels(String logEnv); 
@@ -2924,14 +2890,14 @@ The following code would print the High Level log for ALL
 of the AllJoyn modules and the API trace and below log 
 for the ALLJOYN module:
 
-```
+```java
 BusAttachment.setDebugLevel("ALL", 1); 
 BusAttachment.setDebugLevel("ALLJOYN", 7);
 ```
 
 The same could be achieved using the following code:
 
-```
+```java
 BusAttachment.setLogLevels("ALL=1;ALLJOYN=7");
 ```
 
@@ -2940,7 +2906,7 @@ or it is using the built-in name discovery/advertisement
 services, the logs from this part of the AllJoyn framework 
 will not output logs unless you use the following call:
 
-```
+```java
 BusAttachnent.setDaemonDebug("ALL", 7);
 ```
 
@@ -2957,19 +2923,19 @@ Normally when using a C++ program the user would only need
 to specify the module they are interested in using environment 
 variables. For example:
 
-```
+```java
 export ER_DEBUG_ALLJOYN_OBJ=15
 ```
 
 With Java you will generally use:
 * Linux
-  ```
+  ```sh
   export ER_DEBUG_ALL=15
   ```
 
 * Windows
 
-  ```
+  ```bat
   set ER_DEBUG_ALL=15
   ```
 
@@ -3051,7 +3017,7 @@ as its initialization parameter.
 
 #### Code 49. BusHandler class that extends the Handler class
 
-```
+```java
 class BusHandler extends Handler {
    public BusHandler(Looper looper) {
       super(looper);
@@ -3079,7 +3045,7 @@ To start the BusHandler, use the following code:
 
 #### Code 50. Starting the BusHandler class
 
-```
+```java
 BusHandler mBusHandler;
 HandlerThread busThread = new HandlerThread("BusHandler");
 busThread.start();
@@ -3145,7 +3111,7 @@ IMPORTANT:
 
 #### Code 51. Adding the @AccessPermission annotation for an AllJoyn Java interface
 
-```
+```java
 @BusInterface (name = "org.alljoyn.bus.addressbook")
 public interface AddressBookInterface {
    /*
@@ -3180,7 +3146,7 @@ library (bundle.jar) to the Android app or to use the extra
 calls that were explicitly needed to use bundle router. 
 However, the function call
 
-```
+```java
 org.alljoyn.bus.alljoyn.DaemonInit.PrepareDaemon(getApplicationContext());
 ``` 
 
@@ -3225,7 +3191,7 @@ know the list of access points around you. It does this by
 talking to the Android framework from your AllJoyn app. 
 For this reason you need to specify the call:
 
-```
+```java
 org.alljoyn.bus.alljoyn.DaemonInit.PrepareDaemon(getApplicationContext());
 ```
 
@@ -3247,7 +3213,7 @@ the AllJoyn framework uses multicast for device discovery and
 the Android framework requires any app that intends to use 
 multicast to have these permissions.
  
-```
+```xml
 <uses-permission 
 android:name="android.permission.INTERNET"></uses-permission>
 
@@ -3263,7 +3229,7 @@ enable the AllJoyn framework to look for wireless access points
 around you and use this data to detect if you are in proximity 
 to any other device.
 
-```
+```xml
 <uses-permission 
 android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
 
@@ -3402,7 +3368,7 @@ be used to reduce the size of the signal.
 
 #### Code 53. Header compression
 
-```
+```java
 // Create the signal emitter and connect it with the SampleInterface class
 SignalEmitter emitter = new SignalEmitter(mySignalInterface, 
    SignalEmitter.GlobalBroadcast.On);
@@ -3424,7 +3390,7 @@ radio to look for remote services.
 
 #### Code 54. Shutting off Discovery
 
-```
+```java
 status = mBus.cancelFindName(SERVICE_NAME);
 if (status != Status.OK) {
    finish();

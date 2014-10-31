@@ -4,13 +4,13 @@
 
 1. Open a terminal window and run the following command:
 
-  ```
+  ```sh
   $ sudo apt-get install build-essential libgtk2.0-dev 
      libssl-dev xsltproc ia32-libs libxml2-dev
   ```
 2. To create a 32-bit build of the AllJoyn&trade; framework 
 on a 64-bit operating system, install these required development libraries:
-  ```
+  ```sh
   $ sudo apt-get install gcc-multilib g++-multilib libc6-i386 
      libc6-dev-i386 libssl-dev:i386 libxml2-dev:i386
   ```
@@ -28,14 +28,14 @@ NOTE: Python v3.0 is not compatible and will cause errors.
 1. Python is a common part of most Linux distributions. You can 
 determine whether Python is already installed on your system by
 opening a terminal window and running the following command:
-  ```
+  ```sh
   $ which python
   ```
 
   If a path (e.g., /usr/bin/python) is returned, Python is already installed.
 
 2. Otherwise, open a terminal window and run the following command:
-  ```
+  ```sh
   $ sudo apt-get install python
   ```
 
@@ -50,7 +50,7 @@ on most Linux distributions.
 
 Open a terminal window and run the following command:
 
-```
+```sh
 $ sudo apt-get install scons
 ```
 
@@ -63,7 +63,7 @@ OpenSSL](http://www.openssl.org/).
 
 Open a terminal window and run the following command:
 
-```
+```sh
 $ sudo apt-get install libssl-dev
 ```
 
@@ -74,7 +74,7 @@ source code is stored in a set of [git projects](http://git-scm.com/).
 
 Open a terminal window and run the following command:
 
-```
+```sh
 $ sudo apt-get install git-core
 ```
 
@@ -88,21 +88,21 @@ This tool is not required, but strongly recommended.
 
 1. Open a terminal window and run the following command to install curl:
 
-  ```
+  ```sh
   $ sudo apt-get install curl
   ```
 
 2. Navigate to your home directory and download repo by running 
 the following command:
   
-  ```
+  ```sh
   $ curl https://commondatastorage.googleapis.com/git-repo-downloads/repo >
   ~/bin/repo
   ```
 
 3. Copy repo to /usr/local/bin and make it executable using the following commands:
 
-  ```
+  ```sh
   $ sudo cp repo /usr/local/bin
   $ sudo chmod a+x /usr/local/bin/repo
   ``` 
@@ -116,7 +116,7 @@ There are two ways to install Uncrustify v0.57.
 
 * Download the source and then build and install Uncrustify:
 
-  ```
+  ```sh
    $ mkdir $HOME/uncrustify # for example
    $ cd $HOME/uncrustify
    $ git clone http://github.com/bengardner/uncrustify.git
@@ -132,7 +132,7 @@ NOTE: In some cases, Uncrustify has failed to build on the new
 version of Ubuntu. Try making the following change to get 
 Uncrustify to build:
 
-  ```
+  ```sh
    diff --git a/src/uncrustify.cpp b/src/uncrustify.cpp index 2635189..7aba76d 100644
    --- a/src/uncrustify.cpp
    +++ b/src/uncrustify.cpp
@@ -154,7 +154,7 @@ Uncrustify to build:
    a mirror based on your location, and download the .deb package.
    4. Install the package using either of these two commands, as appropriate:
 
-   ```
+   ```sh
    $ sudo dpkg -i uncrustify_0.57-1_amdd64.deb
    $ sudo dpkg -i uncrustify_0.57-1_i386.deb
    ```
@@ -165,7 +165,7 @@ The [Doxygen tool](http://www.doxygen.org) builds documentation from source code
 
 Open a terminal window and run the following command:
 
-```
+```sh
 $ sudo apt-get install doxygen
 ```
 
@@ -175,7 +175,7 @@ The [Graphviz Dot tool](http://www.graphviz.org/) diagrams class hierarchies.
 
 Open a terminal window and run the following command:
 
-```
+```sh
 $ sudo apt-get install graphviz
 ```
 
@@ -189,7 +189,7 @@ without producing the documentation.
 
 Install TeX Live if you want to produce PDF documentation.
 
-```
+```sh
 $ sudo apt-get install texlive
 ```
 
@@ -218,7 +218,7 @@ Install Java using one of these two mechanisms.
 
 1. Install Java 6
 
-   ```
+   ```sh
       $ sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu lucid partner"
       $ sudo apt-get update
       $ sudo apt-get install sun-java6-jdk
@@ -230,7 +230,7 @@ the AllJoyn Java bindings).
    2. Download the jar file "junit-4.9.jar".
    3. Copy it to usr/share/java/junit-4.9 from the Downloads folder:
 
-      ```
+      ```sh
          $ sudo cp junit-4.9.jar /usr/share/java/
       ```
 
@@ -238,7 +238,7 @@ the AllJoyn Java bindings).
 tool (only required to run junit tests, not required to build the 
 AllJoyn framework).
 
-   ```
+   ```sh
       $ sudo apt-get install ant
    ```
 
@@ -253,25 +253,25 @@ install Java using the following instructions:
 
 2. Use chmod to make the file executable:
 
-   ```
+   ```sh
       $ chmod +x jdk-6u32-linux-x64.bin
    ```
 
 3. Extract the bin file:
 
-   ```
+   ```sh
       $ ./jdk-6u32-linux-x64.bin
    ```
 
 4. Move extracted folder to /usr/lib/jvm/:
 
-   ```
+   ```sh
       $ sudo mv jdk1.6.0_32 /usr/lib/jvm/
    ```
 
 5. Add the newly installed Java to the list of alternatives:
 
-   ```
+   ```sh
       $ sudo update-alternatives --install /usr/bin/javac javac
       /usr/lib/jvm/jdk1.6.0_32/bin/javac 2
       $ sudo update-alternatives --install /usr/bin/java java
@@ -282,7 +282,7 @@ install Java using the following instructions:
 
 6. Choose default Java:
 
-   ```
+   ```sh
       $ sudo update-alternatives --config javac
       $ sudo update-alternatives --config java
       $ sudo update-alternatives --config javaws
@@ -290,13 +290,13 @@ install Java using the following instructions:
 
 7. Check Java version to verify it is installed correctly:
 
-   ```
+   ```sh
       $ java -version
    ```
 
    It should return something similar to:
 
-   ```
+   ```sh
       java version "1.6.0_26"
       Java(TM) SE Runtime Environment (build 1.6.0_26-b03)
       Java HotSpot(TM) 64-Bit Server VM (build 20.1-b02, mixed mode)
@@ -304,7 +304,7 @@ install Java using the following instructions:
  
 8. Verify the symlinks all point to the new Java location:
 
-   ```
+   ```sh
       $ ls -la /etc/alternatives/java*
    ```
 
@@ -313,7 +313,7 @@ Firefox (even for Chrome).
 
    * For 64-bit jdk:
 
-      ```
+      ```sh
          $ sudo update-alternatives --install \
          /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so \
          /usr/lib/jvm/jdk1.6.0_32/jre/lib/amd64/libnpjp2.so 2
@@ -322,7 +322,7 @@ Firefox (even for Chrome).
 
    * For 32-bit jdk
 
-      ```
+      ```sh
          $ sudo update-alternatives --install \
          /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so \
          /usr/lib/jvm/jdk1.6.0_32/jre/lib/i386/libnpjp2.so 2
@@ -337,7 +337,7 @@ the AllJoyn Java bindings).
    2. Download the jar file "junit-4.9.jar" and copy it to 
    usr/share/java/junit-4.9 from the Downloads folder:
 
-   ```
+   ```sh
       $ sudo cp junit-4.9.jar /usr/share/java/
    ```
 
@@ -345,7 +345,7 @@ the AllJoyn Java bindings).
 tool (only required to run junit tests, not required to build 
 the AllJoyn framework).
 
-   ```
+   ```sh
       $ sudo apt-get install ant
    ```
 
@@ -366,7 +366,7 @@ the source code from code.google.com.
 
 ### Obtain the AllJoyn source
 
-```
+```sh
 $ cd $HOME
 $ export AJ_ROOT = `pwd`/alljoyn # for example
 $ git clone https://git.allseenalliance.org/gerrit/core/alljoyn.git
@@ -379,7 +379,7 @@ $AJ_ROOT/core/alljoyn
 
 Use the following commands to build the AllJoyn framework for Linux.
 
-```
+```sh
 $ export JAVA_HOME="/usr/lib/jvm/java-6-sun" # or java-1.5.0-sun
 $ export CLASSPATH="/usr/share/java/junit4.9.jar" # for building Java binding
 $ export GECKO_BASE=~/xulrunner-sdk # for building Javascript binding
@@ -388,7 +388,7 @@ $ cd $AJ ROOT/core/alljoyn
 
 For 32-bit:
 
-```
+```sh
 $ scons BINDINGS=<comma separated list(cpp,java,c,unity,js)>
 
    ex) $ scons BINDINGS="cpp,java"
@@ -396,7 +396,7 @@ $ scons BINDINGS=<comma separated list(cpp,java,c,unity,js)>
 
 For 64-bit:
 
-```
+```sh
 $ scons CPU=x86_64 BINDINGS=<comma separated list (cpp,java,c,unity,js)>
 
    ex) $ scons CPU=x86_64 BINDINGS="cpp,java"
@@ -429,7 +429,7 @@ the GECKO_BASE while building the AllJoyn framework.
 Python does not have the argparse module installed (versions of 
 python 2.7.1 or newer have it installed by default).
 
-```
+```sh
 $ sudo apt-get install python-setuptools
 $ sudo easy_install argparse
 ``` 
@@ -440,7 +440,7 @@ By default, the AllJoyn API documentation is not built during
 the build stage (except for Java Docs). To build the API 
 documentation use the following commands:
 
-```
+```sh
 $ scons DOCS=html
 $ scons DOCS=pdf
 ```
@@ -459,7 +459,7 @@ By default, the whitespace policy checker runs every time.
 If you continually get build errors associated with the whitespace.py 
 script, it can be shut off using this command:
 
-```
+```sh
 $ scons WS=off
 ```
 
@@ -467,13 +467,13 @@ If the whitespace policy checker reports a whitespace policy
 violation, it lists which files have the violation. To see the 
 lines of code that are violating the AllJoyn whitespace policy, run:
 
-```
+```sh
 $ scons WS=detail
 ```
 
 Uncrustify can automatically fix your files to adhere to the whitespace policy.
 
-```
+```sh
 $ scons WS=fix
 ```
 
@@ -482,7 +482,7 @@ $ scons WS=fix
 By default, the AllJoyn framework builds the debug variant. To build 
 the release version of the AllJoyn framework, use this:
 
-```
+```sh
 $ scons VARIANT=release
 ```
 
@@ -502,7 +502,7 @@ will be built.
  
 For example:
 
-```
+```sh
 $ scons BINDINGS=java #this will build core files and 
    Java language bindings
 $ scons BINDINGS=c,unity,java #this will build C language 
@@ -522,7 +522,7 @@ though PolicyDB is excluded. The default is to not include PolicyDB.
 
 Example:
 
-```
+```sh
 $ scons POLICYDB=on
 ```
 
@@ -536,7 +536,7 @@ option to specify the location of the Google Test source code.
 
 Example:
 
-```
+```sh
 $ scons GTEST_DIR=$HOME/gtest/gtest-1.6.0
 ``` 
 
@@ -561,7 +561,7 @@ background service (daemon) to run a program that uses the AllJoyn framework.
 1. On the command line, type the following commands to run 
 the AllJoyn application:
 
-   ```
+   ```sh
       $ cd <workspace>/build/{OS}/{CPU}/{VARIANT}/dist/cpp/bin
       {OS} = linux
       {CPU} = x86 or x86-64
@@ -572,14 +572,14 @@ the AllJoyn application:
 2. Open another tab and type the following commands to run 
 another application:
 
-   ```
+   ```sh
       $ cd <workspace>/build/{OS}/{CPU}/{VARIANT}/dist/cpp/bin
       $	./bbclient -n com.test -d
    ```
 
 3. Check for the following output on bbclient:
 
-   ```
+   ```sh
       Sending "Ping String 1" to org.alljoyn.alljoyn_test.my_ping synchronously 
          org.alljoyn.alljoyn_test.my_ping ( path=/org/alljoyn/alljoyn_test ) returned 
          "Ping String 1"
@@ -598,7 +598,7 @@ As part of the build process, an executable for the alljoyn-daemon is built.
 1. On the command line, type the following commands to run 
 the AllJoyn router as a separate process:
 
-   ```
+   ```sh
       $ cd <workspace>/build/{OS}/{CPU}/{VARIANT}/dist/cpp/bin
       $ ./alljoyn-daemon --internal
    ```
@@ -615,7 +615,7 @@ the AllJoyn router as a separate process:
 2. Press **Ctrl-c** at any time to stop the alljoyn-daemon process.
 3. To display other options, type the following:
 
-   ```
+   ```sh
       $ ./alljoyn-daemon -h
 
       alljoyn-daemon [--config-file=FILE] [--print-address] 
@@ -639,7 +639,7 @@ the AllJoyn router as a separate process:
 
 For examples of different configuration files, see examples in:
 
-```
+```sh
 <workspace>/alljoyn_core/daemon/test/conf.
 ```
 
@@ -651,7 +651,7 @@ directory are valid for use on a computer running Linux.
 Navigate to the projects samples directory and run the service 
 and the client as follows:
 
-```
+```sh
 $ cd <workspace>/build/{OS}/{CPU}/{VARIANT}/dist/cpp/bin/samples
 $ ./basic_service & #this will be a background process; it could be run on its own command-line
 $ ./basic_client
@@ -675,7 +675,6 @@ basic client exiting with status 0 (ER_OK)
 
 ## Running Unit Tests
 
-
 NOTE: The following instructions are valid only for the AllJoyn 
 framework version 2.6 and newer.
 
@@ -685,7 +684,7 @@ If the `GTEST_DIR` option was specified when building the code,
 the C++ unit tests will automatically be built and placed in 
 the following location:
 
-```
+```sh
 <workspace>/build/{OS}/{CPU}/{VARIANT}/test/cpp/bin. 
 ```
 
@@ -697,7 +696,7 @@ The cmtest executable tests the code from the common project
 and does not require the AllJoyn router to be running. 
 Run cmtest as follows:
 
-```
+```sh
 <workspace>/build/{OS}/{CPU}/{VARIANT}/test/cpp/bin/cmtest
 ```
 
@@ -711,13 +710,13 @@ Run ajtest as follows:
 
 1. Start the alljoyn-daemon (optional-see note below):
 
-   ```
+   ```sh
       <workspace>/build/{OS}/{CPU}/{VARIANT}/dist/cpp/bin/alljoyn-daemon --internal
    ```
 
 2. Run ajtest.
 
-   ```
+   ```sh
       <workspace>/build/{OS}/{CPU}/{VARIANT}/test/cpp/bin/ajtest
    ```
 
@@ -738,19 +737,19 @@ Java bindings.
 1. Copy and rename from alljoyn_java/build.xml.top to the 
 workspace build.xml folder.
 
-   ```
+   ```sh
       cp alljoyn_java/build.xml.top/build.xml
    ```
 
 2. From the top build folder, use ant to start the test.
 
-   ```
+   ```sh
       ant test -DOS={OS} -DCPU={CPU} -DVARIANT={VARIANT}
    ```
  
 3. Find the HTML version of the results in the following location:
 
-   ```
+   ```sh
       <workspace>/build/{OS}/{CPU}/{VARIANT}/test/java/reports/junit/
    ```
 
@@ -774,7 +773,7 @@ As of AllJoyn 3.4.0 the SCons scripts have been modified for
 the Linux build system to build a shared library and link 
 against that shared library. Add the library to the link path.
 
-```
+```sh
 $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<workspace>/build/{OS}/{CPU}/
    {VARIANT}/dist/cpp/lib
 ```

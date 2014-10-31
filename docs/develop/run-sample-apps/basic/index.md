@@ -11,7 +11,7 @@ the experience is slightly different, but each Client implementation will call t
 
 The Basic application interface is as follows:
 
-```
+```xml
 <node name="/sample">
     <interface name="org.alljoyn.Bus.sample">
         <method name="cat">

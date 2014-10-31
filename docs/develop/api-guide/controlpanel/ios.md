@@ -73,7 +73,7 @@ For more information about the About feature, see the
 
 ##### Create, start, connect, and register a Bus Attachment
 
-```
+```objc
 clientBusAttachment = [[AJNBusAttachment alloc] initWithApplicationName:APPNAME
 allowRemoteMessages:ALLOWREMOTEMESSAGES]; 
 [clientBusAttachment start];
@@ -86,7 +86,7 @@ allowRemoteMessages:ALLOWREMOTEMESSAGES];
 
 ##### Register to receive announcements and sessionless signals
 
-```
+```objc
 announcementReceiver = [[AJNAnnouncementReceiver alloc] 
 initWithAnnouncementListener:self andBus:self.clientBusAttachment]; 
 [announcementReceiver
@@ -109,7 +109,7 @@ For each announcement that is received, check if it implements
 the ControlPanel interface. If it does, save it as a 
 controllable device for later use.
 
-```
+```objc
 - (void)announceWithVersion:(uint16_t)version 
                        port:(uint16_t)port
                     busName:(NSString *)busName 
@@ -139,7 +139,7 @@ NSLog(@"This announcement has control panel");
 The AJNAnnouncement object is used to load the controller's 
 table view when needed.
 
-```
+```objc
 GetControlPanelViewController *getCpanelView = 
 [[GetControlPanelViewController alloc] initWithAnnouncement:announcement 
    bus:self.clientBusAttachment]; [self.navigationController 
@@ -150,7 +150,6 @@ GetControlPanelViewController *getCpanelView =
 
 See the [Building iOS/OS X section][building-ios] for 
 instructions on how to compile the application with this service framework.
-
 
 [building-ios]: /develop/building/ios_osx
 [about-api-guide-ios]: /develop/api-guide/about/ios

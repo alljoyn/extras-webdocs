@@ -25,7 +25,7 @@ http://itunes.apple.com/us/app/xcode/id497799835?mt=12.
    NOTE: You may need to run the following command from a 
    terminal window to install the Command Line Tools:
 
-   ```
+   ```sh
    $ xcode-select --install
    ```
 
@@ -45,7 +45,7 @@ for iOS and OS X.
 
 To install SCons, open a terminal window, and type the following command:
 
-```
+```sh
 $ brew install scons
 ```
 
@@ -55,7 +55,7 @@ Use Git for source control.
 
 To install Git, open a terminal window, and type the following command:
 
-```
+```sh
 $ brew install git
 ```
 
@@ -75,7 +75,7 @@ Objective-C language binding. For more information, see http://gentlebytes.com/a
    2. To install using Homebrew, open a terminal window and type 
    the following command:
 
-   ```
+   ```sh
    $ brew install appledoc
    ```
 
@@ -96,7 +96,7 @@ language binding. For more information, see http://www.doxygen.org.
    2. To install using Homebrew, open a terminal window and 
    type the following command:
 
-   ```
+   ```sh
    $ brew install doxygen
    ```
 
@@ -116,7 +116,7 @@ information, see http://www.graphviz.org.
    2. To install using Homebrew, open a terminal window and 
    type the following command:
 
-   ```
+   ```sh
    $ brew install graphviz
    ```
 
@@ -128,7 +128,7 @@ language binding, which is the AllJoyn framework:
 1. Open a terminal window.
 2. Type the following commands:
 
-   ```
+   ```sh
    $ mkdir ~/alljoyn # for example
    $ cd ~/alljoyn
    $ git clone https://git.allseenalliance.org/gerrit/core/alljoyn.git
@@ -174,7 +174,7 @@ to the build folder created in step 7.
    following, containing libssl and libcrypto for each $(CONFIGURATION)-$(PLATFORM_NAME) 
    you built in step 6:
 
-   ```
+   ```sh
    openssl-1.0.1c build
    Debug-iphoneos ibssl.a libcrypto.a
    Debug-iphonesimulator libssl.a libcrypto.a
@@ -183,7 +183,7 @@ to the build folder created in step 7.
 10. Define environment variableOPENSSL_ROOT=<path to the 
 OpenSSL source top folder> as follows:
 
-   ```
+   ```sh
    launchctl setenv OPENSSL_ROOT <path to top level folder of openssl>
    ```
 
@@ -221,7 +221,7 @@ iOS Device, iPad Simulator, or iPhone simulator as platforms for the build.
 **Product > Build** from the Xcode menu to build the AllJoyn framework. 
 Upon completion of the build, your binaries will be located in the following directory:
 
-   ```
+   ```sh
    <alljoyn_root_directory>/alljoyn_core/build/darwin/[arm|x86]/[debug|release]/dist
    ```
 
@@ -234,14 +234,14 @@ Upon completion of the build, your binaries will be located in the following dir
 2. Change your directory to `<alljoyn root directory>/alljoyn_objc` 
 by running the following command:
 
-   ```
+   ```sh
    $ cd <alljoyn root directory>/alljoyn_objc
    ```
 
 3. To build for:
    1. iOS devices, run the following command:
 
-   ```
+   ```sh
    $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild 
       -project alljoyn_darwin.xcodeproj
    -scheme alljoyn_core_ios -sdk iphoneos -configuration Debug
@@ -249,7 +249,7 @@ by running the following command:
 
    2. iOS simulator, run the following command:
 
-   ```
+   ```sh
    $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild 
       -project alljoyn_darwin.xcodeproj
    -scheme alljoyn_core_ios -sdk iphonesimulator -configuration Debug
@@ -257,7 +257,7 @@ by running the following command:
 
    3. OS X, run the following command:
 
-   ```
+   ```sh
    $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild 
       -project alljoyn_darwin.xcodeproj
    -scheme alljoyn_core_osx

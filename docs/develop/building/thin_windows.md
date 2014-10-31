@@ -8,10 +8,12 @@
 
 ## Build the samples
 Open a Windows command prompt window and run the following:
-```sh
+
+```bat
 cd $ALLJOYN_ROOT\core\ajtcl
 scons OS=win7 CPU=x86_64 WS=off MSVC_VERSION=11.0
 ```
+
 Binaries for the samples are located at `$AJ_ROOT\core\alljoyn\samples\basic`
 
 [build-app-thin-library]:  /develop/tutorial/thin-app

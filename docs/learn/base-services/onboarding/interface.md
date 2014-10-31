@@ -206,13 +206,9 @@ is supported by the onboardable.
 
 ##Introspect XML
 
-```
-<node
-
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
-
+```xml
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.Onboarding">
       <property name="Version" type="q" access="read"/>
       <property name="State" type="n" access="read"/>

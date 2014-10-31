@@ -26,7 +26,7 @@ sudo apt-get install libssl-dev
 
 ## Building Samples
 
-```
+```sh
 cd alljoyn-14.06.00-src/core/alljoyn
 scons BINDINGS=cpp WS=off BT=off ICE=off SERVICES="about,notification,controlpanel,config,onboarding,sample_apps"
 ```
@@ -35,7 +35,7 @@ scons BINDINGS=cpp WS=off BT=off ICE=off SERVICES="about,notification,controlpan
 
 * Setup
 
-``` 
+```sh
   export AJ_ROOT=~/alljoyn
 
   # <TARGET CPU> can be either x86_64, x86, or whatever value you set for CPU= when running SCons.
@@ -44,7 +44,7 @@ scons BINDINGS=cpp WS=off BT=off ICE=off SERVICES="about,notification,controlpan
 
 * Add header include directories
 
-```
+```sh
 export CXXFLAGS="$CXXFLAGS \
     -I$AJ_DIST/cpp/inc \
     -I$AJ_DIST/about/inc \
@@ -57,7 +57,7 @@ export CXXFLAGS="$CXXFLAGS \
 
 * Configure linker to include required libs
 
-```
+```sh
 export LDFLAGS="$LDFLAGS \
     -L$AJ_DIST/cpp/lib \
     -L$AJ_DIST/about/lib \

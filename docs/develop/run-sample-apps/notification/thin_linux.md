@@ -22,16 +22,14 @@
 
 3. Launch NotificationConsumerSample (in a new terminal).
 
-   ```
-   sh
+   ```sh
    cd $AJ_ROOT/services/sample_apps/build/
    ./NotificationConsumerSample
    ```
 
 4. Launch NotificationProducerSample (in a new terminal).
 
-   ```
-   sh
+   ```sh
    cd $AJ_ROOT/services/sample_apps/build/
    ./NotificationProducerSample
    ``` 

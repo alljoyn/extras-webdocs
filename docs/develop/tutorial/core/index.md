@@ -91,7 +91,7 @@ Every AllJoyn application creates a BusAttachment, starts it,
 and connects to an [AllJoyn Router][alljoyn-router]. The BusAttachment 
 is the Object that allows you to use the AllJoyn APIs.
 
-```
+```cpp
 mBusAttachment = new BusAttachment("MyFirstApplication", true);
 /* Start the msg bus */
 if (ER_OK == status) {
@@ -113,7 +113,7 @@ what we want to do with the app. In this tutorial sample application,
 we are going to be both a client and service side - a true peer on 
 the network.  In order to allow connections, we need to `BindSession`.
 
-```
+```cpp
 /* Bind a session port so that we can accept incomming join requests */
 SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, true, SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
 SessionPort sp = SESSION_PORT_ANY; 
@@ -128,7 +128,7 @@ in this sample.  We want the AllJoyn framework to assign us one to use
 and that will then get passed into our About data.  To "inform" other 
 applications that we exist, we need to set up to use the About feature.
 
-```
+```cpp
 /* Create About data so that we can advertise */
 mAboutData = new AboutPropertyStoreImpl();
 // a platform-specific unique device id - ex. could be the Mac address
@@ -167,7 +167,7 @@ to allow other applications to find and connect to us.
 Next, we create our `BusObjects` and then add them to the About data so 
 that applications can filter for just the interfaces we support.
 
-```
+```cpp
 /* Create and Register the developers BusObjects */
 /**
  * Here is where we add the objects we wish to expose.
@@ -202,7 +202,7 @@ the registration call so that we can find other "first_app" applications.
 Just making the API call is not enough, we need to explictly tell the AllJoyn 
 framework that we are interested in receiving Sessionless signals.
 
-```
+```cpp
 /* Now create a list of the interfaces used so that we can find just applications that use these interfaces */
 int len = interfacesUsed.size();
 const char* interfaces[len];
@@ -228,7 +228,7 @@ just the applications that have the interface support that we can interact with.
 Lastly, we need to tell the world about our existance. To do this, we make 
 a call to the About feature to have it Announce.
 
-```
+```cpp
 /* With the objects registered and everything setup we Annouce to tell the world that we exist  */
 status = AboutServiceApi::getInstance()->Announce();
 if (ER_OK != status) {
@@ -243,7 +243,7 @@ implement our AllJoyn interface and expose it on a `BusObject`.
 In designing this tutorial sample, we wanted to show a little variety of 
 how applications can interact.  We decided on a simple interface as follows:
 
-```
+```xml
 <node name="/my/first/busobject/communicate">
     <interface name="org.example.my.first.alljoyn.interface.communicate">
         <method name="Tell">
@@ -269,7 +269,7 @@ and understanding, "Share" takes place in a group and "Broadcast" is available t
 
 We now have our interface defined so we can implement it in the software.
 
-```
+```cpp
 static const char * MY_FIRST_OBJECT_PATH = "/my/first/busobject/communicate";
 static const char * MY_FIRST_INTERFACE_NAMES[] = {"org.example.my.first.alljoyn.interface.communicate"};
 static const uint32_t MY_NUMBER_OF_INTERFACES = 1;
@@ -292,7 +292,7 @@ if (!mBusAttachment.GetInterface(MY_FIRST_INTERFACE_NAMES[0])) {
 The interface is now activated and ready to be used. We can now add it to our 
 BusObject so that the AllJoyn framework knows that this object implements the above interface.
 
-```
+```cpp
 /* Add the service interface to this object */
 const InterfaceDescription* myFirstBusObjectTestIntf = mBusAttachment.GetInterface(MY_FIRST_INTERFACE_NAMES[0]);
 assert(myFirstBusObjectTestIntf);
@@ -302,7 +302,7 @@ AddInterface(*myFirstBusObjectTestIntf);
 The next step is to set up the method handlers for the BusMethod and the Signals 
 (if used in your application).
 
-```
+```cpp
 /* Set the local methods to which BusMethod linkage */
 const MethodEntry methodEntries[] = {
     { myFirstBusObjectTestIntf->GetMember("Tell"), static_cast<MessageReceiver::MethodHandler>(&MyFirstBusObject::handleTell) },
@@ -330,7 +330,7 @@ The only thing missing now is in order to receive signals, much like
 we had to do to receive the About Annoucement, we need to explictly 
 tell the AllJoyn framework what we are interested in.
 
-```
+```cpp
 static const char * MY_FIRST_ADD_MATCH_RULE = "type='signal',interface='org.example.my.first.alljoyn.interface.communicate'";
 ...
 /* Make addMatch calls to complete the registration with the AllJoyn router */
@@ -340,7 +340,7 @@ mBusAttachment.AddMatch(MY_FIRST_ADD_MATCH_RULE);
 
 Lastly, we implment the functions we assigned to handle the incoming responses.
 
-```
+```cpp
 void MyFirstBusObject::handleTell(const InterfaceDescription::Member* member, Message& msg)
 {
 	const char* receivedThought = msg->GetArg(0)->v_string.str;
@@ -382,7 +382,7 @@ do this, we need the UniqueName of the other application, the sessionId that
 we are joined into, and the Path that the object lives. In this example, 
 we have a fixed path of "/my/first/busobject/communicate".
 
-```
+```cpp
 qcc::String MyFirstBusObject::doTell(qcc::String uniqueName, qcc::String thought, int sessionId)
 {
     ProxyBusObject remoteObj = ProxyBusObject(*bus, uniqueName.c_str(), MY_FIRST_OBJECT_PATH, (SessionId)sessionId);    
@@ -401,7 +401,7 @@ Sending of a `Signal` is done through the `BusObject`'s `Signal` method.
 What makes a signal bound to a session is by passing in a valid `SessionId`. 
 What makes it a Sessionless Signal is by setting the flag that describes it as such.
 
-```
+```cpp
 void MyFirstBusObject::doShare(qcc::String thought, int sessionId)
 {
     MsgArg payload("s", thought.c_str());

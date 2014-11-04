@@ -64,5 +64,5 @@ The binary for the AC Server sample is located at `$AJ_ROOT/services/sample_apps
 
 See the [Build an Application using the Thin Library section][build-app-thin-library] for instructions.
 
-[download]: /develop/download
+[download]: /download
 [build-app-thin-library]:  /develop/tutorial/thin-app

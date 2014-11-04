@@ -178,4 +178,4 @@ applications contained with the Notification service framework.
 [notif-linux]: /develop/api-guide/notification/linux
 [notif-ios]: /develop/api-guide/notification/ios
 [notif-thin-linux]: /develop/api-guide/notification/thin-linux
-[notification-interface-definition]: /docs/learn/base-services/notification/interface
+[notification-interface-definition]: /learn/base-services/notification/interface

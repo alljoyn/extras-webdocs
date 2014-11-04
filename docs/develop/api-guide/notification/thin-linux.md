@@ -204,6 +204,6 @@ For more details on how to combine this AllJoyn service
 framework with other AllJoyn service framework softwarem, 
 see the [Build an Application using the Thin Library section][build-app-using-thin-library].
 
-[intro-thin-library]: /learn/core/thin/intro-thin-library
+[intro-thin-library]: /learn/core/thin-core
 [build-app-thin-library]: /develop/tutorial/thin-app
 [cancel-specific-notification]: #cancel-a-specific-notification-message

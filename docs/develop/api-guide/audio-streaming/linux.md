@@ -673,7 +673,7 @@ bufferSizeInFrames, err);
 
 [about-api-guides]: /develop/api-guide/about
 [set-up-alljoyn-framework]: #setting-up-the-alljoyn-framework
-[config-build-env-linux]: /learn/core/linux/config-build-env-linux
+[config-build-env-linux]: /develop/building/linux/build-source
 [about-best-practices]: /develop/api-guide/about
 [create-register-streamobject]: #create-and-register-streamobject
 [declare-sinksearcher-subclass]: #declare-sinksearcher-subclass

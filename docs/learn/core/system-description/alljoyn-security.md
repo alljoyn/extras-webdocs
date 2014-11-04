@@ -952,7 +952,7 @@ The following table summarizes members from org.alljoyn.Bus.Peer.Authentication 
 [alljoyn-srp-keyx-auth-mechanism]: /files/learn/system-desc/alljoyn-srp-keyx-auth-mechanism.png
 [alljoyn-srp-logon-auth-mechanism]: /files/learn/system-desc/alljoyn-srp-logon-auth-mechanism.png
 [alljoyn-pin-keyx-auth-mechanism]: /files/learn/system-desc/alljoyn-pin-keyx-auth-mechanism.png
-[session-key-generation-between-peer-apps]: /files/learn/system-desc/session-key-generation-between-peer-apps
+[session-key-generation-between-peer-apps]: /files/learn/system-desc/session-key-generation-between-peer-apps.png
 [group-keys-exchange]: /files/learn/system-desc/group-keys-exchange.png
 [encrypted-method-call-reply]: /files/learn/system-desc/encrypted-method-call-reply.png
 [encrypted-signal]: /files/learn/system-desc/encrypted-signal.png

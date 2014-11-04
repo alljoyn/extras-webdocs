@@ -430,7 +430,7 @@ Figure: Notifications that are dismissed when the producer is on the network
 
 [notification-arch]: /files/learn/notification-arch.png
 [notification-typical-call-flow]: /files/learn/notification-typical-call-flow.png
-[notification-use-case-ttl-period]: /files/learn/notification-use_case-ttl-period.png
+[notification-use-case-ttl-period]: /files/learn/notification-use-case-ttl-period.png
 [notification-use-case-msg_handling]: /files/learn/notification-use-case-msg-handling.png
 [notification-use-case-dismissed-notification-producer]: /files/learn/notification-use-case-dismissed-notification-producer.png
 

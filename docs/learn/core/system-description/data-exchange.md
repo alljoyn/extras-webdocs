@@ -689,6 +689,6 @@ app endpoint over local bus connection.
 [data-exchange-method-calls-reply-sent]: /files/learn/system-desc/data-exchange-method-calls-reply-sent.png
 [data-exchange-method-calls-reply-not-sent]: /files/learn/system-desc/data-exchange-method-calls-reply-not-sent.png
 [data-exchange-signals]: /files/learn/system-desc/data-exchange-signals.png
-[alljoyn-message-format]: /files/learn/system-desc/lljoyn-message-format.png
+[alljoyn-message-format]: /files/learn/system-desc/alljoyn-message-format.png
 [alljoyn-routing-example]: /files/learn/system-desc/alljoyn-routing-example.png
 

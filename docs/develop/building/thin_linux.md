@@ -29,19 +29,7 @@ sudo apt-get install scons
 sudo apt-get install libssl-dev
 ```
 
-1. Download the AllJoyn&trade; Thin Library Core and AllJoyn Thin Library 
-Services packages from the [AllSeen Alliance web site](https://allseenalliance.org/source-code).
- * core/ajtcl
- * services/base_tcl
-
-2. Extract the download packages and set up the directory structure.
-
-```sh
-mkdir  alljoyn-dev
-export AJ_ROOT=`pwd`/alljoyn-dev
-unzip ajtcl-core-14.06.00.zip $AJ_ROOT/core/ajtcl
-unzip ajtcl-services-base-14.06.00.zip $AJ_ROOT/services
-```
+* Download the [AllJoyn&trade; source zip][download] and extract.
 
 ## Build the samples
 
@@ -76,4 +64,5 @@ The binary for the AC Server sample is located at `$AJ_ROOT/services/sample_apps
 
 See the [Build an Application using the Thin Library section][build-app-thin-library] for instructions.
 
+[download]: /develop/download
 [build-app-thin-library]:  /develop/tutorial/thin-app

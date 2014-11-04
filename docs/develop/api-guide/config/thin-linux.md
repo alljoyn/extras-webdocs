@@ -338,6 +338,6 @@ For more details on how to combine this AllJoyn service
 framework with other AllJoyn service framework software, 
 see the [Build an Application using the Thin Library section][build-app-thin-library].
 
-[intro-thin-library]: /learn/core/thin/intro-thin-library
+[intro-thin-library]: /learn/core/thin-core
 [build-app-thin-library]: /develop/tutorial/thin-app
 [config-interface-definition]: /learn/base-services/configuration/interface

@@ -825,7 +825,7 @@ Both cannot be included in the same tag.
 | | | | * A Label tag that contains the text that appears on the button. |
 | | | | * An executeCode tag which contains the code to be executed on the Controllee when the button is pressed. |
 
-[intro-thin-library]: /learn/core/thin/intro-thin-library
+[intro-thin-library]: /learn/core/thin-core
 [start-controllee]: #start-the-controllee
 [build-app-thin-library]: /develop/tutorial/thin-app
 [create-header-file]: #create-header-file-that-declares-device-specific-callbacks

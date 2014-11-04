@@ -1298,11 +1298,9 @@ to incorporate the necessary files to compile your Thin Library application.
 [common-services-manager-processor]: #common-services-manager-processor
 [conneced-handler]: #conneced-handler
 [common-service-side-processor]: #common-service-side-processor
-[about-interface-definition]: /docs/learn/core/about-announcement/interface
+[about-interface-definition]: /learn/core/about-announcement/interface
 [about-data-fields]: #about-data-fields
 [config-data-fields]: #config-data-fields
-[config-interface-definition]: /learn/base-service/configuration/interface
+[config-interface-definition]: /learn/base-services/configuration/interface
 [config-api-guide-thin-library]: /develop/api-guide/config/thin-linux
 [controlpanel-api-guide-thin-library]: /develop/api-guide/controlpanel/thin-linux
-
- 

@@ -202,4 +202,4 @@ Application Using Thin Library section][build-app-thin-library].
 [build-app-thin-library]: /develop/tutorial/thin-app
 [about-interface-definition]: /learn/core/about-announcement/interface
 [about-data-fields]: #about-data-fields
-[intro-thin-library]: /learn/core/thin/intro-thin-library
+[intro-thin-library]: /learn/core/thin-core

@@ -1,6 +1,6 @@
-## Build From Source - Linux
+# Build From Source - Linux
 
-### Build tools and libs
+## Build tools and libs
 
 1. Open a terminal window and run the following command:
 
@@ -21,7 +21,7 @@ are installed, then the 64-bit version is replaced with the
 32-bit version. You can delete the 32-bit version of the libraries 
 and reinstall the 64-bit version if you wish to go back to 64-bit.
 
-### Python v2.6/2.7
+## Python v2.6/2.7
 
 NOTE: Python v3.0 is not compatible and will cause errors.
 
@@ -42,7 +42,7 @@ opening a terminal window and running the following command:
 3. If this installation method does not give you the correct 
 version of Python, install the [required version](http://www.python.org/download/).
 
-### SCons v2.0
+## SCons v2.0
 
 [SCons](http://www.scons.org/) is a software construction tool
 used to build the AllJoyn framework. SCons is a default package 
@@ -54,7 +54,7 @@ Open a terminal window and run the following command:
 $ sudo apt-get install scons
 ```
 
-### openSSL
+## openSSL
 
 OpenSSL is an open-source toolkit for implementing the Secure 
 Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1). 
@@ -67,7 +67,7 @@ Open a terminal window and run the following command:
 $ sudo apt-get install libssl-dev
 ```
 
-### git v1.7
+## git v1.7
 
 Git is a source code repository access tool. The AllJoyn 
 source code is stored in a set of [git projects](http://git-scm.com/).
@@ -78,7 +78,7 @@ Open a terminal window and run the following command:
 $ sudo apt-get install git-core
 ```
 
-### Repo
+## Repo
 
 Repo is a tool used to manage projects that consist of multiple 
 git projects. The AllJoyn source code is stored in a set of git 
@@ -159,7 +159,7 @@ Uncrustify to build:
    $ sudo dpkg -i uncrustify_0.57-1_i386.deb
    ```
 
-### Doxygen
+## Doxygen
 
 The [Doxygen tool](http://www.doxygen.org) builds documentation from source code.
 
@@ -179,7 +179,7 @@ Open a terminal window and run the following command:
 $ sudo apt-get install graphviz
 ```
 
-### TeX Live
+## TeX Live
 
 [TeX Live](http://www.tug.org/texlive/) provides LaTeX binaries 
 and style sheets for Linux. This optional tool may be used to 
@@ -193,7 +193,7 @@ Install TeX Live if you want to produce PDF documentation.
 $ sudo apt-get install texlive
 ```
 
-### Gecko SDK
+## Gecko SDK
 
 The [Gecko SDK](https://developer.mozilla.org/en/Gecko_SDK) (aka XULRunner SDK) 
 is only required if you are building the AllJoyn JavaScript 
@@ -204,7 +204,7 @@ although it may be possible to use an earlier version.
 On 64-bit Linux, download the 32-bit version anyway (only 
 the headers in the SDK are used).
 
-### Install Java
+## Install Java
 
 Java 6 or greater may be used to build the AllJoyn framework 
 on a Linux platform.
@@ -349,7 +349,7 @@ the AllJoyn framework).
       $ sudo apt-get install ant
    ```
 
-### googletest
+## googletest
 
 Google Test is Google's framework for writing C++ tests. 
 Google Test is an xUnit testing architecture used by the 
@@ -364,7 +364,7 @@ but is required for building the C++ unit tests.
 IMPORTANT: Do not use apt-get install libgtest-dev. Download 
 the source code from code.google.com.
 
-### Obtain the AllJoyn source
+## Obtain the AllJoyn source
 
 ```sh
 $ cd $HOME
@@ -375,7 +375,6 @@ $AJ_ROOT/core/alljoyn
 ``` 
 
 ## Building the AllJoyn Framework
-
 
 Use the following commands to build the AllJoyn framework for Linux.
 
@@ -434,7 +433,7 @@ $ sudo apt-get install python-setuptools
 $ sudo easy_install argparse
 ``` 
 
-### Build the API documentation
+## Build the API documentation
 
 By default, the AllJoyn API documentation is not built during 
 the build stage (except for Java Docs). To build the API 
@@ -486,7 +485,7 @@ the release version of the AllJoyn framework, use this:
 $ scons VARIANT=release
 ```
 
-### Bindings option
+## Bindings option
 
 The default SCons script tries to build all of the language bindings 
 by default. If you are only interested in a particular language binding, 
@@ -510,7 +509,7 @@ $ scons BINDINGS=c,unity,java #this will build C language
 $ scons BINDINGS= #only build the core files alljoyn_core and common
 ```
 
-### PolicyDB option
+## PolicyDB option
 
 The AllSeen Alliance 14.06 release provides functionality that 
 can be compiled into AllJoyn routers that acts as firewall/filter 
@@ -526,7 +525,7 @@ Example:
 $ scons POLICYDB=on
 ```
 
-### Build C++ unit tests
+## Build C++ unit tests
 
 The AllJoyn framework now includes a set of unit tests that 
 are built using the Google Test C++ framework. To build the 
@@ -585,7 +584,7 @@ another application:
          "Ping String 1"
    ```
 
-### AllJoyn router command line executable
+## AllJoyn router command line executable
 
 NOTE: Applies only to versions before 2.6.
 
@@ -758,7 +757,6 @@ workspace build.xml folder.
    the same OS, CPU, and VARIANT option specified when running SCons). 
 
 ## Miscellaneous
-
 
 ### Library liballjoyn.so not found
 

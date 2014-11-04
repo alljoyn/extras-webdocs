@@ -103,7 +103,7 @@ Android OpenSL ES APIs to decode audio formats into 16-bit
 See the [Audio API Guide][audio-api-guide] for instructions on 
 writing a custom DataSource implementation.
 
-[audio-interface-definition]: /docs/learn/base-services/audiostreaming/interface
+[audio-interface-definition]: /learn/base-services/audiostreaming/interface
 [add-sink]: #add-sink
-[audio-api-guide]: /docs/develop/api-guide/audio-streaming/linux
+[audio-api-guide]: /develop/api-guide/audio-streaming/linux
 

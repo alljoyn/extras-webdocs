@@ -616,7 +616,7 @@ framework, free the variables used in the application.
 self.clientBusAttachment = nil;
 ```
 
-[building-ios]: /develop/building/ios_osx
+[building-ios]: /develop/building/ios-osx
 [create-propertystore-implementation]: #create-a-propertystore-implementation
 
 [set-up-alljoyn-framework]: #setting-up-the-alljoyn-framework

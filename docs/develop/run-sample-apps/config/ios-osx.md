@@ -85,6 +85,6 @@ of nearby applications that have been discovered.
 [config-service-1]: /files/develop/run-sample-apps/ios-config-sample/config-service-1.png
 
 
-[build-ios-osx]: /develop/building/ios_osx
+[build-ios-osx]: /develop/building/ios-osx
 [run-config-sample-app-as-server]: #run-the-configuration-service-sample-app-as-a-server
 [run-config-sample-app-as-client]: #run-the-configuration-service-sample-app-as-a-client

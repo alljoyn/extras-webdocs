@@ -51,11 +51,11 @@ The About interface is defined as follows:
 The samples can be run on the following platforms:
 * [Android][android]
 * [Linux][linux]
-* [iOS/OSX][ios_osx]
-* [Thin - Linux][thin_linux]
+* [iOS/OSX][ios-osx]
+* [Thin - Linux][thin-linux]
 
 [service_discovery]: /learn/core/about-announcement
 [android]: /develop/run-sample-apps/about/android
 [linux]: /develop/run-sample-apps/about/linux
-[ios_osx]: /develop/run-sample-apps/about/ios_osx
-[thin_linux]: /develop/run-sample-apps/about/thin_linux
+[ios-osx]: /develop/run-sample-apps/about/ios-osx
+[thin-linux]: /develop/run-sample-apps/about/thin-linux

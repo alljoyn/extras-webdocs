@@ -50,12 +50,12 @@ The Config interface is defined as follows:
 The samples can be run on the following platforms:
 - [Android][android]
 - [Linux][linux]
-- [iOS/OSX][ios_osx]
-- [Thin - Linux][thin_linux]
+- [iOS/OSX][ios-osx]
+- [Thin - Linux][thin-linux]
 
 [android]: /develop/run-sample-apps/config/android
 [linux]: /develop/run-sample-apps/config/linux
-[ios_osx]: /develop/run-sample-apps/config/ios_osx
-[thin_linux]: /develop/run-sample-apps/config/thin_linux
+[ios-osx]: /develop/run-sample-apps/config/ios-osx
+[thin-linux]: /develop/run-sample-apps/config/thin-linux
 
 [learn_config]: /learn/base-services/configuration

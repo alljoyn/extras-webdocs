@@ -232,5 +232,5 @@ Onboarding service framework provide hints or guides to the user
 to perform these steps to properly access the Wi-Fi networks.
 
 
-[building-ios]: /develop/building/ios_osx
+[building-ios]: /develop/building/ios-osx
 [about-api-guide-ios]: /develop/api-guide/about/ios

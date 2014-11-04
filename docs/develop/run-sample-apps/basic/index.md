@@ -26,14 +26,14 @@ The Basic application interface is as follows:
 The sample can be run on the following platforms:
 * [Android][android]
 * [Linux][linux]
-* [iOS/OSX][ios_osx]
+* [iOS/OSX][ios-osx]
 * [Windows][windows]
-* [Thin - Linux][thin_linux]
-* [Thin - Windows][thin_windows]
+* [Thin - Linux][thin-linux]
+* [Thin - Windows][thin-windows]
 
 [android]: /develop/run-sample-apps/basic/android
 [linux]: /develop/run-sample-apps/basic/linux
-[ios_osx]: /develop/run-sample-apps/basic/ios_osx
+[ios-osx]: /develop/run-sample-apps/basic/ios-osx
 [windows]: /develop/run-sample-apps/basic/windows
-[thin_linux]: /develop/run-sample-apps/basic/thin_linux
-[thin_windows]: /develop/run-sample-apps/basic/thin_windows
+[thin-linux]: /develop/run-sample-apps/basic/thin-linux
+[thin-windows]: /develop/run-sample-apps/basic/thin-windows

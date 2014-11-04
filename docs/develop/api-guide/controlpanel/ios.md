@@ -151,5 +151,5 @@ GetControlPanelViewController *getCpanelView =
 See the [Building iOS/OS X section][building-ios] for 
 instructions on how to compile the application with this service framework.
 
-[building-ios]: /develop/building/ios_osx
+[building-ios]: /develop/building/ios-osx
 [about-api-guide-ios]: /develop/api-guide/about/ios

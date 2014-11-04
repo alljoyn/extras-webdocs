@@ -107,13 +107,13 @@ Controllable samples are available for Linux and Thin Linux.
 The samples can be run on the following platforms:
 - [Android][android]
 - [Linux][linux]
-- [iOS/OS X][ios_osx]
-- [Thin - Linux][thin_linux]
+- [iOS/OS X][ios-osx]
+- [Thin - Linux][thin-linux]
 
 [android]: /develop/run-sample-apps/controlpanel/android
 [linux]: /develop/run-sample-apps/controlpanel/linux
-[ios_osx]: /develop/run-sample-apps/controlpanel/ios_osx
-[thin_linux]: /develop/run-sample-apps/controlpanel/thin_linux
+[ios-osx]: /develop/run-sample-apps/controlpanel/ios-osx
+[thin-linux]: /develop/run-sample-apps/controlpanel/thin-linux
 
 [learn_control]: /learn/base-services/controlpanel
 [learn_introspect]: /learn/core#introspection

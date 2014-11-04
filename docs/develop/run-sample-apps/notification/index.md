@@ -40,13 +40,13 @@ The Notification interface is defined as follows:
 The samples can be run on the following platforms:
 - [Android][android]
 - [Linux][linux]
-- [iOS/OSX][ios_osx]
-- [Thin - Linux][thin_linux]
+- [iOS/OSX][ios-osx]
+- [Thin - Linux][thin-linux]
 
 [android]: /develop/run-sample-apps/notification/android
 [linux]: /develop/run-sample-apps/notification/linux
-[ios_osx]: /develop/run-sample-apps/notification/ios_osx
-[thin_linux]: /develop/run-sample-apps/notification/thin_linux
+[ios-osx]: /develop/run-sample-apps/notification/ios-osx
+[thin-linux]: /develop/run-sample-apps/notification/thin-linux
 
 [learn_notif]: /learn/base-services/notification
 [sessionless_signal]: /learn/core#sessionless-signal

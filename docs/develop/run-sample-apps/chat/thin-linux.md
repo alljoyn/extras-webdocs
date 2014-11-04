@@ -42,5 +42,5 @@ The output from chat_client should look like this:
 ...
 ```
 
-[build-thin-linux]: /develop/building/thin_linux
+[build-thin-linux]: /develop/building/thin-linux
 [build-linux]: /develop/building/linux

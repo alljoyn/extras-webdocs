@@ -50,5 +50,5 @@ Follow the instructions in the [Running - Linux section][run-linux]
 to build and run the Controllee sample app. This will allow you 
 to run the ControlPanelService Controllee sample on a Linux machine.
 
-[build-ios-osx]: /develop/building/ios_osx
+[build-ios-osx]: /develop/building/ios-osx
 [run-linux]:  /develop/run-sample-apps/controlpanel/linux

@@ -46,5 +46,5 @@ basic_service.exe
 Session lost. ID = 3629706635, reason = 2AllJoyn disconnect.
 ```
 
-[build-thin-windows]: /develop/building/thin_windows
+[build-thin-windows]: /develop/building/thin-windows
 [build-windows]: /develop/building/windows

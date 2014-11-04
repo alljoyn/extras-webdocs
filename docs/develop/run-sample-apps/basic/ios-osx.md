@@ -34,4 +34,4 @@ to the service, and execute a sample bus method.
 [basic-service-screen-1]: /files/develop/run-sample-apps/ios-basic-sample/ios-basic-service-1.png
 [basic-service-screen-2]: /files/develop/run-sample-apps/ios-basic-sample/ios-basic-service-2.png
 
-[build-ios-osx]: /develop/building/ios_osx
+[build-ios-osx]: /develop/building/ios-osx

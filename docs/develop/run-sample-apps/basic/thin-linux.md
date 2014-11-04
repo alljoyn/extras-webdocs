@@ -78,5 +78,5 @@ The output from basic_service should look like this:
 Session lost. ID = 681866772, reason = 2AllJoyn disconnect.
 ```
 
-[build-thin-linux]: /develop/building/thin_linux
+[build-thin-linux]: /develop/building/thin-linux
 [build-linux]: /develop/building/linux

@@ -49,4 +49,4 @@ Example screenshots:
 [sls-chat-device2-1]: /files/develop/run-sample-apps/ios-chat-sample/sls-chat-device2-1.png
 [sls-chat-screen]: /files/develop/run-sample-apps/ios-chat-sample/sls-chat-screen.png
 
-[build-ios-osx]: /develop/building/ios_osx
+[build-ios-osx]: /develop/building/ios-osx

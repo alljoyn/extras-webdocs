@@ -33,9 +33,9 @@
   * [Android Config Sample][android_config_sample]
   * [Linux Config Client Sample][linux_config_sample]
 
-[ios_config_sample]: /develop/run-sample-apps/config/ios_osx
+[ios_config_sample]: /develop/run-sample-apps/config/ios-osx
 [android_config_sample]: /develop/run-sample-apps/config/android
 [linux_config_sample]: /develop/run-sample-apps/config/linux
-[build-thin-linux]: /develop/building/thin_linux
+[build-thin-linux]: /develop/building/thin-linux
 [build-linux]: /develop/building/linux
 

@@ -70,5 +70,5 @@ device or on a different device, as detailed in
 [consumer-2]: /files/develop/run-sample-apps/ios-notification-sample/consumer-2.png
 
 
-[build-ios-osx]: /develop/building/ios_osx
+[build-ios-osx]: /develop/building/ios-osx
 [run-notif-sample-app-producer]: #run-the-notification-sample-app-as-a-producer

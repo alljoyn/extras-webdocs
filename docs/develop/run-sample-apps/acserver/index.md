@@ -4,7 +4,7 @@ The AC Server provides an example application that shows how to use multiple ser
 
 The sample can be run on the following platforms:
 * [Linux][linux]
-* [Thin - Linux][thin_linux]
+* [Thin - Linux][thin-linux]
 
 [linux]: /develop/run-sample-apps/acserver/linux
-[thin_linux]: /develop/run-sample-apps/acserver/thin_linux
+[thin-linux]: /develop/run-sample-apps/acserver/thin-linux

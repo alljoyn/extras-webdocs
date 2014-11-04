@@ -56,8 +56,8 @@ capabilities, looking for other compatible applicaitons, and performing the
 Before we get started writing code, follow the environment setup guide for your platform:
 <!-- * [Android][build_android] -->
 * [Linux][build_linux]
-<!-- * [Thin - Linux][build_thin_linux] -->
-<!-- * [iOS/OSX][build_ios_osx] -->
+<!-- * [Thin - Linux][build_thin-linux] -->
+<!-- * [iOS/OSX][build_ios-osx] -->
 * [Windows][build_windows]
 
 Now that we have our environment set up, let's start writing some software!
@@ -431,8 +431,8 @@ handling the command line input.
 [about_feature]: /learn/core/about-announcement
 [build_android]: /develop/building/android
 [build_linux]: /develop/building/linux
-[build_thin_linux]: /develop/building/thin_linux
-[build_ios_osx]: /develop/building/ios_osx
+[build_thin-linux]: /develop/building/thin-linux
+[build_ios-osx]: /develop/building/ios-osx
 [build_windows]: /develop/building/windows
 
 [alljoyn-router]: /learn/architecture#alljoyn-router

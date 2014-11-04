@@ -23,13 +23,13 @@ The Chat interface is as follows:
 The sample can be run on the following platforms:
 * [Android][android]
 * [Linux][linux]
-* [iOS/OSX][ios_osx]
+* [iOS/OSX][ios-osx]
 * [Windows][windows]
-* [Thin - Linux][thin_linux]
+* [Thin - Linux][thin-linux]
 
 [android]: /develop/run-sample-apps/chat/android
 [linux]: /develop/run-sample-apps/chat/linux
-[ios_osx]: /develop/run-sample-apps/chat/ios_osx
+[ios-osx]: /develop/run-sample-apps/chat/ios-osx
 [windows]: /develop/run-sample-apps/chat/windows
-[thin_linux]: /develop/run-sample-apps/chat/thin_linux
+[thin-linux]: /develop/run-sample-apps/chat/thin-linux
 

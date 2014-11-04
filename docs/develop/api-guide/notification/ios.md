@@ -229,5 +229,5 @@ Refer to the Notification Service Sample App source code
 and API documentation for examples and more details.  
 
 [learn_notif]: /learn/base-services/notification
-[building-ios]: /develop/building/ios_osx
+[building-ios]: /develop/building/ios-osx
 [sessionless_signal]: /learn/core#sessionless-signal

@@ -31,8 +31,8 @@
   * [iOS Controller][ios_controller]
   * [Android Controller][android_controller]
 
-[ios_controller]: /develop/run-sample-apps/controlpanel/ios_osx
+[ios_controller]: /develop/run-sample-apps/controlpanel/ios-osx
 [android_controller]: /develop/run-sample-apps/controlpanel/android
-[build-thin-linux]: /develop/building/thin_linux
+[build-thin-linux]: /develop/building/thin-linux
 [build-linux]: /develop/building/linux
 

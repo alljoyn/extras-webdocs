@@ -205,5 +205,5 @@ const char* interfaces[] = { "org.alljoyn.Config" };
 self.announcementReceiver = nil;
 ```
 
-[building-ios]: /develop/building/ios_osx
+[building-ios]: /develop/building/ios-osx
 [config-interface-definition]: /learn/base-services/configuration/interface

@@ -40,11 +40,11 @@ provided by the AC Server Sample:
    * Control Panel
    * Notification
 
-[build-thin-linux]: /develop/building/thin_linux
+[build-thin-linux]: /develop/building/thin-linux
 [build-linux]: /develop/building/linux
-[about_ios]: /develop/run-sample-apps/about/ios_osx
+[about_ios]: /develop/run-sample-apps/about/ios-osx
 [about_android]: /develop/run-sample-apps/about/android
 [about_linux]: /develop/run-sample-apps/about/linux
-[config_ios]: /develop/run-sample-apps/config/ios_osx
+[config_ios]: /develop/run-sample-apps/config/ios-osx
 [config_android]: /develop/run-sample-apps/config/android
 [config_linux]: /develop/run-sample-apps/config/linux

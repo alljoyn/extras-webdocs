@@ -63,6 +63,6 @@ Android device, you may need to manually edit the AP name to include
 a prefix of "AJ_". This prefix is used by the Onboarding service framework 
 to determine which APs are for AllJoyn devices that support the Onboarding service framework. 
 
-[build-ios-osx]: /develop/building/ios_osx
+[build-ios-osx]: /develop/building/ios-osx
 [run-onboardable]: #run-an-onboardable
 [onboardable]: /develop/run-sample-apps/onboarding/android#running-android-sample-onboardingserver

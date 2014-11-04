@@ -101,5 +101,5 @@ Rich Content Audio Object Path: /audio/MyDevice
 036.491 aj_guid.c:76 LookupName(): NULL
 ```
 
-[build-thin-linux]: /develop/building/thin_linux
+[build-thin-linux]: /develop/building/thin-linux
 [build-linux]: /develop/building/linux

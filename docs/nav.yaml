@@ -136,10 +136,10 @@
               path: /develop/building/linux/build-source
               contents:
         - name: iOS/OS X
-          path: /develop/building/ios_osx
+          path: /develop/building/ios-osx
           contents:
             - name: Build Source
-              path: /develop/building/ios_osx/build-source
+              path: /develop/building/ios-osx/build-source
               contents:
         - name: Windows
           path: /develop/building/windows
@@ -148,10 +148,10 @@
               path: /develop/building/windows/build-source
               contents:
         - name: Thin - Linux
-          path: /develop/building/thin_linux
+          path: /develop/building/thin-linux
           contents:
         - name: Thin - Windows
-          path: /develop/building/thin_windows
+          path: /develop/building/thin-windows
           contents:
     - name: Running Samples
       path: /develop/run-sample-apps
@@ -166,16 +166,16 @@
               path: /develop/run-sample-apps/basic/linux
               contents:
             - name: iOS/OS X
-              path: /develop/run-sample-apps/basic/ios_osx
+              path: /develop/run-sample-apps/basic/ios-osx
               contents:
             - name: Windows
               path: /develop/run-sample-apps/basic/windows
               contents:
             - name: Thin - Linux
-              path: /develop/run-sample-apps/basic/thin_linux
+              path: /develop/run-sample-apps/basic/thin-linux
               contents:
             - name: Thin - Windows
-              path: /develop/run-sample-apps/basic/thin_windows
+              path: /develop/run-sample-apps/basic/thin-windows
               contents:
         - name: Chat
           path: /develop/run-sample-apps/chat
@@ -187,13 +187,13 @@
               path: /develop/run-sample-apps/chat/linux
               contents:
             - name: iOS/OS X
-              path: /develop/run-sample-apps/chat/ios_osx
+              path: /develop/run-sample-apps/chat/ios-osx
               contents:
             - name: Windows
               path: /develop/run-sample-apps/chat/windows
               contents:
             - name: Thin - Linux
-              path: /develop/run-sample-apps/chat/thin_linux
+              path: /develop/run-sample-apps/chat/thin-linux
               contents:
         - name: About
           path: /develop/run-sample-apps/about
@@ -205,10 +205,10 @@
               path: /develop/run-sample-apps/about/linux
               contents:
             - name: iOS/OS X
-              path: /develop/run-sample-apps/about/ios_osx
+              path: /develop/run-sample-apps/about/ios-osx
               contents:
             - name: Thin - Linux
-              path: /develop/run-sample-apps/about/thin_linux
+              path: /develop/run-sample-apps/about/thin-linux
               contents:
         - name: Config
           path: /develop/run-sample-apps/config
@@ -220,10 +220,10 @@
               path: /develop/run-sample-apps/config/linux
               contents:
             - name: iOS/OS X
-              path: /develop/run-sample-apps/config/ios_osx
+              path: /develop/run-sample-apps/config/ios-osx
               contents:
             - name: Thin - Linux
-              path: /develop/run-sample-apps/config/thin_linux
+              path: /develop/run-sample-apps/config/thin-linux
               contents:
         - name: Control Panel
           path: /develop/run-sample-apps/controlpanel
@@ -235,10 +235,10 @@
               path: /develop/run-sample-apps/controlpanel/linux
               contents:
             - name: iOS/OS X
-              path: /develop/run-sample-apps/controlpanel/ios_osx
+              path: /develop/run-sample-apps/controlpanel/ios-osx
               contents:
             - name: Thin - Linux
-              path: /develop/run-sample-apps/controlpanel/thin_linux
+              path: /develop/run-sample-apps/controlpanel/thin-linux
               contents:
         - name: Notification
           path: /develop/run-sample-apps/notification
@@ -250,10 +250,10 @@
               path: /develop/run-sample-apps/notification/linux
               contents:
             - name: iOS/OS X
-              path: /develop/run-sample-apps/notification/ios_osx
+              path: /develop/run-sample-apps/notification/ios-osx
               contents:
             - name: Thin - Linux
-              path: /develop/run-sample-apps/notification/thin_linux
+              path: /develop/run-sample-apps/notification/thin-linux
               contents:
         - name: Onboarding
           path: /develop/run-sample-apps/onboarding
@@ -265,10 +265,10 @@
               path: /develop/run-sample-apps/onboarding/linux
               contents:
             - name: iOS/OS X
-              path: /develop/run-sample-apps/onboarding/ios_osx
+              path: /develop/run-sample-apps/onboarding/ios-osx
               contents:
             - name: Thin - Linux
-              path: /develop/run-sample-apps/onboarding/thin_linux
+              path: /develop/run-sample-apps/onboarding/thin-linux
               contents:
         - name: AC Server
           path: /develop/run-sample-apps/acserver
@@ -277,7 +277,7 @@
               path: /develop/run-sample-apps/acserver/linux
               contents:
             - name: Thin - Linux
-              path: /develop/run-sample-apps/acserver/thin_linux
+              path: /develop/run-sample-apps/acserver/thin-linux
               contents:
         - name: Command Line Apps
           path: /develop/run-sample-apps/test

@@ -52,13 +52,13 @@ Onboardable samples are available for Android.
 The samples can be run on the following platforms:
 - [Android][android]
 - [Linux][linux]
-- [iOS/OSX][ios_osx]
-- [Thin - Linux][thin_linux]
+- [iOS/OSX][ios-osx]
+- [Thin - Linux][thin-linux]
 
 [android]: /develop/run-sample-apps/onboarding/android
 [linux]: /develop/run-sample-apps/onboarding/linux
-[ios_osx]: /develop/run-sample-apps/onboarding/ios_osx
-[thin_linux]: /develop/run-sample-apps/onboarding/thin_linux
+[ios-osx]: /develop/run-sample-apps/onboarding/ios-osx
+[thin-linux]: /develop/run-sample-apps/onboarding/thin-linux
 
 [learn_about]: /learn/core/about-announcement
 [learn_onboarding]: /learn/base-services/onboarding

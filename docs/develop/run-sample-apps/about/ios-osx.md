@@ -51,5 +51,5 @@ app as an About Client on the same device or on a different device,
 as detailed in [Run the About sample app as a Client](#run-the-about-sample-app-as-a-client).
 
 
-[build-ios-osx]: /develop/building/ios_osx
+[build-ios-osx]: /develop/building/ios-osx
 [run-about-sample-app-as-service]: #run-the-about-sample-app-as-a-service

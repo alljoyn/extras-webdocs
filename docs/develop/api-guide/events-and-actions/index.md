@@ -1,4 +1,4 @@
-# Events and Actions User Guide
+# Events and Actions API Guide
 
 ## Overview
 
@@ -39,7 +39,7 @@ the associated Wi-Fi network.
 * Devices that support the Actions interface have been onboarded 
 onto the AllJoyn framework and are therefore discoverable on 
 the associated Wi-Fi network.
-* Human readable descriptions have been created and part of 
+* Human readable descriptions have been created as part of 
 the software on the devices to be returned in the introspection XML. 
 These can be created by the OEM, standardized descriptions 
 provided by the AllSeen Alliance can be used.
@@ -92,7 +92,7 @@ the interface for its functionality.
 
 * A method is defined by a <method> tag, Signals <signal> 
 and Properties <property>.
-* The <method> and <signal> tags allow for <arg> tags to be 
+* The &lt;method&gt; and &lt;signal&gt; tags allow for &lt;arg&gt; tags to be 
 contained that define the arguments.
 * A property does not accept arguments as it is only a single type.
 
@@ -183,7 +183,8 @@ NOTE: The AllJoyn library does not provide IETF language tag matching logic.
 #### Sample introspection XML
 
 The following is a sample of the XML that is returned by 
-IntrospectWithDescription.
+IntrospectWithDescription; it adds the description to the LightOn signal 
+which creates a LightOn Event.
 
 ```xml
 <node>
@@ -394,7 +395,7 @@ void InterfaceDescription::SetDescriptionTranslator(Translator* translator)
 
 To set a BusObject's description, specify it when you register the object:
 
-```java
+```cpp
 public Status registerBusObject(BusObject busObj,
 String objPath, boolean secure, String languageTag, String description)
 ```

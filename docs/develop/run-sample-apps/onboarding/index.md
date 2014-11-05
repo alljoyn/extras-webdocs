@@ -1,11 +1,11 @@
 # Running The Onboarding Samples 
 
 There are two types of Onboarding sample applications, an 
-Onboarder and an Onboardable. The [Onboarding service framework][learn_onboarding] 
+Onboarder and an Onboardee. The [Onboarding service framework][learn_onboarding] 
 is both a definition of how a Wi-Fi Radio will function on a 
 device and the AllJoyn&trade; interface used to communicate.
 
-An Onboardable application is responsible for starting up 
+An Onboardee application is responsible for starting up 
 as an Access Point (AP) and offering up that it supports 
 the Onboarding service framework via [About Announcements][learn_about]. 
 Once provided a set of user-provided AP credentials, the application 
@@ -13,7 +13,7 @@ will stop advertising an AP and connect using the provided credentials.
 
 An application that provides the Onboarder side of the service 
 is responsible for using the Onboarding interface to transmit 
-AP credentials that the Onboardable application should connect to.
+AP credentials that the Onboardee application should connect to.
 
 The Onboarding interface is defined as follows:
 
@@ -47,18 +47,16 @@ The Onboarding interface is defined as follows:
 ```
 
 Onboarder samples are available for Android and iOS.
-Onboardable samples are available for Android.
+Onboardee samples are available for Android.
 
 The samples can be run on the following platforms:
 - [Android][android]
 - [Linux][linux]
 - [iOS/OSX][ios-osx]
-- [Thin - Linux][thin-linux]
 
 [android]: /develop/run-sample-apps/onboarding/android
 [linux]: /develop/run-sample-apps/onboarding/linux
 [ios-osx]: /develop/run-sample-apps/onboarding/ios-osx
-[thin-linux]: /develop/run-sample-apps/onboarding/thin-linux
 
 [learn_about]: /learn/core/about-announcement
 [learn_onboarding]: /learn/base-services/onboarding

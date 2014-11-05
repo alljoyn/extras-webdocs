@@ -6,7 +6,7 @@
 
 ## Best Practices
 
-### Onboardable application
+### Onboardee application
 
 #### Perform a Wi-Fi scan prior to entering SoftAP mode
 
@@ -36,7 +36,7 @@ For an end user who may have multiple devices in the home of
 the same type (such as a refrigerator), it is important to 
 allow for a custom name to be entered (for example, "Kitchen Fridge" 
 or "Garage Fridge"). Adding the Configuration service framework 
-into the Onboardable applications allows for a few things.
+into the Onboardee applications allows for a few things.
 
 * As the creator of the device, it can expose a set of initial 
 values that are customized to the device to allow any third-party 
@@ -55,27 +55,27 @@ Announce API method is not executed, the AboutData will eventually
 travel to the other applications; explicitly calling the method 
 ensures prompt arrival.
 
-#### Single Onboardable application
+#### Single Onboardee application
 
-Since the Onboardable application makes changes to the device's 
-Wi-Fi settings, only one Onboardable application should be 
+Since the Onboardee application makes changes to the device's 
+Wi-Fi settings, only one Onboardee application should be 
 running at any given time. Running multiple applications at 
 the same time results in non-deterministic behavior as 
 multiple applications will be attempting to modify the Wi-Fi settings.
 
 ### Onboarder application
 
-#### Allow Onboardable device to be configured with AP information 
+#### Allow Onboardee device to be configured with AP information 
 when AP is hidden
 
 Since the platform Wi-Fi scan will not list APs that are 
 hidden, the application should allow the end user to input 
-the SSID and security information manually. The Onboardable 
+the SSID and security information manually. The Onboardee 
 will attempt to connect to the network and if it fails, will 
 start back up in SoftAP mode and report the error condition 
 to the Onboarder application.
 
-#### Allow the Onboardable device to be customized by the user
+#### Allow the Onboardee device to be customized by the user
 
 The AllJoyn service frameworks are intended to be building 
 blocks that can be used together. As such, many devices that 
@@ -92,9 +92,6 @@ APIs get a list of any device-specific fields that can be entered,
 and dynamically generate the UI input widgets to enter these 
 values. At a minimum, allow for the text field of "Friendly Name" 
 to be entered so end users can name the device that is being onboarded.
-
-
-
 
 [onboarding-android]: /develop/api-guide/onboarding/android
 [onboarding-ios]: /develop/api-guide/onboarding/ios

@@ -5,7 +5,7 @@ Congratulations on wanting to learn more about the AllJoyn&trade; framework and 
 * [Core Tutorial][core]
 * [iOS Tutorial][ios]
 * [Thin App Tutorial][thin-app]
-* [Thin Core and WSL Tutorial][thin-wsl]
+* [Arduino + GT202][arduino-and-gt202]
 * [Video Tutorials][videos]
 
 <!-- Place holder links
@@ -23,6 +23,5 @@ Congratulations on wanting to learn more about the AllJoyn&trade; framework and 
 
 [ios]: /develop/tutorial/ios
 [thin-app]: /develop/tutorial/thin-app
-[thin-wsl]: /develop/tutorial/thin-core-and-wsl
-
+[arduino-and-gt202]: /develop/tutorial/arduino-and-gt202
 [videos]: /develop/tutorial/videos

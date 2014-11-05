@@ -16,10 +16,10 @@ To access a previous version of this document, click the release version link be
 ## Definition Overview
 
 The Onboarding interface is implemented by an application on 
-a target device, referred to as an onboardable. A typical 
-onboardable is an AllJoyn&trade; thin client device. This 
+a target device, referred to as an onboardee. A typical 
+onboardee is an AllJoyn&trade; thin client device. This 
 interface allows the onboarder to send the Wi-Fi credentials 
-to the onboardable to allow it to join the personal access point.
+to the onboardee to allow it to join the personal access point.
 
 ![onboarding-arch][onboarding-arch]
 
@@ -35,7 +35,7 @@ mandatory or optional, and are specified accordingly in this document.
 ### Onboarding call flow using an Android onboarder
 
 The following figure illustrates a call flow for onboarding 
-an onboardable using an Android onboarder.
+an onboardee using an Android onboarder.
 
 ![onboarding-android-onboarder][onboarding-android-onboarder]
 
@@ -44,7 +44,7 @@ Figure: Onboarding a device using an Android onboarder
 ### Onboarding call flow using an iOS onboarder
 
 The following figure illustrates a call flow for onboarding 
-an onboardable using an iOS onboarder.
+an onboardee using an iOS onboarder.
 
 ![onboarding-ios-onboarder][onboarding-ios-onboarder]
 
@@ -102,8 +102,8 @@ implements the Onboarding interface.
 | SSID | yes | s | N/A | Access point SSID |
 | passphrase | yes | s | N/A | Access point passphrase | 
 | authType | yes | n | * -3 - WPA2_AUTO | Authentication type. |
-| |  | | * -2 - WPA_AUTO |*When it is equal to any, the onboardable must attempt all possible authentication types it supports to connect to the AP. |
-| |  | | * -1 - Any |*When it is equal to -3 or -2 (WPA2_AUTO or WPA_AUTO), the onboardable attempts to connect to the AP with TKIP cipher and then AES-CCMP cipher. |
+| |  | | * -2 - WPA_AUTO |*When it is equal to any, the onboardee must attempt all possible authentication types it supports to connect to the AP. |
+| |  | | * -1 - Any |*When it is equal to -3 or -2 (WPA2_AUTO or WPA_AUTO), the onboardee attempts to connect to the AP with TKIP cipher and then AES-CCMP cipher. |
 | |  | | * 0 - Open |*WPA_TKIP indicates WPA with TKIP cipher. |
 | |  | | * 1 - WEP |*WPA2_CCMP indicates WPA2 with AES-CCMP cipher. |
 | |  | | * 2 - WPA_TKIP |*If the value is invalid, the AllJoyn error code org.alljoyn.Error.OutOfRange will be returned. |
@@ -122,8 +122,8 @@ implements the Onboarding interface.
 
 **Description**
 
-Send the personal AP information to the onboardable. When the 
-authType is equal to -1 (any), the onboardable must try out 
+Send the personal AP information to the onboardee. When the 
+authType is equal to -1 (any), the onboardee must try out 
 all the possible authentication types it supports to connect to the personal AP.
 
 If authType parameter is invalid, the AllJoyn error code 
@@ -143,8 +143,8 @@ method call.
 
 **Description**
 
-Tell the onboardable to connect to the personal AP. It is 
-recommended that the onboardable use the concurrency feature, 
+Tell the onboardee to connect to the personal AP. It is 
+recommended that the onboardee use the concurrency feature, 
 if it is available.
 
 #### Offboard
@@ -160,7 +160,7 @@ method call.
 
 **Description**
 
-Tell the onboardable to disconnect from the personal AP, clear 
+Tell the onboardee to disconnect from the personal AP, clear 
 the personal AP configuration fields, and start the soft AP mode.
 
 #### GetScanInfo
@@ -178,7 +178,7 @@ None.
 
 **Description**
 
-Scan all the Wi-Fi access points in the onboardable's proximity.
+Scan all the Wi-Fi access points in the onboardee's proximity.
 
 Some devices may not support this feature. In such a case, the AllJoyn error code org.alljoyn.Error.FeatureNotAvailable will be returned in the AllJoyn response.
 
@@ -202,7 +202,7 @@ the personal AP is completed. The signal is sent over the
 AllJoyn session established over the SoftAP link.
 
 This signal will be received only if the concurrency feature 
-is supported by the onboardable.
+is supported by the onboardee.
 
 ##Introspect XML
 
@@ -242,4 +242,3 @@ is supported by the onboardable.
 [onboarding-arch]: /files/learn/onboarding-arch.png
 [onboarding-android-onboarder]: /files/learn/onboarding-android-onboarder.png
 [onboarding-ios-onboarder]: /files/learn/onboarding-ios-onboarder.png
-

@@ -231,10 +231,11 @@ application developer can add additional fields.
 
 | Field name| Mandatory | Localized | Signature | Description |
 |---|---|---|---|---|
-| defaultLanguage | yes | no | s | Default language supported by the device. IETF language tags specified by RFC 5646. |
+| DefaultLanguage | yes | no | s | Default language supported by the device. IETF language tags specified by RFC 5646. |
 |  |  |  |  | * If the parameter is not set as per the RFC, the error org.alljoyn.Error.InvalidValue is returned. |
 |  |  |  |  | * If a language tag is not supported by the device, the error org.alljoyn.Error.LanguageNotSupported is returned. |
 |  |  |  |  | In this case, the default language on the device is unchanged. |
+|DeviceName|no|yes|s|Device name assigned by the user. The device name appears on the UI as the friendly name of the device.|
 
 ## Introspection XML
 

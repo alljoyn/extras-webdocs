@@ -1,6 +1,6 @@
-# AllJoyn&trade; Thin Core and WSL
+# Arduino + GT202
 
-The AllJoyn Thin Core Library includes a Wi-Fi driver for the GT202 Wi-Fi board,
+The AllJoyn&trade; Thin Core Library includes a Wi-Fi driver for the GT202 Wi-Fi board,
 known as WSL. This document explains how to setup the hardware and software
 to run AllJoyn Thin Apps on an Arduino Due running FreeRTOS, including the WSL
 Wi-Fi driver, that connects to a GT202 Wi-Fi board over SPI.

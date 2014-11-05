@@ -9,7 +9,7 @@ or be written in a different language binding.
 * [About][about] These samples show how to use the About feature for 
   announcing and discovering.
 * [Onboarding][onboarding] These samples show how to use the two sides of the 
-  Onboarding service framework, the Onboarder and the Onboardable.
+  Onboarding service framework, the Onboarder and the Onboardee.
 * [Config][config] These samples show how to use the Configuration service framework.
 * [Notification][notification] These samples show how to use the Notification 
   service framework as a Producer and a Consumer.

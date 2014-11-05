@@ -198,17 +198,11 @@
         - name: About
           path: /develop/run-sample-apps/about
           contents:
-            - name: Android
-              path: /develop/run-sample-apps/about/android
-              contents:
             - name: Linux
               path: /develop/run-sample-apps/about/linux
               contents:
             - name: iOS/OS X
               path: /develop/run-sample-apps/about/ios-osx
-              contents:
-            - name: Thin - Linux
-              path: /develop/run-sample-apps/about/thin-linux
               contents:
         - name: Config
           path: /develop/run-sample-apps/config
@@ -266,9 +260,6 @@
               contents:
             - name: iOS/OS X
               path: /develop/run-sample-apps/onboarding/ios-osx
-              contents:
-            - name: Thin - Linux
-              path: /develop/run-sample-apps/onboarding/thin-linux
               contents:
         - name: AC Server
           path: /develop/run-sample-apps/acserver
@@ -396,8 +387,8 @@
         - name: Thin App
           path: /develop/tutorial/thin-app
           contents:
-        - name: Thin Core and WSL
-          path: /develop/tutorial/thin-core-and-wsl
+        - name: Arduino + GT202
+          path: /develop/tutorial/arduino-and-gt202
           contents:
         - name: Videos
           path: /develop/tutorial/videos

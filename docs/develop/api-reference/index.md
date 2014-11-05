@@ -1,7 +1,7 @@
 # API Reference
 
 
-|API             |C++             |Java               |Objective-C              |C             |C(Thin)
+|API             |C++             |Java               |Objective-C              |C             |C (Thin)
 |----------------|----------------|--- ---------------|-------------------------|--------------|-------
 |Core            |[C++][core-cpp] |[Java][core-java]  |&nbsp;                   |[C][core-c]   |[C (Thin)][core-thin-c]
 |Onboarding      |[C++][onb-cpp]  |[Java][onb-java]   |[Objective-C][onb-objc]  |&nbsp;        |[C (Thin)][onb-thin-c]

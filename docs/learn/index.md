@@ -47,7 +47,7 @@ such as [onboarding a new device for the first time][onboarding],
 [sending notifications][notifs], and [controlling a device][controlpanel]. 
 Developers can then take these services, integrate them into their products, 
 and know that they are compatible with other devices and apps in the AllJoyn 
-ecosystem. (TODO: Maybe add a bit about certification)
+ecosystem.
 
 Beyond common services and interfaces, an app or device can also implement 
 private interfaces. So, the app can both use common services and interfaces

@@ -388,10 +388,10 @@ The process of removing an AllJoyn device from a personal network.
 It also removes the personal Access Point's (AP) SSID and password 
 values from the AllJoyn device memory.
 
-### Onboardable
+### Onboardee
 
 An application using this side of the service framework is 
-known as the Onboardable.
+known as the Onboardee.
 
 An AllJoyn device that advertises that it implements the 
 Onboarding interface.
@@ -402,7 +402,7 @@ An application using this side of the service framework is
 known as the Onboarder.
 
 A device, usually a handset, that is used to interact with 
-the onboardable to pass it the Wi-Fi credentials needed for 
+the onboardee to pass it the Wi-Fi credentials needed for 
 onboarding.
 
 ### Onboarding Client

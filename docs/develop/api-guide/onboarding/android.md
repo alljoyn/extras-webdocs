@@ -16,7 +16,7 @@
 
 | Application | Description |
 |---|---|
-| OnboardingSDKSampleClient | A sample Android application that utilizes the Onboarding SDK to retrieve potential Onboardables and personal APs, and bring an Onboardable on the user's personal AP. |
+| OnboardingSDKSampleClient | A sample Android application that utilizes the Onboarding SDK to retrieve potential Onboardees and personal APs, and bring an Onboardee on the user's personal AP. |
 
 ## Setting up the AllJoyn framework
 
@@ -114,7 +114,7 @@ OnboardingManager.getInstance().init(context, aboutService, busAttachment);
 
 The Wi-Fi scan discovers all Wi-Fi networks in the vicinity of 
 the Android device. The application can then filter out the 
-potential personal APs and Onboardables.
+potential personal APs and Onboardees.
 
 ```java
 // Register a broadcast receiver for Wi-Fi scans
@@ -127,7 +127,7 @@ BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
       // All the access points that were found
       // OnboardingManager.getInstance().getWifiScanResults(WifiFilter.ALL);
 
-      // Only the potential onboardables
+      // Only the potential onboardees
       // OnboardingManager.getInstance().getWifiScanResults(WifiFilter.ONBOARDABLE);
 
       // Only the potential personal APs
@@ -144,10 +144,10 @@ registerReceiver(wifireceiver, wifiFilter);
 OnboardingManager.getInstance().scanWiFi();
 ```
 
-### Connect to the onboardable's SoftAP
+### Connect to the onboardee's SoftAP
 
 Connect to the SoftAP of the device so that the AllJoyn device 
-(onboardable) and the Android device (onboarder) are on the same 
+(onboardee) and the Android device (onboarder) are on the same 
 network and can communicate via the AllJoyn framework.
 
 Use the Android APIs to connect to the SoftAP. Refer to the 
@@ -157,7 +157,7 @@ Android documentation for more information.
 
 (http://developer.android.com/reference/android/net/wifi/WifiConfiguration.html)
 
-### Onboard the onboardable to the personal AP
+### Onboard the onboardee to the personal AP
 
 #### Create a broadcast receiver
 
@@ -192,17 +192,17 @@ registerReceiver(mainReceiver, mainFilter);
 #### Prepare the Onboarding configuration
 
 ```java
-// Prepare the onboardable data
-WiFiNetworkConfiguration onboardable = new WiFiNetworkConfiguration(onboardableSsid, 
-   onboardableAuthType, onboardablePassword);
+// Prepare the onboardee data
+WiFiNetworkConfiguration onboardee = new WiFiNetworkConfiguration(onboardeeSsid, 
+   onboardeeAuthType, onboardeePassword);
 
 // Prepare the personal AP data
 WiFiNetworkConfiguration target = new WiFiNetworkConfiguration(targetSsid, 
    targetAuthType, targetPassword);
 
 // Create the OnboardingConfiguration object
-OnboardingConfiguration config = new OnboardingConfiguration(onboardable, 
-   onboardableWifiTimeout, onboardableAnnouncementTimeout, target, 
+OnboardingConfiguration config = new OnboardingConfiguration(onboardee, 
+   onboardeeWifiTimeout, onboardeeAnnouncementTimeout, target, 
       targetWifiTimeout, targetAnnouncementTimeout);
 ```
 
@@ -224,7 +224,7 @@ connection timeouts. The SDK has an API to enable the application
 to abort the process and return to idle state.
 
 NOTE: Aborting is not possible once the personal AP credentials 
-have been passed to the onboardable.
+have been passed to the onboardee.
 
 ```java
 try { 
@@ -333,8 +333,8 @@ Figure: Onboarding state diagram
 
 When developing an Onboarder application for Android, use 
 the Onboarding Manager APIs to perform a Wi-Fi scan and then 
-automatically filter the results into Onboardables and potential APs. 
-The UI should only present the Onboardables when allowing 
+automatically filter the results into Onboardees and potential APs. 
+The UI should only present the Onboardees when allowing 
 the user to select what to onboard.
 
 On other platforms, when building an Onboarder application, 
@@ -354,33 +354,33 @@ nearby devices that can be onboarded.
 
 When developing an Onboarder application for Android, use the 
 Onboarding Manager APIs to perform a Wi-Fi scan and then automatically 
-filter the results into Onboardables and potential APs. The UI 
-should only present the Onboardables when allowing the user 
+filter the results into Onboardees and potential APs. The UI 
+should only present the Onboardees when allowing the user 
 to select what to onboard.
 
 On other platforms, upon successfully joining and validating 
 that a device supports the Onboarding service framework, a 
 platform request should be made to get a list of the nearby APs. 
 The application should filter out any SSIDs that start with 
-"AJ_", as these should be Onboardable devices a user's personal AP. 
+"AJ_", as these should be Onboardee devices a user's personal AP. 
 The UI will present the option to select an AP to preconfigure 
 the SSID and if security on the AP is enabled show an input 
 for a password/passphrase.
 
-#### Use the Wi-Fi scan list from the Onboardable device
+#### Use the Wi-Fi scan list from the Onboardee device
 
 Once the Wi-Fi list is generated per [Use the Wi-Fi scan list 
 from the device running the Onboarder application][use-wifi-scan-list-onboarder], use the 
 Onboarding service framework API to request the list of APs 
-that the Onboardable device can detect.  This will ensure 
+that the Onboardee device can detect.  This will ensure 
 that the consumer selected/entered AP is detected by both 
 devices, and that signal strength is sufficient to facilitate a connection.
 
 If the application provides a completely different list than 
-what the Onboardable device detects, it is recommended to 
+what the Onboardee device detects, it is recommended to 
 alert the user upon entering/selecting an AP that the device 
 being onboarded could potentially be out of range of entered/selected AP. 
-If the Onboardable application receives an error, show a pop-up 
+If the Onboardee application receives an error, show a pop-up 
 with a suggestion to move the device or AP closer. It should 
 then continue to send the credentials to the device and wait 
 for the appropriate response/error messages.

@@ -10,8 +10,7 @@ attributes can be sent; it is up to the receipient to determine the best
 way to handle and render custom attributes. Also, Notifications can be
 globally dismissed on all consumers.
 
-Concepts and Terminology
-------------------------
+## Concepts and Terminology
 
 ### Producer and Consumer
 
@@ -103,8 +102,7 @@ title. But a Consumer that is aware of this Producer, could also
 get the album art URL and display that along with the 
 notification text to provide a richer custom notificaiton.
 
-How Does It Work?
--------------
+## How It Works
 
 Under the hood, notifications are sent using AllJoyn Sessionless Signals.
 Sessionless Signals provide everything that is needed to send and receive
@@ -144,9 +142,7 @@ In summary, this is how things work:
 * A Consumer can connect to the Producer to request that the 
   notification stop being broadcasted.
 
-
-Learn More
-----------
+## Learn More
 
 * [Learn more about the Notification Interface Definition][notif-interface]
 * [Download the SDK][download], [build][build] and 
@@ -157,4 +153,4 @@ Learn More
 [download]: /download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/notification
-[api-guide]: /develop/api-guide
+[api-guide]: /develop/api-guide/notification

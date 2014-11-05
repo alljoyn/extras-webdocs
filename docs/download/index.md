@@ -3,7 +3,7 @@
 ## Source
 * [Git Repository][git-repo]
 
-## Download
+## SDKs
 
 |Platform  |Package   |Version   |Information
 |----------|----------|----------|-----------

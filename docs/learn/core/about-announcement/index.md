@@ -47,10 +47,10 @@ Here's roughly what happens behind the scenes:
 * [Learn more about the About Interface Definition][about-interface]
 * [Download the SDK][download], [build][build] and 
   [run the sample apps][sample-apps]
-* [Learn more about the APIs][api-guide]
+* [Learn more about the About APIs][api-guide]
 
 [about-interface]: /learn/core/about-announcement/interface
 [download]: /download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/about
-[api-guide]: /develop/api-guide
+[api-guide]: /develop/api-guide/about

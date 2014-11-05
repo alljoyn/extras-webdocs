@@ -120,7 +120,14 @@ if-this-then-that interactions.
 [Learn more about Events and Actions][events-and-actions].
 
 ## Security
-- (TODO: None, PIN, user/pass, certificates, more from 14.06?)
+
+AllJoyn security occurs at the application level; there is no trust
+at the device level. Each interface can optionally require security.
+If required, authentication occurs on demand between the two apps
+when a method is invoked or to receive a signal. Mulitple authentication
+mechanisms are supported: PIN code, PSK, or ECDSA (Elliptical Curve Digital 
+Signature Algorithm). Once authenticated, all messages between these
+two devices are encrypted using AES-128 CMM.
 
 ## Putting It All Together
 

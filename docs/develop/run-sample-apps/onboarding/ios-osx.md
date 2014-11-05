@@ -7,9 +7,9 @@ Onboarding sample app on an iOS device.
 
 The Onboarding service sample app functions as the Onboarder 
 side of the Onboarding service framework. At this time, there 
-is not an iOS Onboardable sample application. In order to have 
-an Onboardable to interact with, follow the instructions in 
-[Run an Onboardable][run-onboardable] to set up and run a 
+is not an iOS Onboardee sample application. In order to have 
+an Onboardee to interact with, follow the instructions in 
+[Run an Onboardee][run-onboardee] to set up and run a 
 sample Oboardable application on an Android device. The Android 
 device and the iOS device must be on the same network.
 
@@ -27,8 +27,8 @@ The application is now running as an Onboarder. In the list
 area below the Disconnect from AllJoyn button, you will see 
 any nearby applications that have been discovered via the 
 About feature that support the Onboarding service framework 
-and are acting as an Onboardable.
-5. To interact with an Onboardable, select one from the list 
+and are acting as an Onboardee.
+5. To interact with an Onboardee, select one from the list 
 of nearby applications that have been discovered.
 6. Choose an option from the pop-up that appears:
   * Show Announce: This will allow you to view the About 
@@ -36,11 +36,11 @@ of nearby applications that have been discovered.
   * About: This will show the full set of information 
   retrieved by the About Client from the nearby application.
   * Onboarding: You can use the Onboarder to step through 
-  the process of onboarding the Onboardable onto the local Wi-Fi network.
+  the process of onboarding the Onboardee onto the local Wi-Fi network.
 7. Select the Onboarding option and do the following:
   * Enter the SSID and password of the Wi-Fi network you want 
   to onboard the device onto, and then click **Configure**. 
-  This will use the Onboarding service to pass these values to the Onboardable.
+  This will use the Onboarding service to pass these values to the Onboardee.
   * Click **Connect**. You should see a Success message along 
   with instructions to go to the **Settings** > **Wi-Fi** menu 
   option on your iOS device and switch networks to the one 
@@ -51,9 +51,9 @@ of nearby applications that have been discovered.
   you will see that it has been onboarded, and you now have the 
   option to offboard the device.
 
-## Run an Onboardable
+## Run an Onboardee
 
-Follow the [instructions to run the AboutConfOnbServer in Android][onboardable]. 
+Follow the [instructions to run the AboutConfOnbServer in Android][onboardee]. 
 You will then be able to use the iOS Onboarding Service 
 sample app to onboard the app on the Android device.
 
@@ -64,5 +64,5 @@ a prefix of "AJ_". This prefix is used by the Onboarding service framework
 to determine which APs are for AllJoyn devices that support the Onboarding service framework. 
 
 [build-ios-osx]: /develop/building/ios-osx
-[run-onboardable]: #run-an-onboardable
-[onboardable]: /develop/run-sample-apps/onboarding/android#running-android-sample-onboardingserver
+[run-onboardee]: #run-an-onboardee
+[onboardee]: /develop/run-sample-apps/onboarding/android#running-android-sample-onboardingserver

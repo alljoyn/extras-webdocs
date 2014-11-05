@@ -94,19 +94,19 @@ initWithAnnouncementListener:self andBus:self.clientBusAttachment];
 [clientBusAttachment advertiseName:@"quiet@org.alljoyn.BusNode.CPSService.542e8562- e29b-89c2-b456-334455667788"]
 ```
 
-#### Listen for announcements from Onboardable devices
+#### Listen for announcements from Onboardee devices
 
-The onboardable will announce its presence on its own SoftAP. 
+The onboardee will announce its presence on its own SoftAP. 
 To see it, change the physical Wi-Fi settings on the device 
 to connect to the SoftAP by going to **Settings > Wi-Fi**.
 
-Once the onboarder has joined the Onboardable SoftAP, an 
-announcement from the onboardable is received by the announcement 
+Once the onboarder has joined the Onboardee SoftAP, an 
+announcement from the onboardee is received by the announcement 
 listeners. Implement the AJNAnnouncementListener protocol in 
 your class to respond to new announcements.
 
 For each announcement that is received, check if it implements 
-the Onboarding interface. If it does, save it as an onboardable 
+the Onboarding interface. If it does, save it as an onboardee 
 device for later use.
 
 ```objc
@@ -159,7 +159,7 @@ obInfo.authType = ANY;
 resultStatus:resultStatus sessionId:sessionId];
 ```
 
-3. Tell the Onboardable to join the network provided.
+3. Tell the Onboardee to join the network provided.
 
 ```objc
 [onboardingClient connectTo:onboardeeBus sessionId:sessionId] ;
@@ -214,23 +214,22 @@ QStatus status = [self.onboardingClient offboardFrom:self.onboardeeBus sessionId
 
 During the onboarding process, the user must use the Settings > Wi-Fi 
 menu option on the iOS device to manually connect to the Soft AP 
-that is advertised by the onboardable.
+that is advertised by the onboardee.
  
 This step is necessary because it is not possible to programmatically 
 change the Wi-Fi network that the iOS device is connected to.
 
-Additionally, once the onboardable has been onboarded, and is 
+Additionally, once the onboardee has been onboarded, and is 
 therefore no longer in Soft AP mode, the iOS device may automatically 
 connect to a different access point than the one to which the 
-onboardable is connected. As a result, the user may need to use 
+onboardee is connected. As a result, the user may need to use 
 the Settings > Wi-Fi menu option a second time on the iOS 
-device to connect to the access point that the onboardable 
+device to connect to the access point that the onboardee 
 was onboarded to.
 
 As a result, it is recommended that the application using the 
 Onboarding service framework provide hints or guides to the user 
 to perform these steps to properly access the Wi-Fi networks.
-
 
 [building-ios]: /develop/building/ios-osx
 [about-api-guide-ios]: /develop/api-guide/about/ios

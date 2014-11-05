@@ -69,7 +69,7 @@ sometimes bundled with the AllJoyn Core Library.
 ### AllJoyn Router
 
 The AllJoyn router routes AllJoyn messages between AllJoyn Routers 
-and Applications.  It handles things like XYZ (TODO).
+and Applications, including between different transports.
 
 ### AllJoyn Core Library
 

@@ -132,6 +132,9 @@
         - name: Linux
           path: /develop/building/linux
           contents:
+            - name: OpenWRT
+              path: /develop/building/linux/openwrt
+              contents:
             - name: Build Source
               path: /develop/building/linux/build-source
               contents:

@@ -6,6 +6,7 @@
   contents:
     - name: Use Cases
       path: /learn/use-cases
+      hidden: 1
       contents:
     - name: Architecture
       path: /learn/architecture

@@ -60,28 +60,11 @@ The device that performs an action. Related to the
 The Control Panel service framework layer that translates 
 the UI elements received to iOS UI elements.
 
-
-NOTE TO TEAM: The System Description document refers to 
-both applications and IoE apps. It would behoove us to 
-pick one and stick with it
-
 ### AJSCL
 
 AllJoyn Standard Core Library. An application or AllJoyn 
 daemon process that contains the full implementation 
 of the AllJoyn message bus.
-
-NOTE TO TEAM:  Can't remember if message bus is becoming bus. Something to watch for.
-
-(from events and actions document) The version of the AllJoyn Library 
-that runs on devices that support threads and other Higher 
-Level Operating System (HLOS) operations.
-
-(from Wayne's updated terms) Contains HLOS and supports 
-multiple bindings. The AllJoyn Standard Library can have a bundled router.
-Standard Core Library includes a standard library (liballjoyn.so) 
-and router library (librouter.so).
-
 
 ### AJTCL
 
@@ -89,21 +72,11 @@ AllJoyn Thin Core Library. The version of the AllJoyn library
 that runs on devices that are memory and processing power-constrained. 
 This is intended for devices that are powered by a Micro Controller Unit (MCU).
 
-(from Wayne's updated terms) Contains RTOS, supports C, and is resource-constrained. 
-The AllJoyn Thin Library typically use a router on a different device.
-Thin Core Library contains a thin library (libsjtc.so).
-
-
 ### AllJoyn App
 
-An application that uses the AllJoyn framework. Apps either either the 
-AllJoyn Core APIs or the AllJoyn Service Frameworks API.
-
-FROM WAYNE'S UPDATED TERMS: AllJoyn apps
-
-Applications on a device that must connect to a router to participate on the AllJoyn network.
-In some instances, an app on a device does not have a router associated with it.
-Apps comprise app code and AllJoyn library (standard or thin).
+An application that uses the AllJoyn framework. Apps use either the 
+AllJoyn Core APIs or the AllJoyn Service Frameworks API. Apps 
+can either use the Standard Core or Thin Core implementations.
 
 [Learn more][apps-and-routers].
 
@@ -201,8 +174,6 @@ Variant value that represents various device details that are
 remotely updateable and are persisted to some permanent 
 storage layer, such as NVRAM.
 
-NOTE: The Thin Library implementation only supports String values.
-
 ### ConfigService
 
 A module in the AllJoyn Configuration service framework that 
@@ -242,10 +213,6 @@ device. A control panel is defined and announced by a
 Controllee; and discovered and displayed by a Controller. 
 A device can have more than one, and can be defined on a 
 per-language basis.
-
-NOTE TO TEAM:  I did not change the Controllee terms to 
-Controllable in ANY documentation. Something that needs to 
-be searched and replaced when it's been officially defined.
 
 [Learn more][controlpanel]
 
@@ -319,18 +286,6 @@ The device that sends the event.
 
 Application that lets end users program actions to take when an event is sent.
 
-ALSO LISTED AS EVENT PICKER as follows:
-
-An application that fill perform the following functions:
-
-* Search for all devices on the network that emit Events 
-and display the human readable event descriptors in the UI.
-* Search for all devices on the network that support Actions 
-and display the human readable action descriptors in the UI.
-* Allow the user to map discovered Events to discovered Actions 
-and create rules that can be automatically applied to future Events. 
-The rules can be persisted in the application or on the network.
-
 ### GUID
 
 Globally Unique Identifier. A 128 bit identifier generated 
@@ -354,21 +309,6 @@ that has an AllJoyn application running on it.
 ### Logical distributed software bus
 
 See [Distributed AllJoyn bus][distributed-alljoyn-bus]
-
-### MVC
-
-Model View Controller.
-
-NOTE TO TEAM:  This term is used in the Objective-C sample walkthrough (below):
-
-For ease of understanding, if you are new to iOS development, an iOS app 
-is structured based on MVC architecture, which means that you will have the following:
-* A View, which is your UI and since we use XCode this corresponds to Storyboard.
-* A Controller, which is your ViewController.h and ViewController.mm in 
-case of our BasicService and BasicClient sample
-* A Model, which are BasicService.h and BasicService.mm in case of 
-BasicService and BasicClient.h and BasicClient.mm in case of BasicClient
-
 
 ### Notification message
 
@@ -497,19 +437,6 @@ and send encrypted data between them.
 A module that contains code shared by multiple services, 
 including the PropertyStore API definition.
 
-### ServicesMetadata
-
-(from a thin app document) A Hash structure (key-value pair) 
-of a String key to an AllJoyn Variant value that represents 
-various device details.
-
-A Hash structure (key-value pair) of a String key to an 
-AllJoyn Variant value that represents various device details.
-
-NOTE: The current Thin Library implementation only supports 
-String values with the exceptions of AppId and SupportedLanguages 
-values that are ad hoc byte array and String array, respectively.
-
 ### Sessionless signal
 
 A broadcast AllJoyn signal which is received by all devices 
@@ -557,8 +484,6 @@ service may play the role of a client at various times
 (depending on the implementation). The function of the AllJoyn 
 service is defined by the set of AllJoyn service frameworks used.
 
-(from Wayne's updated terms) App that uses the AllJoyn Thin Library
-
 ### Translator
 
 Callback method a developer implements in order to provide 
@@ -572,7 +497,6 @@ Has many contexts.
 
 In Events and Actions, the individual using the device that 
 has the Event Picker application installed.
-
 
 ### Well-Known Name (WKN)
 

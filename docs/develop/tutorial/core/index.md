@@ -182,11 +182,11 @@ if (ER_OK != status) {
     printf("Could not register the BusObject with the BusAttachment\n");
 }
 
-std::vector<qcc::String> interfacesUsed;
+std::vector<qcc::String> interfaces;
 for( int i = 0; i < mMyFirstBusObject->getNumberOfInterfaces(); i++) {
-    interfacesUsed.push_back(mMyFirstBusObject->getInterfaceName(i));
+    interfaces.push_back(mMyFirstBusObject->getInterfaceName(i));
 }
-status = AboutServiceApi::getInstance()->AddObjectDescription(mMyFirstBusObject->getObjectPath(), interfacesUsed);
+status = AboutServiceApi::getInstance()->AddObjectDescription(mMyFirstBusObject->GetPath(), interfaces);
 if (ER_OK != status) {
     printf("Error returned by AddObjectDescription (%s).\n", QCC_StatusText(status));
 }
@@ -215,11 +215,6 @@ for( int i = 0; i < len; i++) {
  * This performs service level discovery
  */
 AnnouncementRegistrar::RegisterAnnounceHandler(*mBusAttachment, *this, interfaces, len);
-/* Add the match so we receive sessionless signals */
-status = mBusAttachment->AddMatch("sessionless='t'");
-if (ER_OK != status) {
-    printf("Failed to addMatch for sessionless signals: %s\n", QCC_StatusText(status));
-}
 ```
 
 The list of interfaces is supplied so that we have filtering and find 
@@ -343,29 +338,29 @@ Lastly, we implment the functions we assigned to handle the incoming responses.
 ```cpp
 void MyFirstBusObject::handleTell(const InterfaceDescription::Member* member, Message& msg)
 {
-	const char* receivedThought = msg->GetArg(0)->v_string.str;
+    const char* receivedThought = msg->GetArg(0)->v_string.str;
     printf("Someone(%s) told you (%s)\n", msg->GetSender(), receivedThought);
 
     MsgArg reply;
     reply.Set("s", "You're so funny!");
-	QStatus status = MethodReply(msg, &reply, 1);
-	if (status == ER_OK) {
-        printf("You let them know they are funny!\n", receivedThought);
+    QStatus status = MethodReply(msg, &reply, 1);
+    if (status == ER_OK) {
+        printf("You let them know they are funny!\n");
     } else {
-        printf("An error occured and they do not know that they are funny.\n", receivedThought);
+        printf("An error occured and they do not know that they are funny.\n");
     }
 }
 void MyFirstBusObject::shareHandler(const InterfaceDescription::Member* member, const char* srcPath, Message& msg)
 {
-	const char* receivedThought = msg->GetArg(0)->v_string.str;
+    const char* receivedThought = msg->GetArg(0)->v_string.str;
     const char* fromUser = msg->GetSender();
     printf("Received shared thought (%s) from %s on sessionId %d\n", receivedThought, fromUser, msg->GetSessionId());
 }
 void MyFirstBusObject::broadcastHandler(const InterfaceDescription::Member* member, const char* srcPath, Message& msg)
 {
-	const char* receivedThought = msg->GetArg(0)->v_string.str;
+    const char* receivedThought = msg->GetArg(0)->v_string.str;
     const char* fromUser = msg->GetSender();
-    printf("Received a broudcast thought (%s) from %s\n", receivedThought, fromUser);  
+    printf("Received a broudcast thought (%s) from %s\n", receivedThought, fromUser);
 }
 ```
 

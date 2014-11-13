@@ -1,8 +1,10 @@
 # Building iOS/OS X
 
+Note, some of the paths below will need to be adjusted based on the version downloaded
+
 ## Setup
 
-1. Download the following ZIP files from the iOS section of the Source page, https://www.allseenalliance.org/source-code:
+1. [Download][download] the following iOS SDKs:
      * Core SDK (release)
      * Onboarding SDK
      * Configuration SDK
@@ -164,3 +166,5 @@ Compiler Flags__ group and set the following:
     * liballjoyn_onboarding_cpp.a
   * alljoyn-ios/services/alljoyn-onboarding-14.06.00-rel/objc/lib/
     * liballjoyn_onboarding_objc.a
+
+[download]: /download

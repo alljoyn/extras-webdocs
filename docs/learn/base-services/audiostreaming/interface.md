@@ -34,6 +34,7 @@
 | | |   * Stream.Port.ApplicationMetadata |
 | | | * Added the Control.Volume interface. |
 | | | * Updated the Introspection XML to reflect the Control.Volume output. |
+| 14.06 Update 2 | 11/12/2014 | Updated the Audio sink state diagram to include a Play arrow directed from Paused to Playing. |
 
 ## Definition Overview
 
@@ -196,8 +197,7 @@ or Stream.Port.AudioSink.
 
 | Interface name | Version | Secured | Object path |
 |---|---|---|---|
-| org.alljoyn.Stream.Port | 1 | no | Chile node of node 
-implementing the Stream interface. |
+| org.alljoyn.Stream.Port | 1 | no | Chile node of node implementing the Stream interface. |
 
 ### Properties
 
@@ -251,7 +251,7 @@ first close the stream, then open and connect with the new configuration.
 ## Stream.Port.Audio Interfaces
 
 The Stream.Port.AudioSource and Stream.Port.AudioSink interfaces 
-define the data format for audio/* media. The interfaces are 
+define the data format for audio/\* media. The interfaces are 
 implemented by port objects that support audio/* capabilities.
 
 ### FIFO control
@@ -404,7 +404,9 @@ No methods are exposed by this interface.
 
 ## Stream.Port.Image Interfaces
 
-The Stream.Port.ImageSource and Stream.Port.ImageSink interfaces define the data format for image/* media types. The interfaces are implemented by port objects that support image/* capabilities.
+The Stream.Port.ImageSource and Stream.Port.ImageSink interfaces 
+define the data format for image/\* media types. The interfaces 
+are implemented by port objects that support image/* capabilities.
 
 ### Stream.Port.ImageSink interface
 
@@ -412,8 +414,7 @@ The Stream.Port.ImageSource and Stream.Port.ImageSink interfaces define the data
  
 | Interface name | Version | Secured | Object path |
 |---|---|---|---|
-| org.alljoyn.Stream.Port.ImageSink | 1 | no | Child node of the node implementing the Stream
-interface. |
+| org.alljoyn.Stream.Port.ImageSink | 1 | no | Child node of the node implementing the Stream interface. |
 
 #### Properties
 
@@ -529,7 +530,7 @@ No methods are exposed by this interface.
 | | | * low | | |
 | | | * step | | |
 | Mute | b | * true | yes | Whether or not this device is muted. |
-| | | * fales | | |
+| | | * false | | |
 | Enabled | b | * true | no | Whether or not Volume control is enabled. If this value is false, all methods that change the playback volume will return an error. |
 | | | * false | | |
 
@@ -577,7 +578,7 @@ Adjust the volume by a certain percentage.
 | Signal name | Parameters | Sessionless | Description |
 |---|---|---|---|
 | | **Parameter name** / **Mandatory** / **Signature** | | |
-| VolumeChanged | (listed below | no | Signal sent when the volume has changed. |
+| VolumeChanged | (listed below) | no | Signal sent when the volume has changed. |
 | | newVolume / yes / b | | |
 | MuteChanged | (listed below) | no | Signal sent when the volume's mute state has changed. |
 | | newMute / yes / b | | |
@@ -714,20 +715,20 @@ used in a metadata dictionary entry.
 Date values are to only be represented as strings in one of 
 the following ISO 8601 formats:
 
-* Year only: \*"<year>"\* where <year> includes all digits of 
+* Year only: "&lt;year&gt;" where <year> includes all digits of 
 the year.
-* Date: \*"<year><month><day>"\* where:
+* Date: "&lt;year&gt;&lt;month&gt;&lt;day&gt;" where:
   * <year> includes all digits of the year
   * <month> is a 2-digit representation of month ("01" = January)
   * <day> is the day of the month (e.g., "09").
-* Date and time: \*"<year><month><day>T<hour><minute><second>+/-<offset>"\* where:
-  * <year>, <month>, and <day> are the same as the date previously specified
+* Date and time: " &lt;year&gt;&lt;month&gt;&lt;day&gt;T&lt;hour&gt;&lt;minute&gt;&lt;second&gt;+/- &lt;offset&gt;" where:
+  * &lt;year&gt;, &lt;month&gt;, and &lt;day&gt; are the same as the date previously specified
   * <hour> is the hour ("00" through "23")
   * <minute> is the minute ("00" through "59")
   * <second> is the second ("00" through "59")
   * <offset> is the offset from UTC ("-0800" corresponds to Pacific 
   Standard Time)
-* Date and time: \*"<year><month><day>T<hour><minute>+/-<offset>"\* 
+* Date and time: "&lt;year&gt;&lt;month&gt;&lt;day&gt;T&lt;hour&gt;&lt;minute&gt;+/- &lt;offset&gt;"
 is the same as the previous date and time specification except 
 without the <second> (seconds) portion.
 
@@ -756,13 +757,11 @@ without the <second> (seconds) portion.
 ```xml
 <node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
-
    <interface name="org.alljoyn.Stream">
       <property name="Version" type="q" access="read"/>
       <method name="Open"/>
       <method name="Close"/>
    </interface>
-
    <interface name="org.alljoyn.Stream.Port">
       <property name="Version" type="q" access="read"/>
       <property name="Direction" type="y" access="read"/>
@@ -776,7 +775,6 @@ xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect
          <arg name="configuration" type="(sa{sv})" direction="in"/>
       </method>
    </interface>
-
    <interface name="org.alljoyn.Stream.Port.AudioSink">
       <property name="Version" type="q" access="read"/>
       <property name="FifoSize" type="u" access="read"/>
@@ -797,7 +795,6 @@ xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect
          <arg name="numBytesFlushed" type="u" direction="out"/>
       </method>
    </interface>
-
    <interface name="org.alljoyn.Stream.Port.AudioSource">
       <property name="Version" type="q" access="read"/>
       <signal name="Data">
@@ -805,29 +802,24 @@ xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect
          <arg name="bytes" type="ay"/>
       </signal>
    </interface>
-
    <interface name="org.alljoyn.Stream.Port.ImageSink">
       <property name="Version" type="q" access="read"/>
    </interface>
-
    <interface name="org.alljoyn.Stream.Port.ImageSource">
       <property name="Version" type="q" access="read"/>
       <signal name="Data">
          <arg name="bytes" type="ay"/>
       </signal>
    </interface>
-
    <interface name="org.alljoyn.Stream.Port.Application.MetadataSink">
       <property name="Version" type="q" access="read"/>
    </interface>
-
    <interface name="org.alljoyn.Stream.Port.Application.MetadataSource">
       <property name="Version" type="q" access="read"/>
       <signal name="Data">
          <arg name="dictionary" type="a{sv}"/>
       </signal>
    </interface>
-
    <interface name="org.alljoyn.Stream.Clock">
       <property name="Version" type="q" access="read"/>
       <method name="SetTime">
@@ -837,7 +829,6 @@ xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect
          <arg name="adjustNanos" type="x" direction="in"/>
       </method>
    </interface>
-
    <interface name="org.alljoyn.Control.Volume">
       <property name="Version" type="q" access="read"/>
       <property name="Volume" type="n" access="readwrite"/>
@@ -859,8 +850,6 @@ xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect
          <arg name="enabled" type="b"/>
       </signal>
    </interface>
-
-
 </node>
 ```
 

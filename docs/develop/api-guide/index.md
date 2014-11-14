@@ -10,6 +10,8 @@
 |[Control Panel][cp]      |[Android][cp-android]         |[Linux][cp-linux]     |[iOS][cp-ios]         |[Thin Linux][cp-thin-linux]
 |[Audio Streaming][as]    |&nbsp;                        |[Linux][as-linux]     |&nbsp;                |&nbsp;
 |[Events And Actions][ea] |&nbsp;                        |&nbsp;                |&nbsp;                |&nbsp;
+|[Auto-Ping Feature][ap]  |&nbsp;                        |&nbsp;                |&nbsp;                |&nbsp;
+|[Self-Join Feature][sj]  |&nbsp;                        |&nbsp;                |&nbsp;                |&nbsp;
 
 [core]: /develop/api-guide/core
 [core-android]: /develop/api-guide/core/android
@@ -47,3 +49,6 @@
 [as-linux]: /develop/api-guide/audio-streaming/linux
 
 [ea]: /develop/api-guide/events-and-actions
+
+[ap]: /develop/api-guide/auto-ping
+[sj]:/develop/api-guide/self-join

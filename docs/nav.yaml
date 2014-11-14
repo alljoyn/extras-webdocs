@@ -370,6 +370,12 @@
         - name: Events and Actions
           path: /develop/api-guide/events-and-actions
           contents:
+        - name: Self-Join Feature
+          path: /develop/api-guide/self-join
+          contents: 
+        - name: Auto-Ping Feature
+          path: /develop/api-guide/auto-ping
+          contents: 
     - name: API Reference
       path: /develop/api-reference
       contents:

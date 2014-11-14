@@ -129,6 +129,27 @@ mechanisms are supported: PIN code, PSK, or ECDSA (Elliptical Curve Digital
 Signature Algorithm). Once authenticated, all messages between these
 two devices are encrypted using AES-128 CMM.
 
+## Joining a Self-Hosted Session
+
+In AllJoyn releases up to R14.06, it was impossible for applications
+to join a session they themselves hosted. For applications that consume 
+information or services they themselves also provide, this created an 
+asymmetry: they had to treat the bus objects they hosted themselves 
+differently from those hosted by other peers. The self-join feature 
+removes this asymmetry by allowing applications to join the sessions 
+they themselves host. Consequently, a locally hosted bus object can be 
+treated in exactly the same way as a remotely hosted bus object.
+
+## Determining the Presence of a Peer - Pinging and Auto-Pinging
+
+Sometimes, an application needs to know which peers are present on the communication 
+channel ("the wire") and which aren't.  For this reason, a PING API was introduced in 
+version 14.06. This PING API allows to determine whether a peer is up or not. 
+However, for this API, the responsibility for using the PING API was with the 
+Application, which periodically needed to ping the peers. From Release 14.12 onwards, 
+an automatic PING or Auto-Pinger is introduced. This Auto-Pinger performs the
+periodic peer detection, relieving  the application of having to do it.
+
 ## Putting It All Together
 
 An AllJoyn Application interacts with the AllJoyn framework via the 

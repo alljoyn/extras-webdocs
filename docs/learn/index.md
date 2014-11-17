@@ -31,7 +31,6 @@ and features.
 * Bindings: C, C++, Obj-C, Java
 * Platforms: RTOS, Arduino, Linux, Android, iOS, Windows, Mac
 * Security: peer-to-peer encryption and authentication (PSK, ECDSA)
-* RAM/ROM: 50-100KB (for Thin), 500KB-1MB (for Standard)
 
 ## Common language for Internet of Things
 
@@ -61,10 +60,10 @@ The AllJoyn framework runs on the local network and does not require the cloud
 to function. Apps and devices talk to each other directly -- fast, efficient, and
 securely. No need to go out and wait for the cloud when the device is right
 next to you. And in cases where the cloud is needed, the AllJoyn framework 
-supports that as well through a Gateway Agent.  One main advantage of this 
-architecture is security: only the Gateway Agent is directly connected to the 
-Internet, reducing the number of devices connected to the Internet, and thus
-reducing the attack surface.
+supports that as well through a [Gateway Agent][gateway-agent].  One main
+advantage of this architecture is security: only the Gateway Agent is directly
+connected to the Internet, reducing the number of devices connected to the
+Internet, and thus reducing the attack surface.
 
 ## Momentum
 
@@ -82,6 +81,7 @@ overall [Architecture][arch], [Core Framework][core], and [Base Services][servic
 [onboarding]: /learn/base-services/onboarding
 [notifs]: /learn/base-services/notification
 [controlpanel]: /learn/base-services/controlpanel
+[gateway-agent]: https://wiki.allseenalliance.org/gateway/gatewayagent
 
 [use-cases]: /learn/use-cases
 [arch]: /learn/architecture

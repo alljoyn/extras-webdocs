@@ -44,7 +44,7 @@ be a TV, mobile, or any device that supports AllJoyn service frameworks.
 
 A function performed by an AllJoyn-enabled device. 
 
-[Learn more][events-actions].
+[Learn more][events-and-actions].
 
 ### Action descriptor
 
@@ -53,7 +53,7 @@ An introspectable human readable description contained in the action.
 ### Action-receiving device
 
 The device that performs an action. Related to the 
-[Events and Actions feature][events-actions].
+[Events and Actions feature][events-and-actions].
 
 ### Adapter
 
@@ -145,7 +145,7 @@ allows for synchronized audio to play back on one or many Sinks.
 ### Authoring app
 
 Application that carries out the IFTTT rules. Related to the 
-[Events and Actions feature][events-actions].
+[Events and Actions feature][events-and-actions].
 
 ### Base services
 
@@ -514,7 +514,7 @@ access properties.
 
 [about]: /learn/core/about-announcement
 [apps-and-routers]: /learn/architecture#apps-and-routers
-[events-actions]: /learn/core/events-and-actions
+[events-and-actions]: /learn/core/events-and-actions
 [core]: /learn/core
 [notification]: /learn/base-services/notification
 [sessionless-signal]: /learn/core#sessionless-signal

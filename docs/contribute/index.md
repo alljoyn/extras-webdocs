@@ -1,21 +1,22 @@
 # Contribute
 
 As is common with most consortia and open-source projects, there 
-are many ways to participate in the AllSeen Alliance. If you are 
-new to AllSeen and the AllJoyn&trade; open-source project, below are some 
-helpful links to get started.
+are many ways to participate in the AllSeen Alliance. Below are 
+links to help with development and contribution.
 
-* [Learn about AllJoyn concepts][learn]
-* [Download the SDKs][download] and [run the sample apps][run-sample-apps].
-* [Build AllJoyn][build]
-* [Browse the Source Code][source-code]
-* [Learn more about the Project and Working Group Lifecycle][lifecycle]
-* [Join the discussions on the Mailing Lists][mailing-lists]
+* [Contributor's Wiki][wiki]. Detailed information about actively developed projects
+* [Git Repository][git]. Source code repository. Also mirred for convenience on [Github][github] as read-only.
+* [Contribution Process][process]. Follow these instructions to contribute.
+* [Gerrit Review][gerrit]. Gerrit code review server.
+* [Mailing Lists][mailing-lists]. Join the discussions on AllSeen development.
+* [Build Server][build-server]. Contains bleeding edge builds
+* [Jira][jira] File and review bugs and feature requests.
 
-[learn]: /learn
-[download]: /download
-[run-sample-apps]: /develop/run-sample-apps
-[build]: /develop/building
-[source-code]: https://git.allseenalliance.org/gerrit/#/admin/projects/
-[lifecycle]: /contribute/project-lifecycle
+[wiki]: https://wiki.allseenalliance.org/
+[git]: https://git.allseenalliance.org/gerrit/#/admin/projects/
+[github]: https://github.com/allseenalliance
+[process]: https://wiki.allseenalliance.org/develop/contributing_source_code
+[gerrit]: https://git.allseenalliance.org/gerrit/
 [mailing-lists]: https://lists.allseenalliance.org/
+[build-server]: https://build.allseenalliance.org/
+[jira]: https://jira.allseenalliance.org

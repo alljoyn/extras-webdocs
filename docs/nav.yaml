@@ -410,15 +410,3 @@
     - name: Project Lifecycle
       path: /contribute/project-lifecycle
       contents:
-    - name: Contributor's Wiki
-      path: /contribute/wiki
-      contents:
-    - name: Git Repository
-      path: /contribute/git
-      contents:
-    - name: Bug/Feature Request
-      path: /contribute/jira
-      contents:
-    - name: Mailing Lists
-      path: /contribute/mailing-list
-      contents:

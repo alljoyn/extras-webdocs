@@ -18,10 +18,10 @@ Apps and Routers can live on the same physical device, or
 on different devices. From an AllJoyn perspective, it doesn't 
 matter.  In reality, three common topologies exist:
 
-1. An App uses its own Router. In this case, the Router is 
-called a "Bundled Router" as it is bundled with the App.  
-AllJoyn Apps on mobile OSes like Android and iOS and desktop 
-OSes like Mac OS X and Windows generally fall in this group.
+1. An App uses its own Router. In this case, the Router is
+called a "Bundled Router" as it is bundled with the App. AllJoyn
+Apps on mobile OSes like Android and iOS and desktop OSes like
+Mac OS X and Windows generally fall in this group.
 
 2. Multiple Apps on the same device use one Router.  In this 
 case, the Router is called a "Standalone Router" and it 
@@ -42,26 +42,26 @@ the AllJoyn router.
 ### Transports
 
 The AllJoyn framework runs on the local network.  It currently 
-supports Wi-Fi and Ethernet, but since the AllJoyn software was 
-written to be transport-agnostic and since the AllJoyn system 
-is an evolving open-source project, support for more transports 
-can be added in the future.
+supports Wi-Fi, Ethernet, serial, and Power Line (PLC), but since
+the AllJoyn software was written to be transport-agnostic and
+since the AllJoyn system is an evolving open-source project,
+support for more transports can be added in the future.
 
 Additionally, bridge software can be created to bridge the 
 AllJoyn framework to other systems like Zigbee, Z-wave, or 
 the cloud. In fact, a Working Group is working on adding a 
-Gateway Agent as a standard AllJoyn service.
+[Gateway Agent][gateway-agent] as a standard AllJoyn service.
 
 ## Software Architecture
 
 The AllJoyn network comprises AllJoyn Applications and AllJoyn Routers.
 
-The AllJoyn Application comprises the following components:
+An AllJoyn Application comprises the following components:
 * [AllJoyn App Code][app-code]
 * [AllJoyn Service Frameworks Libraries][services]
 * [AllJoyn Core Library][core]
 
-The [AllJoyn Router][router] can either run as standalone or is 
+An [AllJoyn Router][router] can either run as standalone or is 
 sometimes bundled with the AllJoyn Core Library.
 
 ![alljoyn-software-architecture][alljoyn-software-architecture]
@@ -77,7 +77,7 @@ The AllJoyn Core Library provides the lowest level set of APIs
 to interact with the AllJoyn network.  It provides direct access to:
 
 * Advertisements and discovery
-* Session sreation
+* Session creation
 * Interface defintion of methods, properties, and signals
 * Object creation and handling
 
@@ -86,7 +86,7 @@ or to implement private interfaces.
 
 [Learn more about AllJoyn Core Frameworks][learn-core].
 
-### AllJoyn Service Frameworks Libraries
+### AllJoyn Service Framework Libraries
 
 The AllJoyn Service Frameworks implement a set of common services, 
 like onboarding, notification, or control panel. By using the 
@@ -109,15 +109,16 @@ Service frameworks are broken out into AllSeen Working Groups:
   * [Control Panel][controlpanel]. Allows devices to advertise a virtual control
     panel to be controlled remotely.
 
-Developers are encouraged to use AllJoyn services where possible. 
-If an existing service is not available, then the developer is 
-encouraged to work with the AllSeen Alliance to create a 
-standard service.  In some cases, using private services and 
-intefaces makes the most sense; howerver, those services would 
-not be able to interoperate and take advantage of the larger 
-AllJoyn ecosystem of devices and apps.
+* [More Service Frameworks][wiki]. More service frameworks are actively
+  being developed by the AllSeen Working Groups.
 
-[Learn more about AllJoyn Service Frameworks][learn-services].
+Developers are encouraged to use AllJoyn Service Frameworks
+where possible. If an existing service is not available,
+then the developer is encouraged to work with the AllSeen
+Alliance to create a standard service.  In some cases, using
+private services and intefaces makes the most sense; howerver,
+those services would not be able to interoperate and take
+advantage of the larger AllJoyn ecosystem of devices and apps.
 
 ### AllJoyn App Code
 
@@ -137,22 +138,26 @@ ThreadX, Linux with limited memory.
 
 ## Programming Models
 
-Typically, applications will be written using the AllJoyn Service Framework APIs so that
-the applications can be compatible with devices using the same Service Frameworks.
+Typically, applications will be written using the AllJoyn Service
+Framework APIs so that the applications can be compatible with devices
+using the same Service Frameworks. Only by using AllJoyn Service
+Frameworks developed by AllSeen Working Groups will the application
+be compatiable with other applications and devices in the AllSeen
+ecosystem.
 
-If an application wishes to implement its own service, it can do so by programming
-directly to the AllJoyn Core APIs. When doing so, it is recommended to follow the 
-Events and Actions convention to enable ad hoc interactions between other AllJoyn
-devices.
+If an application wishes to implement its own service, it can do so
+by programming directly to the AllJoyn Core APIs. When doing so, it
+is recommended to follow the Events and Actions convention to enable
+ad hoc interactions between other AllJoyn devices.
 
-The application can use both the Service Framework and Core APIs side by side.
+The application can use both the Service Framework and Core APIs
+side by side.
 
 [Learn more about Events and Actions][events-and-actions].
 
 [apps-and-routers]: /files/learn/apps-and-routers.png
 
 [learn-core]: /learn/core
-[learn-services]: /learn/base-services
 
 [app-code]: #alljoyn-app-code
 [services]: #alljoyn-service-frameworks-libraries
@@ -168,3 +173,6 @@ The application can use both the Service Framework and Core APIs side by side.
 [configuration]: /learn/base-services/configuration
 [notifications]: /learn/base-services/notification
 [controlpanel]: /learn/base-services/controlpanel
+
+[wiki]: https://wiki.allseenalliance.org/
+[gateway-agent]: https://wiki.allseenalliance.org/gateway/gatewayagent

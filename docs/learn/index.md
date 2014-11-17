@@ -7,7 +7,7 @@ categories, transports, and OSes without the need of the cloud. The AllJoyn
 framework is extremely flexible with many features to help  make the 
 vision of the Internet of Things come to life.
 
-## Nearby Point-to-Point
+## Proximal Network
 
 The AllJoyn framework handles the complexities of discovering nearby devices, 
 creating sessions between devices, and communicating securely between those 
@@ -27,22 +27,22 @@ transports. And since the AllJoyn framework is open-source, this flexibility
 can be extended further in the future to support even more transports, bindings,
 and features.
 
-* Transports: Wi-Fi, Ethernet, Bluetooth LE
+* Transports: Wi-Fi, Ethernet, Serial, Power Line (PLC)
 * Bindings: C, C++, Obj-C, Java
 * Platforms: RTOS, Arduino, Linux, Android, iOS, Windows, Mac
-* Security: peer-to-peer encryption and authentication (PSK, ECDSA)
+* Security: peer-to-peer encryption (AES128) and authentication (PSK, ECDSA)
 
 ## Common language for Internet of Things
 
 In order to fully realize the vision of the Internet of Things, devices and apps
-need a common way to interact and speak to each other.  At the AllSeen Alliance, 
-we believe that common language is the AllJoyn framework: it serves as the glue 
-to allow devices from different companies, running on different operating systems, 
-written with different language bindings to all speak together, and just work.
+need a common way to interact and speak to each other.  We believe that common
+language is the AllJoyn framework: it serves as the glue to allow devices from
+different companies, running on different operating systems, written with different
+language bindings to all speak together, and just work.
 
 The AllSeen Alliance, working with the open-source community, is defining and 
-implementing common services and interfaces that solves a specific use case, 
-such as [onboarding a new device for the first time][onboarding], 
+implementing common services and [interfaces][interfaces] that solves a specific
+use case, such as [onboarding a new device for the first time][onboarding], 
 [sending notifications][notifs], and [controlling a device][controlpanel]. 
 Developers can then take these services, integrate them into their products, 
 and know that they are compatible with other devices and apps in the AllJoyn 
@@ -58,12 +58,12 @@ The AllJoyn framework enables this flexibility.
 
 The AllJoyn framework runs on the local network and does not require the cloud 
 to function. Apps and devices talk to each other directly -- fast, efficient, and
-securely. No need to go out and wait for the cloud when the device is right
+secure. No need to go out and wait for the cloud when the device is right
 next to you. And in cases where the cloud is needed, the AllJoyn framework 
-supports that as well through a [Gateway Agent][gateway-agent].  One main
-advantage of this architecture is security: only the Gateway Agent is directly
-connected to the Internet, reducing the number of devices connected to the
-Internet, and thus reducing the attack surface.
+supports that as well through a [Gateway Agent][gateway-agent]. One main
+advantage of this architecture is security: only the Gateway Agent is
+directly connected to the Internet, reducing the number of devices
+connected to the Internet, and thus reducing the attack surface.
 
 ## Momentum
 
@@ -78,6 +78,7 @@ language for the Internet of Things.
 Learn more about [use cases][use-cases]. Then head over to learn about the 
 overall [Architecture][arch], [Core Framework][core], and [Base Services][services].
 
+[interfaces]: /learn/core#busobject
 [onboarding]: /learn/base-services/onboarding
 [notifs]: /learn/base-services/notification
 [controlpanel]: /learn/base-services/controlpanel

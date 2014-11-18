@@ -18,7 +18,7 @@
           path: /learn/core/about-announcement
           contents:
             - name: Interface
-              path: /learn/core/about-announcement/interface              
+              path: /learn/core/about-announcement/interface
               contents:
             - name: Interface 14.02
               path: /learn/core/about-announcement/interface-14-02

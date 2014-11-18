@@ -31,7 +31,6 @@ The About interface is defined as follows:
             <arg name="metaData" type="a{sv}"/>
         </signal>
     </interface>
-    <node name="DeviceIcon"/>
 </node>
 <node name="/About/DeviceIcon">
     <interface name="org.alljoyn.Icon">
@@ -49,9 +48,11 @@ The About interface is defined as follows:
 ```
 
 The samples can be run on the following platforms:
+* [Windows][windows]
 * [Linux][linux]
 * [iOS/OSX][ios-osx]
 
 [service_discovery]: /learn/core/about-announcement
+[windows]: /develop/run-sample-apps/about/windows
 [linux]: /develop/run-sample-apps/about/linux
 [ios-osx]: /develop/run-sample-apps/about/ios-osx

@@ -211,6 +211,9 @@
             - name: iOS/OS X
               path: /develop/run-sample-apps/about/ios-osx
               contents:
+            - name: Windows
+              path: /develop/run-sample-apps/about/windows
+              contents:
         - name: Config
           path: /develop/run-sample-apps/config
           contents:

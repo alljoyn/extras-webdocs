@@ -28,19 +28,19 @@ Install node modules:
 
 Runs this to generate the HTML files in `out/public/`:
 
-    scripts/generate_html.js
+    node scripts/generate_html.js
 
 Or, run in watch mode to wait (forever) for changes in docs/files to generate the HTML files.
 
-    scripts/generate_html.js watch
+    node scripts/generate_html.js watch
     
 Run this once to start a server to host HTML fiels in `out/public/`:
 
-    scripts/server.js
+    node scripts/server.js
     
 Optionally, you can specify a port:
 
-    scripts/server.js 8080
+    node scripts/server.js 8080
 
 Doc layout and format
 ---------------------
@@ -53,6 +53,21 @@ Doc layout and format
 [markdown formatting]: http://daringfireball.net/projects/markdown/
 [cheatsheet]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
+Workarounds
+-----------
+
+If you get this error on Windows when running `npm install`:
+
+```bat
+Error: ENOENT, stat 'C:\Users\username\AppData\Roaming\npm'
+```
+
+Do this:
+
+```bat
+mkdir C:\Users\username\AppData\Roaming\npm
+```
+
 How to run script for import into Drupal
 ----------------------------------------
 
@@ -60,4 +75,4 @@ If you want to generte the for_import directory to create content in a format
 for the Drupal import scripts, then run like the following. Note, most everyone
 will not need to do this.
 
-    scripts/generate.js import
+    node scripts/generate.js import

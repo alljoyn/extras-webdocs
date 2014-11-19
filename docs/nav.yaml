@@ -316,6 +316,12 @@
             - name: Thin Linux
               path: /develop/api-guide/about/thin-linux
               contents:
+            - name: Android Legacy
+              path: /develop/api-guide/about/android-legacy
+              contents:
+            - name: Linux Legacy
+              path: /develop/api-guide/about/linux-legacy
+              contents:
         - name: Onboarding
           path: /develop/api-guide/onboarding
           contents:

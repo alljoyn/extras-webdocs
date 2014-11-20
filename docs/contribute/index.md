@@ -4,6 +4,7 @@ As is common with most consortia and open-source projects, there
 are many ways to participate in the AllSeen Alliance. Below are
 links to help with development and contribution.
 
+* [Register][register]. Create an AllSeen Alliance account in order to participate.
 * [Contributor's Wiki][wiki]. Detailed information about actively developed projects.
 * [Git Repositories][git]. Source code repositories.
  * A read-only [Github Mirror][github] is available.
@@ -13,6 +14,7 @@ links to help with development and contribution.
 * [Build Server][build-server]. Contains bleeding edge builds.
 * [Jira][jira]. File and review bugs and feature requests.
 
+[register]: https://allseenalliance.org/user/register
 [wiki]: https://wiki.allseenalliance.org/
 [git]: https://git.allseenalliance.org/cgit
 [github]: https://github.com/allseenalliance

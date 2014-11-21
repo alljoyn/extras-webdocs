@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="432.285px" height="262.6px" viewBox="0 0 432.285 262.6" enable-background="new 0 0 432.285 262.6" xml:space="preserve">
+<g id="Layer_1_1_">
+	<g>
+		<polygon fill="#FFFFFF" points="73.784,174.8 431.285,174.8 431.285,203.399 73.784,203.399 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			73.784,203.399 431.285,203.399 431.285,174.8 73.784,174.8 		"/>
+		<text transform="matrix(1 0 0 1 192.8237 192.6917)" enable-background="new    "><tspan x="0" y="0" font-family="'ArialMT'" font-size="11.9168">Local Network</tspan><tspan x="75.504" y="0" font-family="'ArialMT'" font-size="11.9168"> </tspan><tspan x="78.6" y="0" font-family="'ArialMT'" font-size="11.9168">T</tspan><tspan x="85.437" y="0" font-family="'ArialMT'" font-size="11.9168">ransport</tspan></text>
+		
+			<polyline fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			431.285,231.999 431.285,174.8 359.785,174.8 		"/>
+		<polygon fill="#FFFFFF" points="73.784,146.201 431.285,146.201 431.285,174.8 73.784,174.8 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			73.784,174.8 431.285,174.8 431.285,146.201 73.784,146.201 		"/>
+		<text transform="matrix(1 0 0 1 228.2817 164.094)" font-family="'ArialMT'" font-size="11.9168">Endpoints</text>
+		<polygon fill="#FFFFFF" points="73.784,117.601 431.285,117.601 431.285,146.201 73.784,146.201 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			73.784,146.201 431.285,146.201 431.285,117.601 73.784,117.601 		"/>
+		<text transform="matrix(1 0 0 1 196.248 135.4827)" font-family="'ArialMT'" font-size="11.9168">Messaging and Routing</text>
+		<polygon fill="#FFFFFF" points="359.785,89 431.285,89 431.285,117.601 359.785,117.601 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			359.785,117.601 431.285,117.601 431.285,89 359.785,89 		"/>
+		<text transform="matrix(1 0 0 1 378.98 106.4788)" font-family="'ArialMT'" font-size="11.9168">D-Bus</text>
+		<polygon fill="#FFFFFF" points="288.285,89 359.785,89 359.785,117.601 288.285,117.601 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			288.285,117.601 359.785,117.601 359.785,89 288.285,89 		"/>
+		<text transform="matrix(1 0 0 1 292.9136 106.4788)" font-family="'ArialMT'" font-size="11.9168">AllJoyn Bus</text>
+		<polygon fill="#FFFFFF" points="216.785,60.4 288.285,60.4 288.285,117.601 216.785,117.601 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			216.785,117.601 288.285,117.601 288.285,60.4 216.785,60.4 		"/>
+		<text transform="matrix(1 0 0 1 223.521 92.5979)" font-family="'ArialMT'" font-size="11.9168">Bus Object</text>
+		<polygon fill="#FFFFFF" points="145.285,60.4 216.785,60.4 216.785,117.601 145.285,117.601 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			145.285,117.601 216.785,117.601 216.785,60.4 145.285,60.4 		"/>
+		<text transform="matrix(1 0 0 1 152.4512 85.4417)" font-family="'ArialMT'" font-size="11.9168">Proxy Bus </text>
+		<text transform="matrix(1 0 0 1 164.0391 99.7405)" font-family="'ArialMT'" font-size="11.9168">Object</text>
+		<polygon fill="#FFFFFF" points="2.284,231.999 431.285,231.999 431.285,260.6 2.284,260.6 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			2.284,260.6 431.285,260.6 431.285,231.999 2.284,231.999 		"/>
+		<text transform="matrix(1 0 0 1 182.2437 249.8889)" font-family="'ArialMT'" font-size="11.9168">Native System</text>
+		<text transform="matrix(1 0 0 1 117.5088 21.0901)" font-family="'ArialMT'" font-size="11.9168">System and Language Bindings (optional) </text>
+		
+			<line fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="431.285" y1="231.999" x2="431.285" y2="260.6"/>
+		
+			<polyline fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			145.285,31.799 30.885,31.799 30.885,231.999 		"/>
+		
+			<polyline fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			431.285,32.134 431.285,3.2 2.284,3.2 2.284,260.6 		"/>
+		<text transform="matrix(1 0 0 1 166.3315 221.2893)" enable-background="new    "><tspan x="0" y="0" font-family="'ArialMT'" font-size="11.9168">OS</tspan><tspan x="17.218" y="0" font-family="'ArialMT'" font-size="11.9168"> </tspan><tspan x="19.871" y="0" font-family="'ArialMT'" font-size="11.9168">Abstraction Layer</tspan></text>
+		<polygon fill="#FFFFFF" points="73.784,60.4 145.285,60.4 145.285,117.601 73.784,117.601 		"/>
+		
+			<polygon fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			73.784,117.601 145.285,117.601 145.285,60.4 73.784,60.4 		"/>
+		<text transform="matrix(1 0 0 1 90.0576 92.5979)" font-family="'ArialMT'" font-size="11.9168">Security</text>
+		<text transform="matrix(1 0 0 1 200.5708 49.6877)" font-family="'ArialMT'" font-size="11.9168">Helper</text>
+		
+			<line fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="145.285" y1="31.799" x2="431.285" y2="31.799"/>
+		
+			<line fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="431.285" y1="31.799" x2="431.285" y2="89"/>
+		
+			<line fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="73.784" y1="31.799" x2="73.784" y2="60.4"/>
+		<text transform="matrix(1 0 0 1 320.9487 63.9875)" enable-background="new    "><tspan x="0" y="0" font-family="'ArialMT'" font-size="11.9168">Bus</tspan><tspan x="20.534" y="0" font-family="'ArialMT'" font-size="11.9168"> </tspan><tspan x="23.188" y="0" font-family="'ArialMT'" font-size="11.9168">Attachment</tspan></text>
+	</g>
+</g>
+<g id="Layer_2">
+</g>
+</svg>

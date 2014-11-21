@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="430.25px"
+	 height="288.25px" viewBox="0 0 430.25 288.25" enable-background="new 0 0 430.25 288.25" xml:space="preserve">
+<v:documentProperties  v:langID="1033" v:viewMarkup="false"></v:documentProperties>
+<line fill="none" stroke="#000000" stroke-width="1.4173" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="70.333" y1="39.07" x2="158.113" y2="126.851"/>
+<path fill="#FFFFFF" d="M99.746,39.07c0-16.245-13.169-29.414-29.413-29.414c-16.245,0-29.414,13.169-29.414,29.414
+	c0,16.245,13.169,29.414,29.414,29.414C86.576,68.483,99.746,55.314,99.746,39.07L99.746,39.07z"/>
+<path fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M99.746,39.07c0-16.245-13.169-29.414-29.413-29.414c-16.245,0-29.414,13.169-29.414,29.414c0,16.245,13.169,29.414,29.414,29.414
+	C86.576,68.483,99.746,55.314,99.746,39.07L99.746,39.07z"/>
+<text transform="matrix(1 0 0 1 55.6567 47.9121)" font-family="'ArialMT'" font-size="29.4135">C</text>
+<text transform="matrix(1 0 0 1 74.3203 52.0059)" font-family="'ArialMT'" font-size="19.1159">1</text>
+<line fill="none" stroke="#000000" stroke-width="1.4173" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="40.918" y1="127.31" x2="158.113" y2="126.851"/>
+<path fill="#FFFFFF" d="M70.333,127.31c0-16.244-13.169-29.413-29.414-29.413c-16.244,0-29.414,13.169-29.414,29.413
+	c0,16.245,13.169,29.413,29.414,29.413C57.163,156.725,70.333,143.555,70.333,127.31L70.333,127.31z"/>
+<path fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M70.333,127.31c0-16.244-13.169-29.413-29.414-29.413c-16.244,0-29.414,13.169-29.414,29.413c0,16.245,13.169,29.413,29.414,29.413
+	C57.163,156.725,70.333,143.555,70.333,127.31L70.333,127.31z"/>
+<text transform="matrix(1 0 0 1 31.1685 138.1484)" font-family="'ArialMT'" font-size="29.4135">S</text>
+<line fill="none" stroke="#000000" stroke-width="1.4173" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="70.333" y1="215.551" x2="158.113" y2="126.851"/>
+<line fill="none" stroke="#000000" stroke-width="1.4173" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="158.091" y1="126.873" x2="277.162" y2="127.333"/>
+<path fill="#FFFFFF" d="M187.987,127.31c0-16.244-13.169-29.413-29.414-29.413c-16.245,0-29.414,13.169-29.414,29.413
+	c0,16.245,13.168,29.413,29.414,29.413C174.817,156.725,187.987,143.555,187.987,127.31L187.987,127.31z"/>
+<path fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M187.987,127.31c0-16.244-13.169-29.413-29.414-29.413c-16.245,0-29.414,13.169-29.414,29.413c0,16.245,13.168,29.413,29.414,29.413
+	C174.817,156.725,187.987,143.555,187.987,127.31L187.987,127.31z"/>
+<text transform="matrix(1 0 0 1 143.127 136.1484)" font-family="'ArialMT'" font-size="29.4135">D</text>
+<text transform="matrix(1 0 0 1 164.2227 140.2461)" font-family="'ArialMT'" font-size="19.1159">S</text>
+<path fill="#FFFFFF" d="M99.746,215.551c0-16.244-13.169-29.412-29.413-29.412c-16.245,0-29.414,13.168-29.414,29.412
+	s13.169,29.412,29.414,29.412C86.576,244.963,99.746,231.795,99.746,215.551L99.746,215.551z"/>
+<path fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M99.746,215.551c0-16.244-13.169-29.412-29.413-29.412c-16.245,0-29.414,13.168-29.414,29.412s13.169,29.412,29.414,29.412
+	C86.576,244.963,99.746,231.795,99.746,215.551L99.746,215.551z"/>
+<text transform="matrix(1 0 0 1 59.4907 226.3828)" font-family="'ArialMT'" font-size="29.4135">C</text>
+<line fill="none" stroke="#000000" stroke-width="1.4173" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="364.467" y1="39.07" x2="276.688" y2="126.851"/>
+<path fill="#FFFFFF" d="M335.055,39.07c0-16.245,13.17-29.414,29.412-29.414c16.244,0,29.416,13.169,29.416,29.414
+	c0,16.245-13.172,29.414-29.416,29.414C348.223,68.483,335.055,55.314,335.055,39.07L335.055,39.07z"/>
+<path fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M335.055,39.07c0-16.245,13.17-29.414,29.412-29.414c16.244,0,29.416,13.169,29.416,29.414c0,16.245-13.172,29.414-29.416,29.414
+	C348.223,68.483,335.055,55.314,335.055,39.07L335.055,39.07z"/>
+<text transform="matrix(1 0 0 1 354.7197 47.9121)" font-family="'ArialMT'" font-size="29.4135">S</text>
+<line fill="none" stroke="#000000" stroke-width="1.4173" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="393.881" y1="127.31" x2="276.688" y2="126.851"/>
+<path fill="#FFFFFF" d="M364.467,127.31c0-16.244,13.172-29.413,29.416-29.413c16.241,0,29.413,13.169,29.413,29.413
+	c0,16.245-13.17,29.413-29.413,29.413C377.636,156.725,364.467,143.555,364.467,127.31L364.467,127.31z"/>
+<path fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M364.467,127.31c0-16.244,13.172-29.413,29.416-29.413c16.241,0,29.413,13.169,29.413,29.413c0,16.245-13.17,29.413-29.413,29.413
+	C377.636,156.725,364.467,143.555,364.467,127.31L364.467,127.31z"/>
+<text transform="matrix(1 0 0 1 383.041 136.1484)" font-family="'ArialMT'" font-size="29.4135">C</text>
+<line fill="none" stroke="#000000" stroke-width="1.4173" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="364.467" y1="215.551" x2="276.688" y2="126.851"/>
+<path fill="#FFFFFF" d="M246.813,127.31c0-16.244,13.17-29.413,29.414-29.413s29.412,13.169,29.412,29.413
+	c0,16.245-13.168,29.413-29.412,29.413C259.982,156.725,246.813,143.555,246.813,127.31L246.813,127.31z"/>
+<path fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M246.813,127.31c0-16.244,13.17-29.413,29.414-29.413s29.412,13.169,29.412,29.413c0,16.245-13.168,29.413-29.412,29.413
+	C259.982,156.725,246.813,143.555,246.813,127.31L246.813,127.31z"/>
+<text transform="matrix(1 0 0 1 261.1582 136.1484)" font-family="'ArialMT'" font-size="29.4135">D</text>
+<text transform="matrix(1 0 0 1 282.2549 140.2461)" font-family="'ArialMT'" font-size="19.1159">L</text>
+<path fill="#FFFFFF" d="M335.055,215.551c0-16.244,13.17-29.412,29.412-29.412c16.244,0,29.416,13.168,29.416,29.412
+	s-13.172,29.412-29.416,29.412S335.055,231.795,335.055,215.551L335.055,215.551z"/>
+<path fill="none" stroke="#000000" stroke-width="0.4724" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M335.055,215.551c0-16.244,13.17-29.412,29.412-29.412c16.244,0,29.416,13.168,29.416,29.412s-13.172,29.412-29.416,29.412
+	S335.055,231.795,335.055,215.551L335.055,215.551z"/>
+<text transform="matrix(1 0 0 1 350.8555 224.3828)" font-family="'ArialMT'" font-size="29.4135">S</text>
+<text transform="matrix(1 0 0 1 367.373 228.4863)" font-family="'ArialMT'" font-size="19.1159">1</text>
+<text transform="matrix(1 0 0 1 17.1982 276.7363)" font-family="'ArialMT'" font-size="24.5113">Smartphone</text>
+<text transform="matrix(1 0 0 1 297.1484 276.7363)" font-family="'ArialMT'" font-size="24.5113">Linux Host</text>
+<text transform="matrix(1 0 0 1 150.6616 184.7832)" font-family="'ArialMT'" font-size="24.5113">AllJoyn Bus</text>
+</svg>

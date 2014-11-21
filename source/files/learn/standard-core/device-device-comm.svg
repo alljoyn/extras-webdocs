@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="437.75px"
+	 height="129.25px" viewBox="0 0 437.75 129.25" enable-background="new 0 0 437.75 129.25" xml:space="preserve">
+<symbol  id="master8" viewBox="-36.12 -4.62 72.24 9.24">
+	<g id="master-shape4-40_2_">
+		<title>Sheet.4</title>
+		<v:userDefs>
+			<v:ud  v:nameU="visVersion" v:val="VT0(14):26"></v:ud>
+		</v:userDefs>
+		<path stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="M-36,0
+			L4-4.5L0,2.25L36,0L-4,4.5l4-6.75L-36,0z"/>
+	</g>
+</symbol>
+<v:documentProperties  v:langID="1033" v:viewMarkup="false"></v:documentProperties>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M11.279,55.456h180.706"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M37.632,55.456H15.044"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M26.338,55.456v15.06"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M30.103,55.456h22.588"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M41.397,55.456V40.397"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M75.279,55.456h22.588"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M86.574,55.456V40.397"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M127.985,55.456h-22.588"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M116.691,55.456v15.06"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M150.574,55.456h22.588"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M161.868,55.456V40.397"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M35.03,70.516H17.646L8.95,85.574l8.696,15.059H35.03l8.697-15.059L35.03,70.516z"/>
+<text transform="matrix(1 0 0 1 19.248 88.5479)" font-family="'ArialMT'" font-size="8.4999">:1.1</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M50.089,10.279H32.705l-8.697,15.059l8.697,15.059h17.384l8.696-15.059L50.089,10.279z"/>
+<text transform="matrix(1 0 0 1 34.3066 28.3125)" font-family="'ArialMT'" font-size="8.4999">:1.2</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M95.266,10.279H77.881l-8.696,15.059l8.696,15.059h17.384l8.697-15.059L95.266,10.279z"/>
+<text transform="matrix(1 0 0 1 79.4834 28.3125)" font-family="'ArialMT'" font-size="8.4999">:1.3</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M125.383,70.516h-17.384l-8.696,15.061l8.696,15.059h17.384l8.697-15.059L125.383,70.516z"/>
+<text transform="matrix(1 0 0 1 109.6016 88.5479)" font-family="'ArialMT'" font-size="8.4999">:1.4</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M170.56,10.279h-17.385l-8.696,15.059l8.696,15.059h17.385l8.696-15.059L170.56,10.279z"/>
+<text transform="matrix(1 0 0 1 154.7773 28.3125)" font-family="'ArialMT'" font-size="8.4999">:1.5</text>
+<use xlink:href="#master8"  width="72.24" height="9.24" id="shape12-39" x="-36.12" y="-4.62" transform="matrix(0.3884 0 0 0.3884 220.1172 56.8154)" overflow="visible"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M246.574,55.456h180.707"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M280.457,55.456h22.588"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M291.75,55.456V40.397"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M370.809,55.456h22.588"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M382.104,55.456V40.397"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M348.221,55.456h-22.589"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M336.925,55.456v15.06"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M300.441,10.279h-17.385l-8.695,15.059l8.695,15.059h17.387l8.695-15.059L300.441,10.279z"/>
+<text transform="matrix(1 0 0 1 284.6602 28.3125)" font-family="'ArialMT'" font-size="8.4999">:1.6</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M345.619,70.516h-17.385l-8.695,15.061l8.695,15.059h17.387l8.695-15.059L345.619,70.516z"/>
+<text transform="matrix(1 0 0 1 329.8359 88.5479)" font-family="'ArialMT'" font-size="8.4999">:1.7</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M390.794,10.279H373.41l-8.697,15.059l8.697,15.059h17.387l8.695-15.059L390.794,10.279z"/>
+<text transform="matrix(1 0 0 1 375.0137 28.3125)" font-family="'ArialMT'" font-size="8.4999">:1.8</text>
+<path fill="none" stroke="#000000" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" stroke-dasharray="5.25,3.75" d="
+	M3.75,108.162h195.765V2.75H3.75V108.162z"/>
+<path fill="none" stroke="#000000" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" stroke-dasharray="5.25,3.75" d="
+	M238.925,108.162h195.768V2.75H238.925V108.162z"/>
+<rect x="48.926" y="108.162" fill="none" width="105.412" height="22.588"/>
+<text transform="matrix(1 0 0 1 60.6143 123.9736)" font-family="'ArialMT'" font-size="15.0588">Smartphone</text>
+<rect x="289.869" y="108.162" fill="none" width="105.412" height="22.588"/>
+<text transform="matrix(1 0 0 1 307.002 123.9736)" font-family="'ArialMT'" font-size="15.0588">Linux Host</text>
+</svg>

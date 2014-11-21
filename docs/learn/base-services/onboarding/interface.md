@@ -12,6 +12,7 @@ To access a previous version of this document, click the release version link be
 | | | * Added the release version number to the document title for version tracking. |
 | | |* Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program. |
 | | |* Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program. |
+| 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
 
 ## Definition Overview
 
@@ -27,8 +28,6 @@ Figure: Onboarding service framework architecture within the AllJoyn framework
 
 NOTE:	All methods and signals are considered mandatory to 
 support the AllSeen Alliance Compliance and Certification program. 
-Individual parameters for a given method or signal may be considered 
-mandatory or optional, and are specified accordingly in this document.
 
 ## Onboarding Call Flows
 
@@ -58,31 +57,30 @@ to set the error name and error message.
 
 | Error name | Error message |
 |---|---|
-| org.alljoyn.Error.OutOfRange | Value out of range |
-| org.alljoyn.Error.InvalidValue | Invalid value |
-| org.alljoyn.Error.FeatureNotAvailable | Feature not available |
-
+| `org.alljoyn.Error.OutOfRange` | Value out of range |
+| `org.alljoyn.Error.InvalidValue` | Invalid value |
+| `org.alljoyn.Error.FeatureNotAvailable` | Feature not available |
 
 ## Onboarding Interface
 
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Onboarding | 1 | yes | /Onboarding |
+|---|:---:|:---:|---|
+| `org.alljoyn.Onboarding` | 1 | yes | `/Onboarding` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| State | n | * 0 - Personal AP Not Configured | no | The configuration state |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
+| State | `n` | * 0 - Personal AP Not Configured | Read-only | The configuration state |
 | | | * 1 - Personal AP Configured/Not Validated | | |
 | | | * 2 - Personal AP Configured/Validating | | |
 | | | * 3 - Personal AP Configured/Validated | | |
 | | | * 4 - Personal AP Configured/Error | | |
 | | | * 5 - Personal AP Configured/Retry | | |
-|LastError| ns | 0 - Validated | no | The last error code and error message. Error_message is the error message received from the underlying Wi-Fi layer. |
+|LastError| `ns` | 0 - Validated | Read-only | The last error code and error message. Error_message is the error message received from the underlying Wi-Fi layer. |
 | | | * 1 - Unreachable | | |
 | | | * 2 - Unsupported_protocol | | |
 | | | * 3 - Unauthorized | | |
@@ -93,98 +91,104 @@ to set the error name and error message.
 The following methods are exposed by a BusObject that 
 implements the Onboarding interface.
 
-#### ConfigWifi
+#### `n ConfigWifi('ssn')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name| Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| SSID | yes | s | N/A | Access point SSID |
-| passphrase | yes | s | N/A | Access point passphrase | 
-| authType | yes | n | * -3 - WPA2_AUTO | Authentication type. |
-| |  | | * -2 - WPA_AUTO |*When it is equal to any, the onboardee must attempt all possible authentication types it supports to connect to the AP. |
-| |  | | * -1 - Any |*When it is equal to -3 or -2 (WPA2_AUTO or WPA_AUTO), the onboardee attempts to connect to the AP with TKIP cipher and then AES-CCMP cipher. |
-| |  | | * 0 - Open |*WPA_TKIP indicates WPA with TKIP cipher. |
-| |  | | * 1 - WEP |*WPA2_CCMP indicates WPA2 with AES-CCMP cipher. |
-| |  | | * 2 - WPA_TKIP |*If the value is invalid, the AllJoyn error code org.alljoyn.Error.OutOfRange will be returned. |
-| |  | | * 3 - WPA_CCMP | |
-| |  | | * 4 - WPA2_TKIP | |
-| |  | | * 5 - WPA2_CCMP | |
-| |  | | * 6 - WPS | |
+| Argument | Parameter name| Signature | List of values | Description |
+|:---:|---|:---:|---|---|---|
+| 0 | `SSID` | `s` | N/A | Access point SSID |
+| 1 | `passphrase` | `s` | N/A | Access point passphrase | 
+| 2 | `authType` | `n` | * -3 - WPA2_AUTO | Authentication type. |
+| | | | * -2 - WPA_AUTO |*When it is equal to any, the onboardee must attempt all possible authentication types it supports to connect to the AP. |
+| | | | * -1 - Any |*When it is equal to -3 or -2 (WPA2_AUTO or WPA_AUTO), the onboardee attempts to connect to the AP with TKIP cipher and then AES-CCMP cipher. |
+| | | | * 0 - Open |*WPA_TKIP indicates WPA with TKIP cipher. |
+| | | | * 1 - WEP |*WPA2_CCMP indicates WPA2 with AES-CCMP cipher. |
+| | | | * 2 - WPA_TKIP |*If the value is invalid, the AllJoyn error `org.alljoyn.Error.OutOfRange` will be returned. |
+| | | | * 3 - WPA_CCMP | |
+| | | | * 4 - WPA2_TKIP | |
+| | | | * 5 - WPA2_CCMP | |
+| | | | * 6 - WPS | |
 
-**Output**
+**Reply arguments**
 
-| Parameter name| Mandatory | Return signature | Description |
-|---|---|---|---|
-|status | yes | n | The possible values for the connection result status are: |
+| Argument | Parameter name| Return signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `status` | `n` | The possible values for the connection result status are: |
 | | | | * 1 - Current SoftAP mode will be disabled upon receipt of Connect. In this case, the Onboarder application must wait for the device to connect on the personal AP and query the State and LastError properties.|
 | | | | * 2 - Concurrent step used to validate the personal AP connection. In this case, the Onboarder application must wait for the ConnectionResult signal to arrive over the AllJoyn session established over the SoftAP link.|
 
 **Description**
 
-Send the personal AP information to the onboardee. When the 
+Sends the personal AP information to the onboardee. When the 
 authType is equal to -1 (any), the onboardee must try out 
 all the possible authentication types it supports to connect to the personal AP.
 
-If authType parameter is invalid, the AllJoyn error code 
-org.alljoyn.Error.OutOfRange will be returned in the 
-AllJoyn method call reply.
+**Error reply**
 
-#### Connect
+| Error | Description |
+|---|---|
+| `org.alljoyn.Error.OutOfRange` | Returned in the AllJoyn method call reply if authType parameter is invalid. |
 
-**Inputs**
+#### `Connect`
+
+**Message arguments**
 
 None.
 
-**Outputs**
+**Reply arguments**
 
 This method does not have any reply message. It's a fire-and-forget 
 method call.
 
 **Description**
 
-Tell the onboardee to connect to the personal AP. It is 
+Tells the onboardee to connect to the personal AP. It is 
 recommended that the onboardee use the concurrency feature, 
 if it is available.
 
-#### Offboard
+#### `Offboard`
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Outputs**
+**Reoly arguments**
 
 This method does not have any reply message. It's a fire-and-forget 
 method call.
 
 **Description**
 
-Tell the onboardee to disconnect from the personal AP, clear 
+Tells the onboardee to disconnect from the personal AP, clear 
 the personal AP configuration fields, and start the soft AP mode.
 
-#### GetScanInfo
+#### `qa(sn) GetScanInfo`
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Outputs**
+**Reply arguments**
 
-|Parameter name | Mandatory | Output signature | Description |
-|---|---|---|---|
-| age | yes | q | Age of the scan information in minutes. It reflects how long ago the scan procedure was performed by the device. |
-| scanList | yes | a(sn) | Scan list. It's an array of records holding SSID and authType. |
+| Argument | Parameter name | Return signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `age` | `q` | | Age of the scan information in minutes. It reflects how long ago the scan procedure was performed by the device. |
+| 1 | `scanList` | `a(sn)` | | Scan list. It's an array of records holding SSID and authType. |
 
 **Description**
 
-Scan all the Wi-Fi access points in the onboardee's proximity.
+Scans all the Wi-Fi access points in the onboardee's proximity.
 
-Some devices may not support this feature. In such a case, the AllJoyn error code org.alljoyn.Error.FeatureNotAvailable will be returned in the AllJoyn response.
+**Error reply**
 
-###Signals
+| Error | Description |
+|---|---|
+| `org.alljoyn.Error.FeatureNotAvailable` | Returned in the AllJoyn response if the device does not support this feature. |
 
-####ConnectionResult
+### Signals
+
+#### `ConnectionResult`
 
 | Data type | Description |
 |---|---|

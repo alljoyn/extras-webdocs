@@ -35,6 +35,7 @@
 | | | * Added the Control.Volume interface. |
 | | | * Updated the Introspection XML to reflect the Control.Volume output. |
 | 14.06 Update 2 | 11/12/2014 | Updated the Audio sink state diagram to include a Play arrow directed from Paused to Playing. |
+| 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
 
 ## Definition Overview
 
@@ -44,46 +45,44 @@ image, or metadata).
 
 NOTE: All methods and signals are considered mandatory to 
 support the AllSeen Alliance Compliance and Certification 
-program. Individual parameters for a given method or signal 
-may be considered mandatory or optional, and are specified 
-accordingly in this document.
+program.
 
 ## Stream Object
 
-A stream object is a BusObject implementing the org.alljoyn.Stream 
-interface. It has one child port object for each elementary stream. 
-A port object is a BusObject implementing the org.alljoyn.Stream.Port 
-interface and one of the media type-specific port interfaces 
-(org.alljoyn.Stream.Port.AudioSink, etc.). Port objects send or 
+A stream object is a BusObject implementing the `org.alljoyn.Stream`
+interface. It has one child port object for each elementary stream.
+A port object is a BusObject implementing the `org.alljoyn.Stream.Port`
+interface and one of the media type-specific port interfaces
+(`org.alljoyn.Stream.Port.AudioSink`, etc.). Port objects send or
 receive elementary streams.
 
 ### Example objects and interfaces used by a speaker
 
-* /Speaker/In is a stream object
-* /Speaker/In/Audio, /Speaker/In/Image, and /Speaker/In/Metadata 
+* `/Speaker/In` is a stream object
+* `/Speaker/In/Audio`, `/Speaker/In/Image`, and `/Speaker/In/Metadata`
 are child port objects.
 
 | Object path | Interfaces implemented |
 |---|---|
-| /Speaker/In | org.alljoyn.Stream |
-| /Speaker/In/Audio | * org.alljoyn.Stream.Port |
-| | * org.alljoyn.Stream.Port.AudioSink |
-| /Speaker/In/Image | * org.alljoyn.Stream.Port |
-| | * org.alljoyn.Stream.Port.ImageSink |
-| /Speaker/In/Metadata | * org.alljoyn.Stream.Port |
-| | * org.alljoyn.Stream.Port.Application.MetadataSink |
+| `/Speaker/In` | `org.alljoyn.Stream` |
+| `/Speaker/In/Audio` | `org.alljoyn.Stream.Port` |
+| `/Speaker/In/Audio` | `org.alljoyn.Stream.Port.AudioSink` |
+| `/Speaker/In/Image` | `org.alljoyn.Stream.Port` |
+| `/Speaker/In/Image` | `org.alljoyn.Stream.Port.ImageSink` |
+| `/Speaker/In/Metadata` | `org.alljoyn.Stream.Port` |
+| `/Speaker/In/Metadata` | `org.alljoyn.Stream.Port.Application.MetadataSink` |
 
 ### Example objects and interfaces used by a media player
 
 | Object path | Interfaces implemented |
 |---|---|
-| /Player/Out | org.alljoyn.Stream |
-| /Player/Out/Audio | * org.alljoyn.Stream.Port |
-| | * org.alljoyn.Stream.Port.AudioSource |
-| /Player/Out/Image | * org.alljoyn.Stream.Port |
-| | * org.alljoyn.Stream.Port.ImageSource |
-| /Player/Out/Metadata | * org.alljoyn.Stream.Port |
-| | * org.alljoyn.Stream.Port.Application.MetadataSource |
+| `/Player/Out` | `org.alljoyn.Stream` |
+| `/Player/Out/Audio` | `org.alljoyn.Stream.Port` |
+| `/Player/Out/Audio` | `org.alljoyn.Stream.Port.AudioSource` |
+| `/Player/Out/Image` | `org.alljoyn.Stream.Port` |
+| `/Player/Out/Image` | `org.alljoyn.Stream.Port.ImageSource` |
+| `/Player/Out/Metadata` | `org.alljoyn.Stream.Port` |
+| `/Player/Out/Metadata` | `org.alljoyn.Stream.Port.Application.MetadataSource` |
 
 The following figure illustrates how source ports are connect 
 to sink ports to enable streaming.
@@ -105,7 +104,7 @@ Figure: Typical call flow for one source and one sink
 
 ### One source and two sinks
 
-The following figure illustrates the typical call flow for one 
+The following figure illustrates the typical call flow for one
 source and two sinks.
 
 ![audio-one-source-two-sinks][audio-one-source-two-sinks]
@@ -121,18 +120,19 @@ Definition][about-interface-definition] for more information.
 
 ### BusObject paths
 
-Implementations of audio should publish the object paths of the 
-BusObjects that implement org.alljoyn.Stream and the object paths 
-of BusObjects that implement org.alljoyn.Stream.Port interfaces 
-using the org.alljoyn.About interface. See [Example objects and interfaces used by a speaker][table-1] 
-and [Example objects and interfaces used by a media player][table-2] for examples of published BusObjects.
+Implementations of audio should publish the object paths of the
+BusObjects that implement `org.alljoyn.Stream` and the object paths
+of BusObjects that implement the `org.alljoyn.Stream.Port` interfaces
+using the `org.alljoyn.About` interface. See [Example objects and interfaces used by a speaker][table-1]
+and [Example objects and interfaces used by a media player][table-2]
+for examples of published BusObjects.
 
 ### Session port value
 
 In addition to the object paths, the implementation should also 
 publish the session port value that the service uses to listen 
 for incoming client connections. Use this port value in the "port" 
-parameter of the org.alljoyn.About.Announce signal.
+parameter of the `org.alljoyn.About.Announce` signal.
 
 ## Stream Interface
 
@@ -142,29 +142,29 @@ control over a stream's ports.
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream | 1 | no | Any object path |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream` | 1 | no | Any object path |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | Read-Only | Interface version number |
 
 ##Methods
 
-The following methods are exposed by a BusObject that implements 
-the org.alljoyn.Stream interface.
+The following methods are exposed by a BusObject that implements
+the `org.alljoyn.Stream` interface.
 
-#### Open
+#### `Open()`
 
 Returns an error if not implemented or called more than once.
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
@@ -172,15 +172,15 @@ None.
 
 Open the stream.
 
-#### Close
+#### `Close()`
 
 Returns an error if not implemented or called more than once.
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
@@ -190,63 +190,81 @@ Close the stream.
 
 ## Stream.Port Interface
 
-The Stream.Port interface is responsible for control over an 
-elementary stream. A port object implements this interface 
-together with a media-specific port interface such as Stream.Port.AudioSource 
+The Stream.Port interface is responsible for control over an
+elementary stream. A port object implements this interface
+together with a media-specific port interface such as Stream.Port.AudioSource
 or Stream.Port.AudioSink.
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream.Port | 1 | no | Chile node of node implementing the Stream interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream.Port` | 1 | no | Child node of node implementing the Stream interface. |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| Direction | y | * 0 - sink | no | Indicates if this port is a source or sink port. |
-| | | * 1 - source | | Source ports send elementary streams, sink ports receive them. |
-| Capabilities | a(sa{sv}) | See [Media Types][media-types] for more information. | no | Defines the supported capabilities of this port. |
-| | | | | The capabilities of unknown media types should be ignored. |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | Read-only | Interface version number |
+| `Direction` | `y` | See `Direction` code table | Read-only | Indicates if this port is a source or sink port. |
+| Capabilities | `a(sa{sv})` | See [Media Types][media-types] for more information. | Read-only | <p>Defines the supported capabilities of this port.</p><br\> <p>The capabilities of unknown media types should be ignored.</p>|
+
+
+Stream port `Direction` code contains one of the following values
+
+| Conventional Name | Value | Description |
+|---|---|---|
+|STREAM_PORT_SINK | 0 | Indicates this port is a sink port. Sink ports receive elementary streams. |
+|STREAM_PORT_SOURCE | 1 | Indicates this port is a source port. Source ports send elementary streams. | 
 
 ### Methods
 
-The following methods are exposed by a BusObject that implements 
-the org.alljoyn.Stream.Port interface.
+The following methods are exposed by a BusObject that implements
+the `org.alljoyn.Stream.Port` interface.
 
-#### Connect
+#### `Connect('so(sa{sv})')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name | Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| host | yes | s | AllJoyn name | The AllJoyn&trade; name of the remote stream port host to connect to. |
-| path | yes | o | Object path | The AllJoyn object path of the remote port on the host to connect to. |
-| configuration | yes | (sa{sv}) | See [Media Types][media-types] | A media type and the values to configure its parameters with. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `host` | `s` | AllJoyn name | The AllJoyn&trade; name of the remote stream port host to connect to. |
+| 1 | `path` | `o` | Object path | The AllJoyn object path of the remote port on the host to connect to. |
+| 2 | `configuration` | `(sa{sv})` | See [Media Types][media-types] | A media type and the values to configure its parameters with. |
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Connect this port to a remote port and configures the ports to 
+Connects this port to a remote port and configures the ports to 
 send or receive an elementary stream.
 
-If the configuration is not compatible with the capabilities, 
+If the configuration is not compatible with the capabilities,
 this method should return an error.
 
-If this port is already connected to the remote port, this 
-method should return an error. To reconfigure a connected port, 
+If this port is already connected to the remote port, this
+method should return an error. To reconfigure a connected port,
 first close the stream, then open and connect with the new configuration.
 
 ### Signals
 
-| Signal name | Parameters | Sessionless | Description |
-|---|---|---|---|
-| | **Name** / **Mandatory** / **Signature** | | |
-| OwnershipLost | (listed below) | no | The port emits this signal to the currently connected remote port when it connects to a new remote port. |
-| | newOwner / yes / s | | newOwner - AllJoyn name of the new remote port. |
+The following signals are emitted by a BusObject that implements 
+the `org.alljoyn.Stream.Port` interface.
+
+#### `OwnershipLost('s')`
+
+OwnershipLost signal is not a Sessionless signal.
+
+**Message arguments**
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `newOwner` | `s` | positive | AllJoyn name of the new remote port. |
+
+**Description**
+
+The port emits this signal to the currently connected remote 
+port when it connects to a new remote port.
 
 ## Stream.Port.Audio Interfaces
 
@@ -257,32 +275,32 @@ implemented by port objects that support audio/* capabilities.
 ### FIFO control
 
 An audio sink exposes a FIFO to receive streamed data from an 
-audio source. Control of the FIFO is implemented as a state machine. 
+audio source. Control of the FIFO is implemented as a state machine.
 The following figure illustrates the states of the FIFO.
 
 ![audio-sink-state-diagram][audio-sink-state-diagram]
 
 Figure: Audio sink diagram
 
-Filling an audio sink's FIFO is accomplished using the Data 
-signal, FifoSize and FifoPosition properties, and FifoPositionChanged 
-signal. On receipt of each FifoPositionChanged signal, the audio 
-source can send (FifoSize - FifoPosition) more bytes of data. 
-The audio source should not send more than this; doing so can 
-lead to blocking the receipt of other BusMethods and BusSignals 
+Filling an audio sink's FIFO is accomplished using the Data
+signal, FifoSize and FifoPosition properties, and FifoPositionChanged
+signal. On receipt of each FifoPositionChanged signal, the audio
+source can send (FifoSize - FifoPosition) more bytes of data.
+The audio source should not send more than this; doing so can
+lead to blocking the receipt of other BusMethods and BusSignals
 by the audio sink, or the audio sink discarding the data.
 
-Use the Flush method to tell the audio sink to discard all the 
+Use the Flush method to tell the audio sink to discard all the
 data in its FIFO in preparation for new data.
 
 ### Synchronization
 
-If an audio sink supports synchronized playback (by implementing 
-the Stream.Clock interface), use the timestamp parameter of the 
-Data signal to determine the correct time to render the data. 
-The audio source computes a timestamp sufficient to ensure that 
-it is greater than the network latency plus the rendering latency 
-of each audio sink. Audio sinks should discard data that cannot 
+If an audio sink supports synchronized playback (by implementing
+the Stream.Clock interface), use the timestamp parameter of the
+Data signal to determine the correct time to render the data.
+The audio source computes a timestamp sufficient to ensure that
+it is greater than the network latency plus the rendering latency
+of each audio sink. Audio sinks should discard data that cannot
 be rendered in time.
 
 ## Stream.Port.AudioSink interface
@@ -290,58 +308,59 @@ be rendered in time.
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream.Port.AudioSink | 1 | no | Child node of node implementing the Stream interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream.Port.AudioSink` | 1 | no | Child node of node implementing the Stream interface. |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| FifoSize | u | Size in bytes | no | The size of the sink's FIFO in bytes. The size in samples may be computed from the configured Channels, Format, and Rate. |
-| FifiPosition | u | Position in bytes | no | The current position of the FIFO in bytes. Bytes read from this position are submitted to the audio device. |
-| Delay | (uu) | * Position in bytes | no | Use the sum of these values and the configured Channels, Format, and Rate properties to compute the delay in seconds from when a sample is received to when it is heard. |
-| | | * Size in bytes | | * The first value is FifoPosition. |
-| | | | | * The second value is the size of the audio device's FIFO in bytes. |
-| PlayState | y | * 0 - idle | no | The current rendering state. |
-| | | * 1 - playing | | |
-| | | * 2 - paused | | |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | Read-only | Interface version number |
+| `FifoSize` | `u` | Size in bytes | Read-only | The size of the sink's FIFO in bytes. The size in samples may be computed from the configured Channels, Format, and Rate. |
+| `FifiPosition` | `u` | Position in bytes | Read-only | The current position of the FIFO in bytes. Bytes read from this position are submitted to the audio device. |
+| `Delay` | `(uu)` | <ul><li>Position in bytes</li><li>Size in bytes</li></ul>| Read-only | Use the sum of these values and the configured Channels, Format, and Rate properties to compute the delay in seconds from when a sample is received to when it is heard.<ul><li>The first value is FifoPosition.</li><li>The second value is the size of the audio device's FIFO in bytes.</li></ul> |
+| `PlayState` | `y` |see `Playstate` values table | Read-only | The current rendering state. |
 
+List of `PlayState` values
+
+| Conventional Name | Value | Description |
+|---|---|---|
+| STREAM_PORT_AUDIOSINK_PLAYSTATE_IDLE | 0 | Idle read state |
+| STREAM_PORT_AUDIOSINK_PLAYSTATE_PLAYING | 1 | Playing |
+| STREAM_PORT_AUDIOSINL_PLAYSTATE_PAUSED | 2 | Paused |
+  
 ### Methods
 
 The following methods provide control of the audio sink's FIFO state machine.
 
-#### Flush
+#### `u Flush('t')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name | Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| timeNanos | yes | t | Timestamp in nanoseconds since the UNIX epoch | Timestamp in nanoseconds since the UNIX epoch to flush at. |
-| | | | | * If an audio sink does not support synchronized playback (by not implementing the Stream.Clock interface), this value should be 0 and the sink should immediately flush. |
-| | | | | * If an audio sink supports synchronized playback, this method should not return a reply until the flush is complete. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0| `timeNanos` | `t` | Timestamp in nanoseconds since the UNIX epoch | Timestamp in nanoseconds since the UNIX epoch to flush at. <ul><li>If an audio sink does not support synchronized playback (by not implementing the Stream.Clock interface), this value should be 0 and the sink should immediately flush.</li><li>If an audio sink supports synchronized playback, this method should not return a reply until the flush is complete.</li></ul> |
 
-**Output**
+**Reply arguments**
 
-| Parameter name | Mandatory | Signature | Description |
-|---|---|---|---|
-| numBytesFlushed | yes | u | Number of bytes flushed from the FIFO. When timeNanos is not 0, this value is the number of bytes flushed after the flush is complete. |
+| Argument | Parameter name | Return signature | Description |
+|:---:|---|:---:|---|
+| 0 | `numBytesFlushed` | `u` | Number of bytes flushed from the FIFO. When `timeNanos` is not 0, this value is the number of bytes flushed after the flush is complete. |
 
 **Description**
 
-Flush the FIFO of this instance. FifoPositionChanged should be emitted after the flush is complete.
+Flushes the FIFO of this instance. FifoPositionChanged should 
+be emitted after the flush is complete.
 
-#### Pause
+#### `Pause('t')`
 
-**Inputs**
+**Mesage arguments**
 
-| Parameter name | Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| timeNanos | yes | t | Timestamp in nanoseconds since the UNIX epoch | The timestamp in nanoseconds since the UNIX epoch to stop rendering data at. |
-| | | | | * If an audio sink does not support synchronized playback (by not implementing the Stream.Clock interface), this value should be 0 and the audio sink should immediately stop rendering. |
-| | | | | * If an audio sink supports synchronized playback, this method should not return a reply until the pause is complete. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `timeNanos` | `t` | Timestamp in nanoseconds since the UNIX epoch | The timestamp in nanoseconds since the UNIX epoch to stop rendering data at.<ul><li>If an audio sink does not support synchronized playback (by not implementing the Stream.Clock interface), this value should be 0 and the audio sink should immediately stop rendering.</li><li>If an audio sink supports synchronized playback, this method should not return a reply until the pause is complete.</li></ul> |
 
-**Output**
+**Reply arguments**
 
 None.
 
@@ -349,45 +368,62 @@ None.
 
 Tell the port to stop rendering data from the FIFO. The FIFO is not flushed.
 
-#### Play
+#### `Play()`
 
-**Inputs**
+**Message argumemts**
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Tell the port to start rendering data from the FIFO.
+Tells the port to start rendering data from the FIFO.
 
 If the configuration is not compatible with the capabilities, this method should return an error.
 
 ### Signals
 
-| Signal name | Parameters | Sessionless | Description |
-|---|---|---|---|
-| FifoPositionChanged | None | no | An audio sink emits this signal when its FIFO position crosses the low watermark. |
-| | **Name** / **Mandatory** / **Signature** | | |
-| PlayStateChanged | (listed below) | no | Emitted when the PlayState property changes. |
-| | oldState / yes / y | | * oldState - Previous PlayState value. |
-| | newState / yes / y | | * newState - Current PlayState value. |
+#### `FifoPositionStateChanged()`
+
+FifoPositionStateChanged is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+An audio sink emits this signal when its FIFO position crosses the low watermark.
+
+#### `PlayStateChanged('yy')`
+
+PlayStateChanged is not a Sessionless signal.
+
+| Argument | Parameter name| Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `oldState` | `y` | positive | Previous PlayState value. |
+| 1 | `newState` | `y` | positive | Current PlayState value. |
+
+**Description**
+
+Emitted when the PlayState property changes.
 
 ## Stream/Port.AudioSource Interface
  
 ### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream.Port.Audio | 1 | no | Child node of node implementing the Stream interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream.Port.Audio` | 1 | no | Child node of node implementing the Stream interface. |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | Read-only | Interface version number |
 
 ### Methods
 
@@ -395,12 +431,18 @@ No methods are exposed by this interface.
 
 ### Signals
 
-| Signal name | Parameters | Sessionless | Description |
-|---|---|---|---|
-| | **Parameter name** / **Mandatory** / **Signature** | | |
-| Data | (listed below) | no | This signal is sent by the audio source to the audio sink. |
-| | timeStamp / yes / t | | * timestamp - the timestamp in nanoseconds since the UNIX epoch to render the data. If an audio sink does not support synchronized playback (by not implementing the Stream.Clock interface), this value should be 0. |
-| | bytes / yes / ay | | * bytes - the interleaved sample data. |
+#### `Data('tay')`
+
+Data signal is not a Sessionless signal.
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `timeStamp` | `t` | positive | Timestamp in nanoseconds since the UNIX epoch to render the data. If an audio sink does not support synchronized playback (by not implementing the Stream.Clock interface), this value should be 0. |
+| 1 | `bytes` | `ay` | positive | Interleaved sample data. |
+
+**Description**
+
+This signal is sent by the audio source to the audio sink.
 
 ## Stream.Port.Image Interfaces
 
@@ -413,14 +455,14 @@ are implemented by port objects that support image/* capabilities.
 #### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream.Port.ImageSink | 1 | no | Child node of the node implementing the Stream interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream.Port.ImageSink` | 1 | no | Child node of the node implementing the Stream interface. |
 
 #### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+| Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | Read-only | Interface version number |
 
 #### Methods
 
@@ -428,21 +470,21 @@ No methods are exposed by this interface.
 
 #### Signals
 
-There is no signal in this interface.
+No signals are emitted by this interface.
 
 ### Stream.Port.ImageSource interface
 
 #### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream.Port.ImageSource | 1 | no | Child node of the node implementing the Stream interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream.Port.ImageSource` | 1 | no | Child node of the node implementing the Stream interface. |
 
 #### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | no | Interface version number |
 
 #### Methods
 
@@ -450,11 +492,19 @@ No methods are exposed by this interface.
 
 #### Signals
 
-| Signal name | Parameters | Sessionless | Description |
-|---|---|---|---|
-| | **Parameter name** / **Mandatory** / **Signature** | | |
-| Data | (listed below) | no | This signal is sent by the source to the sink. |
-| | bytes / yes / ay |  | bytes - Segment of the image data.|
+Data is not a Sessionless signal.
+
+##### `Data('ay')`
+
+**Message arguments**
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `bytes` | `ay` | positive | Segment of the image data.|
+
+**Description**
+
+This signal is sent by the source to the sink.
 
 ## Stream.Port.Application.Metadata Interfaces
 
@@ -468,14 +518,14 @@ that support the application/x-metadata capability.
 #### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream.Application.MetadataSink | 1 | no | Child node of the node implementing the Stream interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream.Application.MetadataSink` | 1 | no | Child node of the node implementing the Stream interface. |
 
 #### Properties
 
-|Property name | Signature | List of values | Writable | Description |
+|Property name | Signature | List of values | Read/Write | Description |
 |---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+| `Version` | `q` | Positive integers | Read-only | Interface version number |
 
 #### Methods
 
@@ -483,21 +533,21 @@ No methods are exposed by this interface.
 
 #### Signals
 
-There is no signal in this interface.
+No signals are emitted by this interface.
 
 ### Stream.Port.Application.MetadataSource interface
 
 #### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream.Port.Application.MetadataSource | 1 | no | Child node of the node implementing the Stream interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream.Port.Application.MetadataSource` | 1 | no | Child node of the node implementing the Stream interface. |
 
 #### Properties
 
 |Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | Read-only | Interface version number |
 
 #### Methods
 
@@ -505,90 +555,119 @@ No methods are exposed by this interface.
 
 #### Signals
 
-| Signal name | Parameters | Sessionless | Description |
-|---|---|---|---|
-| | **Parameter name** / **Mandatory** / **Signature** | | |
-| Data | (listed below) | no | This signal is sent by the source to the sink. |
-| | dictionary / yes / a{sv} | | dictionary - Metadata key/value pairs. See [Media Types][media-types] for metadata keys and relevant values. |
+##### `Data('a{sv}')`
+
+Data is not a Sessionless signal.
+
+**Message arguments**
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|---|---|---|
+| 0 | `dictionary` | `a{sv}` | positive | Metadata key/value pairs. See [Media Types][media-types] for metadata keys and relevant values. |
+
+**Description**
+
+This signal is sent by the source to the sink.
 
 ## Control.Volume interface
 
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Control.Volume | 1 | no | Must be the same as the path implementing the AudioSink interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Control.Volume` | 1 | no | Must be the same as the path implementing the AudioSink interface. |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| Volume | n | Signed integers | yes | Current volume of the device |
-| VolumeRange | (nnn) | Signed integers | no | Maximum (high) and minimum (low) values of the volume. |
-| | | * high | | The step value is the incremental unit, the value of Volume is always a multiple of the step. |
-| | | * low | | |
-| | | * step | | |
-| Mute | b | * true | yes | Whether or not this device is muted. |
-| | | * false | | |
-| Enabled | b | * true | no | Whether or not Volume control is enabled. If this value is false, all methods that change the playback volume will return an error. |
-| | | * false | | |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | Read-only | Interface version number |
+| `Volume` | `n` | Signed integers | Read-write | Current volume of the device |
+| `VolumeRange` | `(nnn)` | Signed integers<ul><li>high</li><li>low</li><li>step</li></ul> | Read-only | <ul><li>Maximum (high) value of the volume.</li><li>minimum (low) values of the volume.</li><li>The step value is the incremental unit, the value of Volume is always a multiple of the step.</li></ul> |
+| `Mute` | `b` | <ul><li>true</li><li>false</li></ul> | Read-write | Whether or not this device is muted. |
+| `Enabled` | `b` | <ul><li>true</li><li>false</li></ul> | Read-only | Indicates whether or not Volume control is enabled. If this value is false, all methods that change the playback volume will return an error. |
 
 ### Methods
 
-The following methods are exposed by a BusObject that implements the org.alljoyn.VolumeControl interface.
+The following methods are exposed by a BusObject that implements 
+the `org.alljoyn.VolumeControl` interface.
 
-#### AdjustVolume
+#### `AdjustVolume('n')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name | Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| delta | yes | n | Signed integer | The amount by which to increase or decrease the volume. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `delta` | n | Signed integer | The amount by which to increase or decrease the volume. |
 
-**Output**
-
-None.
-
-**Description**
-
-Adjust the volume by a certain amount. The new volume will be equal to old volume + delta.
-
-#### AdjustVolumePercent
-
-**Inputs**
-
-| Parameter name | Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| change | yes | d | double precision floating point value | For values greater than 0 and smaller than 1, the percentage by which to raise the volume. |
-|  |  |  |  | * For values smaller than 0 and bigger than -1, the percentage by which to reduce the volume. |
-|  |  |  |  | * For values greater than or equal to 1, increase volume to maximum. |
-|  |  |  |  | * For values smaller than or equal to -1, decrease volume to the minimum. |
-
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Adjust the volume by a certain percentage. 
+Adjusts the volume by a certain amount. The new volume will be equal to old volume + delta.
+
+#### `AdjustVolumePercent('d')`
+
+**Message arguments**
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|---|---|---|
+| 0 | `change` | `d` | double precision floating point value | <ul><li>For values greater than 0 and smaller than 1, the percentage by which to raise the volume.</li><li>For values smaller than 0 and bigger than -1, the percentage by which to reduce the volume.</li><li>For values greater than or equal to 1, increase volume to maximum.</li><li>For values smaller than or equal to -1, decrease volume to the minimum.</li></ul>|
+
+**Reply arguments**
+
+None.
+
+**Description**
+
+Adjusts the volume by a certain percentage. 
 
 ### Signals
 
-| Signal name | Parameters | Sessionless | Description |
-|---|---|---|---|
-| | **Parameter name** / **Mandatory** / **Signature** | | |
-| VolumeChanged | (listed below) | no | Signal sent when the volume has changed. |
-| | newVolume / yes / b | | |
-| MuteChanged | (listed below) | no | Signal sent when the volume's mute state has changed. |
-| | newMute / yes / b | | |
-| EnableChanged | (listed below) | no | Signal sent when the volume control is enabled or disabled. |
-| | enabled / yes / b | | |
+#### `VolumeChanged('b')`
+
+VolumeChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+|0 | `newVolume` | `b` | positive |  |
+
+**Description**
+
+Signal sent when the volume has changed.
+
+#### `MuteChanged('b')`
+
+MuteChanged signal is not a Sessionless signal.
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `newMute` | `b` | positive | |
+
+**Description**
+
+Signal sent when the volume's mute state has changed.
+
+#### `EnableChanged('b')`
+
+EnableChanged signal is not a Sessionless signal.
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `enabled` | `b` | positive | |
+
+**Description**
+
+Signal sent when the volume control is enabled or disabled.
 
 ## Stream.Clock interface
 
-The Stream.Clock interface provides the ability to set the 
-clock used for synchronized playback. It can be implemented 
+The Stream.Clock interface provides the ability to set the
+clock used for synchronized playback. It can be implemented
 by a stream object.
 
 The following sequence defines the clock synchronization process.
@@ -603,101 +682,96 @@ The maximum error of the clock skew is the value passed to AdjustTime, (t1 - t0)
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Stream.Clock | 1 | no | Child node of the node implementing the Stream interface. |
+|---|:---:|:---:|---|
+| `org.alljoyn.Stream.Clock` | 1 | no | Child node of the node implementing the Stream interface. |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| `Version` | `q` | Positive integers | Read-only | Interface version number |
 
 ### Methods
 
-The following methods are exposed by a BusObject that implements 
-the org.alljoyn.Stream.Clock interface.
+The following methods are exposed by a BusObject that implements
+the `org.alljoyn.Stream.Clock` interface.
 
-#### SetTime
+#### `SetTime('t')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name | Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| timeNanos | yes | t | Timestamp in nanoseconds since the UNIX epoch | The time to set the clock used for synchronized playback. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `timeNanos` | `t` | Timestamp in nanoseconds since the UNIX epoch | The time to set the clock used for synchronized playback. |
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Set the time of the clock used for synchronized playback.
+Sets the time of the clock used for synchronized playback.
 
-#### AdjustTime
+#### `AdjustTime('x')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name | Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| adjustNanos | yes | x | Positive or negative time in nanoseconds. | The amount, positive or negative, to adjust the time. |
-| | | | | * For values smaller than 0 and bigger than -1, the percentage by which to reduce the volume. |
-| | | | | * For values greater than or equal to 1, increase volume to maximum. |
-| | | | | * For values smaller than or equal to -1, decrease volume to the minimum. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `adjustNanos` | `x` | Positive or negative time in nanoseconds. | The amount, positive or negative, to adjust the time. <ul><li>For values smaller than 0 and bigger than -1, the percentage by which to reduce the volume.</li><li>For values greater than or equal to 1, increase volume to maximum.</li><li>For values smaller than or equal to -1, decrease volume to the minimum.</li></ul> |
 
-**Output**
+**Reply argments**
 
 None.
 
 **Description**
 
 Adjusts the time of the clock used for synchronized playback 
-forwards or backwards from its current value. 
+forwards or backwards from its current value.
 
 ### Signals
 
-There is no signal for this interface.
+No signals are emitted by this interface.
 
 ## Media Types
 
-The following sections define the values of the (sa{sv}) used 
+The following sections define the values of the `(sa{sv})` used 
 in the Stream.Port.Capabilities and Stream.Port.Connect interfaces.
 
-* For a capability, the first parameter of the struct is the 
-media type (such as audio/x-raw). The second parameter is a 
-dictionary of configurable parameters for the media type. 
-The value of the dictionary entry for a configurable parameter 
+* For a capability, the first parameter of the struct is the
+media type (such as audio/x-raw). The second parameter is a
+dictionary of configurable parameters for the media type.
+The value of the dictionary entry for a configurable parameter
 is an array of the supported values of the configurable parameter.
-* A configuration is identical to a capability except that the 
-value of the dictionary entry for a configurable parameter is 
+* A configuration is identical to a capability except that the
+value of the dictionary entry for a configurable parameter is
 only one of the supported values listed in the capability.
-In addition to the media types defined below, additional media 
-types may be defined in  future revisions of this interface 
+In addition to the media types defined below, additional media
+types may be defined in  future revisions of this interface
 definition or in addition to this interface definition.
 
 ### audio/x-raw
 
-Raw interleaved PCM data. If audio is supported, this media 
+Raw interleaved PCM data. If audio is supported, this media
 type is mandatory.
 
 | Key | Signature | List of values | Description |
-|---|---|---|---|
-| Channels | y | Positive integer | Number of channels. Support for 1 and 2 channels is mandatory. |
-| Format | s | Sample format | Sample formats. |
-| | | | s16le - PCM signed 16-bit wide little endian samples. Support for s16le is mandatory. |
-| Rate | q | Sample rate | Sample rate. Support for 44100 and 48000 sample rates is mandatory. |
+|---|:---:|---|---|
+| `Channels` | `y` | Positive integer | Number of channels. Support for 1 and 2 channels is mandatory. |
+| `Format` | `s` | Sample format | <p>Sample formats.</p><p>s16le - PCM signed 16-bit wide little endian samples. Support for s16le is mandatory.</p> |
+| `Rate` | `q` | Sample rate | Sample rate. Support for 44100 and 48000 sample rates is mandatory. |
 
 ### audio/x-alac
 
 Apple Lossless. Support for this media type is optional.
 
 | Key | Signature | List of values | Description |
-|---|---|---|---|
-| Channels | y | Positive integer | Number of channels. Support for 1 and 2 channels is mandatory. |
-| Format | s | Sample format | Sample formats. |
-| | | | s16le - PCM signed 16-bit wide little endian samples. Support for s16le is mandatory. |
-| Rate | q | Sample rate | Sample rate. Support for 44100 and 48000 sample rates is mandatory. |
-| MagicCookie | ay | Array of bytes | Magic cookie. Used only in configuration. |
-| FramesPerPacket | u | Frames per packet | Frames per packet. Used only in configuration. |
+|---|:---:|---|---|
+| `Channels` | `y` | Positive integer | Number of channels. Support for 1 and 2 channels is mandatory. |
+| `Format` | `s` | Sample format | <p>Sample formats.</p><p>s16le - PCM signed 16-bit wide little endian samples. Support for s16le is mandatory.</p> |
+| `Rate` | `q` | Sample rate | Sample rate. Support for 44100 and 48000 sample rates is mandatory. |
+| `MagicCookie` | `ay` | Array of bytes | Magic cookie. Used only in configuration. |
+| `FramesPerPacket` | `u` | Frames per packet | Frames per packet. Used only in configuration. |
 
 ### image/jpeg
 
@@ -709,53 +783,53 @@ Stream metadata. Support for this media type is optional.
 
 ##Media Item Keys
 
-The following table lists the keys and values that can be 
+The following table lists the keys and values that can be
 used in a metadata dictionary entry.
 
-Date values are to only be represented as strings in one of 
+Date values are to only be represented as strings in one of
 the following ISO 8601 formats:
 
-* Year only: "&lt;year&gt;" where <year> includes all digits of 
+* Year only: `"<year>"` where `<year>` includes all digits of
 the year.
-* Date: "&lt;year&gt;&lt;month&gt;&lt;day&gt;" where:
-  * <year> includes all digits of the year
-  * <month> is a 2-digit representation of month ("01" = January)
-  * <day> is the day of the month (e.g., "09").
-* Date and time: " &lt;year&gt;&lt;month&gt;&lt;day&gt;T&lt;hour&gt;&lt;minute&gt;&lt;second&gt;+/- &lt;offset&gt;" where:
-  * &lt;year&gt;, &lt;month&gt;, and &lt;day&gt; are the same as the date previously specified
-  * <hour> is the hour ("00" through "23")
-  * <minute> is the minute ("00" through "59")
-  * <second> is the second ("00" through "59")
-  * <offset> is the offset from UTC ("-0800" corresponds to Pacific 
+* Date: `"<year><month><day>"` where:
+  * `<year>` includes all digits of the year
+  * `<month>` is a 2-digit representation of month ("01" = January)
+  * `<day>` is the day of the month (e.g., "09").
+* Date and time: `"<year><month><day>T<hour><minute><second>+/-<offset>"` where:
+  * `<year>`, `<month>`, and `<day>` are the same as the date previously specified
+  * `<hour>` is the hour ("00" through "23")
+  * `<minute>` is the minute ("00" through "59")
+  * `<second>` is the second ("00" through "59")
+  * `<offset>` is the offset from UTC ("-0800" corresponds to Pacific 
   Standard Time)
-* Date and time: "&lt;year&gt;&lt;month&gt;&lt;day&gt;T&lt;hour&gt;&lt;minute&gt;+/- &lt;offset&gt;"
-is the same as the previous date and time specification except 
-without the <second> (seconds) portion.
+* Date and time: `"<year><month><day>T<hour><minute>+/-<offset>"`
+is the same as the previous date and time specification except
+without the `<second>` (seconds) portion.
 
 | Key | Signature | List of values | Description |
-|---|---|---|---|
-| Name | s | N/A | Name or title of the item |
-| Album | s | N/A | Album title |
-| AlbumArtist | s | N/A | Album artist |
-| AlbumRating | y | 0-5 | "Start" rating |
-| Artist | s | N/A | Artist that performed the item |
-| Bpm | g | N/A | Beats per minute |
-| Compilation | b | N/A | Indicates if item is part of a compilation |
-| Composer | s | N/A | Composer of the item |
-| DiscCount | g | N/A | Total number of discs in a multi-disc release |
-| DiscNumber | g | N/A | Disc number in a multi-disc release |
-| Duration | u | N/A | Duration of the item in milliseconds |
-| Genre | s | N/A | Genre of the item |
-| Rating | y | 0-5 | "Star" rating |
-| ReleaseDate | s | Date | Date item was first released |
-| TrackCount | g | N/A | Total number of tracks on the album |
-| TrackNumber | g | N/A | Track number of the item within the album |
+|---|:---:|---|---|
+| `Name` | `s` | N/A | Name or title of the item |
+| `Album` | `s` | N/A | Album title |
+| `AlbumArtist` | `s` | N/A | Album artist |
+| `AlbumRating` | `y` | 0-5 | "Start" rating |
+| `Artist` | `s` | N/A | Artist that performed the item |
+| `Bpm` | `g` | N/A | Beats per minute |
+| `Compilation` | `b` | N/A | Indicates if item is part of a compilation |
+| `Composer` | `s` | N/A | Composer of the item |
+| `DiscCount` | `g` | N/A | Total number of discs in a multi-disc release |
+| `DiscNumber` | `g` | N/A | Disc number in a multi-disc release |
+| `Duration` | `u` | N/A | Duration of the item in milliseconds |
+| `Genre` | `s` | N/A | Genre of the item |
+| `Rating` | `y` | 0-5 | "Star" rating |
+| `ReleaseDate` | `s` | Date | Date item was first released |
+| `TrackCount` | `g` | N/A | Total number of tracks on the album |
+| `TrackNumber` | `g` | N/A | Track number of the item within the album |
 
 
 ### Introspection XML
 
 ```xml
-<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.Stream">
       <property name="Version" type="q" access="read"/>

@@ -15,6 +15,7 @@ To access a previous version of this document, click the release version link be
 | | | * Added the release version number to the document title for version tracking. |
 | | | * Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program. |
 | | | * Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program. |
+| 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
 
 ## Definition Overview
 
@@ -53,9 +54,6 @@ notification on the Wi-Fi network.
 
 NOTE: All methods and signals are considered mandatory to 
 support the AllSeen Alliance Compliance and Certification program. 
-Individual parameters for a given method or signal may be 
-considered mandatory or optional, and are specified accordingly 
-in this document.
 
 ### Architecture
 
@@ -168,59 +166,71 @@ device scans the network, it can find all producer devices.
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Notification | 1 | yes | * /emergency |
-| | | | * /warning |
-| | | | * /info |
+|---|:---:|:---:|---|
+| `org.alljoyn.Notification` | 1 | yes | * `/emergency` |
+| | | | * `/warning` |
+| | | | * `/info` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
+
+### Methods
+
+No methods are exposed by this interface.
 
 ### Signals
 
-| Signal name| Parameters | Sessionless | Description |
-|---|---|---|---|
-| | **Name** / **Mandatory** / **Signature** | | |
-| Notify | (listed below) | yes | AllJoyn signal carrying notification message. |
-|  | version / yes / q |  | Version of the Notification protocol. |
-|  | msgId / yes / i |  | Unique identification assigned to the notification message by the Notification service framework. |
-|  | msgType / yes / q |  | Type of notification message. |
-|  |  |  | * 0 - Emergency |
-|  |  |  | * 1 - Warning |
-|  |  |  | * 2 - Information |
-|  | deviceId / yes / s |  | Globally unique identifier for a given AllJoyn-enabled device. |
-|  | deviceName / yes / s |  | Name for a given AllJoyn-enabled device. |
-|  | appId / yes / ay |  | Globally unique identifier (GUID) for a given AllJoyn application. |
-|  | appName / yes / s |  | Name for a given AllJoyn-enabled device. |
-|  | langText / yes / a{ss} |  | Language-specific notification text. |
-|  | attributes / no / a{v} |  | Set of attribute and value pair. This is used to hold optional fields in the notification message payload. See [Attributes][attributes]. |
-|  | customAttributes / no / a{ss} |  | Set of attribute and value pair. This can be used by the OEMs to add OEM-specific fields to the notification message. |
+#### `Notify('qiqssaysa{ss}a{v}a{ss}')`
+
+Notify signal is a Sessionless signal.
+
+**Message arguments**
+
+|Argument | Parameter name | Signature | List of values | Description |
+|:---|---|:---:|---|---|
+| 0 | `version` | `q` | positive | Version of the Notification protocol. |
+| 1 | `msgId` | `i` | positive | Unique identification assigned to the notification message by the Notification service framework. |
+| 2 | `msgType` | `q` | integer | Type of notification message. |
+| |  |  | * 0 - Emergency |
+| |  |  | * 1 - Warning |
+| |  |  | * 2 - Information |
+| 3 | `deviceId` | `s` | positive | Globally unique identifier for a given AllJoyn-enabled device. |
+| 4 | `deviceName` | `s` | positive | Name for a given AllJoyn-enabled device. |
+| 5 | `AppId` | `ay` | positive | Globally unique identifier (GUID) for a given AllJoyn application. |
+| 6 | `appName` | `s` | string | Name for a given AllJoyn-enabled device. |
+| 7 | `langText` | `a{ss}` | string | Language-specific notification text. |
+| 8 | `attributes` `a{v}` | positive | Set of attribute and value pair. This is used to hold optional fields in the notification message payload. See [Attributes][attributes]. |
+| 9 | `customAttributes` | `a{ss}` | positive | Set of attribute and value pair. This can be used by the OEMs to add OEM-specific fields to the notification message. |
+
+** Description**
+
+AllJoyn signal-carrying notification message.
 
 ### Data types
 
-| Signature | Definition | Signature | Description |
+| Name | Definition | Signature | Description |
 |---|---|---|---|
 | notificationMsg | version | short | Version of the Notification protocol. |
-|  | msgId | integer | Unique identification assigned to the notification message by the Notification service framework. |
-|  | msgType | short | Type of notification message. |
-|  |  |  | * 0 - Emergency |
-|  |  |  | * 1 - Warning |
-|  |  |  | * 2 - Information |
-|  | deviceId | string | Globally unique identifier for a given AllJoyn-enabled device. |
-|  | deviceName | string | Name for a given AllJoyn-enabled device. |
-|  | appId | array of bytes | Globally unique identifier for a given AllJoyn application. |
-|  | appName | string | Name for a given AllJoyn-enabled device. |
-|  | List<langText> | attributes | Set of attribute and value pair. This is used to hold optional fields in the notification message payload. See [Attributes][attributes]. |
-|  | List<customAttributes> | customAttributes | Set of attribute and value pair. This can be used by the OEMs to add OEM-specific fields to the notification message. |
+| | msgId | integer | Unique identification assigned to the notification message by the Notification service framework. |
+| | msgType | short | Type of notification message. |
+| |  |  | * 0 - Emergency |
+| |  |  | * 1 - Warning |
+| |  |  | * 2 - Information |
+| | deviceId | string | Globally unique identifier for a given AllJoyn-enabled device. |
+| | deviceName | string | Name for a given AllJoyn-enabled device. |
+| | appId | array of bytes | Globally unique identifier for a given AllJoyn application. |
+| | appName | string | Name for a given AllJoyn-enabled device. |
+| | List<langText> | attributes | Set of attribute and value pair. This is used to hold optional fields in the notification message payload. See [Attributes][attributes]. |
+| | List<customAttributes> | customAttributes | Set of attribute and value pair. This can be used by the OEMs to add OEM-specific fields to the notification message. |
 | langText | langTag | string | Language associated with the notification text. This is set as per RFC 5646. |
-|  | text | string | Notification message text in UTF-8 character encoding. |
+| | text | string | Notification message text in UTF-8 character encoding. |
 | attributes | attrName | string | Name of the attribute. |
-|  | attrValue | variant | Value of the attribute. |
+| | attrValue | variant | Value of the attribute. |
 | customAttributes | attrName | string | Name of the attribute. |
-|  | attrValue | variant | Value of the attribute. |
+| | attrValue | variant | Value of the attribute. |
 
 NOTE: If the richIconUrl, richAudioUrl, richIconObjectPath, 
 richAudioObjectPath, or respObjectPath fields were specified 
@@ -233,29 +243,29 @@ attributes field, as per [Attributes][attributes].
 | Attribute| Values | 
 |---|---|
 | Rich Notification Url | * attrName=0 |
-|  | * attrValue= |
-|  |   * variant signature=s |
-|  |   * value=<Icon URL> |
+| | * attrValue= |
+| |   * variant signature=s |
+| |   * value=<Icon URL> |
 | Rich Notification Audio Url | * attrName=1 |
-|  | * attrValue= |
-|  |   * variant signature=a{ss} |
-|  |   * value=List<langTag, Audio URL> |
+| | * attrValue= |
+| |   * variant signature=a{ss} |
+| |   * value=List<langTag, Audio URL> |
 | Rich Notification Icon Object Path | * attrName=2 |
-|  | * attrValue= |
-|  |   * variant signature=o |
-|  |   * value=<Rich notification icon object path> |
+| | * attrValue= |
+| |   * variant signature=o |
+| |   * value=<Rich notification icon object path> |
 | Rich Notification Audio Object Path | * attrName=3 |
-|  | * attrValue= |
-|  |   * variant signature=o |
-|  |   * value=<Rich notification audio object path> |
+| | * attrValue= |
+| |   * variant signature=o |
+| |   * value=<Rich notification audio object path> |
 | Response Object Path | * attrName=4 |
-|  | * attrValue= |
-|  |   * variant signature=o |
-|  |   * value=<Response object path> |
+| | * attrValue= |
+| |   * variant signature=o |
+| |   * value=<Response object path> |
 | Original Sender | * attrName=5 |
-|  | * attrValue= |
-|  |   * variant signature=s |
-|  |   * value=<Producer bus name> |
+| | * attrValue= |
+| |   * variant signature=s |
+| |   * value=<Producer bus name> |
 
 ### Introspection XML
 
@@ -289,31 +299,29 @@ when a device scans the network, it can find all producer devices.
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Notification.Producer | 1 | no | /notificationProducer |
+|---|:---:|:---:|---|
+| `org.alljoyn.Notification.Producer` | 1 | no | `/notificationProducer` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
 
 ### Methods
 
 The following methods are exposed by the object that implements 
-the org.alljoyn.Notification.Producer interface.
+the `org.alljoyn.Notification.Producer` interface.
 
-#### Dismiss
+#### `Dismiss('i')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name| Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| msgId | yes | integer | N/A | A way to notify the producer that a notification was dismissed. |
+| Argument | Parameter name| Signature | List of values | Description |
+|:---:|---|---|---|---|
+| 0 | `msgId` | integer | N/A | A way to notify the producer that a notification was dismissed. |
 
-None.
-
-**Output**
+**Reply arguments**
 
 None.
 
@@ -346,23 +354,31 @@ been dismissed.
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Notification.Dismisser | 1 | no | /notification/Dismisser |
+|---|:---:|:---:|---|
+| `org.alljoyn.Notification.Dismisser` | 1 | no | `/notification/Dismisser` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
 
 ### Signals
 
-| Signal name| Parameters | Sessionless | Description |
-|---|---|---|---|
-| | **Name** / **Mandatory** / **Signature** | | |
-| Dismiss | (listed below) | yes | A way to notify consumers that the notification has been dismissed. |
-|  | msgId / yes / i |  |  |
-|  | appId / yes / array of bytes |  |  |
+#### `Dismiss('iay')`
+
+Dismiss signal is a Sessionless signal.
+
+**Message arguments**
+
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `msgId` | `i` | positive | |
+| 1 | `appId` | `ay`| positive | |
+
+**Description**
+
+Notifies consumers that the notification has been dismissed.
 
 ### Introspect XML
 
@@ -432,5 +448,6 @@ Figure: Notifications that are dismissed when the producer is on the network
 [notification-use-case-dismissed-notification-producer]: /files/learn/notification-use-case-dismissed-notification-producer.png
 
 [attributes]: #attributes
+[notification-use-cases]: #notification-service-framework-use-cases
 
 

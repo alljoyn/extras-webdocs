@@ -13,6 +13,7 @@ To access a previous version of this document, click the release version link be
 | | | * Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program. |
 | | | * Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program. |
 | | | * Added configData output parameter information to the GetConfigurations method. |
+| 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
 
 ## Definition Overview
 
@@ -47,8 +48,6 @@ user interface.
 
 NOTE: All methods and signals are considered mandatory to support 
 the AllSeen Alliance Compliance and Certification program. 
-Individual parameters for a given method or signal may be considered 
-mandatory or optional, and are specified accordingly in this document.
 
 ## Typical Call Flows
 
@@ -89,139 +88,143 @@ the error name and error message.
 
 | Error name | Error message |
 |---|---|
-| org.alljoyn.Error.InvalidValue | Invalid value |
-| org.alljoyn.Error.FeatureNotAvailable | Feature not available |
-| org.alljoyn.Error.LanguageNotSupported | The language specified is not supported |
+| `org.alljoyn.Error.InvalidValue` | Invalid value |
+| `org.alljoyn.Error.FeatureNotAvailable` | Feature not available |
+| `org.alljoyn.Error.LanguageNotSupported` | The language specified is not supported |
 
 ## Config Interface
 
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.Config | 1 | yes | /Config |
+|---|:---:|:---:|---|
+| `org.alljoyn.Config` | 1 | yes | `/Config` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
 
 ### Methods
 
 The following methods are exposed by the object that implements 
-the org.alljoyn.Config interface.
+the `org.alljoyn.Config` interface.
 
-#### FactoryReset
+#### `FactoryReset`
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Direct the device to disconnect from the personal AP, clear all 
+Directs the device to disconnect from the personal AP, clear all 
 previously configured data, and start the softAP mode.
 
-Some devices may not support this feature. In such a case, 
-the error org.alljoyn.Error.FeatureNotAvailable will be returned 
-in the AllJoyn response.
+**Error reply**
 
-#### SetPasscode
+| Error | Description |
+|---|---|
+| `org.alljoyn.Error.FeatureNotAvailable` | Returned in the AllJoyn response if the device does not support this feature. |
 
-**Inputs**
+#### `SetPasscode('say')`
 
-| Parameter name| Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| daemonRealm | no | s | N/A | Identifies the daemon's identity for secure access. This parameter is currently ignored by the Configuration service framework. |
-| newPasscode | no | s | N/A | Passphrase that will be utilized for the secure Config interface. |
+**Message arguments**
 
-**Output**
+| Argument | Parameter name| Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `daemonRealm` | `s` | N/A | Identifies the daemon's identity for secure access. This parameter is currently ignored by the Configuration service framework. |
+| 1 | `newPasscode` | `ay` | N/A | Passphrase that will be utilized for the secure Config interface. |
+
+**Reply arguments**
 
 None.
 
 **Description**
 
-Update the passcode to be used for the org.alljoyn.Config interface 
+Updates the passcode to be used for the `org.alljoyn.Config` interface 
 which is secure. The default passcode is 000000 until it is overwritten 
-by `SetPasscode` method.
+by `SetPasscode`.
 
-#### GetConfigurations
+#### `a{sv} GetConfigurations('s')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name| Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| languageTag | no | s | IETF language tags specified by RFC 5646 | Language tag used to retrieve Config fields. |
+| Argument | Parameter name| Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `languageTag` | `s` | IETF language tags specified by RFC 5646. | Language tag used to retrieve Config fields. |
 
-**Outputs**
+**Reply arguments**
 
-| Parameter name| Mandatory | Return signature | Description |
-|---|---|---|---|
-| configData | no | a{sv} | Returns configuration fields in the form of dictionary. See [Configuration map fields][config-map-fields] for the default set of Configuration map fields. |
+| Argument | Parameter name| Return signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `configData` | `a{sv}` | N/A | Returns configuration fields in the form of dictionary. See [Configuration map fields][config-map-fields] for the default set of Configuration map fields. |
 
 **Description**
 
-Return all the configurable fields specified within the scope of 
-the Config interface.
+Returns all the configurable fields specified within the scope of 
+the Config interface. If language tag is not specified (i.e., ""), 
+configuration fields based on the device's default language are returned.
 
-Error handling regarding the input parameter:
+##Error reply**
 
-* If language tag is not specified (i.e., ""), configuration 
-fields based on device's default language are returned.
-* If a language tag is not supported by the device, AllJoyn 
-error org.alljoyn.Error.LanguageNotSupported is returned.
+| Error | Description |
+|---|---|
+| `org.alljoyn.Error.LanguageNotSupported` | Returned if a language tag is not supported by the device. |
 
-#### UpdateConfigurations
+#### `UpdateConfigurations('sa{sv}')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name | Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| languageTag | no | s | IETF language tags specified by RFC 5646 | Identifies the language tag. |
-| configMap | no | a{sv} | See [Configuration map fields][config-map-fields] | Set of configuration fields being updated. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `languageTag` | `s` | IETF language tags specified by RFC 5646. | Identifies the language tag. |
+| 1 | `configMap` | `a{sv}` | See [Configuration map fields][config-map-fields] | Set of configuration fields being updated. |
 
-**Outputs**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Provide a mechanism to update the configuration fields.
-* Whenever there is an error in updating the value for a specific 
-field in the configMap, the error org.alljoyn.Error.InvalidValue 
-will be returned. The error message will contain the field name 
-of the invalid field.
-* If a language tag is not supported by the device, the error 
-org.alljoyn.Error.LanguageNotSupported is returned.
+Provides a mechanism to update the configuration fields.
 
-#### ResetConfigurations
+**Error reply**
 
-**Inputs**
+| Error | Description |
+|---|---|
+| `org.alljoyn.Error.InvalidValue` | Returned whenever there is an error in updating the value for a specific field in the configMap. The error message will contain the field name of the invalid field. |
+| `org.alljoyn.Error.LanguageNotSupported` | Returned if a language tag is not supported by the device. |
 
-| Parameter name| Mandatory | Signature | List of values | Description |
-|---|---|---|---|---|
-| languageTag | no | s | IETF language tags specified by RFC 5646 | Identifies the language tag. |
-| fieldList | no | as | N/A | List of fields or configuration items that are being reset. |
+#### `ResetConfigurations('sas')`
 
-**Outputs**
+**Message arguments**
+
+| Argument | Parameter name| Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | `languageTag` | `s` | IETF language tags specified by RFC 5646. | Identifies the language tag. |
+| 1 | `fieldList` | `as` | N/A | List of fields or configuration items that are being reset. |
+
+**Reply arguments**
 
 None.
 
 **Description**
 
-Provide a mechanism to reset (i.e., value is restored to factory 
+Provides a mechanism to reset (i.e., value is restored to factory 
 default but the field itself is retained) values of configuration fields.
 
-* Whenever there is an error related to fieldList, the error 
-org.alljoyn.Error.InvalidValue will be returned. The error 
-message will contain the field name of the invalid field.
-* If a language tag is not supported by the device, the error 
-org.alljoyn.Error.LanguageNotSupported is returned.
+**Error reply**
+
+| Error | Description |
+|---|---|
+| `org.alljoyn.Error.InvalidValue` | Returned whenever there is an error related to fieldList. The error message will contain the field name of the invalid field. |
+| `org.alljoyn.Error.LanguageNotSupported` | Returned if a language tag is not supported by the device. |
 
 #### Configuration map fields 
 
@@ -230,12 +233,12 @@ are part of the configMap parameter fields. The OEM or
 application developer can add additional fields.
 
 | Field name| Mandatory | Localized | Signature | Description |
-|---|---|---|---|---|
-| DefaultLanguage | yes | no | s | Default language supported by the device. IETF language tags specified by RFC 5646. |
-|  |  |  |  | * If the parameter is not set as per the RFC, the error org.alljoyn.Error.InvalidValue is returned. |
-|  |  |  |  | * If a language tag is not supported by the device, the error org.alljoyn.Error.LanguageNotSupported is returned. |
+|---|:---:|:---:|:---:|---|
+| DefaultLanguage | yes | no | `s` | Default language supported by the device. IETF language tags specified by RFC 5646. |
+|  |  |  |  | * If the parameter is not set as per the RFC, the error `org.alljoyn.Error.InvalidValue` is returned. |
+|  |  |  |  | * If a language tag is not supported by the device, the error `org.alljoyn.Error.LanguageNotSupported` is returned. |
 |  |  |  |  | In this case, the default language on the device is unchanged. |
-|DeviceName|no|yes|s|Device name assigned by the user. The device name appears on the UI as the friendly name of the device.|
+| DeviceName | no | yes | `s` | Device name assigned by the user. The device name appears on the UI as the friendly name of the device.|
 
 ## Introspection XML
 

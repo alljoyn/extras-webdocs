@@ -26,6 +26,7 @@ To access a previous version of this document, click the release version link be
 | | | * Added the release version number to the document title for version tracking. |
 | | | * Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program. |
 | | | * Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program. |
+| 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
 
 ## Definition Overview
 
@@ -46,9 +47,7 @@ to platform-specific UI elements, is made available as part of the
 Control Panel service framework release.
 
 NOTE: All methods and signals are considered mandatory to support 
-the AllSeen Alliance Compliance and Certification program. Individual 
-parameters for a given method or signal may be considered mandatory 
-or optional, and are specified accordingly in this document.
+the AllSeen Alliance Compliance and Certification program. 
 
 ## Discovery
 
@@ -89,11 +88,11 @@ to set the error name and error message.
 
 |Error name | Error message |
 |---|---|
-| org.alljoyn.Error.OutOfRange | Value out of range |
-| org.alljoyn.Error.InvalidState | Invalid state |
-| org.alljoyn.Error.InvalidProperty | Invalid property |
-| org.alljoyn.Error.InvalidValue | Invalid value |
-| org.alljoyn.Error.MethodNotAllowed | Method call not allowed |
+| `org.alljoyn.Error.OutOfRange` | Value out of range |
+| `org.alljoyn.Error.InvalidState` | Invalid state |
+| `org.alljoyn.Error.InvalidProperty` | Invalid property |
+| `org.alljoyn.Error.InvalidValue` | Invalid value |
+| `org.alljoyn.Error.MethodNotAllowed` | Method call not allowed |
 
 ## BusObject Map
 
@@ -152,15 +151,15 @@ of the given panel for the specific language code.
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.ControlPanel | 1 | no | /ControlPanel/{unit)/{panelName} |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.ControlPanel` | 1 | no | `/ControlPanel/{unit)/{panelName}` |
 |  |  |  | Example: /ControlPanel/washing/consolePanel |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
 
 ### Introspect XML
 
@@ -179,35 +178,35 @@ This interface provides all the metadata to guide the
 controller to render the UI for a container widget.
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.Container | 1 | no | /ControlPanel/{unit)/{panelName}/{language}/.../{containerName} |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.Container` | 1 | no | `/ControlPanel/{unit)/{panelName}/{language}/.../{containerName}` |
 | | | | Examples: |
 | | | | /ControlPanel/washing/consolePanel/en |
 | | | | /ControlPanel/sprinkler/mainPanel/en/Schedules/InputForm/RunOnDays |
-| org.alljoyn.ControlPanel.SecuredContainer | 1 | yes | /ControlPanel/{unit)/{panelName}/{language}/.../{containerName} |
+| `org.alljoyn.ControlPanel.SecuredContainer` | 1 | yes | `/ControlPanel/{unit)/{panelName}/{language}/.../{containerName}` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| States | u | Bit mask | no | Bit mask for various widget states |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
 | | | | | **Mask** / **Name** / **Description** |
 | | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
-| OptParams | a{qv} | N/A | no | Metadata dictionary. See [Container widget metadata][container-widget-metadata] for more information. |
+| OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [Container widget metadata][container-widget-metadata] for more information. |
 
 #### Container widget metadata
 
-| Dictionary key | Field name | Value type | Description |
-|---|---|---|---|
-| 0 | Label | s | Label |
-| 1 | bgColor | u | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
-| 2 | layoutHints | aq | Layout hints. See [Container widget layout hints][container-widget-layout-hints] for more information. |
+| Dictionary key | Field name | Signature | Description |
+|:---:|---|:---:|---|
+| 0 | Label | `s` | Label |
+| 1 | bgColor | `u` | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
+| 2 | layoutHints | `aq` | Layout hints. See [Container widget layout hints][container-widget-layout-hints] for more information. |
 
 #### Container widget layout hints
 
 | Hint ID | Hint name | Description |
-|---|---|---|
+|:---:|---|---|
 | 1 | Vertical Linear | A layout that aligns all components in a vertical direction. |
 | 2 | Horizontal Linear | A layout that aligns all components in a horizontal direction. |
 
@@ -217,9 +216,18 @@ No methods are exposed by this interface.
 
 ### Signals
 
-| Signal name | Mandatory | Sessionless | Description |
-|---|---|---|---|
-| MetadataChanged | yes | no | The metadata has changed. This can occur due to changes in any of the property objects. |
+#### `MetadataChanged`
+
+MetadataChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The metadata has changed. This can occur due to changes in 
+any of the property objects.
 
 ### Introspect XML
 
@@ -243,40 +251,40 @@ Each widget is represented by an AllJoyn object implementing this interface.
 ### Interface name
 
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.Property | 1 | no | /ControlPanel/{unit)/{panel}/{language}/.../{object name} |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.Property` | 1 | no | `/ControlPanel/{unit)/{panel}/{language}/.../{object name}` |
 | | | | Examples: |
 | | | | /ControlPanel/washing/consolePanel/en/Mode |
 | | | | /ControlPanel/sprinkler/mainPanel/en/Schedules/InputForm/ScheduleName |
-| org.alljoyn.ControlPanel.SecuredProperty | 1 | yes | /ControlPanel/{unit}/{panel}/.../{object name} |
+| `org.alljoyn.ControlPanel.SecuredProperty` | 1 | yes | `/ControlPanel/{unit}/{panel}/.../{object name}` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| States | u | Bit mask | no | Bit mask for various widget states |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
 | | | | | **Mask** / **Name** / **Description** |
 | | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
 | | | | | 0x02 / writable / Indicates whether the widget is writable. |
-| OptParams | a{qv} | N/A | no | Metadata dictionary. See [Property widget metadata][property-widget-metadata] for more information. |
-| Values | v | N/A | yes | Actual value of the property. When modifying the property, the device may give the AllJoyn error org.alljoyn.Error.MethodNotAllowed if the property is ReadOnly. The supported data types are listed in [Supported data types][supported-data-types]. |
+| OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [Property widget metadata][property-widget-metadata] for more information. |
+| Values | `v` | N/A | Read-write | Actual value of the property. When modifying the property, the device may give the AllJoyn error `org.alljoyn.Error.MethodNotAllowed` if the property is ReadOnly. The supported data types are listed in [Supported data types][supported-data-types]. |
 
 #### Property widget metatdata
 
-| Dictionary key | Field name | Value type | Description |
-|---|---|---|---|
-| 0 | Label | s | Label |
-| 1 | bgColor | u | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
-| 2 | hints | aq | The widget rendering hints. See [Property widget hints][property-widget-hints] for more information. |
-| 3 | unitOfMeasure | s | Unit of measurement. |
-| 4 | constrainToValue | a(vs) | Constraint on the value as a list of values. Any value of the property must match one of the values in this list. See [List of values][list-of-values] for more information. |
-| 5 | range | vv | Constraint on the value as a range; a value of this property  must stay within the range. See [Property widget ranges][property-widget-ranges] for more information. |
+| Dictionary key | Field name | Signature | Description |
+|:---:|---|:---:|---|
+| 0 | Label | `s` | Label |
+| 1 | bgColor | `u` | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
+| 2 | hints | `aq` | The widget rendering hints. See [Property widget hints][property-widget-hints] for more information. |
+| 3 | unitOfMeasure | `s` | Unit of measurement. |
+| 4 | constrainToValue | `a(vs)` | Constraint on the value as a list of values. Any value of the property must match one of the values in this list. See [List of values][list-of-values] for more information. |
+| 5 | range | `vv` | Constraint on the value as a range; a value of this property  must stay within the range. See [Property widget ranges][property-widget-ranges] for more information. |
 
 #### Property widget hints
 
 | Hint ID | Hint name | Description |
-|---|---|---|
+|:---:|---|---|
 | 1 | Switch | Two-state buttons allowing the end-user to toggle the state of a single settings option. |
 | 2 | CheckBox | Widget for multi-select. It allows the end user to select multiple options from a list. |
 | 3 | Spinner | Widget for single-select. It allows the end user to select a single option from a list. |
@@ -309,26 +317,26 @@ Each widget is represented by an AllJoyn object implementing this interface.
 | | * STRING - s |
 | Composite types | All composite data type must have the following signature--q(type)--where the first value is an enum value indicating the composite type |
 | | **Composite type enum** / **Composite type name** / **Signature** / **Description** |
-| | 0 / Date / q(qqq) / Data type per RFC3339. There are three fields: date-mday (1-31); date-month (1-12); and date-fullyear (4-digit year). |
-| | 1 / Time / q(qqq) / Time type per RFC3339. There are three fields: time-hour (0-23); time-minute (0-59); and time-second (0-59). |
+| | 0 / Date / `q(qqq)` / Data type per RFC3339. There are three fields: date-mday (1-31); date-month (1-12); and date-fullyear (4-digit year). |
+| | 1 / Time / `q(qqq)` / Time type per RFC3339. There are three fields: time-hour (0-23); time-minute (0-59); and time-second (0-59). |
 | Collection of records | Array of records of only scalar and supported composite types. All records in the array must be of the same record type. |
 
 #### List of values
 
 A list of values is an array of structs.
 
-| Field name | Data type | Description |
-|---|---|---|
-| Value | v | Value with the same data type of the property. |
-| Label | s | Display label. |
+| Field name | Signature | Description |
+|---|:---:|---|
+| Value | `v` | Value with the same data type of the property. |
+| Label | `s` | Display label. |
 
 #### Property widget ranges
 
-| Field name | Data type | Description |
-|---|---|---|
-| min | v | Minimum value with the same data type as that of the property. |
-| max | v | Maximum value with the same data type as that of the property. |
-| increment | v | Value to increment/decrement by. It has the same data type as that of the property. |
+| Field name | Signature | Description |
+|---|:---:|---|
+| min | `v` | Minimum value with the same data type as that of the property. |
+| max | `v` | Maximum value with the same data type as that of the property. |
+| increment | `v` | Value to increment/decrement by. It has the same data type as that of the property. |
 
 ### Methods
 
@@ -336,10 +344,29 @@ No methods are exposed by this interface.
 
 ### Signals
 
-| Signal name | Mandatory | Sessionless | Description |
-|---|---|---|---|
-| MetadataChanged | yes | no | The metadata has changed. This can occur due to changes in any of the property objects. |
-| ValueChanged | yes | no | The property's value has changed. |
+#### `MetadataChanged`
+
+MetadataChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The metadata has changed. This can occur due to changes in any of the property objects.
+
+#### `ValueChanged`
+
+ValueChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The property's value has changed.
 
 ### Introspect XML
 
@@ -368,33 +395,33 @@ by an AllJoyn object implementing this interface.
 ### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.LabelProperty | 1 | no | /ControlPanel/{unit}/{panel}/{language}/.../ {object name} |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.LabelProperty` | 1 | no | `/ControlPanel/{unit}/{panel}/{language}/.../ {object name}` |
 | | | | Example: |
 | | | | /ControlPanel/airconditioner/consolel/Warning |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| States | u | Bit mask | no | Bit mask for various widget states |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
 | | | | | **Mask** / **Name** / **Description** |
 | | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
-| Label | s | N/A | no | Text label |
-| OptParams | a{qv} | N/A | no | Metadata dictionary. See [LabelProperty widget metadata][labelproperty-widget-metadata] for more information. |
+| Label | `s` | N/A | Read-only | Text label |
+| OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [LabelProperty widget metadata][labelproperty-widget-metadata] for more information. |
 
 #### LabelProperty widget metadata
 
-| Dictionary key | Field name | Value type | Description |
-|---|---|---|---|
-| 1 | bgColor | u | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
-| 2 | hints | aq | The widget rendering hints. See [LabelProperty widget hints][labelproperty-widget-hints] for more information. |
+| Dictionary key | Field name | Signature | Description |
+|:---:|---|:---:|---|
+| 1 | bgColor | `u` | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
+| 2 | hints | `aq` | The widget rendering hints. See [LabelProperty widget hints][labelproperty-widget-hints] for more information. |
 
 #### LabelProperty widget hints
 
 | Hint ID | Hint name | Description |
-|---|---|---|
+|:---:|---|---|
 | 1 | TextLabel | Read-only text label. |
 
 ### Methods
@@ -403,9 +430,17 @@ No methods are exposed by this interface.
 
 ### Signals
 
-| Signal name | Mandatory | Sessionless | Description |
-|---|---|---|---|
-| MetadataChanged | yes | no | The metadata has changed. This can occur due to changes in any of the property objects. |
+#### `MetadataChanged`
+
+MetadataChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The metadata has changed. This can occur due to changes in any of the property objects.
 
 ### Introspect XML
 
@@ -430,62 +465,70 @@ this interface. An action widget can optionally provide a confirmation
 dialog widget in its object sub-tree to allow for a pop-up dialog to 
 appear whenever the UI presentation of this action is activated. 
 The action taken on the confirmation dialog will take place instead 
-of the `Exec()` method call for this Action widget.
+of the `Exec` method call for this Action widget.
 
 ### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.Action | 1 | no | /ControlPanel/{unit}//{panel}/{language}/.../{object name} |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.Action` | 1 | no | `/ControlPanel/{unit}//{panel}/{language}/.../{object name}` |
 | | | | Example: |
 | | | | /ControlPanel/{unit}/{panel}/{language}/.../{object name}  |
-| org.alljoyn.ControlPanel.SecuredAction | 1 | yes | /ControlPanel/{unit}/{panel}/{language}/.../{object name} |
+| `org.alljoyn.ControlPanel.SecuredAction` | 1 | yes | `/ControlPanel/{unit}/{panel}/{language}/.../{object name}` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| States | u | Bit mask | no | Bit mask for various widget states |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
 | | | | | **Mask** / **Name** / **Description** |
 | | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
-| OptParams | a{qv} | N/A | no | Metadata dictionary. See [Action widget metadata][action-widget-metadata] for more information. |
+| OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [Action widget metadata][action-widget-metadata] for more information. |
 
 #### Action widget metadata
 
-| Dictionary key | Field name | Value type | Description |
-|---|---|---|---|
-| 0 | label | s | Label |
-| 1 | bgColor | u | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
-| 2 | hints | aq | The widget rendering hints. See [Action widget hints][action-widget-hints] for more information. |
+| Dictionary key | Field name | Signature | Description |
+|:---:|---|:---:|---|
+| 0 | label | `s` | Label |
+| 1 | bgColor | `u` | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
+| 2 | hints | `aq` | The widget rendering hints. See [Action widget hints][action-widget-hints] for more information. |
 
 #### Action widget hints
 
 | Hint ID | Hint name | Description |
-|---|---|---|
+|:---:|---|---|
 | 1 | ActionButton | Button associated with an action or a method call, for example, "submit". |
 
 ### Methods
 
-#### Exec
+#### `Exec`
 
-**Inputs** 
+**Message arguments** 
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Execute the action command.
+Executes the action command.
 
 ### Signals
 
-| Signal name | Mandatory | Sessionless | Description |
-|---|---|---|---|
-| MetadataChanged | yes | no | The metadata has changed. This can occur due to changes in any of the property objects. |
+#### `MetadataChanged`
+
+MetadataChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The metadata has changed. This can occur due to changes in any of the property objects.
 
 ### Introspect XML
 
@@ -521,22 +564,30 @@ specific language code.
 ### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.NotificationAction | 1 | no | /NotificationPanel/{unit}/{actionPanelName} |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.NotificationAction` | 1 | no | `/NotificationPanel/{unit}/{actionPanelName}` |
 | | | | Example: |
 | | | | /NotificationPanel/washing/CycleCompleted  |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
 
 ### Signals
 
-| Signal name | Mandatory | Sessionless | Description |
-|---|---|---|---|
-| Dismiss | yes | no | The controller must dismiss this notification panel. |
+#### `Dismiss`
+
+Dismess signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The controller must dismiss this notification panel.
 
 ### Introspection XML
 
@@ -559,94 +610,110 @@ has a message and up to three action buttons.
 ### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.Dialog | 1 | no | /ControlPanel/{unit)/{panelName}/{language}/.../{dialogName} |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.Dialog` | 1 | no | `/ControlPanel/{unit)/{panelName}/{language}/.../{dialogName}` |
 | | | | Example: |
 | | | | /ControlPanel/washing/mainPanel/en/Confirmation  |
-| org.alljoyn.ControlPanel.SecuredDialog | 1 | yes | /ControlPanel/{unit}/{panel}/{language}/.../{dialogName} |
+| `org.alljoyn.ControlPanel.SecuredDialog` | 1 | yes | `/ControlPanel/{unit}/{panel}/{language}/.../{dialogName}` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| States | u | Bit mask | no | Bit mask for various widget states |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
 | | | | | **Mask** / **Name** / **Description** |
 | | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
-| OptParams | a{qv} | N/A | no | Metadata dictionary. See [Dialog widget metadata][dialog-widget-metadata] for more information. |
-| Message | q | N/A | no | Display message. |
-| NumActions | q | 1-3 | no | Number of available actions. |
+| OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [Dialog widget metadata][dialog-widget-metadata] for more information. |
+| Message | `q` | N/A | Read-only | Display message. |
+| NumActions | `q` | 1-3 | Read-only | Number of available actions. |
 
 #### Dialog widget metadata
 
-| Dictionary key | Field name | Value type | Description |
-|---|---|---|---|
-| 0 | label | s | Label or title of the dialog. |
-| 1 | bgColor | u | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
-| 2 | hints | aq | Layout hints. See [Dialog widget layout hints][dialog-widget-layout-hints] for more information. |
-| 6 | labelAction1 | s | Label of the action1 widget. |
-| 7 | labelAction2 | s | Label of the action2 widget. |
-| 8 | labelAction3 | s | Label of the action3 widget. |
+| Dictionary key | Field name | Signature | Description |
+|:---:|---|:---:|---|
+| 0 | label | `s` | Label or title of the dialog. |
+| 1 | bgColor | `u` | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
+| 2 | hints | `aq` | Layout hints. See [Dialog widget layout hints][dialog-widget-layout-hints] for more information. |
+| 6 | labelAction1 | `s` | Label of the action1 widget. |
+| 7 | labelAction2 | `s` | Label of the action2 widget. |
+| 8 | labelAction3 | `s` | Label of the action3 widget. |
 
 #### Dialog widget layout hints
 
 | Hint ID | Hint name | Description |
-|---|---|---|
+|:---:|---|---|
 | 1 | AlertDialog | Widget that combines a label, text data, and buttons in a single dialog box. A minimum of 1 button is required. A maximum of 3 buttons is supported. |
 
 ### Methods
 
-#### Action1
+#### `Action1`
 
-**Inputs**
-
-None.
-
-**Output**
+**Message arguments**
 
 None.
 
-**Description**
-
-Execute the action number 1.
-
-#### Action2
-
-**Inputs**
-
-None.
-
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Execute the action number 2. If the NumActions property is 
-less than 2, the org.alljoyn.Error.MethodNotAllowed error 
-will be raised.
+Executes the action number 1.
 
-#### Action3
+#### `Action2`
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Execute the action number 3. If the NumActions property 
-is less than 3, the org.alljoyn.Error.MethodNotAllowed 
-error will be raised.
+Executes the action number 2. 
+
+**Error reply**
+
+| Error | Description |
+|---|---|
+| `org.alljoyn.Error.MethodNotAllowed` | Returned if the NumActions property is less than 2. |
+
+#### `Action3`
+
+**Message arguments**
+
+None.
+
+**Reply arguments**
+
+None.
+
+**Description**
+
+Executes the action number 3. 
+
+**Error reply**
+
+| Error | Description |
+|---|---|
+| `org.alljoyn.Error.MethodNotAllowed` | Returned if the NumActions property is less than 3. |
 
 ### Signals
 
-| Signal name | Mandatory | Sessionless | Description |
-|---|---|---|---|
-| MetadataChanged | yes | no | The metadata has changed. This can occur due to changes in any of the property objects. |
+#### `MetadataChanged`
+
+MetadataChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The metadata has changed. This can occur due to changes in any of the property objects.
 
 ### Introspection XML
 
@@ -677,165 +744,185 @@ display/input form.
 ### Interface name
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.ListProperty | 1 | no | /ControlPanel/{unit}/{language}/{panel}/{object name} |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.ListProperty` | 1 | no | `/ControlPanel/{unit}/{language}/{panel}/{object name}` |
 | | | | Example: |
 | | | | /ControlPanel/sprinkler/mainPanel/en/Schedules  |
-| org.alljoyn.ControlPanel.SecuredListProperty | 1 | yes | /ControlPanel/{unit}/{language}/{panel}/.../{object name} |
+| `org.alljoyn.ControlPanel.SecuredListProperty` | 1 | yes | `/ControlPanel/{unit}/{language}/{panel}/.../{object name}` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
-| States | u | Bit mask | no | Bit mask for various widget states |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
 | | | | | **Mask** / **Name** / **Description** |
 | | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
-| OptParams | a{qv} | N/A | no | Metadata dictionary. See [ListProperty widget metadata][listproperty-widget-metadata] for more information. |
-| Value | a{qs} | N/A | no | List of records. Each record in the list holds the following fields: |
-| | | | | * recordID (q): the record ID |
-| | | | | * label (s): the label to display on the list |
-| | | | | The record data are not exposed in this property. The View() method call can be used to view each record. |
+| OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [ListProperty widget metadata][listproperty-widget-metadata] for more information. |
+| Value | `a{qs}` | N/A | Read-only | List of records. Each record in the list holds the following fields: |
+| | | | | * recordID ('q'): the record ID |
+| | | | | * label ('s'): the label to display on the list |
+| | | | | The record data are not exposed in this property. The `View` method call can be used to view each record. |
 
 #### ListProperty widget metadata
 
-| Dictionary key | Field name | Value type | Description |
-|---|---|---|---|
-| 0 | label | s | Label |
-| 1 | bgColor | u | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
-| 2 | hints | aq | Widget rendering hints. See [ListProperty widget hints][listproperty-widget-hints] for more information. |
+| Dictionary key | Field name | Signature | Description |
+|:---:|---|:---:|---|
+| 0 | label | `s` | Label |
+| 1 | bgColor | `u` | Background color expressed as RGB value. If not specified, then the background color of the enclosing container is used. |
+| 2 | hints | `aq` | Widget rendering hints. See [ListProperty widget hints][listproperty-widget-hints] for more information. |
 
 #### ListProperty widget hints
 
 | Hint ID | Hint name | Description |
-|---|---|---|
+|:---:|---|---|
 | 1 | DynamicSpinner | Widget that allows the end user to select an option from a list, add a new option, delete an option, and update an option. |
 
 ### Methods
 
-#### Add
+#### `Add`
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Prepare the input form for adding a new record to the list. 
+Prepares the input form for adding a new record to the list. 
 UI requirements follow:
 
 * The controller must present an OK button and tie it to the 
-`Confirm()` method call. Completing the add action on the input 
+`Confirm` method call. Completing the add action on the input 
 form will add the new record to the list.
 * The controller must present a Cancel button and tie to the 
-`Cancel()` method call to allow for discarding the operation.
+`Cancel` method call to allow for discarding the operation.
 
-#### Delete
+#### `Delete('q')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name | Mandatory | Signature | Description |
-|---|---|---|---|
-| recordID | yes | q | The record ID. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | recordID | `q` | positive | The record ID. |
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Prepare the form for view the record prior to the delete action. 
+Prepares the form for view the record prior to the delete action. 
 UI requirements follow:
 * The controller must present an OK button and tie it to the 
-`Confirm()` method call. A confirm action deletes the record 
+`Confirm` method call. A confirm action deletes the record 
 from the list.
 * The controller must present a Cancel button and tie to the 
-`Cancel()` method call to allow for discarding the operation.
+`Cancel` method call to allow for discarding the operation.
 
-#### View
+#### `View('q')`
 
-**Inputs**
+**Message arguments**
 
-| Parameter name | Mandatory | Signature | Description |
-|---|---|---|---|
-| recordID | yes | q | The record ID. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---:|---|:---:|---|---|
+| 0 | recordID | `q` | positive | The record ID. |
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Prepare the display form to view the record identified by the recordID. 
+Prepares the display form to view the record identified by the recordID. 
 
 The controller must present an OK button to dismiss the view form.
 
-#### Update
+#### `Update('q')`
 
 **Inputs**
 
-| Parameter name | Mandatory | Signature | Description |
-|---|---|---|---|
-| recordID | yes | q | The record ID. |
+| Argument | Parameter name | Signature | List of values | Description |
+|:---|---|---|---|---|
+| recordID | yes | q | positive | The record ID. |
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Prepare the input form to view the record identified by the 
+Prepares the input form to view the record identified by the 
 recordID and allow the end user to modify the fields. 
 UI requirements follow:
 
 * The controller must present an OK button and tie it to the 
-`Confirm()` method call. A confirm action updates the given 
+`Confirm` method call. A confirm action updates the given 
 record with new information.
 * The controller must present a Cancel button and tie to the 
-`Cancel()` method call to allow for discarding the operation.
+`Cancel` method call to allow for discarding the operation.
 
-#### Confirm
+#### `Confirm`
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Confirm the action and save the change requested.
+Confirms the action and save the change requested.
 
 The controller must present an OK button to dismiss the view form.
 
-#### Cancel
+#### `Cancel`
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Output**
+**Reply arguments**
 
 None.
 
 **Description**
 
-Cancel the current action.
+Cancels the current action.
 
 The controller must present a Cancel button to dismiss the input form.
 
 ### Signals
 
-| Signal name | Mandatory | Sessionless | Description |
-|---|---|---|---|
-| ValueChanged | yes | no | The property's value has changed. Because the list data can be large, the signal does not send the current value. |
-| MetadataChanged | yes | no | The metadata has changed. This can occur due to changes in any of the property objects. |
+#### `MetadataChanged`
+
+MetadataChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The metadata has changed. This can occur due to changes in any of the property objects.
+
+#### `ValueChanged`
+
+ValueChanged signal is not a Sessionless signal.
+
+**Message arguments**
+
+None.
+
+**Description**
+
+The property's value has changed. Because the list data can 
+be large, the signal does not send the current value.
 
 ### Introspect XML
 
@@ -878,35 +965,34 @@ This interface provides all the information about the
 hosted HTTP control pages on the device.
 
 ### Interface name
-
  
 | Interface name | Version | Secured | Object path |
-|---|---|---|---|
-| org.alljoyn.ControlPanel.HTTPControl | 1 | no | /Control/{unit}/HTTPControl |
+|---|:---:|:---:|---|
+| `org.alljoyn.ControlPanel.HTTPControl` | 1 | no | `/Control/{unit}/HTTPControl` |
 
 ### Properties
 
-|Property name | Signature | List of values | Writable | Description |
-|---|---|---|---|---|
-| Version | q | Positive integers | no | Interface version number |
+|Property name | Signature | List of values | Read/Write | Description |
+|---|:---:|---|---|---|
+| Version | `q` | Positive integers | Read-only | Interface version number |
 
 ### Methods
 
-#### GetRootURL
+#### `s GetRootURL`
 
-**Inputs**
+**Message arguments**
 
 None.
 
-**Output**
+**Reply arguments**
 
-| Parameter name | Mandatory | Return signature | Description |
-|---|---|---|---|
-| url | no | s | Root URL of the control pages. |
+| Argument | Parameter name | Return signature | List of values | Description |
+|:---|---|:---:|---|---|
+| 0 | url | `s` | N/A | Root URL of the control pages. |
 
 ### Signals
 
-There is no signal in this interface.
+No signals are emitted from this interface.
 
 ###Introspection XML
 

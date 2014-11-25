@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="431.475px"
+	 height="208.236px" viewBox="0 0 431.475 208.236" enable-background="new 0 0 431.475 208.236" xml:space="preserve">
+<symbol  id="master8" viewBox="-36.12 -4.62 72.24 9.24">
+	<g id="master-shape4-28_2_">
+		<title>Sheet.4</title>
+		<v:userDefs>
+			<v:ud  v:nameU="visVersion" v:val="VT0(14):26"></v:ud>
+		</v:userDefs>
+		<path stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="M-36,0
+			L4-4.5L0,2.25L36,0L-4,4.5l4-6.75L-36,0z"/>
+	</g>
+</symbol>
+<v:documentProperties  v:langID="1033" v:viewMarkup="false">
+	<v:userDefs>
+		<v:ud  v:nameU="msvNoAutoConnect" v:val="VT0(1):26"></v:ud>
+	</v:userDefs>
+</v:documentProperties>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="133.917" y1="121.308" x2="165.477" y2="157.337"/>
+<path d="M133.775,123.971l-2.151-5.07l4.763,2.767L133.775,123.971"/>
+<path d="M135.081,122.82"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="300.291" y1="123.848" x2="266.01" y2="157.299"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="332.636" y1="59.434" x2="339.824" y2="28.194"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="272.922" y1="59.986" x2="280.386" y2="24.877"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="392.903" y1="58.604" x2="399.814" y2="27.365"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="160.266" y1="59.434" x2="153.079" y2="27.365"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="100.552" y1="59.71" x2="92.812" y2="24.6"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="40.699" y1="59.434" x2="32.406" y2="24.324"/>
+<path fill="none" stroke="#000000" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" stroke-dasharray="5.25,3.75" d="
+	M4,181.143h194.071V2H4V181.143z"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M11.464,110.232h179.143"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M52.984,110.232H30.591"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M41.788,110.232V95.304"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M89.839,110.232h22.393"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M101.036,110.232V95.304"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M149.554,110.232h22.393"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M160.75,110.232V95.304"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M49.938,65.446H32.705l-8.622,14.93l8.622,14.931h17.234l8.621-14.931L49.938,65.446z"/>
+<text transform="matrix(1 0 0 1 34.8594 83.323)" font-family="'ArialMT'" font-size="8.4264">:1.1</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M109.653,65.446H92.419l-8.622,14.93l8.622,14.931h17.234l8.621-14.931L109.653,65.446z"/>
+<text transform="matrix(1 0 0 1 94.5737 83.323)" font-family="'ArialMT'" font-size="8.4264">:1.2</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M169.367,65.446h-17.234l-8.621,14.93l8.621,14.931h17.235l8.621-14.931L169.367,65.446z"/>
+<text transform="matrix(1 0 0 1 154.2881 83.323)" font-family="'ArialMT'" font-size="8.4264">:1.3</text>
+<use xlink:href="#master8"  width="72.24" height="9.24" id="shape12-27" x="-36.12" y="-4.62" transform="matrix(0.4109 0 0 0.4109 216.7451 111.4675)" overflow="visible"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M244.724,110.232h179.145"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M261.519,110.232h22.395"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M272.714,110.232V95.304"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M380.946,110.232h22.393"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M392.144,110.232V95.304"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M343.625,110.232h-22.394"/>
+<path fill="none" stroke="#000000" stroke-width="13.5" stroke-miterlimit="3" d="M332.429,110.232V95.304"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M281.332,65.446h-17.233l-8.623,14.93l8.623,14.931h17.234l8.621-14.931L281.332,65.446z"/>
+<text transform="matrix(1 0 0 1 266.2529 83.323)" font-family="'ArialMT'" font-size="8.4264">:1.4</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M341.046,65.446h-17.234l-8.621,14.93l8.621,14.931h17.235l8.622-14.931L341.046,65.446z"/>
+<text transform="matrix(1 0 0 1 325.9678 83.323)" font-family="'ArialMT'" font-size="8.4264">:1.5</text>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M400.76,65.446h-17.235l-8.618,14.93l8.618,14.931h17.235l8.622-14.931L400.76,65.446z"/>
+<text transform="matrix(1 0 0 1 385.6807 83.323)" font-family="'ArialMT'" font-size="8.4264">:1.6</text>
+<rect x="63.714" y="187.607" fill="none" width="80.241" height="22.394"/>
+<text transform="matrix(1 0 0 1 60.3716 201.781)" font-family="'ArialMT'" font-size="14.9286">Smartphone</text>
+<rect x="306.304" y="187.607" fill="none" width="67.178" height="22.394"/>
+<text transform="matrix(1 0 0 1 297.1631 201.781)" font-family="'ArialMT'" font-size="14.9286">Linux Host</text>
+<path fill="none" stroke="#000000" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" stroke-dasharray="5.25,3.75" d="
+	M235.394,181.143h194.07V2h-194.07V181.143z"/>
+<path fill="none" d="M168.213,173.679L168.213,173.679c8.115,0.001,14.695-6.576,14.695-14.689c0-0.002,0-0.002,0-0.003v-0.474
+	c0-8.114-6.579-14.693-14.694-14.692h-0.001l0,0c-8.114,0-14.692,6.578-14.692,14.692v0.474
+	C153.521,167.101,160.1,173.677,168.213,173.679z"/>
+<path d="M133.67,124.174"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M168.213,173.679L168.213,173.679c8.115,0.001,14.695-6.576,14.695-14.689c0-0.002,0-0.002,0-0.003v-0.474
+	c0-8.114-6.579-14.693-14.694-14.692h-0.001l0,0c-8.114,0-14.692,6.578-14.692,14.692v0.474
+	C153.521,167.101,160.1,173.677,168.213,173.679"/>
+<text transform="matrix(1 0 0 1 163.6211 163.2273)" font-family="'ArialMT'" font-size="14.9286">D</text>
+<path fill="none" d="M93.57,39.321L93.57,39.321c8.115,0.003,14.695-6.574,14.696-14.689c0,0,0,0,0-0.002v-0.472
+	c0-8.115-6.58-14.693-14.695-14.692H93.57l0,0c-8.114,0-14.691,6.578-14.692,14.692v0.472C78.879,32.743,85.456,39.321,93.57,39.321
+	z"/>
+<path d="M101.718,56.247l-0.683,5.465l-2.732-4.78L101.718,56.247"/>
+<path d="M100.01,56.589"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M93.57,39.321L93.57,39.321c8.115,0.003,14.695-6.574,14.696-14.689c0,0,0,0,0-0.002v-0.472c0-8.115-6.58-14.693-14.695-14.692
+	H93.57l0,0c-8.114,0-14.691,6.578-14.692,14.692v0.472C78.879,32.743,85.456,39.321,93.57,39.321"/>
+<text transform="matrix(1 0 0 1 87.5923 28.8708)" font-family="'ArialMT'" font-size="14.9286">C</text>
+<path fill="none" d="M33.856,39.321L33.856,39.321c8.115,0.003,14.695-6.574,14.696-14.689c0,0,0,0,0-0.002v-0.472
+	c-0.001-8.115-6.58-14.693-14.695-14.692c0,0,0,0-0.001,0l0,0c-8.114,0-14.691,6.578-14.692,14.692v0.472
+	C19.165,32.743,25.742,39.321,33.856,39.321z"/>
+<path d="M42.004,56.247l-0.683,5.465l-2.732-4.78L42.004,56.247"/>
+<path d="M40.296,56.589"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M33.856,39.321L33.856,39.321c8.115,0.003,14.695-6.574,14.696-14.689c0,0,0,0,0-0.002v-0.472
+	c-0.001-8.115-6.58-14.693-14.695-14.692c0,0,0,0-0.001,0l0,0c-8.114,0-14.691,6.578-14.692,14.692v0.472
+	C19.165,32.743,25.742,39.321,33.856,39.321"/>
+<text transform="matrix(1 0 0 1 28.4258 28.8708)" font-family="'ArialMT'" font-size="14.9286">S</text>
+<path fill="none" d="M265.015,173.679L265.015,173.679c8.114,0.001,14.694-6.576,14.695-14.689c0-0.002,0-0.002,0-0.003v-0.474
+	c-0.001-8.114-6.58-14.693-14.695-14.692c0,0,0,0-0.002,0l0,0c-8.113,0-14.688,6.578-14.689,14.692v0.474
+	C250.322,167.101,256.899,173.677,265.015,173.679z"/>
+<path d="M297.623,123.848l4.946-2.422l-2.504,4.905L297.623,123.848"/>
+<path d="M298.843,125.09"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M265.015,173.679L265.015,173.679c8.114,0.001,14.694-6.576,14.695-14.689c0-0.002,0-0.002,0-0.003v-0.474
+	c-0.001-8.114-6.58-14.693-14.695-14.692c0,0,0,0-0.002,0l0,0c-8.113,0-14.688,6.578-14.689,14.692v0.474
+	C250.322,167.101,256.899,173.677,265.015,173.679"/>
+<text transform="matrix(1 0 0 1 260.4229 163.2273)" font-family="'ArialMT'" font-size="14.9286">D</text>
+<path fill="none" d="M339.656,39.321L339.656,39.321c8.114,0.003,14.696-6.574,14.696-14.689c0,0,0,0,0-0.002v-0.472
+	c0-8.115-6.58-14.693-14.695-14.692h-0.001l0,0c-8.113,0-14.691,6.578-14.692,14.692v0.472
+	C324.965,32.743,331.542,39.321,339.656,39.321z"/>
+<path d="M335.134,56.916l-2.703,4.799l-0.717-5.46L335.134,56.916"/>
+<path d="M333.424,56.584"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M339.656,39.321L339.656,39.321c8.114,0.003,14.696-6.574,14.696-14.689c0,0,0,0,0-0.002v-0.472c0-8.115-6.58-14.693-14.695-14.692
+	h-0.001l0,0c-8.113,0-14.691,6.578-14.692,14.692v0.472C324.965,32.743,331.542,39.321,339.656,39.321"/>
+<text transform="matrix(1 0 0 1 334.2266 28.8708)" font-family="'ArialMT'" font-size="14.9286">S</text>
+<path fill="none" d="M279.942,39.321L279.942,39.321c8.115,0.003,14.695-6.574,14.697-14.689c0,0,0,0,0-0.002v-0.472
+	c-0.004-8.115-6.58-14.693-14.697-14.692l0,0l0,0c-8.113,0-14.691,6.578-14.692,14.692v0.472
+	C265.251,32.743,271.828,39.321,279.942,39.321z"/>
+<path d="M275.419,56.916l-2.703,4.799L272,56.254L275.419,56.916"/>
+<path d="M273.709,56.584"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M279.942,39.321L279.942,39.321c8.115,0.003,14.695-6.574,14.697-14.689c0,0,0,0,0-0.002v-0.472
+	c-0.004-8.115-6.58-14.693-14.697-14.692l0,0l0,0c-8.113,0-14.691,6.578-14.692,14.692v0.472
+	C265.251,32.743,271.828,39.321,279.942,39.321"/>
+<text transform="matrix(1 0 0 1 273.9648 28.8708)" font-family="'ArialMT'" font-size="14.9286">C</text>
+<path fill="none" d="M153.049,39.321L153.049,39.321c8.115,0.003,14.696-6.574,14.696-14.689c0,0,0,0,0-0.002v-0.472
+	c0-8.115-6.58-14.693-14.695-14.692h-0.001l0,0c-8.114,0-14.692,6.578-14.692,14.692v0.472
+	C138.358,32.743,144.935,39.321,153.049,39.321z"/>
+<path d="M161.398,56.246l-0.649,5.469l-2.762-4.765L161.398,56.246"/>
+<path d="M159.693,56.597"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M153.049,39.321L153.049,39.321c8.115,0.003,14.696-6.574,14.696-14.689c0,0,0,0,0-0.002v-0.472c0-8.115-6.58-14.693-14.695-14.692
+	h-0.001l0,0c-8.114,0-14.692,6.578-14.692,14.692v0.472C138.358,32.743,144.935,39.321,153.049,39.321"/>
+<text transform="matrix(1 0 0 1 147.6187 28.8708)" font-family="'ArialMT'" font-size="14.9286">S</text>
+<path fill="none" d="M399.371,39.321L399.371,39.321c8.115,0.003,14.696-6.574,14.697-14.689c0,0,0,0,0-0.002v-0.472
+	c-0.001-8.115-6.58-14.693-14.696-14.692c0,0-0.001,0-0.002,0l0,0c-8.113,0-14.691,6.578-14.692,14.692v0.472
+	C384.679,32.743,391.257,39.321,399.371,39.321z"/>
+<path d="M394.849,56.916l-2.703,4.799l-0.718-5.46L394.849,56.916"/>
+<path d="M393.138,56.584"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="3" d="
+	M399.371,39.321L399.371,39.321c8.115,0.003,14.696-6.574,14.697-14.689c0,0,0,0,0-0.002v-0.472
+	c-0.001-8.115-6.58-14.693-14.696-14.692c0,0-0.001,0-0.002,0l0,0c-8.113,0-14.691,6.578-14.692,14.692v0.472
+	C384.679,32.743,391.257,39.321,399.371,39.321"/>
+<text transform="matrix(1 0 0 1 393.3926 28.8708)" font-family="'ArialMT'" font-size="14.9286">C</text>
+</svg>

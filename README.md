@@ -9,6 +9,8 @@ Organization
 * `docs/` - contains source of docs.
 * `templates/` - templates used to generate HTML
 * `scripts/` - scripts to generate HTML and to host server
+* `files/` - other (non markdown) files, like images
+* `source/` - source for files in `files/` like svg image file
 * `out/public/` - generated HTML files.
 * `out/for_import/` - generated HTML for Drupal import (usually not needed)
 

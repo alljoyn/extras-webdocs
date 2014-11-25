@@ -4,178 +4,54 @@
 
 The reference code consists of service and client implementations of the About feature.
 
-### Classes/Interfaces used to send About feature announcements and data
+### Classes used to send AboutData
 
-| Class/Interface | Description |
+| Service class | Description |
 |---|---|
-| AJNAboutObject | Class the implements the org.alljoyn.About interface. |
-| AJNAboutDataListener | Interface that supplies the list of properties required for Announce payload and About Data |
-| AJNAboutIcon | Container class to hold information about an icon |
-| AJNAboutIconObject | Class that implements org.alljoyn.Icon interface |
+| AboutService | Class the implements the org.alljoyn.About interface. |
+| AboutIconService | Class that implements the org.alljoyn.Icon interface. |
+| PropertyStore | Interface that supplies the list of properties required for Announce signal payload and GetAboutData(). |
 
-### Classes/Interfaces used to receive About feature announcements and data
+### Classes used to receive AboutData
 
-| Class/Interface | Description |
+| Client class | Description |
 |---|---|
-| AJNAboutListener | Interface implemented by AllJoyn&trade; users to receive About interface related events |
-| AJNAboutProxy | Get proxy access to the `org.alljoyn.About` interface. This class enables the user to interact with the remote About `BusObject`|
-| AJNIconProxy | Helper class that provides access to the org.alljoyn.Icon interface. This class enables the user to interact with the remote AboutIcon `BusObject`. |
+| AboutClient | Helper class for discovering About Service that provides access to the Announcements and to the AboutService. It listens for Announcements sent using the org.alljoyn.About interface. |
+| AboutIconClient | Helper class that provides access to the AboutIconService. |
 
 ## Obtain the About feature
 
-See the [Building iOS/OS X section][building-ios] for instructions on compiling the About feature.
+See the [Building iOS/OS X section][building-ios] for 
+instructions on compiling the About feature.
 
 ## Build an application that uses About Service
 
-The following is the high-level process to build an application that will broadcast an Announce signal. Steps marked with a \* are unique to applications using the About feature
+The following steps provide the high-level process to build an 
+application that will broadcast AboutData.
 
-1. Use the code generator to produce the Objective-C boiler plate code
-2. Mark an interface as announced
-3. Implement an `AJNAboutDataListener` \* (See [Create a PropertyStore Implementation][create-propertystore-implementation].)
-4. Create and register the `BusObject`
-5. Create and setup a new AJNBusAttachment
-    - Start
-    - Connect
-    - Bind
-6. Create About object 
-7. Add an AboutIcon object (optional) 
-8. Announce \*
+1. Create the base for the AllJoyn&trade; application.
+2. Implement PropertyStore to produce an AboutData. (See 
+[Create a PropertyStore Implementation][create-propertystore-implementation].)
+3. Instantiate a PropertyStore.
+4. Create and register the AboutService, providing it with 
+the PropertyStore.
+5. Announce the AboutService.
 
 ## Build an application that uses About Client
 
 The following steps provide the high-level process to build an 
-application that will receive an `org.alljoyn.About.Announce` signal. Steps marked with a \* are unique to applications using the About feature
+application that will receive AboutData.
 
-1. Create a new BusAttachment
-    - Start
-    - Connect
-2. Implement an `AJNAboutListener` \*
-3. Register the `AJNAboutListener` \*
-4. Call `AJNBusAttachment::WhoImplements` member function to specify interfaces your application is interested in.\*
+1. Create the base for the AllJoyn application.
+2. Create and register an AnnouncementReceiver providing 
+it with the AnnounceListener.
+3. Create and use the AboutClient.
 
-## Sample code for sending an `Announce` signal
+## Setting Up the AllJoyn Framework
 
-Code in this chapter references a variable `clientBusAttachment` (the BusAttachment variable name).
-
-### Generate Objective-C boiler plate code
-
-Follow the steps mentioned in [building-ios-osx document link] to specify an interface definition and generate the wrapper Objective-C code for your bus object
-
-Typically, a `shouldAcceptSessionJoinerNamed:onSessionPort 
-withSessionOptions:` callback in `SessionPortListener` has a 
-check to allow or disallow access. Since the AboutService 
-requires access to any application using AboutClient with a 
-specific port, return true when this callback is triggered.
-
-```objc
-self.aboutSessionPortListener = [[CommonBusListener alloc]
-initWithServicePort:1000];
-
-self.serviceBusAttachment registerBusListener:self.aboutSessionPortListener];
-```
-
-### Mark an interface as announced
-
-There are two ways to mark an interface as announced
-- Add the flag `ANNOUNCED` to the generated code for the bus object
-- Use AJNBusAttachment::SetAnnouceFlag
-
-[code snippet for both]
-
-### Implement an AJNAboutDataListener and provide the values for About interface fields
-
-When a user wants to send an About announcement they would need to provide the implementation of two virutal functions that are a part of the AJNAboutDataListener. The intent is to fill in the about or announce data in form of a dictionary which is announced
-
-The AJNAboutDataListener interface is required by the About service application to store the provisioned values for the About interface data fields (listed in [About interface data fields][about-interface-data-fields]).
-See the [About Interface Definition][about-interface-definition]
-for more information.
-
-NOTE: It is recommended that OEMs create a shared provisioning file that includes the DefaultLanguage, DeviceName, and 
-DeviceID fields. This file can be used by developers to manage these fields in the AllJoyn services that make use of them.
-
-AJNAboutDataListener is a protocol in AllJoyn Objective-C bindings which means that it will has functions which need to be implemented by the class which implements the protocol
-
-The interface declaration would look like:
-
-```objc
-@interface MySampleClass <AJNAboutDataListener>
-```
-The two functions in AJNAboutDataListener that need to be implemented in accordance with [About interface data fields][about-interface-data-fields] are
-
-```objc
--(QStatus)getAboutDataForLanguage:(NSString *)language usingDictionary:(NSMutableDictionary **)aboutData
-{
-    .
-    .
-    .
-    *aboutData = [[NSMutableDictionary alloc] initWithCapacity:16];
-    AJNMessageArgument *appID = [[AJNMessageArgument alloc] init];
-    uint8_t originalAppId[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-    [appID setValue:@"ay", sizeof(originalAppId) / sizeof(originalAppId[0]), originalAppId];
-    [appID stabilize];
-    [*aboutData setValue:appID forKey:@"AppId"];
-
-    AJNMessageArgument *defaultLang = [[AJNMessageArgument alloc] init];
-    [defaultLang setValue:@"s", "en"];
-    [defaultLang stabilize];
-    [*aboutData setValue:defaultLang forKey:@"DefaultLanguage"];
-	.
-    .
-    .
-}
-
--(QStatus)getDefaultAnnounceData:(NSMutableDictionary **)aboutData
-{
-    .
-    .
-    .
-     *aboutData = [[NSMutableDictionary alloc] initWithCapacity:16];
-    gDefaultAboutData = [[NSMutableDictionary alloc] initWithCapacity:16];
-
-    AJNMessageArgument *appID = [[AJNMessageArgument alloc] init];
-    uint8_t originalAppId[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-    [appID setValue:@"ay", sizeof(originalAppId) / sizeof(originalAppId[0]), originalAppId];
-    [appID stabilize];
-    [*aboutData setValue:appID forKey:@"AppId"];
-
-    AJNMessageArgument *defaultLang = [[AJNMessageArgument alloc] init];
-    [defaultLang setValue:@"s", "en"];
-    [defaultLang stabilize];
-    [*aboutData setValue:defaultLang forKey:@"DefaultLanguage"];
-    .
-    .
-    .
-}
-```
-
-#### About interface data fields
-
-| Field name | Required | Announced | Localized | Signature |
-|:---:|:---:|:---:|:---:|:---:|
-| AppId | yes | yes | no | ay |
-| DefaultLanguage | yes | yes | no | s |
-| DeviceName | no | yes | yes | s |
-| DeviceId | yes | yes | no | s |
-| AppName | yes | yes | yes | s |
-| Manufacturer | yes | yes | s |
-| ModelNumber | yes | yes | yes | s |
-| SupportedLanguages | yes | no | no | as |
-| Description | yes | no | yes | s |
-| DateofManufacture | no | no | no | s |
-| SoftwareVersion | yes | no | no | s |
-| AJSoftwareVersion | yes | no | no | s |
-| HardwareVersion | no | no | no | s |
-| SupportUrl | no | no | no | s |
-
-
-[code snippet showing how to fill in aboutdatalistener]
-
-
-
-
-### Create and setup a new AJNBusAttachment
-
-Every AllJoyn application requires a base set to be in place before implementing specific features that include creating a BusAttachment and connecting to the AllJoyn framework.
+Every AllJoyn application requires a base set to be in place 
+before implementing specific features that include creating a 
+BusAttachment and connecting to the AllJoyn framework.
 
 ### Create instance of BusAttachment
 
@@ -196,18 +72,57 @@ the router requires a password.
 [AJNPasswordManager setCredentialsForAuthMechanism:@"ALLJOYN_PIN_KEYX" usingPassword:@"000000"];
 ```
 
-### Start Connect and Bind
+### Start and connect the BusAttachment
 
 Once created, the BusAttachment must be connected to the AllJoyn framework.
-
-[code for starting a bus attachment]
 
 ```objc
 [self.clientBusAttachment connectWithArguments:@""];
 ```
 
-NOTE: This step is not mandatory if you are only sending an announcement. To allow incoming connections, the formation 
-of a session is needed. The AllJoyn framework must be told that connections are allowed.
+### Advertise the router
+
+The application should advertise the router so that the thin 
+library can find it and connect to it.
+
+```objc
+[self.clientBusAttachment requestWellKnownName:@"quiet@org.alljoyn.BusNode.AboutService withFlags:kAJNBusNameFlagDoNotQueue];
+
+[clientBusAttachment advertiseName:@"quiet@org.alljoyn.BusNode.AboutService.542e8562-e29b-89c2-b456-
+334455667788"]
+```
+
+## Implementing an Application that Uses AboutService
+
+Implementing an About Service requires creating and registering 
+an instance of the AboutService class.
+
+NOTE: Verify the BusAttachment has been created, started and 
+connected before implementing the AboutService. See [Setting Up the AllJoyn Framework][set-up-alljoyn-framework] 
+for the code snippets. Code in this chapter references a 
+variable `clientBusAttachment` (the BusAttachment variable name).
+
+### Declare listener class
+
+Typically, a `shouldAcceptSessionJoinerNamed:onSessionPort 
+withSessionOptions:` callback in `SessionPortListener` has a 
+check to allow or disallow access. Since the AboutService 
+requires access to any application using AboutClient with a 
+specific port, return true when this callback is triggered.
+
+```objc
+self.aboutSessionPortListener = [[CommonBusListener alloc]
+initWithServicePort:1000];
+
+self.serviceBusAttachment registerBusListener:self.aboutSessionPortListener];
+```
+
+### Bind session port
+
+NOTE: This step is not mandatory if you are only sending an 
+announcement. To allow incoming connections, the formation 
+of a session is needed. The AllJoyn framework must be told 
+that connections are allowed.
 
 ```objc
 AJNSessionOptions *opt = [[AJNSessionOptions alloc] 
@@ -220,6 +135,159 @@ serviceStatus = [self.serviceBusAttachment
    withDelegate:self.aboutSessionPortListener];
 ```
 
+### Create a PropertyStore implementation
+
+The PropertyStore interface is required by the AboutService 
+to store the provisioned values for the About interface data 
+fields (listed in [About interface data fields][about-interface-data-fields]). 
+See the [About Interface Definition][about-interface-definition] 
+for more information.
+
+NOTE: It is recommended that OEMs create a shared provisioning 
+file that includes the DefaultLanguage, DeviceName, and 
+DeviceID fields. This file can be used by developers to manage 
+these fields in the AllJoyn services that make use of them.
+
+#### About interface data fields
+
+| Field name | Required | Announced | Signature | 
+|---|---|---|---|
+| AppId | yes | yes | ay |
+| DefaultLanguage | yes | yes | s |
+| DeviceName | yes | yes |  |
+| DeviceId | yes | yes | s |
+| AppName | yes | yes | s |
+| Manufacturer | yes | yes | s |
+| ModelNumber | yes | yes | s |
+| SupportedLanguages | yes | no | as |
+| Description | yes | no | s |
+| DateofManufacture | no | no | s |
+| SoftwareVersion | yes | no | s |
+| AJSoftwareVersion | yes | no | s |
+| HardwareVersion | no | no | s |
+| SupportUrl | no | no | s |
+
+### Sample PropertyStore implementation
+
+An example PropertyStore implementation is provided below 
+that specifies the following dictionary of metadata fields:
+
+* Keys are the field names.
+* Values are a Map of String to Object entries, where the 
+String is the language tag associated with the Object value.
+
+```objc
+- (QStatus)fillAboutPropertyStoreImplData
+{
+   QStatus status;
+
+   // AppId
+   status = [self.aboutPropertyStoreImpl setAppId:self.uniqueID];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   // AppName
+   status = [self.aboutPropertyStoreImpl setAppName:@"AboutConfig"];
+   if (status != ER_OK) {
+   return status;
+   }
+
+   // DeviceId
+   status = [self.aboutPropertyStoreImpl setDeviceId:@"123375477"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   // DeviceName
+   status = [self.aboutPropertyStoreImpl setDeviceName:@"Screen"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   // SupportedLangs
+   NSArray *languages = @[@"en", @"sp", @"fr"];
+   status = [self.aboutPropertyStoreImpl setSupportedLangs:languages];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	DefaultLang
+   status = [self.aboutPropertyStoreImpl setDefaultLang:@"en"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	ModelNumber
+   status = [self.aboutPropertyStoreImpl setModelNumber:@"Wxfy388i"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	DateOfManufacture
+   status = [self.aboutPropertyStoreImpl setDateOfManufacture:@"10/1/2199"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	SoftwareVersion
+   status = [self.aboutPropertyStoreImpl setSoftwareVersion:@"12.20.44"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	AjSoftwareVersion
+   status = [self.aboutPropertyStoreImpl setAjSoftwareVersion:[AJNVersion versionInformation]];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	HardwareVersion
+   status = [self.aboutPropertyStoreImpl setHardwareVersion:@"355.499. b"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	Description
+   status = [self.aboutPropertyStoreImpl setDescription:@"This is an AllJoyn Application" 
+      language:@"en"];
+   if (status != ER_OK) {
+      return status;
+   }
+   status = [self.aboutPropertyStoreImpl setDescription:@"Esta es una AllJoyn
+
+   aplicación" language:@"sp"];
+   if (status != ER_OK) {
+      return status;
+   }
+   status = [self.aboutPropertyStoreImpl setDescription:@"C'est une AllJoyn application" 
+      language:@"fr"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	Manufacturer
+   status = [self.aboutPropertyStoreImpl setManufacturer:@"Company" language:@"en"];
+   if (status != ER_OK) {
+      return status;
+   }
+   status = [self.aboutPropertyStoreImpl setManufacturer:@"Empresa" language:@"sp"];
+   if (status != ER_OK) {
+      return status;
+   }
+   status = [self.aboutPropertyStoreImpl setManufacturer:@"Entreprise" language:@"fr"];
+   if (status != ER_OK) {
+      return status;
+   }
+
+   //	SupportedUrl
+   status = [self.aboutPropertyStoreImpl setSupportUrl:@"http://www.allseenalliance.org"];
+   if (status != ER_OK) {
+      return status;
+   }
+      return status;
+   }
+```
 
 ### Provision PropertyStore with default values
 
@@ -280,7 +348,7 @@ field name being replaced by other field names listed in [About data interface f
 [self.aboutPropertyStoreImpl setDescription:@"C'est une AllJoyn application" language:@"fr"];
 ``` 
 
-### Create an instance About Object
+### Create the AboutService object
 
 For an application to send AboutData, it requires an instance 
 of the AboutService class. AboutServiceImpl is an implementation 
@@ -291,9 +359,22 @@ between About Service and About Client.
 AboutService aboutService = AboutServiceImpl.getInstance();
 ```
 
-### Add an AboutIcon Object (optional)
+### Start Service mode
 
+Register the relevant BusObjects and add the relevant interfaces 
+to the Announcement's ObjectDescription.
 
+```objc
+[self.aboutServiceApi startWithBus:self.serviceBusAttachment 
+   andPropertyStore:self.aboutPropertyStoreImpl];
+```
+
+### Add an AboutIconService (optional)
+
+An application that sends AboutData can be extended to broadcast 
+a device. AboutServiceImpl is also an implementation wrapper 
+around AllJoyn native calls that handle the interactions 
+between applications that use the AboutIconClient class.
 
 #### Provision for the Icon content and URL
 
@@ -341,6 +422,13 @@ self.aboutIconService = [[AJNAboutIconService alloc] initWithBus:self.serviceBus
    mimeType:mimeType url:url content:aboutIconContent csize:csize];
 
 [self.aboutIconService registerAboutIconService];
+```
+
+### Advertise to allow connections
+
+```objc
+[self.serviceBusAttachment advertiseName:([self.serviceBusAttachment uniqueName])
+withTransportMask:(kAJNTransportMaskAny)];
 ```
 
 ### Send the Announcement

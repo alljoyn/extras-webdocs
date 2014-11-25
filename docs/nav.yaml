@@ -322,6 +322,9 @@
             - name: Linux Legacy
               path: /develop/api-guide/about/linux-legacy
               contents:
+            - name: iOS Legacy
+              path: /develop/api-guide/about/ios-legacy
+              contents:
         - name: Onboarding
           path: /develop/api-guide/onboarding
           contents:

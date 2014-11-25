@@ -152,9 +152,12 @@ function check(root, start) {
 			}
 		};
 
+		if(! fs.existsSync("."+start)) {
+			console.error("Root " + start + " does not exists");
+		}
 		visit(start, "<initialization>");
 	});
 }
 
 
-check('out/public', '/develop/index')
+check('out/public', '/developers/')

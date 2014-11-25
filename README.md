@@ -17,7 +17,8 @@ Organization
 How to run scripts
 ------------------
 
-node.js is required.  Install from from an [installer][] or from a [package manager][].
+`node.js` and `npm` is required.  Install from from an [installer][] or 
+from a [package manager][].
 
 [installer]: http://nodejs.org/download/
 [package manager]: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
@@ -30,12 +31,15 @@ Install node modules:
 
 Runs this to generate the HTML files in `out/public/`:
 
-    node scripts/generate_html.js
+    node scripts/generate_docs.js
+
+Note that the `node` program may be called `nodejs` on some 
+platforms, like Linux.
 
 Or, run in watch mode to wait (forever) for changes in docs/files to generate the HTML files.
 
-    node scripts/generate_html.js watch
-    
+    node scripts/generate_docs.js watch
+
 Run this once to start a server to host HTML fiels in `out/public/`:
 
     node scripts/server.js

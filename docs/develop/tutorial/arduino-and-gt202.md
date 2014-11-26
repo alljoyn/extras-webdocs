@@ -44,9 +44,9 @@ Figure: GT202 kit pinout
 | ARM GNU Tool Chain | 4.8 2013q4 | Download the [installer](https://launchpad.net/gcc-arm-embedded/4.8/4.8-2013-q4-major/%2Bdownload/gcc-arm-none-eabi-4_8-2013q4-20131204-win32.exe) and execute. |
 | | | Windows will install the ARM GNU Tool Chain in (C:\Program Files (x86)\GNU Tools ARM Embedded\4.8 2013q4\bin) which may be used for an environmental variable. |
 | FreeRTOS | 7.6.0 | 1.	Download the [ZIP file](https://sourceforge.net/projects/freertos/files/FreeRTOS/V7.6.0/) and unzip to the local drive. |
-| | | 2. Note the path where the [ZIP file](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) is extracted as it may be used in an environmental variable. |
-| Atmel Software Framework | 3.15 | 1. Download the ZIP file and unzip to local drive. |
-| | | 2. Note the path where the ZIP file is extracted as it may be used in an environmental variable. |
+| | | 2. Note the path where the FreeRTOS ZIP file is extracted as it may be used in an environment variable. |
+| Atmel Software Framework | 3.15 | 1. Download the [ZIP file](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and unzip to local drive. |
+| | | 2. Note the path where the framework ZIP file is extracted as it may be used in an environment variable. |
 | | | This requires providing contact information to receive a link to the software. |
 | J-Link software | 4.8.4a | Download the [software and documentation](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and install. |
 | | | You must enter the serial number of the j-link device to complete the download. |
@@ -71,37 +71,25 @@ Figure: GT202 kit pinout
 
 | Tool | Minimum version requirement | Installer/Notes |
 |---|---|---|
-| ARM GNU Tool Chain | 4.8 2013q4 | 1. Open terminal and input "sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded". |
+| ARM GNU Tool Chain | 4.8 2013q4 | 1. Open terminal and input `sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded` |
 | | | 2. Press **Enter** to continue when prompted. |
-| | | 3. Input "sudo apt-get update". |
-| | | 4. Input "sudo apt-get install gcc-arm-none-eabi". |
+| | | 3. Input `sudo apt-get update` |
+| | | 4. Input `sudo apt-get install gcc-arm-none-eabi` |
 | FreeRTOS | 7.6.0 | 1. Download the [ZIP file](https://sourceforge.net/projects/freertos/files/FreeRTOS/V7.6.0/) and unzip to the local drive. |
-| | 2. Note the path where the ZIP file is extracted as it may be used in an environmental variable. |
+| | | 2. Note the path where the ZIP file is extracted as it may be used in an environment variable. |
 | Atmel Software Framework | 3.15 | 1. Download the [ZIP file](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and unzip to the local drive. |
-| | | 2. Note the path where the ZIP file is extracted as it may be used in an environmental variable. |
+| | | 2. Note the path where the ZIP file is extracted as it may be used in an environment variable. |
 | | | This requires providing contact information to receive a link to the software. |
 | J-Link software | 4.84a | Download the [software and documentation](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and install DEB, RPM or TGZ format. |
 | | | You must enter the serial number of the j-link device to complete the download. |
-| Eclipse IDE | Release 2 | 1.  Download the [appropriate Windows version](http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplersr1). |
+| Eclipse IDE | Release 2 | 1.  Download the [appropriate Linux version](http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplersr1). |
 | | | 2. Uncompress the file folder to the local drive. |
 | | | If JRE (Java Runtime Environment) or JDK (Java Development Kit) has previously been installed, skip installing JRE (noted below). |
-| Java Runtime Environment (required for Eclipse) | | Open terminal and input "sudo apt-get install openjdk-7-jre". |
+| Java Runtime Environment (required for Eclipse) | | Open terminal and input `sudo apt-get install openjdk-7-jre` |
 | Atmel Studio IDE | 6.1 | Download [installer (full)](http://www.atmel.com/tools/atmelstudio.aspx) and install. |
 | | | **NOTE:** The installation may require the PC to restart. |
-| Python | 2.7.3 | 1. Open terminal and input "sudo apt-get install build-essential". |
-| | | 2. "sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev". |
-| | | 3. Download using the following command:
-| | | `"cd ~/Downloads/"` |
-| | | `"wget http://python.org/ftp/ python/2.7.3/Python-2.7.3.tgz"` |
-| | | 4. Extract and go to the directory: |
-| | | `"tar -xvf Python-2.7.3.tgz"` |
-| | | `"cd Python-2.7.3"` |
-| | | 5. Install using the command: |
-| | | `"./configure" |
-| | | `"make"` |
-| | | `"sudo make altinstall"` |
-| SCons	| 2.3.0 | Open terminal and input "sudo apt-get install scons". |
- 
+| SCons	| 2.3.0 | Open terminal and input `sudo apt-get install scons` |
+
 ## Configuring the Project Environment
 
 ### Get TCL for Arduino Due

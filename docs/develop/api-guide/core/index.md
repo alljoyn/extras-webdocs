@@ -6,6 +6,7 @@ No general API guide exists at this moment. Below are some links that will get y
 
 * [Android][core-android]
 * [iOS][core-ios]
+* [AllJoyn Transports Best Practices][best-practices]
 
 ## API Guides for Specific Features
 
@@ -14,3 +15,4 @@ No general API guide exists at this moment. Below are some links that will get y
 [core-android]: /develop/api-guide/core/android
 [core-ios]: /develop/api-guide/core/ios
 [core-autoping]: /develop/api-guide/core/auto-ping
+[best-practices]: /develop/api-guide/core/alljoyn-transports-best-practices

@@ -292,8 +292,12 @@
             - name: iOS
               path: /develop/api-guide/core/ios
               contents:
+            - name: Alljoyn Transports Best Practices
+              path: /develop/api-guide/core/alljoyn-transports-best-practices
+              contents:
             - name: Auto-Ping
               path: /develop/api-guide/core/auto-ping
+              contents:
         - name: About
           path: /develop/api-guide/about
           contents:

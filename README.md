@@ -38,12 +38,16 @@ platforms, like Linux.
 
 Or, run in watch mode to wait (forever) for changes in docs/files to generate the HTML files.
 
-    node scripts/generate_docs.js watch
+    scripts/generate_html.js watch
 
-Run this once to start a server to host HTML fiels in `out/public/`:
+Run this to check the generated file for orphan documents and orphan links:
 
-    node scripts/server.js
-    
+    scripts/linkchecker.js
+
+Run this once to start a server to host HTML field in `out/public/`:
+
+    scripts/server.js
+
 Optionally, you can specify a port:
 
     node scripts/server.js 8080

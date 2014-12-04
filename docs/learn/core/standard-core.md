@@ -103,9 +103,11 @@ Android 2.3 (Gingerbread) and later smartphones and tablets. The
 AllJoyn framework code also runs and is tested and validated on 
 commonly available versions of the Microsoft Windows operating 
 system including Windows XP, Windows 7, Windows RT, and Windows 8. 
-Additionally, the AllJoyn framework code runs on Apple operating 
-systems iOS and OS X, on embedded operating systems such as OpenWRT, 
-and works with the Unity game development ecosystem.
+Windows 10 offers native support for AllJoyn including a stand-alone
+router node NT service. Additionally, the AllJoyn framework code 
+runs on Apple operating systems iOS and OS X, on embedded operating 
+systems such as OpenWRT, and works with the Unity game development 
+ecosystem.
 
 ### Language independence
 

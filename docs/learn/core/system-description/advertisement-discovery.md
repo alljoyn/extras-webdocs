@@ -249,10 +249,7 @@ Figure: Name service message structure
 | MVer | Version of Name Service message. |
 | QCount | Number of WHO-HAS question messages that follow the header. |
 | ACount | Number of IS-AT answer messages that follow the header. |
-| Timer | Count (in seconds) for which included IS-AT answer should be considered valid. |
-| | This field should be set based on the following: |
-| | * Adv_Validity_Period for a well-known name advertisement that is valid for a default period of time. |
-| | * Adv_Infinite_Validity_Value for a well-known name advertisement that is valid "forever", or at least until withdrawn. A zero in this field means that the sending AllJoyn router is withdrawing the advertisements. |
+| Timer | <p>Count (in seconds) for which included IS-AT answer should be considered valid.</p><p>This field should be set based on the following:</p><ul><li>Adv_Validity_Period for a well-known name advertisement that is valid for a default period of time.</li></ul><ul><li>Adv_Infinite_Validity_Value for a well-known name advertisement that is valid "forever", or at least until withdrawn. A zero in this field means that the sending AllJoyn router is withdrawing the advertisements.</li></ul> |
 
 ##### IS-AT message
 
@@ -366,7 +363,7 @@ application controls which objects get announced in the Announcement message.
 
 The Announcement message also contains additional About fields 
 describing information about the application and the device. 
-See the [About HLD] for Announcement message details.
+See the About HLD for Announcement message details.
 
 ### Legacy AllJoyn discovery configuration parameters
 
@@ -584,16 +581,15 @@ is that discovery and presence are driven by the consumer application.
 
 | Discovery scenario | API |
 |---|---|
-| Consumer application Name query | FindAdvertisedName() |
-| Consumer application gets notified about discovery or loss of an advertised name | * FoundAdvertisedName() |
-| | * LostAdvertisedName() |
-| Consumer application cancelling the Name query | CancelFindAdvertisedName() |
-| Provider application advertising a name | AdvertiseName() |
-| Providing application canceling advertising a name | CancelAdvertiseName() | 
-| Provider application sending an Announcement message | Announce() | 
-| Consumer application queries for set of AllJoyn interfaces | RegisterAnnounceHandler() |
-| Consumer application cancels a query for set of AllJoyn interfaces | UnregisterAnnounceHandler() |
-| Consumer application queries for presence | Ping() |
+| Consumer application Name query | `FindAdvertisedName()` |
+| Consumer application gets notified about discovery or loss of an advertised name | <ul><li>`FoundAdvertisedName()`</li><li>`LostAdvertisedName()`</li></ul> |
+| Consumer application cancelling the Name query | `CancelFindAdvertisedName()` |
+| Provider application advertising a name | `AdvertiseName()` |
+| Providing application canceling advertising a name | `CancelAdvertiseName()` | 
+| Provider application sending an Announcement message | `Announce()` | 
+| Consumer application queries for set of AllJoyn interfaces | `RegisterAnnounceHandler()` |
+| Consumer application cancels a query for set of AllJoyn interfaces | `UnregisterAnnounceHandler()` |
+| Consumer application queries for presence | `Ping()` |
 
 ###### Discovery APIs that trigger DNS-SD multicast messages
 
@@ -843,8 +839,10 @@ release. A consumer application can initiate the presence
 of a name that was previously discovered using the newly 
 introduced Ping API. 
 
-* If the discovered name is connected to a 14.06 AllJoyn router, the presence message sequence is initiated. 
-* If the discovered name is connected to a 14.02 AllJoyn router, the API invocation returns an error.
+* If the discovered name is connected to a 14.06 AllJoyn router, 
+the presence message sequence is initiated. 
+* If the discovered name is connected to a 14.02 AllJoyn router, 
+the API invocation returns an error.
 
 The main steps for the message sequence are described below.
 1. The consumer application initiates a presence check for 
@@ -892,63 +890,34 @@ records types that can be present in the query or response messages:
 ##### DNS-SD query: question format
 
 | Name | Type | Record-specific data |
-|---|---|---|
-| * alljoyn._udp.local. | PTR | The service name is alljoyn as allocated through IANA. |
-|&nbsp; |&nbsp; | In the 14.06 release, the protocol used in the service description is TCP. When UDP transport is supported in future, the protocol for service name will be UDP. |
-|&nbsp; |&nbsp; | The discovery scope is the local network. |
-| * alljoyn._tcp.local. |&nbsp; |&nbsp; | 
+|---|:---:|---|
+| <ul><li>alljoyn._udp.local.</li><li>alljoyn._tcp.local.</li></ul> | PTR | <p>The service name is alljoyn as allocated through IANA.</p><p>In the 14.06 release, the protocol used in the service description is TCP. When UDP transport is supported in future, the protocol for service name will be UDP.</p><p>The discovery scope is the local network.</p> |
 
 ##### DNS-SD query: Additional section
 
 | Name | Type | Record-specific data |
-|---|---|---|
-| search.<guid>.local. | TXT | Captures the well-known names or interfaces that are being searched. The key notation is as follows: |
-| | | * txtvrs=0; this represents version of the TXT record. |
-| | | * n_1, n_2, etc., if multiple well-known names are present, they are logically ANDed; n_# is the key for well-known names. |
-| | | * i_1, i_2, etc., if multiple interface names are being queried. If multiple interface names are present, they are logically ANDed; i_# is the key for interface names. |
-| | | * Since the APIs for name-based and interface-based query are different, the search record has either name keys or interface keys. |
-| | | If the consumer application intends to perform logical OR operation for interface names, it must call the discovery API with interface name multiple times. |
-| | | Example: |
-| | | i_1 = org.alljoyn.About |
-| sender-info.<guid>.local. | TXT | Captures additional data regarding the sender of the message. The following keys are sent: |
-| | | * txtvrs=0; represents the version of the TXT record. |
-| | | * pv (protocol version):  represents the discovery protocol version. |
-| | | * IPv4 and UDPv4 address: represents the IPv4 address and UDP port. | 
-| | | * bid (burst identifier): represents the burst identifier. | 
-| ping.<guid>.local. | TXT | Captures the names that are being pinged by the consumer application. The key notation is as follows: |
-| | | * txtvrs=0; represents version of the TXT record. |
-| | | * n= the well-known name or the unique name. |
-| | | Only one key can be present in the ping record.
+|---|:---:|---|
+| search.<guid>.local. | TXT | <p>Captures the well-known names or interfaces that are being searched. The key notation is as follows:</p><ul><li>txtvrs=0; this represents version of the TXT record.</li><li>n_1, n_2, etc., if multiple well-known names are present, they are logically ANDed; n_# is the key for well-known names.</li><li>i_1, i_2, etc., if multiple interface names are being queried. If multiple interface names are present, they are logically ANDed; i_# is the key for interface names.</li><li>Since the APIs for name-based and interface-based query are different, the search record has either name keys or interface keys.</li></ul><p>If the consumer application intends to perform logical OR operation for interface names, it must call the discovery API with interface name multiple times.</p><p>Example:  i_1 = org.alljoyn.About</p> |
+| sender-info.<guid>.local. | TXT | <p>Captures additional data regarding the sender of the message. The following keys are sent:</p><ul><li>txtvrs=0; represents the version of the TXT record.</li><li>pv (protocol version):  represents the discovery protocol version.</li><li>IPv4 and UDPv4 address: represents the IPv4 address and UDP port.</li><li>bid (burst identifier): represents the burst identifier.</li></ul> | 
+| ping.<guid>.local. | TXT | <p>Captures the names that are being pinged by the consumer application. The key notation is as follows:</p><ul><li>txtvrs=0; represents version of the TXT record.</li><li>n= the well-known name or the unique name.</li></ul><p>Only one key can be present in the ping record.</p>
 
 #### DNS-SD response
 
 ##### DNS-SD response message: Answer section
 
 | Name | Type | Record-specific data |
-|---|---|---|
+|---|:---:|---|
 | _alljoyn._tcp.local. | PTR | <guid>._alljoyn._tcp.local. |
-| <guid>._alljoyn._tcp.local. | TXT | txtvrs=0 |
-| | | Except for text record version, there is no additional record. |
-| <guid>._alljoyn._tcp.local. | SRV | port, <guid>.local |
-| | | port represents TCP port number used for the router-router connection. |
+| <guid>._alljoyn._tcp.local. | TXT | <p>txtvrs=0</p><p>Except for text record version, there is no additional record.</p> |
+| <guid>._alljoyn._tcp.local. | SRV | <p>port, <guid>.local</p><p>port represents TCP port number used for the router-router connection.</p> |
 
 ##### DNS-SD response message: Additional section
 
 | Name | Type | Record-specific data |
-|---|---|---|
-| advertise.<guid>.local. | TXT | Captures the well-known names that the provider application is advertising.The key notation is as follows: |
-| | | n_1, n_2, etc., if multiple well-known names are being advertised; n_# is the key for well-known names. |
-| | | For interface query response, the sessionless signal well-known name that is advertised is as follows: |
-| | | n_1=org.alljoyn.About.sl.y<guid>.x<latest change_id> |
-| sender-info.<guid>.local. | TXT | Captures additional data regarding the sender of the message. The following keys are sent: |
-| | | * txtvrs=0; represents version of the TXT record. |
-| | | * pv (protocol version):  represents the discovery protocol version. |
-| | | * IPv4 and UDPv4 address: represents the IPv4 address and UDP port. |
-| | | * bid (burst identifier): represents the burst identifier. |
-| Ping-reply.<guid>.local. | TXT | Captures the names that are being pinged by the consumer application. The key notation is as follows: |
-| | | * txtvrs=0; represents version of the TXT record. |
-| | | * n= well-known name or unique name. |
-| | | * replycode = reply code as returned by the router. |
+|---|:---:|---|
+| advertise.<guid>.local. | TXT | <p>Captures the well-known names that the provider application is advertising.The key notation is as follows:</p><p>n_1, n_2, etc., if multiple well-known names are being advertised; n_# is the key for well-known names.</p><p>For interface query response, the sessionless signal well-known name that is advertised is as follows:</p><p>n_1=org.alljoyn.About.sl.y<guid>.x<latest change_id></p> |
+| sender-info.<guid>.local. | TXT | <p>Captures additional data regarding the sender of the message. The following keys are sent:</p><ul><li>txtvrs=0; represents version of the TXT record.</li><li>pv (protocol version):  represents the discovery protocol version.</li><li>IPv4 and UDPv4 address: represents the IPv4 address and UDP port.</li><li>bid (burst identifier): represents the burst identifier.</li></ul> |
+| Ping-reply.<guid>.local. | TXT | <p>Captures the names that are being pinged by the consumer application. The key notation is as follows:</p><ul><li>txtvrs=0; represents version of the TXT record.</li><li>n= well-known name or unique name.</li><li>replycode = reply code as returned by the router.</li></ul> |
 | <guid>.local | A | This resource record sends IPv4 address. It is present in response messages for discovery. |
 
 #### NGNS configuration parameters
@@ -976,9 +945,7 @@ summarizes usage guidelines for the two AllJoyn discovery methods.
 
 | Name-based discovery usage | Announcement-based discovery usage |
 |---|---|
-| * App-to-app discovery | AllJoyn service interfaces discovery on the AllJoyn network. |
-| * Sessionless signals | |
-| * AllJoyn router discovery for thin apps | |
+| <ul><li>App-to-app discovery</li><li>Sessionless signals</li><li>AllJoyn router discovery for thin apps</li></ul> | AllJoyn service interfaces discovery on the AllJoyn network. |
 
 
 

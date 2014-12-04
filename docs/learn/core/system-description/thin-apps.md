@@ -96,7 +96,7 @@ Starting from the 14.06 release, the AJTCL supports a new set of
 Elliptic Curve Diffie-Hellman Ephemeral (ECDHE)-based auth mechanisms 
 as described in [App layer authentication][app-layer-authentication].
 
-## AJTCL to AllJoyn router connection
+## AJTCL-to-AllJoyn router connection
 
 Upon startup, the thin application initiates the process of 
 discovery and connection establishment with an AllJoyn router 
@@ -114,19 +114,18 @@ attached to the AllJoyn router, meant for discovery only by
 related thin applications. 
 
 The AllJoyn router advertises the BusNode well-known name quietly, 
-which means that these advertisement messages are not sent out 
-gratuitously by the AllJoyn router. The AllJoyn router only sends 
-out the BusNode well-known name advertisement in response to a 
-query from a thin app. Also, the advertisement message is sent 
-out quietly via unicast back to the requester (instead of being 
-sent over multicast). This logic is meant to minimize the network 
-traffic generated as a result of thin app related discovery.
+that is, the advertisement messages are not sent out 
+gratuitously by the AllJoyn router. Instead, the AllJoyn router 
+only sends out the BusNode well-known name advertisement in 
+response to a query from a thin app. Also, the advertisement 
+message is sent out quietly via unicast back to the requester 
+(instead of being sent over multicast). This logic is meant 
+to minimize the network traffic generated as a result of 
+thin app-related discovery of an AllJoyn router.
 
 The AllJoyn router supports only untrusted relationships with the 
 AJTCL, in which it allows a connection from any AJTCL via SASL 
-anonymous authentication. No real credential is exchanged between 
-the AJTCL and the AllJoyn router. This is fine because app-level 
-authentication is supported by thin app. 
+anonymous authentication.  
 
 The AllJoyn router limits the number of simultaneous connections 
 with thin applications in the AllJoyn network. This limit is 
@@ -136,32 +135,137 @@ names when the 'number of untrusted connections' limit is reached.
 It starts advertising BusNode names again when the current number 
 of thin app connections goes below the 'number of untrusted connections' limit.
 
-The following figure shows the message flow for the AJTCL 
-discovering and connecting with the AllJoyn router. 
-
-![thin-app-discovering-connecting-to-router][thin-app-discovering-connecting-to-router]
-
-Figure: Thin app discovering and connecting to the AllJoyn router
-
-The connection process is split into the following phases:
+The connection process between the AJTCL and the AllJoyn router
+is split into the following phases:
 
 * Discovery phase: The AJTCL discovers an AllJoyn router on 
 the AllJoyn proximal network via the BusNode name-based 
-discovery mechanism. The AJTCL sends out a WHO-HAS message 
-for the BusNode well-known name following a backoff schedule. 
-The IS-AT message is sent over unicast to the AJTCL by the 
-AllJoyn router advertising that BusNode name. 
+discovery mechanism. The overall discovery timeout is specified 
+by the thin app in the `FindBusAndConnect()` API call. 
+Starting from 14.12 release, the AJTCL supports mDNS-based 
+discovery along with legacy discovery for discovering AllJoyn 
+routers. Logic for this phase is captured below for pre-14.12 TCL
+and 14.12 TCL.
+  The AJTCL sends out a WHO-HAS message for the BusNode 
+  well-known name following a backoff schedule. The IS-AT 
+  message is sent over unicast to the AJTCL by the 
+  AllJoyn router advertising that BusNode name. 
 * Connection phase: The AJTCL establishes a TCP connection 
 with the AllJoyn router based on the connection details 
-received in the IS-AT message.
+received in the response message.
 * Authentication phase: SASL anonymous authentication is used 
-by the AJTCL to authenticate and start using services of the AllJoyn router. 
+by the AJTCL to authenticate and start using services of the 
+AllJoyn router. 
 
-The AJTCL also exchanges the AllJoyn protocol version with the 
-AllJoyn router. If the AllJoyn router supports an older AllJoyn 
-protocol version, the connection process fails. For the first-time 
-connecting with any AllJoyn router, this process also generates 
-a local GUID for the AJTCL and sends to the AllJoyn router.
+As part of the connection establishment, the AJTCL also exchanges 
+the AllJoyn protocol version (AJPV) with the AllJoyn router. 
+If the AllJoyn router supports a lower AllJoyn protocol version
+than the minimum AJPV the thin app requires, the connection 
+process fails. This failure or an authentication failure will
+result in the routing node being added to the blacklist, described
+in [AllJoyn router blacklisting][alljoyn-router-blacklisting]. 
+For the first-time connecting with any AllJoyn router, this 
+connection establishment process also generates a local GUID 
+for the AJTCL and sends it to the AllJoyn router.
+
+### Router discovery pre-4.12 release
+
+The following figure shows the message flow for the pre-14.12 
+release for the AJTCL discovering and connecting with the 
+AllJoyn router. 
+
+![ajtcl-router-discovery-connection-pre-1412][ajtcl-router-discovery-connection-pre-1412]
+
+Figure: AJTCL router discovery and connection (pre-14.12 release)
+
+The AJTCL sends out a WHO-HAS message for the BusNode well-known 
+name following the message schedule as described in 
+[WHO-HAS message schedule (pre-14.12 release)][who-has-message-schedule-pre-1412-release]. 
+The response IS-AT message is sent over unicast to the AJTCL 
+by the AllJoyn router advertising that BusNode name. Any 
+responses received from the AllJoyn routers on the blacklist 
+are ignored. 
+
+After router discovery, the rest of the AJTCL logic is same as 
+described above in [AJTCL-to-AllJoyn router connection][ajtcl-to-alljoyn-router-connection].
+
+#### WHO-HAS message schedule (pre-14.12 release)
+
+Prior to the 14.12 release, the AJTCL supports the following 
+retry schedule for sending WHO-HAS discovery messages:
+
+1. Send the WHO-HAS message once a second for 10 seconds.
+2. Wait 10 seconds, then send another WHO-HAS message.
+3. Wait 20 seconds, then send another WHO-HAS message.
+4. Wait 40 seconds, then send another; repeat until the overall discovery timeout expires.
+
+### Router discovery (14.12 release)
+
+The following figure shows the message flow for the 14.12 release 
+for the AJTCL discovering and connecting with the AllJoyn router. 
+
+![ajtcl-router-discovery-connection-1412][ajtcl-router-discovery-connection-1412]
+
+Figure: AJTCL router discovery and connection (14.12 release)
+
+The AJTCL supports both mDNS and legacy discovery mechanism. If the 
+AJTCL minimum AJPV is lower than "10", the AJTCL can connect 
+to routers prior to the 14.06 release. In this case, the TCL 
+generates and sends out both WHO-HAS and mDNS query messages 
+for the BusName prefix. The schedule for sending these messages 
+is described in [Discovery message schedule (14.12 release)][discovery-message-schedule-1412-release]. 
+
+The response message (either an mDNS response or IS-AT message) 
+is sent over unicast to the AJTCL by the AllJoyn router advertising 
+that BusNode name. The mDNS responses may include a key-value pair 
+(the key is 'ajpv') indicating the protocol version of the 
+transmitting AllJoyn router (this was added in 14.12 release). 
+The value of ajpv is used to ignore the response message if 
+the version is less than the minimum required by the thin app. 
+If both IS-AT and mDNS responses are received by AJTCL at the 
+same time, the mDNS response is processed first. Responses received 
+from the AllJoyn routers on the blacklist are ignored.
+
+After router discovery, rest of the AJTCL logic is same as 
+described above in [AJTCL-to-AllJoyn router connection][ajtcl-to-alljoyn-router-connection].
+
+#### Discovery message schedule (14.12 release)
+
+The AJTCL supports a retry schedule for sending discovery messages. 
+It will also selectively send WHO-HAS messages depending on the 
+minimum protocol version the thin app requests; if the minimum 
+version is less than 10 it will send both an mDNS query and a 
+WHO-HAS message. The retry schedule applies to both types of 
+discovery messages and is as follows:
+
+1. Send a burst of three discovery message(s) and pause 1.1 seconds. Repeat 10 times. 
+2. Wait 10.1 seconds, then send another burst of three messages.
+3. Wait 20.1 seconds, then send another burst of three messages.
+4. Wait 40.1 seconds, then send another burst of three messages. 
+Repeat until the overall discovery timeout expires.
+
+The addition of the 100 msec on the wait intervals ensures that 
+all possible 100ms slots are covered as quickly as possible. 
+This increases the likelihood of successful receipt of multicast 
+packets over Wi-Fi.
+
+### AllJoyn router blacklisting
+
+The AJTCL connects to the first AllJoyn router if finds that 
+appears to be compatible. In order to track routers with which 
+it is not compatible (as determined during connection establishment), 
+a blacklist has been implemented to avoid reconnecting to those 
+routers, that is, the blacklist ensures discovery responses 
+for routers on the blacklist are ignored.
+
+The explicit criteria for adding a router to the blacklist 
+is a connection failure either because authentication does 
+not complete successfully, or because the protocol version 
+of the router does not meet the minimum required by the thin app. 
+The default size of the blacklist is 16 entries; the addition of 
+a 17th router will over-write the first in the list (i.e., 
+the list is actually a circular buffer). The blacklist only 
+persists until the thin app is restarted.
 
 ### AJTCL and AllJoyn router compatibility
 
@@ -169,9 +273,10 @@ The following table captures the compatibility matrix between
 the AJTCL and AllJoyn router across the AllJoyn 14.02 and 14.06 
 releases. The AJTCL using the 14.06 release is only compatible 
 with a 14.02 AllJoyn router if the router does not require AJTCL 
-authentication. The thin app also has the min AJ Protocol version 
-set to 8 (same as the 14.02 AllJoyn router), implying that it 
-is not using the NGNS feature.  
+authentication. The AJTCL default minimum protocol version 
+in the 14.12 AJTCL is set to 11 (the version of the 14.12 
+AllJoyn router), but can be changed by the thin application 
+if it does not need to use the NGNS feature.
 
 #### AJTCL and AllJoyn router compatibility
 
@@ -181,25 +286,12 @@ is not using the NGNS feature.
 | **14.06 (thin app not using NGNS)** | Incompatible | Compatible | Compatible |
 | **14.06 (thin app using NGNS)** | Incompatible | Incompatible | Compatible |
 
-### WHO-HAS message schedule
-
-The AJTCL supports a retry schedule for sending WHO-HAS discovery 
-messages. The retry schedule follows a backoff schedule as follows:
-
-1. Send the WHO-HAS message once a second for 10 seconds.
-2. Wait 10 seconds, then send another WHO-HAS message.
-3. Wait 20 seconds, then send another WHO-HAS message.
-4. Wait 40 seconds, then send another; repeat until the overall discovery timeout expires.
-
-NOTE: The overall discovery timeout is specified by the thin 
-app in the FindBusAndConnect() API call.
-
-### Detecting link failures 
+### Detecting a router link failure
 
 The AJTCL provides a mechanism for the thin application to 
 implement a probing mechanism to detect connectivity failures 
 with the AllJoyn router. This can be achieved by invoking the 
-SetBusLinkTimeout() API provided by the AJTCL. The thin app 
+`SetBusLinkTimeout()` API provided by the AJTCL. The thin app 
 specifies a timeout value (with minimum timeout of 40 seconds) 
 as part of this API. If no link activity is detected during 
 this time period, the AJTCL sends probe packets every 5 seconds 
@@ -296,8 +388,13 @@ The following table shows the thin app compatibility matrix across the 14.02 and
 
 
 [app-layer-authentication]: #app-layer-authentication
+[ajtcl-to-alljoyn-router-connection]: #ajtcl-to-alljoyn-router-connection
+[who-has-message-schedule-pre-1412]: #who-has-message-schedule-pre-14-12-
+[discovery-message-schedule-1412-release]: #discovery-message-schedule-14-12-release-
+
 
 [thin-app-arch]: /files/learn/system-desc/thin-app-arch.png
 [thin-app-functional-arch]: /files/learn/system-desc/thin-app-functional-arch.png
-[thin-app-discovering-connecting-to-router]: /files/learn/system-desc/thin-app-discovering-connecting-to-router.png
 [thin-app-discovering-wkn-prefix]: /files/learn/system-desc/thin-app-discovering-wkn-prefix.png
+[ajtcl-router-discovery-connection-pre-1412]: /files/learn/system-desc/ajtcl-router-discovery-connection-pre-1412.png
+[ajtcl-router-discovery-connection-1412]: /files/learn/system-desc/ajtcl-router-discovery-connection-1412.png

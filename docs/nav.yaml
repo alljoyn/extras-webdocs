@@ -42,6 +42,9 @@
             - name: Advertisement and Discovery
               path: /learn/core/system-description/advertisement-discovery
               contents:
+            - name: AllJoyn Transport
+              path: /learn/core/system-description/alljoyn-transport
+              contents:
             - name: Data Exchange
               path: /learn/core/system-description/data-exchange
               contents:

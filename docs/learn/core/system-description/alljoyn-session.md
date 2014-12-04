@@ -154,10 +154,13 @@ AllJoyn discovery to find the desired well-known name.
 It sends a FoundAdvertiseName signal to the consumer app.
 9. The consumer app initiates joining the session with the 
 provider via the JoinSession API. This call specifies unique name 
-of session host, session port, desired session options, and a SessionListner.
+of session host, session port, desired session options, and a SessionListener.
 10. The consumer side AllJoyn router establishes a physical 
-channel with the provider side AllJoyn router (it sets up a 
-TCP connections between the two AllJoyn buses).
+channel with the provider side AllJoyn router (as applicable). For
+TCP Transport, this involves setting up a TCP connections 
+between the two AllJoyn routers. If a UDP Transport is used 
+between the two routers for session setup, no physical channel 
+needs to be established.
 11. Once a connection is set up between the two AllJoyn buses, 
 the consumer AllJoyn router initiates a BusHello message to 
 send its bus GUID and AllJoyn protocol version. The provider 
@@ -384,7 +387,7 @@ fields in the session option are specified as bit masks with values.
 ### Traffic session allowed values
 
 | Name | Value | Description |
-|---|---|---|
+|---|:---:|---|
 | TRAFFIC_MESSAGES | 0x01 | Use reliable message-based communication to move data between session endpoints. |
 | TRAFFIC_RAW_UNRELIABLE | 0x02 | Use unreliable (e.g., UDP) socket-based communication to move data between session endpoints. This creates a raw session where MESSAGE encapsulation is not used. |
 | TRAFFIC_RAW_RELIABLE | 0x04 | Use reliable (e.g., TCP) socket-based communication to move data between session endpoints. RAW. This creates a raw session where MESSAGE encapsulation is not used. |
@@ -392,7 +395,7 @@ fields in the session option are specified as bit masks with values.
 ### IsMultipoint session allowed values
 
 | Name | Value | Description |
-|---|---|---|
+|---|:---:|---|
 | N/A | true | A multi-point capable session. A multi-point session can be joined multiple times to form a single session with multiple (> 2) endpoints. |
 | N/A | false | Session is not multi-point capable. Each join attempt will create a new point-to-point session. |
 
@@ -406,7 +409,7 @@ session options. AllJoyn system provides flexibility to
 support specific semantics for these options in future if needed.
 
 | Name | Value | Description |
-|---|---|---|
+|---|:---:|---|
 | PROXIMITY_ANY	| 0xFF | Spatial scope of the session is not limited. Session can be joined by joiners located anywhere. |
 | PROXIMITY_PHYSICAL | 0x01 | Spatial scope of session is limited to the local host. Interpreted as "the same physical machine." Session can be joined by joiners located only on the same physical machine as the one hosting the session. |
 | PROXIMITY_NETWORK | 0x02 | Spatial scope of session is limited to anywhere on the local logical network segment. Session can be joined by joiners located anywhere on the network. |
@@ -414,9 +417,8 @@ support specific semantics for these options in future if needed.
 ### Transports session allowed values
 
 | Name | Value | Description |
-|---|---|---|
-| TRANSPORT_ANY	| * 0xFFFF | Use any available transport to communicate with a given session except Wi-Fi Direct. The TRANSPORT_WFD bit needs to be explicitly set by the app for use of Wi-Fi Direct transport. |
-| | * ~TRANSPORT_WFD | |
+|---|:---:|---|
+| TRANSPORT_ANY	| <ul><li>0xFFFF</li><li>~TRANSPORT_WFD</li><ul> | Use any available transport to communicate with a given session except Wi-Fi Direct. The TRANSPORT_WFD bit needs to be explicitly set by the app for use of Wi-Fi Direct transport. |
 | TRANSPORT_NONE | 0x0000 | Use no transport to communicate with a given session. |
 | TRANSPORT_LOCAL | 0x0001 | Use only the local transport to communicate with a given session. |
 | TRANSPORT_BLUETOOTH | 0x0002 | Use only Bluetooth transport to communicate with a given session. |
@@ -444,6 +446,92 @@ session options for negotiation to be successful.
 lowest common session option level. Exact details of session 
 options negotiation is outside the scope of this document.
 
+## Detecting missing or slow endpoints
+
+The AllJoyn Router supports a probing mechanism to detect 
+other missing routers and missing applications so that 
+resources can be cleaned up for missing endpoints. Separate 
+logic is supported for detecting other missing routers and 
+applications as described in [Probing mechanism for detecting missing routers][probing-mechanism-for-detecting-missing-routers] 
+and [Probing mechanism for detecting missing applications][probing-mechanism-for-detecting-missing-apps].
+
+The AllJoyn router also supports logic to detect and disconnect 
+any AllJoyn applications or other AllJoyn routers that are 
+slower to read data than the minimum desired performance level. 
+This logic is captured in [Detecting a slow reader][detecting-slow-reader].
+
+Once a remote endpoint (an application or anther router) is 
+disconnected based on probing mechanism or slow reader detection 
+logic, the AllJoyn router will clean up any connection slots, 
+active advertisements and sessions associated with the remote 
+endpoint. The AllJoyn router will also send SessionLost, 
+MPSessionChanged and DetachSession signals to participants 
+that are in a session with the disconnected remote application 
+or in a session with applications connected to the disconnected 
+remote router.
+
+### Probing mechanism for detecting missing routers
+
+The AllJoyn router provides a `SetLinkTimeout()` API which 
+can be invoked by the application to detect missing routers. 
+The application provides an idle timeout value as part of the 
+API, which should be greater than or equal to the minimum value 
+(40 sec) defined at the router. A single probe is sent to the 
+other router after inactivity is detected for idle timeout period. 
+If no response is received in probe timeout period (10 sec), that 
+router is disconnected and all associated connection slots, 
+active advertisements and sessions are cleaned up. 
+
+This functionality to detect missing routers is not enabled 
+by default. An app needs to call the `SetLinkTimeout()` API 
+to enable it.
+
+### Probing mechanism for detecting missing applications
+
+The AllJoyn router provides a probing mechanism using DBus 
+pings to detect missing AllJoyn applications. The following 
+parameters determine the transmission schedule of the DBus pings:
+* Number of probes(N): Total number of DBus pings sent.
+* Idle timeout(I): Time after which the first DBus ping will be sent.
+* Probe timeout(P): Time after which subsequent DBus ping 
+will be sent if a reply to the previous ping has not yet been received.
+
+The values of the above parameters are specific to the AllJoyn TCP versus 
+UDP Transport over which the AllJoyn application is connected 
+to the AllJoyn router. 
+
+The following figure shows the transmission schedule of the DBus pings.
+
+![probe-transmission-schedule-for-detecting-missing-apps][probe-transmission-schedule-for-detecting-missing-apps]
+ 
+Figure: Probe transmission schedule for detecting missing apps
+
+Connected AllJoyn applications will be able to select values 
+for idle and probe timeouts within a transport specific range 
+by invoking the `SetIdleTimeouts()` API. The call specifies 
+the requested idle and probe timeouts and returns the actual 
+values for the idle and probe timeouts.
+
+### Detecting a slow reader
+
+In order to maintain quality of service, the AllJoyn router 
+will disconnect any AllJoyn applications or AllJoyn routers 
+that are slower than the minimum desired performance level. 
+
+The AllJoyn router will disconnect a remote AllJoyn application/router 
+in either of the following scenarios:
+* Once the network send buffer on the router and network 
+receive buffer on remote application/router are both full, 
+the remote application/router does not read data fast enough 
+to be able to fit the pending AllJoyn message within the 
+Send Timeout period.
+* More than (10 * Send timeout) control messages originating 
+from the router are currently queued for the remote application/router.
+
+The value of the Send timeout is specific to the TCP or UDP 
+transport over which the remote AllJoyn application/router is 
+connected to this AllJoyn router. 
+
 ## Methods/signals used for an AllJoyn session
 
 The AllJoyn framework supports session-related functionality 
@@ -465,36 +553,56 @@ interface methods and signals used for session-related functions.
 
 #### org.alljoyn.Daemon interface methods
 
-| Method name | Parameters | Description |
+| Method name | Description |
+|---|---|
+| AttachSession	| Method for a remote AllJoyn router to attach a session with this AllJoyn router. |
+| GetSessionInfo | Method for a remote AllJoyn router to get session information from this AllJoyn router. |
+
+#### org.alljoyn.Daemon.AttachSession method parameters
+
+| Parameter name | Direction | Description |
 |---|---|---|
-| | **Parameter name** / **Direction** / **Description** | |
-| AttachSession	| session port / in/ AllJoyn session port | Method for a remote AllJoyn router to attach a session with this AllJoyn router. |
-| | Joiner / in / Unique name of the joiner | |
-| | creator / in / Unique name or well-known name of the session host | |
-| | dest / in / Unique name of the destination for the AttachSession. | |
-| | * For point-to-point session, this is same as creator. | |
-| | * For multi-point session, this field can be different than the creator. |
-| | b2b / in / Unique name of the bus-to-bus end point on the joiner side. This is used to set up the message routing path for the session. | |
-| | busAddr / in / A string indicating how to connect to the bus endpoint, for example, "tcp:192.23.5.6, port=2345" | |
-| | optsIn / in / Session options requested by the joiner. | |
-| | status / out / Session join status | |
-| | sessionId / out / Assigned session ID |
-| | optsOut / out / Final selected session options | |
-| | members / out / List of session members | |
-| GetSessionInfo | creator / in / Unique name for the app that bound the session port. | Method for a remote AllJoyn router to get session information from this AllJoyn router. |
-| | session port / in / The session port. | |
-| | optsIn / in / Session options requested by the joiner. | |
-| | busAddr /out / Returned bus address for the session to use when attempting to create a connection for joining the session, for example, "tcp:192.23.5.6, port=2345" | |
+| session port | in | AllJoyn session port | 
+| Joiner | in | Unique name of the joiner |
+| creator | in | Unique name or well-known name of the session host |
+| dest | in | <p>Unique name of the destination for the AttachSession.</p><ul><li>For point-to-point session, this is same as creator.</li><li>For multi-point session, this field can be different than the creator.</li></ul> |
+| b2b | in | Unique name of the bus-to-bus end point on the joiner side. This is used to set up the message routing path for the session. |
+| busAddr | in | A string indicating how to connect to the bus endpoint, for example, "tcp:192.23.5.6, port=2345" |
+| optsIn | in | Session options requested by the joiner. |
+| status | out | Session join status |
+| sessionId | out | Assigned session ID |
+| optsOut | out | Final selected session options |
+| members | out | List of session members |
+
+#### org.alljoyn.Daemon.GetSessionInfo method parameters
+
+| Parameter name | Direction | Description |
+|---|---|---|
+| creator | in | Unique name for the app that bound the session port. |
+| session port | in | Session port. |
+| optsIn | in | Session options requested by the joiner. |
+| busAddr | out | Returned bus address for the session to use when attempting to create a connection for joining the session, for example, "tcp:192.23.5.6, port=2345" |
 
 #### org.alljoyn.Daemon interface signals
 
-| Signal name | Parameters | Description |
-|---|---|---|
-| | **Parameter name** / **Description** | |
-| ExchangeNames | uniqueName / List of one or more unique names available on the local AllJoyn router. | A signal that informs remote AllJoyn router of names available on the local AllJoyn router. |
-| | WKNs / List of one or more well-known names registered with each of the known unique name on the local AllJoyn router. |&nbsp; |
-| DetachSession | sessionId / AllJoyn session ID | A signal sent out to detach a joiner from an existing session |
-| | Joiner / Unique name of the joiner | |
+| Signal name | Description |
+|---|---|
+| ExchangeNames | A signal that informs remote AllJoyn router of names available on the local AllJoyn router. |
+| DetachSession | A signal sent out to detach a joiner from an existing session |
+
+#### org.alljoyn.Daemon.ExchangeNames signal parameters
+
+| Parameter name | Description |
+|---|---|
+| uniqueName | List of one or more unique names available on the local AllJoyn router. | 
+| WKNs | List of one or more well-known names registered with each of the known unique name on the local AllJoyn router. |
+
+#### org.alljoyn.Daemon.DetachSession signal parameters
+
+| Parameter name | Description |
+|---|---|
+| sessionId | AllJoyn session ID | 
+| Joiner | Unique name of the joiner |
 
 ### org.alljoyn.Bus
 
@@ -505,38 +613,78 @@ signals used for session-related functions.
 
 #### org.alljoyn.Bus interface methods
 
-| Method name | Parameters | Description |
+| Method name | Description |
+|---|---|
+| BusHello | Method used to exchange identifiers. This can be used between app and AllJoyn router, as well as between two AllJoyn router components. |
+| BindSessionPort | Method for an application to initiate binding a session port with the AllJoyn bus. |
+| UnbindSessionPort | Method for an application to unbind a session port with the AllJoyn bus. |
+| JoinSession | Method for an application to initiate joining a session. |
+| LeaveSession | Method for an application to initiate leaving an existing session. |
+
+#### org.alljoyn.Bus.BusHello method parameters
+
+| Parameter name | Direction | Description |
 |---|---|---|
-| | **Parameter name** / **Direction** / **Description** | |
-| BusHello | GUIDC / in / GUID of the client AllJoyn router. | Method used to exchange identifiers. This can be used between app and AllJoyn router, as well as between two AllJoyn router components. |
-| | protoVerC / in / AllJoyn protocol version of client AllJoyn router. | |
-| | GUIDS / out / GUID of the service side AllJoyn router. | |
-| | uniqueName / out / Unique name assigned to the bus-to-bus endpoint between two AllJoyn router components. | |
-| | protoVerS / out / AllJoyn protocol version of service side of AllJoyn router. | |
-| BindSessionPort | sessionPort / in / Specified session port. Set to SESSION_PORT_ANY if app is asking AllJoyn router to assign a session port. | Method for an application to initiate binding a session port with the AllJoyn bus. |
-| | opts / in / Specified session options. | |
-| | resultCode / out / Result status | |
-| | sessionPort / out / Same as input sessionPort unless SESSION_PORT_ANY was specified. In the latter case, set to an AllJoyn router-assigned session port. | |
-| UnbindSessionPort | sessionPort / in / Specified session port. | Method for an application to unbind a session port with the AllJoyn bus. |
-| | resultCode / out / Result status | |
-| JoinSession | sessionHost / in / Well-known name/unique name of the session creator. | Method for an application to initiate joining a session. |
-| | sessionPort / in / Specified session port. | |
-| | optsIn / Session options requested by the joiner. | |
-| | resultCode / out / Result status | |
-| | sessionId / out / Assigned session ID. | |
-| | opts / out / Final selected session options. | |
-| LeaveSession | sessionId / in / Session ID of the session. | Method for an application to initiate leaving an existing session. |
-| | resultCode / out / Result status | |
+| GUIDC | in | GUID of the client AllJoyn router. | 
+| protoVerC | in | AllJoyn protocol version of client AllJoyn router. |
+| GUIDS | out | GUID of the service side AllJoyn router. |
+| uniqueName | out | Unique name assigned to the bus-to-bus endpoint between two AllJoyn router components. |
+| protoVerS | out | AllJoyn protocol version of service side of AllJoyn router. |
+
+#### org.alljoyn.Bus.BindSessionPort method parameters
+
+| Parameter name | Direction | Description |
+|---|---|---|
+| sessionPort | in | Specified session port. Set to SESSION_PORT_ANY if app is asking AllJoyn router to assign a session port. | 
+| opts | in | Specified session options. |
+| resultCode | out | Result status |
+| sessionPort | out | Same as input sessionPort unless SESSION_PORT_ANY was specified. In the latter case, set to an AllJoyn router-assigned session port. |
+
+#### org.alljoyn.Bus.UnbindSessionPort method parameters
+
+| Parameter name | Direction | Description |
+|---|---|---|
+| sessionPort | in | Specified session port. | 
+| resultCode | out | Result status |
+
+#### org.alljoyn.Bus.JoinSession method parameters
+
+| Parameter name | Direction | Description |
+|---|---|---|
+| sessionHost | in | Well-known name/unique name of the session creator. | 
+| sessionPort | in | Specified session port. |
+| optsIn | in | Session options requested by the joiner. |
+| resultCode | out | Result status |
+| sessionId | out | Assigned session ID. |
+| opts | out | Final selected session options. |
+
+#### org.alljoyn.Bus.LeaveSession method parameters
+
+| Parameter name | Direction | Description |
+|---|---|---|
+| sessionId | in | Session ID of the session. |
+| resultCode | out | Result status |
 
 #### org.alljoyn.Bus interface signals
 
-| Signal name | Parameters | Description |
-|---|---|---|
-| | **Parameter name** / **Description** | |
-| SessionLost | sessionId / Session ID of the session that was just lost. | A signal that informs application when a session ends. |
-| MPSessionChanged | sessionId / Session ID that changed. | A signal that informs application on changes to an existing session. |
-| | name / Unique name of the session member that changed. | |
-| | isAdd / Flag indicating whether member was added. Set to true if the member has been added. | |
+| Signal name | Description |
+|---|---|
+| SessionLost | A signal that informs application when a session ends. |
+| MPSessionChanged | A signal that informs application on changes to an existing session. |
+
+#### org.alljoyn.Bus.SessionLost signal parameters
+
+| Parameter name | Description |
+|---|---|
+| sessionId | Session ID of the session that was just lost. | 
+
+#### org.alljoyn.Bus.MPSessionChanged signal parameters
+
+| Parameter name | Description |
+|---|---|
+| sessionId | Session ID that changed. |
+| name | Unique name of the session member that changed. |
+| isAdd | Flag indicating whether member was added. Set to true if the member has been added. |
 
 ### org.alljoyn.Bus.Peer.Session
 
@@ -547,30 +695,44 @@ interface methods and signals used for session-related functions.
 
 #### org.alljoyn.Bus.Peer.Session interface methods
 
-| Method name | Parameters | Description |
+| Method name | Description |
+|---|---|
+| AcceptSession	| Method for invoking accepting a session locally on the session host. |
+
+#### org.alljoyn.Bus.Peer.Session.AcceptSession parameters
+
+| Parameter name | Direction | Description |
 |---|---|---|
-| | **Parameter name** / **Direction** / **Description** | |
-| AcceptSession	| sessionPort / in / Session port that received the join request. | Method for invoking accepting a session locally on the session host. |
-| | sessionId / in / ID for the new session (if accepted). | |
-| | creatorName / in / Session creator unique name. | |
-| | joinerName / in / Session joiner unique name. | |
-| | opts / in / Session options requested by the joiner. | |
-| | isAccepted / out / Set to true if the creator accepts the session. | |
+| sessionPort | in | Session port that received the join request. | 
+| sessionId | in | ID for the new session (if accepted). |
+| creatorName | in | Session creator unique name. |
+| joinerName | in | Session joiner unique name. |
+| opts | in | Session options requested by the joiner. |
+| isAccepted | out | Set to true if the creator accepts the session. |
+
 
 #### org.alljoyn.Bus.Peer.Session interface signals
 
-| Signal name | Parameters | Description |
-|---|---|---|
-| | **Parameter name** / **Description** | |
-| SessionJoined | sessionPort / Session port of the session which was just lost. | A signal sent locally on the session host to inform it that a session was successfully joined. |
-| | sessionId / ID for the new session. | |
-| | creatorName	/ Session creator unique name. | |
-| | joinerName / Session joiner unique name. | |
+| Signal name | Description |
+|---|---|
+| SessionJoined | A signal sent locally on the session host to inform it that a session was successfully joined. |
+
+#### org.alljoyn.Bus.Peer.SessionJoined signal parameters
+
+| Parameter name | Description |
+|---|---|
+| sessionPort | Session port of the session which was just lost. | 
+| sessionId | ID for the new session. |
+| creatorName | Session creator unique name. |
+| joinerName | Session joiner unique name. |
 
 
 
 [list-of-subjects]: /learn/core/system-description/
 [establish-multi-point-session]: #establish-a-multi-point-session
+[probing-mechanism-for-detecting-missing-routers]: #probing-mechanism-for-detecting-missing-routers
+[probing-mechanism-for-detecting-missing-apps]: #probing-mechanism-for-detecting-missing-applications
+[detecting-slow-reader]: #detecting-a-slow-reader
 
 
 [alljoyn-session-establishment-arch]: /files/learn/system-desc/alljoyn-session-establishment-arch.png
@@ -582,5 +744,6 @@ interface methods and signals used for session-related functions.
 [consumer-leaves-multipoint-session]: /files/learn/system-desc/consumer-leaves-multipoint-session.png
 [provider-leaves-multipoint-session]: /files/learn/system-desc/provider-leaves-multipoint-session.png
 [incompatible-session-options]: /files/learn/system-desc/incompatible-session-options.png
+[probe-transmission-schedule-for-detecting-missing-apps]: /files/learn/system-desc/probe-transmission-schedule-for-detecting-missing-apps.png
 
 

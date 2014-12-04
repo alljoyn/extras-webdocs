@@ -343,17 +343,12 @@ arg[0,1,...N]path, arg0namespace and eavesdrop='true' in match rules.
 
 | Match key | Possible values | Description |
 |---|---|---|
-| type | * signal | Match on the message type. An example of a type match is type='signal'. |
-| | * method_call | |
-| | * method_return | |
-| | * error | |
+| type | <ul><li>signal</li><li>method_call</li><li>method_return</li><li>error</li></ul> | Match on the message type. An example of a type match is type='signal'. |
 | sender | A well-known name or unique name | Match messages sent by a particular sender. An example of a sender match is sender='org.alljoyn.Refrigerator'. |
 | interface | An interface name | Match messages sent over or to a particular interface. An example of an interface match is interface='org.alljoyn.Refrigerator'. If a message omits the interface header, it must not match any rule that specifies this key. |
 | member | Any valid method or signal name | Matches messages which have the give method or signal name. An example of a member match is member='NameOwnerChanged'. |
 | path | An object path | Matches messages which are sent from or to the given object. An example of a path match is path='/org/alljoyn/Refrigerator'. |
-| path_namespace | An object path | Matches messages which are sent from or to an object for which the object path is either the given value, or that value followed by one or more path components. |
-| | | For example, path_namespace='/com/example/foo' would match signals sent by /com/example/foo or by /com/example/foo/bar, but not by /com/example/foobar. |
-| | | Using both path and path_namespace in the same match rule is not allowed. |
+| path_namespace | An object path | <p>Matches messages which are sent from or to an object for which the object path is either the given value, or that value followed by one or more path components.</p><p>For example, path_namespace='/com/example/foo' would match signals sent by /com/example/foo or by /com/example/foo/bar, but not by /com/example/foobar.</p><p>Using both path and path_namespace in the same match rule is not allowed.</p> |
 | destination | A unique name | Matches messages which are being sent to the given unique name. An example of a destination match is destination=':100.2'. |
 
 An application can add multiple match rules for signals with the 
@@ -408,7 +403,6 @@ represents a standard data type.
 | VARIANT | 118 | 'v' | Variant type (the type of the value is part of the value itself). |
 | DICT_ENTRY | 101, 123, 125 | 'e','{','}' | Entry in a dict or map (array of key-value pairs). |
 
-
 Four of the types are container types: STRUCT, ARRAY, VARIANT, 
 and DICT_ENTRY. All other types are common basic data types. 
 When specifying a STRUCT or DICT_ENTRY, 'r' and 'e' should 
@@ -444,19 +438,17 @@ Figure: AllJoyn message format
 |---|---|
 | Endianness Flag | Endianness of the message. ASCII 'l' for little-endian or ASCII 'B' for big-endian. Both header and body are in this endianness. |
 | Message Type | Type of message. This field is set per the definitions specified in [Message Type definitions][message-type-definitions]. |
-| Header Flags | Provides any applicable flags for the message. This field is bitwise OR of flags. Unknown flags must be ignored. |
-| | This is set per the definitions specified in [Header Flag definitions][header-flag-definitions]. |
+| Header Flags | <p>Provides any applicable flags for the message. This field is bitwise OR of flags. Unknown flags must be ignored.</p><p>This is set per the definitions specified in [Header Flag definitions][header-flag-definitions].</p> |
 | Major Protocol Version | AllJoyn major protocol version for the sending application of this message. |
 | Message Body Length | Length (in bytes) of the message body, starting from the end of the header. |
 | Serial Number | Serial number of this message. This is assigned by the sender and used as a cookie by the sender to identify the reply corresponding to this request. This must not be zero. |
-| List of Header Fields | This specifies an array of zero or more header fields where each field is a 1-byte field code followed by a field value.  This is represented as ARRAY of STRUCT of (BYTE, VARIANT). A header must contain the required header fields for its message type, and zero or more of any optional header fields. Implementations must ignore fields they do not understand. |
-| | The AllJoyn framework has extended the list of D-Bus defined header fields. [Header Fields definitions][header-fields-definitions] lists all the header fields supported by AllJoyn and mandatory/optional requirement for these fields for different message types. |
+| List of Header Fields | <p>This specifies an array of zero or more header fields where each field is a 1-byte field code followed by a field value.  This is represented as ARRAY of STRUCT of (BYTE, VARIANT). A header must contain the required header fields for its message type, and zero or more of any optional header fields. Implementations must ignore fields they do not understand.</p><p>The AllJoyn framework has extended the list of D-Bus defined header fields. [Header Fields definitions][header-fields-definitions] lists all the header fields supported by AllJoyn and mandatory/optional requirement for these fields for different message types.</p> |
 | Message Body | Body of the message. The content of message body is interpreted based on SIGNATURE header field. |
 
 ### Message Type definitions
 
 | Name | Value | Description |
-|---|---|---|
+|---|:---:|---|
 | INVALID | 0 | An invalid type |
 | METHOD_CALL | 1 | Method call |
 | METHOD_RETURN | 2 | Method reply with returned data |
@@ -466,11 +458,9 @@ Figure: AllJoyn message format
 ### Header Flag definitions
 
 | Name | Value | Description |
-|---|---|---|
-| NO_REPLY_EXPECTED | 0x01 | Indicates that no reply (method_return or error) is expected for the Method Call. The reply can be omitted as an optimization. |
-| | | NOTE: The provider app can still send back a reply despite this flag. |
-| AUTO_START | 0x02 | Indicates a request to start the service if not running. It is up to the AllJoyn core to honor this or not. |
-| | | NOTE: This flag is currently not supported. |
+|---|:---:|---|
+| NO_REPLY_EXPECTED | 0x01 | <p>Indicates that no reply (method_return or error) is expected for the Method Call. The reply can be omitted as an optimization.</p><p>NOTE: The provider app can still send back a reply despite this flag.</p> |
+| AUTO_START | 0x02 | <p>Indicates a request to start the service if not running. It is up to the AllJoyn core to honor this or not.</p><p>NOTE: This flag is currently not supported.</p> |
 | ALLOW_REMOTE_MSG | 0x04 | Indicates that messages from remote hosts should be allowed (valid only in Hello message sent from app to the AllJoyn core). If set by the app, the AllJoyn core allows messages from remote apps/hosts to be sent to the application. |
 | (Reserved) | 0x08 | Reserved/Unused |
 | SESSIONLESS | 0x10 | Indicates a sessionless signal message |
@@ -481,30 +471,21 @@ Figure: AllJoyn message format
 ### Header Fields definitions
 
 | Name | Field code | Type | Required in | Description |
-|---|---|---|---|---|
+|---|:---:|:---:|---|---|
 | INVALID | 0 | N/A | Not allowed | Not a valid field name (error if it appears in a message). |
-| PATH | 1 | OBJECT_PATH | * METHOD_CALL | Path of the object to send a method call to or path of the object a signal is emitted from. |
-| | | | * SIGNAL | |
-| INTERFACE | 2 | STRING | * METHOD_CALL | Interface to invoke a method call on, or the interface that a signal is emitted from. |
-| | | | * SIGNAL | |
-| MEMBER | 3 | STRING | * METHOD_CALL | The member, either the method name or signal name. |
-| | | | * SIGNAL | |
+| PATH | 1 | OBJECT_PATH | <ul><li>METHOD_CALL</li><li>SIGNAL</li></ul> | Path of the object to send a method call to or path of the object a signal is emitted from. |
+| INTERFACE | 2 | STRING | <ul><li>METHOD_CALL</li><li>SIGNAL</li></ul> | Interface to invoke a method call on, or the interface that a signal is emitted from. |
+| MEMBER | 3 | STRING | <ul><li>METHOD_CALL</li><li>SIGNAL</li></ul> | The member, either the method name or signal name. |
 | ERROR_NAME | 4 | STRING | ERROR | Name of the error that occurred, for error messages. |
-| REPLY_SERIAL | 5 | UINT32 | * ERROR | Serial number of the message this message is a reply to. |
-| | | | * METHOD_RETURN	| |
-| DESTINATION | 6 | STRING | * optional for SIGNAL | The unique name of the connection this message is intended for. |
-| | | | * Required for all other messages. | |
+| REPLY_SERIAL | 5 | UINT32 | <ul><li>ERROR</li><li>METHOD_RETURN</li></ul> | Serial number of the message this message is a reply to. |
+| DESTINATION | 6 | STRING | <ul><li>Optional for SIGNAL</li><li>Required for all other messages</li></ul> | The unique name of the connection this message is intended for. |
 | SENDER | 7 | STRING | Required in all messages | The unique name of the sending connection. The message bus fills in this field. |
-| SIGNATURE | 8 | SIGNATURE | optional | The data type signature of the message body. This is specified using D-Bus data type system. |
-| | | | | If omitted, it is assumed to be the empty signature implying that the body must be of 0-length. |
+| SIGNATURE | 8 | SIGNATURE | optional | <p>The data type signature of the message body. This is specified using D-Bus data type system.</p><p>If omitted, it is assumed to be the empty signature implying that the body must be of 0-length.</p> |
 | N/A | 9 | N/A | N/A | Unused |
 | TIMESTAMP | 10 | UINT32 | optional | Timestamp when the message was packaged. |
-| TIME_TO_LIVE | 11 | UINT16 | optional | TTL associated with the message. A message gets discarded by the AllJoyn router when the TTL expires. |
-| | | | If not specified, TTL is assumed to be infinite. | * For sessionless signal, the TTL value is specified in seconds. |
-| | | | | * For other messages, the TTL value is specified in msec. |
+| TIME_TO_LIVE | 11 | UINT16 | <p>optional</p><p>If not specified, TTL is assumed to be infinite.</p> | <p>TTL associated with the message. A message gets discarded by the AllJoyn router when the TTL expires.</p><ul><li>For sessionless signal, the TTL value is specified in seconds.</li><li>For other messages, the TTL value is specified in msec.</li></ul> |
 | COMPRESSION_TOKEN | 12 | UINT32 | optional | Token generated for the messages with header compression on. |
-| SESSION_ID | 13 | UINT32 | optional | Session ID for the session over which this message is being sent. |
-| | | | | If missing, it is assumed to be 0. |
+| SESSION_ID | 13 | UINT32 | optional | <p>Session ID for the session over which this message is being sent.</p><p>If missing, it is assumed to be 0.</p> |
 
 ## Message routing
 

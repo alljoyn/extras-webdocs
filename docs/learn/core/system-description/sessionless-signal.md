@@ -351,8 +351,8 @@ for sessionless signal advertised names received in the
 solicited mDNS or IS-AT response messages. For sessionless signal 
 advertised names received as part of the unsolicited mDNS or IS-AT 
 response messages, the sessionless signal fetch is scheduled 
-following a backoff algorithm as described in [Consumer sessionless signal 
-fetch backoff algorithm][consumer-sls-fetch-backoff-algorithm]. 
+following a backoff algorithm as described in 
+[Sessionless signal fetch backoff algorithm][sls-fetch-backoff-algorithm]. 
 
 The steps to fetch sessionless signals follow.
 
@@ -366,28 +366,66 @@ sessionless signals and leaves the session.
 
 For details of which signals the provider sends from its cache 
 to the consumer, see the definition of these signals in 
-[org.alljoyn.sl interface][org.alljoyn.sl-interface]. 
+[org.alljoyn.sl interface][org-alljoyn-sl-interface]. 
 
 The consumer receives the sessionless signals, and filters and 
 routes them according to its match rules. The consumer SLS module 
 maintains the information about the match rules applied and change_id 
 fetched from the provider for future sessionless signal fetches.
 
-#### Consumer sessionless signal fetch backoff algorithm
+#### Sessionless signal fetch backoff algorithm
 
 After determining that it needs to fetch sessionless signals 
 from a given provider as per the logic described above, the 
-consumer SLS module follows backoff logic to establish the 
-session for the sessionless signal fetch from the provider. 
-The consumer SLS module delays the join session attempt using 
-the following algorithm: 
+consumer SLS module attempts a join session with the producer 
+to fetch sessionless signals. If the consumer's first join session 
+attempt fails, it follows a backoff based retry logic to do 
+the join session for the sessionless signal fetch from the 
+provider. The SLS fetch logic adds random delays at different 
+consumers to ensure that consumer requests for sessionless 
+signals fetch are distributed over time for a given provider. 
 
-* If this is the first join session attempt, delay randomly 
-between [0, 1500] msec.
-* For each subsequent attempt, delay randomly between 0 and 
-half of the previous attempt, with a minimum interval of 250 msec.
+The Consumer SLS module follows a mix of linear plus exponential 
+backoff retries for sessionless signals fetch. It supports a 
+hybrid of first few linear backoff retries followed by some 
+exponential backoff retries. The transition point between the
+linear and exponential backoff is configurable. The backoff 
+interval is capped off to a maximum configurable value. 
+Retries are performed for a total retry period R. Once the 
+max backoff interval is reached, retries continue with the 
+constant retry period (set to max backoff interval) until the
+total retry period R is elapsed.
 
-This produces the following delay intervals: 1500, 750, 375, 250, 250, ... msec.
+The following configuration parameters have been added in 
+the router config file:
+* Linear to Exponential Transition Point (k) - Specifies the 
+retry attempt after which backoff should become exponential.
+* Max Backoff Interval Factor (c) - Specifies the multiplication 
+factor for T (initial backoff time) to generate the max backoff interval.
+* Total Retry Period (R) - Specifies the total time period (in seconds) 
+for which SLS fetch retry must be attempted.
+
+The following figure shows an example SLS retry schedule with 
+SLS retries happening at T, 2T, 3T, 4T, 8T, 16T, 32T, 32T, 32T,....
+
+![sls-fetch-backoff-schedule-example][sls-fetch-backoff-schedule-example]
+
+Figure: SLS fetch backoff schedule example
+
+For every SLS retry attempt, the join session with the producer 
+is delayed randomly between [0, retry interval] to make sure 
+Consumer requests are distributed over time. For example in 
+the figure above:
+* The Consumer join session for 4th SLS fetch retry 
+will be randomly delayed between [0, 4T] interval. 
+* The Consumer join session for nth SLS fetch retry will 
+be randomly delayed between [0,16T] interval.
+
+For the SLS fetch triggered as a result of solicited mDNS 
+discovery responses, the join session request is not delayed 
+randomly. In this case, the join session for SLS fetch is 
+done immediately. The AllJoyn router will serialize such an SLS 
+fetch if the max connections limit on the Consumer is reached.
 
 ## Sessionless signal message sequences (prior to the 14.06 release)
 
@@ -405,7 +443,8 @@ scenarios prior to the 14.06 release:
 ### First sessionless signal delivery
 
 The following figure shows the message flow for the use 
-case for sending and receiving the first sessionless signal on the provider and consumer respectively.
+case for sending and receiving the first sessionless signal 
+on the provider and consumer, respectively.
 
 NOTE: The sessionless signal change_id is not carried in any 
 of the sessionless signal messages. However, the provider 
@@ -737,32 +776,47 @@ match the filtering criteria specified in match rule.
 
 The org.alljoyn.sl interface is the AllJoyn interface between 
 two AllJoyn routers used to enable the exchange of sessionless 
-signals. [org.alljoyn.sl interface signals][org.alljoyn.sl-interface-signals] 
+signals. [org.alljoyn.sl interface signals][org-alljoyn-sl-interface-signals] 
 lists the org.alljoyn.sl interface signals.
 
 ### org.alljoyn.sl interface signals
 
-| Signal name | Parameters | Description |
-|---|---|---|
-| | ** Parameter name** / **Description** | |
-| RequestSignals | UINT32 fromId / Start of change_id range. | Requests sessionless signals associated with change_ids in the range [fromId, currentChangeId], where currentChangeId is the most recently advertised change_id of the provider. |
-| RequestRange | UINT32 fromId	/ Start of change_id range. | A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId). |
-| | | NOTE: The "toId" is exclusive so a consumer should set toId=<change_id_value>+1 if it wants to get SLS up to the change_id_value. |
-| | | This signal appeared in version 6 of the AllJoyn protocol. |
-| | UINT32 toId / End of change_id range. | |
-| RequestRangeMatch | UINT32 fromId / Start of change_id range | A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId) that match any of the provided match rules. |
-| | UINT32 toId / End of change_id range | The "toId" is exclusive in this signal too. |
-| | ARRAY of STRING matchRules / Match rules to apply to the range.| This signal appeared in version 10 of the AllJoyn protocol (associated with the 14.06 release). |
+| Signal name | Description |
+|---|---|
+| RequestSignals | Requests sessionless signals associated with change_ids in the range [fromId, currentChangeId], where currentChangeId is the most recently advertised change_id of the provider. |
+| RequestRange | <p>A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId).</p><p>NOTE: The "toId" is exclusive so a consumer should set toId=<change_id_value>+1 if it wants to get SLS up to the change_id_value.</p><p>This signal appeared in version 6 of the AllJoyn protocol.</p> |
+| RequestRangeMatch | <p>A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId) that match any of the provided match rules.</p><p>The "toId" is exclusive in this signal too.</p><p>This signal appeared in version 10 of the AllJoyn protocol (associated with the 14.06 release).</p> |
+
+### org.alljoyn.sl.RequestSignals parameters
+
+| Parameter name | Description |
+|---|---|
+| UINT32 fromId | Start of change_id range. | 
+
+### org.alljoyn.sl.RequestRange parameters
+
+| Parameter name | Description |
+|---|---|
+| UINT32 fromId	| Start of change_id range. | 
+| UINT32 toId | End of change_id range. |
+
+### org.alljoyn.sl.RequestRangeMatch parameters
+
+| Parameter name | Description |
+|---|---|
+| UINT32 fromId | Start of change_id range | 
+| UINT32 toId | End of change_id range | 
+| ARRAY of STRING matchRules | Match rules to apply to the range.| 
 
 
 
 [data-exchange]: /learn/core/system-description/data-exchange
 [consumer-fetches-sls-from-provider]: #consumer-fetches-sessionless-signals-from-a-provider
-[consumer-sls-fetch-backoff-algorithm]: #consumer-sessionless-signal-fetch-backoff-algorithm
-[org.alljoyn.sl-interface]: #org.alljoyn.sl-interface
+[sls-fetch-backoff-algorithm]: #sessionless-signal-fetch-backoff-algorithm
+[org-alljoyn-sl-interface]: #org-alljoyn-sl-interface
 [consumer-fetches-sls-from-provider]: #consumer-fetches-sessionless-signals-from-a-provider
 [first-sessionless-signal-delivery]: #first-sessionless-signal-delivery
-[org.alljoyn.sl-interface-signals]: #org.alljoyn.sl-interface-signals
+[org-alljoyn-sl-interface-signals]: #org-alljoyn-sl-interface-signals
 
 
 [sls-arch]: /files/learn/system-desc/sls-arch.png
@@ -778,3 +832,4 @@ lists the org.alljoyn.sl interface signals.
 [first-sls-delivery-implements-addmatch]: /files/learn/system-desc/first-sls-delivery-implements-addmatch.png
 [sls-logic-new-consumer-legacy-provider]: /files/learn/system-desc/sls-logic-new-consumer-legacy-provider.png
 [sls-logic-legacy-consumer-new-provider]: /files/learn/system-desc/sls-logic-legacy-consumer-new-provider.png
+[sls-fetch-backoff-schedule-example]: /files/learn/system-desc/sls-fetch-backoff-schedule-example.png

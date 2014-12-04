@@ -111,16 +111,29 @@ The following is an example of enhanced introspection XML format.
 
 The org.allseen.introspectable interface is designed to 
 provide access to the enhanced introspection XML containing 
-the description elements. Table 10 2 provides the definition 
+the description elements. The following table provides the definition 
 for the org.allseen.introspectable interface which is 
 implemented by all AllJoyn objects.
 
-| Method | Parameters | Description |
+### Introspectable interface methods
+
+| Method | Description |
+|---|---|
+| AttachSession | Return the aggregate of the languages for which this object has descriptions. For example, if an object implements two interfaces, X and Y - X has all of its members described in English (en) and French (fr) and Y has some descriptions in English (en) and Chinese (cn), this method will return ["en", "fr", "cn"]. The language tags will comply with IETF language tag standards. |
+| IntrospectWithDescription | Returns the XML defined above with descriptions in the specified language (exact match only - no best match). If an element, e.g., method, does not have a description in that language, no description attribute is placed within the element. |
+ 
+### Introspectable.AttachSession method parameters
+
+| Parameter name | Direction | Description |
 |---|---|---|
-| | **Parameter name** / **Direction** / **Description** | |
-| AttachSession | languageTags / out / A list of the languages in which this object has descriptions. | Return the aggregate of the languages for which this object has descriptions. For example, if an object implements two interfaces, X and Y - X has all of its members described in English (en) and French (fr) and Y has some descriptions in English (en) and Chinese (cn), this method will return ["en", "fr", "cn"]. The language tags will comply with IETF language tag standards. |
-| IntrospectWithDescription | languageTag / in / Requested Language. | Returns the XML defined above with descriptions in the specified language (exact match only - no best match). If an element, e.g., method, does not have a description in that language, no description attribute is placed within the element. |
-| | data / out / Returned introspection XML. | |
+| languageTags | out | List of the languages in which this object has descriptions. | 
+
+### Introspectable.IntrospectWithDescription method parameters
+
+| Parameter name | Direction | Description |
+|---|---|---|
+| languageTag | in | Requested Language. | 
+| data | out | Returned introspection XML. |
  
 
 

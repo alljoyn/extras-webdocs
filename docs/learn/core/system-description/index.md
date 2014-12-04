@@ -1,5 +1,12 @@
 # AllJoyn&trade; System Description
 
+## Release history
+
+| Release version | Date | What changed |
+|---|---|---|
+| 14.06 | 9/26/2014 | Initial release |
+| 14.12 | 12/17/2014 | <p>Updates for new functionality added in 14.12 release:<p><ul><li>UDP Transport design</li><li>TCP vs UDP Transport selection logic at the router</li><li>mDNS-based discovery for the router at the TCL</li><li>Updates to SLS fetch backoff design to support linear+exponential backoff</li><li>Router Probing mechanism to detect missing applications</li><li>Router logic to detect and disconnect slow reader nodes</li></ul><p>Other updates:</p></li><li>Endpoints usage by AllJoyn Transport</li><li>TCP Transport data plane architecture and state machine</li><li>AllJoyn Protocol Version mapping for different releases</li><li>Link timeout mechanism between routers to detect missing routers</li></ul>
+
 This section describes in detail how AllJoyn works at the system level.
 
 ## System Overview
@@ -520,22 +527,34 @@ to fetch application data via a direct method call. See the
 
 AllJoyn applications exchange data in the form of D-Bus 
 formatted messages. These messages specify source and destination 
-as endpoints. An endpoint essentially identifies a given 
-connection with the AllJoyn router. Endpoints are used to 
-route messages to appropriate destinations. An endpoint is 
-uniquely identified by a unique name assigned to it.
+as Endpoints. An AllJoyn Endpoint represents one side of an 
+AllJoyn communication link.Endpoints are used to route 
+messages to appropriate destinations. 
 
-The AllJoyn framework supports the following types of endpoints:
+Both the Core Library and AllJoyn Router maintain endpoints 
+to enable message routing. The Core Library maintains the 
+following endpoints:
+* **Local Endpoint**: The local endpoint within the 
+Core Library represents a connection to the attached application. 
+* **Remote Endpoint**: The remote endpoint within the 
+Core Library represents the connection to the AllJoyn 
+router.This is applicable only for the case when AllJoyn 
+router is not bundled.
+
+An endpoint maintained by the AllJoyn router is uniquely 
+identified by a unique name assigned to it.The AllJoyn 
+router supports the following endpoints:
 
 * **Local Endpoint**: A local endpoint is an endpoint within the 
 AllJoyn router itself. It identifies a connection to self 
 and is used to exchange AllJoyn control messages between 
 AllJoyn routers. This is the first endpoint which gets assigned 
 and always has the unique name ":<AJ router GUID>.1"
-* **App Endpoint**: An app endpoint identifies the connection 
+* **Remote Endpoint**: A remote endpoint identifies the connection 
 between the application and the AllJoyn router. Messages destined 
 to applications get routed to app endpoints.
-* **B2B Endpoint**: A bus-to-bus (B2B) endpoint identifies 
+* **Bus-to-Bus Endpoint**: A Bus-to-Bus (B2B) endpoint is a 
+specialized kind of remote endpoint that identifies 
 the connection between two AllJoyn routers. This endpoint 
 is used as next hop to route messages between AllJoyn routers.
 
@@ -635,50 +654,25 @@ out of a specified range to notify the user.
 
 ### AllJoyn transport
 
-The AllJoyn system supports the concept of a Transport, which 
-is used as an abstract way for an AllJoyn router to move 
-messages from one endpoint to another. The AllJoyn transport 
-logic in turn supports transmitting messages over multiple 
-underlying physical transports including TCP Transport (for Wi-Fi), 
-Bluetooth Transport, Local Transport (e.g., UNIX domain sockets) 
-and ICE Transport.
+The AllJoyn Transport is an abstract concept that enables 
+connection setup and message routing across AllJoyn applications 
+via AllJoyn routers. The AllJoyn transport logic in turn 
+supports transmitting messages over multiple underlying 
+physical transports including TCP transport, UDP transport 
+and Local Transport (e.g., UNIX domain sockets).
 
 The AllJoyn transport logic delivers the advertisement and 
-discovery messages over multiple underlying transports based 
-on specified list of transports by the app.  Similarly, the 
-AllJoyn transport enables session establishment over multiple 
-underlying transports based on list provided by the application. 
+discovery messages based on specified list of transports by 
+the app.  Similarly, the AllJoyn transport enables session 
+establishment and message routing over multiple underlying 
+transports based on transport selection made by the application. 
 The set of underlying transports supported by the AllJoyn 
-transport is specified by a TransportMask which is defined 
-in [AllJoyn TransportMask definition][alljoyn-transportmask-definition]. 
-
-NOTE: If an app does not specify any transport(s), the AllJoyn 
+transport is specified by a TransportMask as captured in 
+[AllJoyn Transport in Networking Model][alljoyn-transport-in-networking-model].
+If an app does not specify any transport(s), the AllJoyn 
 transport value defaults to TRANSPORT_ANY.
 
-#### AllJoyn TransportMask definition
-
-|Transport name | Value | Description |
-|---|---|---|
-| TRANSPORT_NONE | 0x0000 | No transport. |
-| TRANSPORT_LOCAL | 0x0001 | The local transport. |
-| TRANSPORT_BLUETOOTH | 0x0002 | Bluetooth transport. |
-| TRANSPORT_WLAN | 0x0004 | Wireless local area network transport. |
-| TRANSPORT_WWAN | 0x0008 | Wireless wide area network transport (not supported). |
-| TRANSPORT_LAN | 0x0010 | Wired local area network transport. |
-| TRANSPORT_ICE | 0x0020 | ICE (Interactive Connectivity Establishment) transport (not supported). | 
-| TRANSPORT_WFD | 0x0080 | Wi-Fi Direct transport (not supported). |
-| TRANSPORT_ANY | 0xFFFF & ~TRANSPORT_WFD | Any transport except Wi-Fi Direct. |
-
-Currently, the AllJoyn system's WLAN and LAN transports are 
-supported by a single underlying TCP transport. 
-
-Each transport establishes and maintains connectivity based 
-on the underlying physical transport it supports. Based on 
-the type of underlying physical transport, the actual connectivity 
-between two nodes in an AllJoyn network can be either single-hop 
-or multi-hop. An AllJoyn distributed bus is basically an overlay 
-network whose topology doesn't map directly to the topology 
-of the underlying network.
+See [AllJoyn Transport][alljoyn-transport-section] for more information.
 
 ### Advertisement and discovery 
 
@@ -899,13 +893,36 @@ with a thin app will not know that it is talking to a thin app
 and vice versa. However, there are some message size constraints 
 that apply to the thin app based on available RAM size.
 
+### AllJoyn protocol version
+
+Functionality implemented by the AllJoyn Router is versioned 
+through an AllJoyn Protocol Version (AJPV) field. The following
+table shows the AllJoyn Protocol Version for various AllJoyn releases. 
+The AJPV is exchanged between routers as part of the BusHello 
+messaging during the AllJoyn session establishment. This field 
+is used by the thin app to determine compatibility with 
+discovered routers for connecting to the AllJoyn distributed bus.
+
+#### AllJoyn release -> protocol version mapping
+
+| Release version | AllJoyn protocol version |
+|---|:---:|
+| legacy 03.04.06 | 9 |
+| v14.02 | 9 |
+| v14.06 | 10 |
+| v14.06a | 10 |
+| v14.12 | 11 |
+
+
+
 
 [list-of-subjects]: /learn/core/system-description/
 [message-format]: /learn/core/system-description/data-exchange#message-format
 [alljoyn-interfaces]: #alljoyn-interfaces
-[alljoyn-transportmask-definition]: #alljoyn-transportmask-definition
 [sessionless-signal-section]: /learn/core/system-description/sessionless-signal
 [thin-apps]: /learn/core/system-description/thin-apps
+[alljoyn-transport-section]: /learn/core/system-description/alljoyn-transport
+[alljoyn-transport-in-networking-model]:  /learn/core/system-description/alljoyn-transport#alljoyn-transport-in-networking-model
 
 
 [ioe-network-example]: /files/learn/system-desc/ioe-network-example.png

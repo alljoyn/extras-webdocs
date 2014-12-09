@@ -103,11 +103,9 @@ Android 2.3 (Gingerbread) and later smartphones and tablets. The
 AllJoyn framework code also runs and is tested and validated on 
 commonly available versions of the Microsoft Windows operating 
 system including Windows XP, Windows 7, Windows RT, and Windows 8. 
-Windows 10 offers native support for AllJoyn including a stand-alone
-router node NT service. Additionally, the AllJoyn framework code 
-runs on Apple operating systems iOS and OS X, on embedded operating 
-systems such as OpenWRT, and works with the Unity game development 
-ecosystem.
+Additionally, the AllJoyn framework code runs on Apple operating 
+systems iOS and OS X, on embedded operating systems such as OpenWRT, 
+and works with the Unity game development ecosystem.
 
 ### Language independence
 
@@ -823,6 +821,27 @@ technology to resolve, and which the AllJoyn framework happily
 accomplishes for you. A user need only be aware that messages 
 are routed correctly over a transport mechanism that meets 
 the abstract needs of the application.
+
+####Self-Join Feature
+
+In AllJoyn releases up to R14.06, it was impossible for applications
+to join a session they themselves hosted. For applications that consume 
+information or services they themselves also provide, this created an 
+asymmetry: they had to treat the bus objects they hosted themselves 
+differently from those hosted by other peers. The self-join feature 
+removes this asymmetry by allowing applications to join the sessions 
+they themselves host. Consequently, a locally hosted bus object can be 
+treated in exactly the same way as a remotely hosted bus object.
+
+#### Determining the Presence of a Peer - Pinging and Auto-Pinging
+
+Sometimes, a application needs to know which peers are present on the communication 
+channel ("the wire") and which aren't.  For this reason, a PING API was introduced in 
+version 14.06. This PING API allows to determine whether a peer is up or not. 
+However, for this API, the responsibility for using the PING API was with the 
+Application, which periodically needed to ping the peers. From Release 14.12 onwards, 
+an automatic PING or Auto-Pinger is introduced. This Auto-Pinger performs the
+periodic peer detection, relieving  the application of having to do it.
 
 ### Bringing it all together
 

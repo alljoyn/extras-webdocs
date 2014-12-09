@@ -292,6 +292,8 @@
             - name: iOS
               path: /develop/api-guide/core/ios
               contents:
+            - name: Auto-Ping
+              path: /develop/api-guide/core/auto-ping
         - name: About
           path: /develop/api-guide/about
           contents:

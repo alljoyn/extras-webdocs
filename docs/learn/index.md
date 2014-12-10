@@ -69,13 +69,13 @@ connected to the Internet, and thus reducing the attack surface.
 
 As a collaborative open source project, the AllSeen ecosystem continues
 to grow and evolve. More common services are being added with each release,
-including implementation for multiple platforms. There is strong momentum, 
-and with your help, the AllJoyn framework can very well be the common 
+including implementation for multiple platforms. There is strong momentum,
+and with your help, the AllJoyn framework can very well be the common
 language for the Internet of Things.
 
 ## Next steps
 
-Learn more about [use cases][use-cases]. Then head over to learn about the 
+Learn more about [use cases][use-cases]. Then head over to learn about the
 overall [Architecture][arch], [Core Framework][core], and [Base Services][services].
 
 [interfaces]: /learn/core#busobject

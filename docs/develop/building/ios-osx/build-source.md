@@ -180,16 +180,24 @@ to the build folder created in step 7.
    Debug-iphonesimulator libssl.a libcrypto.a
    ```
 
-10. Define environment variableOPENSSL_ROOT=<path to the 
-OpenSSL source top folder> as follows:
+9. Define an environment variable OPENSSL_ROOT=<path to the OpenSSL source top folder>
+   This environment variable needs to be present whenever you build projects using the
+   AllJoyn SDK.
 
-   ```sh
-   launchctl setenv OPENSSL_ROOT <path to top level folder of openssl>
-   ```
+    9a. For Mac OS X 10.7 to 10.9, to set the environment variable, open a Terminal window and type the following:
+    ````sh
+    launchctl setenv OPENSSL_ROOT <path to top level folder containing openssl>
+    ````
+    9b. With Mac OS X 10.10, environment variable processing changed. Most importantly, OPENSSL_ROOT
+    must be defined before launching Xcode (Xcode will not pick up new or changed variables
+    after launching). Therefore, to set the environment variable, open a Terminal window and type
+    the following:
 
-   For example, `/Development/openssl/openjssl-1.0.1`.
-
-
+    ```sh
+    launchctl setenv OPENSSL_ROOT <path to top level folder containing openssl>
+    sudo killall Finder
+    sudo killall Dock
+    ```
 ## Building the AllJoyn Framework
 
 Using the Xcode Integrated Development Environment (IDE) to 

@@ -73,6 +73,15 @@ including implementation for multiple platforms. There is strong momentum,
 and with your help, the AllJoyn framework can very well be the common 
 language for the Internet of Things.
 
+## Data-Driven API
+
+The Data-driven API (DDAPI) for AllJoyn is an alternative API for the AllJoyn
+framework. It is built on top of the standard AllJoyn API and  is specifically
+tailored to use cases for the Internet of Things. Instead of the standard
+framework's service-oriented paradigm, it uses the publish/subcribe paradigm.
+
+For more Information, go [here][ddapi].
+
 ## Next steps
 
 Learn more about [use cases][use-cases]. Then head over to learn about the 
@@ -88,3 +97,4 @@ overall [Architecture][arch], [Core Framework][core], and [Base Services][servic
 [arch]: /learn/architecture
 [core]: /learn/core
 [services]: /learn/base-services
+[ddapi]: /learn/ddapi

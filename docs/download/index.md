@@ -22,7 +22,13 @@
 |Windows   |[Windows SDK (32-bit)][win-32bit-core]|14.06.00a|[Release Notes][core-notes]
 |          |[Windows SDK (64-bit)][win-64bit-core]|14.06.00a|[Release Notes][core-notes]
 |          |[Windows Thin Core SDK][win-thin]     |14.06.00a|[Release Notes][core-notes]
-|Misc      |[All Releases][all-releases]          |&nbsp;   |&nbsp;
+
+## Archives
+
+* [All Releases][all-releases]
+* Documentation
+  * [14.02 (zip)][14-02-00-zip]
+  * [14.06 (zip)][14-06-00-zip]
 
 [source]: https://allseenalliance.org/releases/alljoyn/14.06.00/alljoyn-suite-14.06.00a-src.tar.gz
 [git-repo]: https://git.allseenalliance.org/gerrit/#/admin/projects/
@@ -48,3 +54,6 @@
 
 [core-notes]: https://wiki.allseenalliance.org/core/core_14.06_release_review
 [base-services-notes]: https://wiki.allseenalliance.org/baseservices/base_services_14.06_release_review
+
+[14-02-00-zip]: https://allseenalliance.org/sites/default/files/archives/alljoyn-docs-14.02.00.zip
+[14-06-00-zip]: https://allseenalliance.org/sites/default/files/archives/alljoyn-docs-14.06.00.zip

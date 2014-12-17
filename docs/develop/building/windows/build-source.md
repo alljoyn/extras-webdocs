@@ -5,7 +5,7 @@
 It is recommended to note the install location of each tool 
 discussed in this section to complete the system configuration.
 
-### Microsoft Visual Studio 2010, 2012
+### Microsoft Visual Studio 2010, 2012, 2013
 
 You should have at least one version of Microsoft Visual Studio 
 installed on your system. Visual Studio 2008 is no longer officially
@@ -23,13 +23,13 @@ Python even if you are building the AllJoyn&trade; framework for a 64-bit archit
 3. Click **Run** and **Run** again. The Python setup wizard appears.
 4. Click **Finish**, **Yes**, and **Finish** again.
 
-### SCons 2.3.0 for Windows
+### SCons 2.3.4 for Windows
 
 NOTE: SCons 1.3.0 may also be used.
 
 1. Open a browser and navigate to http://www.scons.org.
-2. From the SCons web page, under 'Scons 2.3.0.final.0 is available', click the **download page** link.
-3. Select scons-2.3.0.final.0.win32.exe, and click **Run** and **Run** again. The setup wizard appears.
+2. From the SCons web page, under 'Scons 2.3.4 is available', click the **download page** link.
+3. Select "Download scons-2.3.4-setup.exe", and click **Run** and **Run** again. The setup wizard appears.
 4. Proceed through the wizard steps to complete the SCons installation.
 
 ### OpenSSL v1.0.1e for Windows
@@ -222,10 +222,8 @@ C:\>python --version
 Python 2.7.1
 
 C:\>scons --version
-SCons by Steven Knight et al.: engine: v2.0.1.r5134, 2010/08/16 23:02:40, by 
-bdeegan on cooldog Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008,
-2009, 2010
-The SCons Foundation
+SCons by Steven Knight et al.: engine: v2.3.4, 2014/09/27 12:51:43, by garyo on lubuntu
+Copyright (c) 2001 - 2014 The SCons Foundation
 
 C:\>git --version
 git version 1.7.4.msysgit.0
@@ -270,7 +268,7 @@ Obtain a copy of each repository using the `git clone` command.
 
    ```bat
    c:\allseen\core\alljoyn> git clone 
-   https://git.allseenalliance.org/gerrit/core/alljoyn.git.git
+   https://git.allseenalliance.org/gerrit/core/alljoyn.git
    ```
 
 ### CRLF issues when using msysgit
@@ -306,18 +304,18 @@ variables default values can be set as environment variables.
 
 #### Building for Windows 7 (use this for Windows Vista)
 
-For 32-bit x86 target:
+For 32-bit x86 target using Visual Studio 2013:
 
 ```bat
 C:\>cd allseen\core\alljoyn
-C:\allseen\core\alljoyn>scons OS=win7 CPU=x86 MSVC_VERSION=10.0 BINDINGS=cpp
+C:\allseen\core\alljoyn>scons OS=win7 CPU=x86 MSVC_VERSION=12.0 BINDINGS=cpp
 ```
 
-For 64-bit x86-64 target:
+For 64-bit x86-64 target: using Visual Studio 2013
 
 ```bat
 C:\>cd allseen\core\alljoyn
-C:\allseen\core\alljoyn>scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 BINDINGS=cpp
+C:\allseen\core\alljoyn>scons OS=win7 CPU=x86_64 MSVC_VERSION=12.0 BINDINGS=cpp
 ```
 
 NOTE: If you are building a version older than 2.6, then 
@@ -365,6 +363,7 @@ that is installed on your system:
 
 * For Microsoft Visual C++ 2008, it will be 9.0 (default value)
 * For Microsoft Visual C++ 2010, it will be 10.0.
+* For Microsoft Visual C++ 2013, it will be 12.0.
 
 NOTE: If you are using Windows 7, you may need to run SCons as administrator.
 

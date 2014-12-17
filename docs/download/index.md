@@ -47,7 +47,7 @@
 [android-core-rel-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-android-sdk-rel.zip
 [android-core-debug-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-android-sdk-dbg.zip
 [ios-core-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-osx_ios-sdk.zip
-[win-64bit-core-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-win7x64vs2012-sdk.zip
+[win-64bit-core-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-win7x64vs2013-sdk.zip
 [win-thin-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-thin_client-sdk-windows.zip
 
 [source-suite]: https://allseenalliance.org/releases/alljoyn/14.06.00/alljoyn-suite-14.06.00a-src.tar.gz

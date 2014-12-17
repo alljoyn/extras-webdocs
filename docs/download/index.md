@@ -12,8 +12,7 @@
 |Android   |[Core SDK - release][android-core-rel-1412]|14.12.00|[Release Notes][core-notes-1412]
 |          |[Core SDK - debug][android-core-debug-1412]|14.12.00|[Release Notes][core-notes-1412]
 |iOS       |[Core SDK][ios-core-1412]                  |14.12.00|[Release Notes][core-notes-1412]
-|Windows   |[Windows SDK (32-bit)][win-32bit-core-1412]|14.12.00|[Release Notes][core-notes-1412]
-|          |[Windows SDK (64-bit)][win-64bit-core-1412]|14.12.00|[Release Notes][core-notes-1412]
+|Windows   |[Windows SDK (64-bit)][win-64bit-core-1412]|14.12.00|[Release Notes][core-notes-1412]
 |          |[Windows Thin Core SDK][win-thin-1412]     |14.12.00|[Release Notes][core-notes-1412]
 
 ### v14.06
@@ -48,7 +47,6 @@
 [android-core-rel-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-android-sdk-rel.zip
 [android-core-debug-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-android-sdk-dbg.zip
 [ios-core-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-osx_ios-sdk.zip
-[win-32bit-core-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-win7x86vs2012-sdk.zip
 [win-64bit-core-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-win7x64vs2012-sdk.zip
 [win-thin-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-thin_client-sdk-windows.zip
 

@@ -2,4 +2,5 @@
 #
 139102f0421fe2b600cbffd8e124a246f244414c	GitHub Replication
 baff6526bbb0e61de631f437984556bdd614c7e6	Administrators
+f1e91cccf8c9013d3e09caee7e17c7aac65ec3ab	webdocs
 ldap:cn=extras_webdocs,ou=groups,cn=allseen,dc=codeaurora,dc=org	ldap/extras_webdocs

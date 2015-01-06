@@ -33,7 +33,7 @@ function recursiveFiles(file, callback) {
 					var gathered = [];
 					if(0 == toScan) {
 						callback(null, []);
-					} else {						
+					} else {
 						for (var i = files.length - 1; i >= 0; i--) {
 							recursiveFiles(path.join(file, files[i]), function(err, found) {
 								if(err) {
@@ -63,7 +63,7 @@ function check(root, start) {
 		var visiting = 0;
 
 		for (var i = allFiles.length - 1; i >= 0; i--) {
-			fileStatus["/" + allFiles[i]] = {visited: false, used:false};
+			fileStatus[path.normalize("/" + allFiles[i])] = {visited: false, used:false};
 		};
 
 		var visit, done;
@@ -101,17 +101,17 @@ function check(root, start) {
 							if(("a" == name) && (attribs["href"])){
 								var href = url.parse(attribs["href"]);
 								if((!href.hostname) && (href.pathname)) {
-									newFile = path.resolve(file, href.pathname);
+									newFile = path.resolve(file, href.pathname).replace(/^C:/,'');
 									visit(newFile, file);
 								}
 							}
 							if("img" == name) {
 								var src = url.parse(attribs["src"]);
 								if(!src.hostname) {
-									var img = path.resolve(file, src.pathname);
+									var img = path.resolve(file, src.pathname).replace(/^C:/,'');
 									if(fileStatus[img]) {
 										fileStatus[img].used = true;
-									} else {										
+									} else {
 										emit404(img, file);
 									}
 								}
@@ -158,6 +158,9 @@ function check(root, start) {
 		visit(start, "<initialization>");
 	});
 }
+var initialroot = path.normalize ('out/public');
+var initialstart = path.normalize ('/developers/index');
+console.log ("root: "+initialroot);
+console.log ("start at: "+initialstart);
 
-
-check('out/public', '/developers/')
+check(initialroot,initialstart)

@@ -2,6 +2,7 @@
 
 ## Source Repositories
 * [Git Repository][git-repo]
+* [Info on downloading source][download-source-info]
 
 ## Releases and SDKs
 ### v14.12
@@ -51,7 +52,8 @@
 [win-thin-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-14.12.00-thin_client-sdk-windows.zip
 
 [source-suite]: https://allseenalliance.org/releases/alljoyn/14.06.00/alljoyn-suite-14.06.00a-src.tar.gz
-[git-repo]: https://git.allseenalliance.org/gerrit/#/admin/projects/
+[git-repo]: https://git.allseenalliance.org/cgit
+[download-source-info]: https://wiki.allseenalliance.org/develop/downloading_the_source
 
 [android-core-rel]: https://allseenalliance.org/releases/alljoyn/14.06.00/alljoyn-14.06.00a-android-sdk-rel.zip
 [android-core-debug]: https://allseenalliance.org/releases/alljoyn/14.06.00/alljoyn-14.06.00a-android-sdk-dbg.zip

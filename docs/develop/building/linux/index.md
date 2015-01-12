@@ -21,17 +21,38 @@ sudo apt-get install scons
 ```sh
 sudo apt-get install libssl-dev
 ```
+* Download the [AllJoyn Source zip][download] and extract source. The tree
+  should look like below. Note, extra directories may exist.
+```sh
+root-source-dir\
+    core\
+        alljoyn\
+        ajtcl\
+    services\
+        base\
+        base_tcl\
+```
 
-* Download the [AllJoyn Source zip][download] and extract source.
 
-## Building Samples
+## Build Samples
 
 ```sh
-cd alljoyn-14.06.00-src/core/alljoyn
+cd &lt;root dir of source&gt;/core/alljoyn
 scons BINDINGS=cpp WS=off BT=off ICE=off SERVICES="about,notification,controlpanel,config,onboarding,sample_apps"
 ```
 
-## Building the AllJoyn&trade; framework for an existing app
+## Build AC Server Sample
+
+The AC Server Sample app uses all of the base services to simulate
+an AC device.
+
+```sh
+# Note, exclude the "base" dir for pre-14.06 source
+cd $AJ_ROOT/services/base/sample_apps
+scons BINDINGS=cpp WS=off ALL=1
+```
+
+## Add the AllJoyn&trade; framework to an existing app
 
 * Setup
 

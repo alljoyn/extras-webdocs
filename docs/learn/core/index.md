@@ -15,7 +15,7 @@ that object to connect to the AllJoyn Router.
 AllJoyn applications can advertise its services via two mechanisms: 
 About Announcements and Well-Known Name. Depending on available 
 transports, the AllJoyn framework will use different mechanisms 
-to ensure the that the application can be discovered by other AllJoyn 
+to ensure that the application can be discovered by other AllJoyn 
 applications. For IP-based transports, mDNS and a combination of 
 multicast and broadcast UDP packets are used.
 

@@ -24,20 +24,20 @@ sudo apt-get install libssl-dev
 * Download the [AllJoyn Source zip][download] and extract source. The tree
   should look like below. Note, extra directories may exist.
 ```sh
-root-source-dir\
-    core\
-        alljoyn\
-        ajtcl\
-    services\
-        base\
-        base_tcl\
+root-source-dir/
+    core/
+        alljoyn/
+        ajtcl/
+    services/
+        base/
+        base_tcl/
 ```
 
 
 ## Build Samples
 
 ```sh
-cd &lt;root dir of source&gt;/core/alljoyn
+cd <root dir of source>/core/alljoyn
 scons BINDINGS=cpp WS=off BT=off ICE=off SERVICES="about,notification,controlpanel,config,onboarding,sample_apps"
 ```
 

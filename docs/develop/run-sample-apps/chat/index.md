@@ -1,12 +1,19 @@
 # Running the Chat Sample
 
-The Chat sample application provides the ability to send AllJoyn&trade; Signals on a connected session.
+The Chat sample application provides the ability to send AllJoyn&trade; 
+Signals on a connected session.
 
-The Chat application runs slightly differently on each platform. At a minimum, the application advertises a well-known name with the prefix of "org.alljoyn.bus.samples.chat".
+The Chat application runs slightly differently on each platform. 
+At a minimum, the application advertises a well-known name with 
+the prefix of "org.alljoyn.bus.samples.chat".
 
-It will then append a "." followed by the name of the chat room to be parsed off and possibly displayed in the UI. Each room is will accept sessions on the session port 27.
+It will then append a "." followed by the name of the chat room 
+to be parsed off and possibly displayed in the UI. Each room 
+will accept sessions on the session port 27.
 
-Depending on the platform, the application must have a role of Client or Service and may need to join its own session.  See each of the platform links below for more details on running the sample. 
+Depending on the platform, the application must have a role 
+of Client or Service and may need to join its own session. 
+See each of the platform links below for more details on running the sample. 
 
 The Chat interface is as follows:
 

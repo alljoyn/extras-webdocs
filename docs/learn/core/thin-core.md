@@ -2,7 +2,7 @@
 
 ## Overview
 
-AllJoyn is an open source software system that provides an 
+AllJoyn is an open-source software system that provides an 
 environment for distributed applications running across different 
 device classes, with an emphasis on mobility, security, and 
 dynamic configuration. AllJoyn is "platform-neutral", meaning 
@@ -24,12 +24,12 @@ An embedded system, on the other hand, is one designed to
 provide specific functionality running on a microcontroller 
 embedded within a larger device. Since an embedded system need 
 only perform a specific function or a small number of functions, 
-engineers are free
-to optimize them to reduce the size and cost of the product, 
-often by limiting memory size, processor speed, available power, 
-peripherals, user interfaces, or all of the above. AllJoyn Thin 
-Core Library (AJTCL) is designed to bring the benefits of the 
-AllJoyn distributed programming environment to embedded systems.
+engineers are free to optimize them to reduce the size and cost 
+of the product, often by limiting memory size, processor speed, 
+available power, peripherals, user interfaces, or all of the 
+above. AllJoyn Thin Core Library (AJTCL) is designed to bring 
+the benefits of the AllJoyn distributed programming environment 
+to embedded systems.
 
 Since the operating environment in which an AJTCL will run may 
 be very constrained, an AllJoyn component running on such systems 
@@ -51,7 +51,7 @@ blocks found in AJSCL can be found in AJTCL systems; they just
 take on a more compact form or are actually run remotely on another, 
 more capable machine.
 
-NOTE: When we mention the AllJoyn Standard Library (AJSCL), we 
+**NOTE:** When we mention the AllJoyn Standard Library (AJSCL), we 
 explicitly refer to the versions of these components that run on 
 general purpose computers
 
@@ -81,7 +81,7 @@ multiple bus segments residing on physically separate host computers.
 
 ![alljoyn-distributed-bus][alljoyn-distributed-bus]
 
-Figure: AllJoyn distributed bus
+**Figure:** AllJoyn distributed bus
 
 Recall that each bus segment is located on a given host 
 computer, as illustrated by the dotted squares labeled 
@@ -99,7 +99,7 @@ host computer.
 
 ![alljoyn-distributed-bus-tcl][alljoyn-distributed-bus-tcl]
 
-Figure: AllJoyn distributed bus with thin core libraries
+**Figure:** AllJoyn distributed bus with thin core libraries
 
 Notice that Embedded System A and Embedded System B are not 
 the same devices as Host B, which is running the router that 
@@ -224,7 +224,7 @@ The layered architecture of an AJSCL or service process is reproduced below.
 
 ![ajscl-layering][ajscl-layering]
 
-Figure: AJSCL layering
+**Figure:** AJSCL layering
 
 See the [Introduction to the AllJoyn Framework][intro-alljoyn-framework] 
 for a more detailed discussion of these layers. 
@@ -241,7 +241,7 @@ reproduced below.
 
 ![ajscl-router-layering][ajscl-router-layering]
 
-Figure: AJSCL router layering
+**Figure:** AJSCL router layering
 
 Notice that the router adds additional support for routing 
 messages between router, along with the capacity to use a 
@@ -259,7 +259,7 @@ does away with much of the overhead present in the AJSL system.
 
 ![ajtcl-layering][ajtcl-layering]
 
-Figure: AJTCL layering
+**Figure:** AJTCL layering
 
 AJTCL exposes only the minimum required API to the bus attachment 
 and exposes the AllJoyn messaging interface directly instead of
@@ -283,10 +283,9 @@ example distributed systems are presented here.
 * A minimal system in which a single AllJoyn application running 
 on a smartphone talks to a single AJTCL device. This illustrates 
 the trusted router relationship as described above. 
-
 * A more complicated system with a router running on a wireless router.
 
-NOTE: Typically, this situation would be a router running 
+**NOTE:** Typically, this situation would be a router running 
 OpenWRT that hosts a preinstalled AllJoyn router. This router 
 accepts untrusted connections from Thin Core Libraries that 
 have been onboarded to the Wi-Fi network.
@@ -296,7 +295,7 @@ as the sensor nodes for an AllJoyn-based wireless sensor
 network, and a general purpose computer performs the data 
 fusion function.
 
-NOTE: In Wireless Sensor Networks, data fusion is a term that 
+**NOTE:** In Wireless Sensor Networks, data fusion is a term that 
 refers to a process where some distinguished node collects 
 results from some number of sensor nodes and integrates, or 
 "fuses", its results with those of the other sensor nodes and 
@@ -321,7 +320,7 @@ wall thermostat will run the AJTCL.
 
 ![minimalist-example-system][minimalist-example-system]
 
-Figure: Minimalist example system
+**Figure:** Minimalist example system
 
 In this example, a requirement is that the wall thermostat 
 only be controllable by a corresponding thermostat controller 
@@ -346,7 +345,7 @@ discovery on the associated network prefix (com.company.BusNode).
 
 ![ajtcl-router-discovery][ajtcl-router-discovery]
 
-Figure: Thin Core Library router discovery
+**Figure:** Thin Core Library router discovery
 
 When the router receives the explicit inquiry about a name 
 it is quietly advertising, it will respond with an indication 
@@ -355,7 +354,7 @@ will then attempt to connect to the responding router.
 
 ![ajtcl-connection-attempt][ajtcl-connection-attempt]
 
-Figure: Thin Core Library connection attempt
+**Figure:** Thin Core Library connection attempt
 
 At this point, a logical AllJoyn bus has been formed, in which 
 both the application and Thin Core Library service are associated 
@@ -366,14 +365,15 @@ connected service and client.
 
 ![ajtcl-system-example][ajtcl-system-example]
 
-Figure: Thin Core Library system example
+**Figure:** Thin Core Library system example
 
 At this time, the AJTCL is connected to the router bundled 
 with the application, but neither the application nor the Thin 
 Core Library knows of each other's existence. Typically at this time, 
 AJTCL would request a well-known bus name and instantiate a service 
 in the AllJoyn sense. The Thin Core Library would create a session 
-port and advertise a well-known name as described in [Introduction to the AllJoyn Framework][intro-alljoyn-framework] 
+port and advertise a well-known name as described in 
+[Introduction to the AllJoyn Framework][intro-alljoyn-framework] 
 using the Thin Core Library APIs. This well-known name would 
 typically be different than the well-known name that the 
 bundled router advertises; it corresponds to the client/service 
@@ -384,7 +384,7 @@ perform service discovery for that name.
 
 ![ajtcl-service-discovery][ajtcl-service-discovery]
 
-Figure: Service discovery with the Thin Core Library
+**Figure:**: Service discovery with the Thin Core Library
 
 When service running on AJTCL is discovered by the client 
 running on the Android device, the client may join the session 
@@ -392,7 +392,7 @@ created by the service.
 
 ![ajtcl-android-device-joins-session-service][ajtcl-android-device-joins-session-service]
 
-Figure: Android device joins session with service on the Thin Core Library
+**Figure:** Android device joins session with service on the Thin Core Library
 
 At this point, the application running on the Android device 
 may access the AJTCL service, as it would any AllJoyn service. 
@@ -447,7 +447,7 @@ The first component considered is the OpenWRT router and is illustrated below.
 
 ![openwrt-router-hosting-standalone-router-daemon][openwrt-router-hosting-standalone-router-daemon]
 
-Figure: OpenWRT router hosting a standalone AllJoyn router daemon
+**Figure:** OpenWRT router hosting a standalone AllJoyn router daemon
 
 The router hosts a standalone AllJoyn router daemon, and is 
 illustrated as the bold horizontal line that represents a segment 
@@ -484,7 +484,7 @@ network.
 
 ![ajtcl-nodes-connected-openwrt-router][ajtcl-nodes-connected-openwrt-router]
 
-Figure: AJTCL nodes connected to the OpenWRT AllJoyn router 
+**Figure:** AJTCL nodes connected to the OpenWRT AllJoyn router 
 
 Once the Thin Core Library Apps are connected to the bus segment 
 implemented in the OpenWRT router, they begin to advertise 
@@ -496,7 +496,7 @@ in the system.
 
 ![openwrt-router-tcls-home-control-system][openwrt-router-tcls-home-control-system]
 
-Figure: OpenWRT router, Thin Core Libraries, and home control system
+**Figure:** OpenWRT router, Thin Core Libraries, and home control system
 
 Once the home control system has discovered the service advertisements 
 of one of AJTCLs, it will attempt to join a session with the 
@@ -506,7 +506,7 @@ and the home control system merging into a single virtual distributed bus.
 
 ![alljoyn-distributed-software-bus][alljoyn-distributed-software-bus]
 
-Figure: AllJoyn distributed software bus
+**Figure:** AllJoyn distributed software bus
 
 When the merged bus is fully formed, the devices attached to 
 the bus behave as generic AllJoyn clients or services. The 

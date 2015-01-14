@@ -34,7 +34,7 @@ using a sessionless signal-specific well-known name.
 
 ![sls-arch][sls-arch]
 
-Figure: Sessionless signal architecture
+**Figure:** Sessionless signal architecture
 
 After AllJoyn router startup, the SLS module executes the 
 following steps to prepare itself for sending and/or receiving 
@@ -180,21 +180,21 @@ prior to the AllJoyn 14.06 release.
 
 ![provider-sls-module-logic-pre-1406][provider-sls-module-logic-pre-1406]
 
-Figure: Provider SLS module logic (prior to the AllJoyn 14.06 release)
+**Figure:** Provider SLS module logic (prior to the AllJoyn 14.06 release)
 
 The following figure shows the provider side SLS module logic 
 introduced in the AllJoyn 14.06 release.
 
 ![provider-sls-module-logic-1406][provider-sls-module-logic-1406]
 
-Figure: Provider SLS module logic (introduced in the AllJoyn 14.06 release)
+**Figure:** Provider SLS module logic (introduced in the AllJoyn 14.06 release)
 
 ### Consumer discovers sessionless signal providers
 
 On the consumer side, the app registers an interest in a 
 sessionless signal by calling the D-Bus AddMatch method.
 
-NOTE: The D-Bus AddMatch method is part of the org.freedesktop. 
+**NOTE:** The D-Bus AddMatch method is part of the org.freedesktop. 
 The D-Bus interface and is implemented by the /org/freedesktop/DBus object.
 
 The match rule includes "sessionless='t'" to indicate registration 
@@ -228,7 +228,7 @@ sessionless signal providers implemented in the 14.06 release.
 
 ![consumer-logic-sessionless-providers-1406][consumer-logic-sessionless-providers-1406]
 
-Figure: Consumer logic for discovering sessionless providers (introduced in the AllJoyn 14.06 release)
+**Figure:** Consumer logic for discovering sessionless providers (introduced in the AllJoyn 14.06 release)
 
 If the AddMatch includes the 'interface' key but no 'implements' 
 key, the SLS module performs name-based discovery to discover 
@@ -283,7 +283,7 @@ fetch logic implemented in the 14.06 release.
 
 ![consumer-logic-sls-fetch-1406][consumer-logic-sls-fetch-1406]
 
-Figure: Consumer logic to determine sessionless signal fetch (introduced in the 14.06 release)
+**Figure:** Consumer logic to determine sessionless signal fetch (introduced in the 14.06 release)
 
 The consumer SLS module receives the sessionless signal 
 advertised name from a provider. The sessionless signal 
@@ -329,7 +329,7 @@ any of the match rules specified in the RequestRangeMatch()
 signal. The consumer SLS module uses this signal to fetch 
 sessionless signals from the 14.06 providers. 
 
-NOTE: The current implementation does a catchup fetch for 
+**NOTE:** The current implementation does a catchup fetch for 
 new match rules before fetching new signals for updated 
 change_id. This results in two fetches upon receiving the 
 sessionless signal advertised name, however, this would be 
@@ -410,7 +410,7 @@ SLS retries happening at T, 2T, 3T, 4T, 8T, 16T, 32T, 32T, 32T,....
 
 ![sls-fetch-backoff-schedule-example][sls-fetch-backoff-schedule-example]
 
-Figure: SLS fetch backoff schedule example
+**Figure:** SLS fetch backoff schedule example
 
 For every SLS retry attempt, the join session with the producer 
 is delayed randomly between [0, retry interval] to make sure 
@@ -446,7 +446,7 @@ The following figure shows the message flow for the use
 case for sending and receiving the first sessionless signal 
 on the provider and consumer, respectively.
 
-NOTE: The sessionless signal change_id is not carried in any 
+**NOTE:** The sessionless signal change_id is not carried in any 
 of the sessionless signal messages. However, the provider 
 AllJoyn router logic ensures that it only sends sessionless 
 signal messages up to the change_id that was discovered by 
@@ -463,7 +463,7 @@ per the change_id update logic described above.
 
 ![first-sls-delivery][first-sls-delivery]
 
-Figure: First sessionless signal delivery
+**Figure:** First sessionless signal delivery
 
 The message flow steps are described below.
 
@@ -554,7 +554,7 @@ set of sessionless signals and there is another less restrictive
 rule which matches a larger superset of signals, AllJoyn router 
 will always send larger superset of signals to the app. 
 
-NOTE: The AllJoyn router does not re-fetch sessionless signal 
+**NOTE:** The AllJoyn router does not re-fetch sessionless signal 
 messages associated with the existing change_id when a new match 
 rule is added. The new match rule is applied to any future 
 received messages. Starting with the 14.06 release, this behavior 
@@ -571,7 +571,7 @@ signal and is already in progress.
 
 ![another-add-match-done-by-app][another-add-match-done-by-app]
 
-Figure: Another add match done by the app
+**Figure:** Another add match done by the app
 
 ### Another app requesting for sessionless signal
 
@@ -590,7 +590,7 @@ when a subsequent app performs the first AddMatch for sessionless signals.
 
 ![another-app-requesting-sls][another-app-requesting-sls]
 
-Figure: Another app requesting for sessionless signals
+**Figure:** Another app requesting for sessionless signals
 
 ## Sessionless signal message sequences (14.06 release)
 
@@ -622,7 +622,7 @@ AddMatch does not include an 'implements' key/value pair.
 
 ![first-sls-delivery-no-implements-addmatch][first-sls-delivery-no-implements-addmatch]
 
-Figure: First sessionless signal delivery (no 'implements' key in AddMatch)
+**Figure:** First sessionless signal delivery (no 'implements' key in AddMatch)
 
 The message flow steps are described below.
 1. Both the provider and consumer apps connect to the AllJoyn router.
@@ -704,7 +704,7 @@ The following figure shows the message flow for sending and
 receiving of the first sessionless signal for the use case 
 when AddMatch includes one or more 'implements' key/value pair. 
 
-NOTE: Currently, the 'implements' key only applies to the 
+**NOTE:** Currently, the 'implements' key only applies to the 
 Announcement sessionless signal. As a result, the AddMatch 
 in this case must include "interface=org.alljoyn.About", 
 which is the interface that emits the Announcement signal.
@@ -716,7 +716,7 @@ fetches the Announcement signals from those providers.
 
 ![first-sls-delivery-implements-addmatch][first-sls-delivery-implements-addmatch]
 
-Figure: First sessionless signal delivery (with implements' key in AddMatch)
+**Figure:** First sessionless signal delivery (with implements' key in AddMatch)
 
 ### Sessionless signal delivery between a new consumer and a legacy provider
 
@@ -726,7 +726,7 @@ legacy provider (prior to the 14.06 release).
 
 ![sls-logic-new-consumer-legacy-provider][sls-logic-new-consumer-legacy-provider]
 
-Figure: Sessionless signal logic between new consumer and legacy provider
+**Figure:** Sessionless signal logic between new consumer and legacy provider
 
 ### Sessionless signal delivery between a legacy consumer and a new provider
 
@@ -736,7 +736,7 @@ from a new provider (14.06 release or later).
 
 ![sls-logic-legacy-consumer-new-provider][sls-logic-legacy-consumer-new-provider]
 
-Figure: Sessionless signal logic between legacy consumer and new provider
+**Figure:** Sessionless signal logic between legacy consumer and new provider
 
 ### Subsequent AddMatch done by an app 
 
@@ -784,7 +784,7 @@ lists the org.alljoyn.sl interface signals.
 | Signal name | Description |
 |---|---|
 | RequestSignals | Requests sessionless signals associated with change_ids in the range [fromId, currentChangeId], where currentChangeId is the most recently advertised change_id of the provider. |
-| RequestRange | <p>A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId).</p><p>NOTE: The "toId" is exclusive so a consumer should set toId=<change_id_value>+1 if it wants to get SLS up to the change_id_value.</p><p>This signal appeared in version 6 of the AllJoyn protocol.</p> |
+| RequestRange | <p>A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId).</p><p>**NOTE:** The "toId" is exclusive so a consumer should set toId=<change_id_value>+1 if it wants to get SLS up to the change_id_value.</p><p>This signal appeared in version 6 of the AllJoyn protocol.</p> |
 | RequestRangeMatch | <p>A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId) that match any of the provided match rules.</p><p>The "toId" is exclusive in this signal too.</p><p>This signal appeared in version 10 of the AllJoyn protocol (associated with the 14.06 release).</p> |
 
 ### org.alljoyn.sl.RequestSignals parameters

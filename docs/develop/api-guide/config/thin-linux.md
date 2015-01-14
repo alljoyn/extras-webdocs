@@ -62,8 +62,8 @@ fields listed below. See the [Configuration Interface Definition][config-interfa
 
 | Field name | Required | Announced | Type |
 |---|---|---|---|
-| DefaultLanguage | yes | yes | s |
-| DeviceName | yes | yes | s 
+| `DefaultLanguage` | yes | yes | `s` |
+| `DeviceName` | yes | yes | `s` |  
 
 #### PropertyStore implementation
 
@@ -89,11 +89,11 @@ clients. If the field is public then set the `mode7Public` bit to 1.
 4. Decide whether the field is to be allowed to be configured 
 remotely through the Configuration service framework. If the 
 field is updateable, then set the `mode0Write` bit to 1.
-   NOTE: If you set this bit, the field's index must be 
+   **NOTE:** If you set this bit, the field's index must be 
    included in the Persisted or Config keys subsets.
 5. Decide whether the field is to be included in the Announcement. 
 If the field is announced then set the `mode1Announce` bit to 1.
-   NOTE: It is recommended to limit the inclusion of a field 
+   **NOTE:** It is recommended to limit the inclusion of a field 
    in the Announcement according to its immediate relevance to 
    the relevant service framework's discovery. Only the value 
    associated with the currentDefaultLanguage will be sent 
@@ -110,7 +110,7 @@ set the `mode3Init` bit to 1 and add the relevant code to initialize it.
    `InitMandatoryPropertiesInRAM()` for an example setup for the 
    DeviceId and AppId fields.
 
-   NOTE: If you set this bit, the field's index must be included 
+   **NOTE:** If you set this bit, the field's index must be included 
    in the Persisted keys subsets.
 
 8. Add relevant validation of updated value for your custom key 
@@ -126,7 +126,7 @@ to provision default value(s).
 10. Add entry in corresponding index of propertyStoreRuntimeValues 
 to provision for runtime value(s) buffer(s).
 
-NOTE: The example implementation of PropertyStore supports 
+**NOTE:** The example implementation of PropertyStore supports 
 properties with value of type String ('s') only. If your property 
 must be of a different type, you must provision the default value 
 as a String and perform the relevant de/serialization on the client side.
@@ -306,7 +306,7 @@ to persist to NVRAM.
 3. Finally, `AJ_ClearCredentials()` is called to revoke all 
 current keys based on the old passcode.
 
-NOTES: 
+**NOTES**
 
 * The stored passcode is HEX and is limited to the size 
 of 32, allowing for 16 bytes long secret:

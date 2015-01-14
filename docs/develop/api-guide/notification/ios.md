@@ -3,8 +3,8 @@
 ## Using the Notification Service
 
 There are two ways to use the Notification Service, as a 
-*Producer* and as *Consumer*. The power of the [Notification 
-service][learn_notif] is its simplicity and ability to 
+*Producer* and as *Consumer*. The power of the 
+[Notification service][learn_notif] is its simplicity and ability to 
 allow devices to "talk" to end users to provide meaningful information.
 
 The Notification Producer side of an application is responsible 
@@ -38,7 +38,7 @@ An application can be a consumer, a producer, or both.
 
 ## Prerequisites
 
-Follow the steps in the [Building iOS/OS X section][building-ios] to 
+Follow the steps in the [Building iOS/OS X][building-ios] section to 
 get your environment and project setup to use the AllJoyn&trade; 
 framework and the Notification Service. 
 
@@ -68,7 +68,7 @@ the receiver implementation.
 
 #### Initialize the AllJoyn framework
 
-See the [Building iOS/OSX section][building-ios] for instructions 
+See the [Building iOS/OSX][building-ios] section for instructions 
 to set up the AllJoyn framework.
 
 #### Create bus attachment
@@ -89,7 +89,7 @@ self.aboutPropertyStoreImpl = [[QASAboutPropertyStoreImpl alloc]
 [self.aboutPropertyStoreImpl setAppName:@"NotificationApp"]; 
 [self.aboutPropertyStoreImpl setDeviceId:@"1231232145667745675477"]; 
 [self.aboutPropertyStoreImpl setDeviceName:@"Screen"];
-NSArray* languages = @[@"en", @"sp", @"ru"];
+NSArray* languages = @[@"en", @"sp", @"de"];
 ```
 
 #### Start the About Service
@@ -175,7 +175,7 @@ and About property store implementation
 
 #### Initialize the AllJoyn framework
 
-See the [Building iOS/OSX section][building-ios] for instructions 
+See the [Building iOS/OSX][building-ios] section for instructions 
 to set up the AllJoyn framework.
 
 #### Create bus attachment

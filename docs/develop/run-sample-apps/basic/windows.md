@@ -12,7 +12,7 @@ The AllJoyn&trade; Standard Library Windows SDK includes a precompiled set of bi
 
     basic_service
 
-NOTE: The application just runs and will print information when a basic client connects.
+**NOTE:** The application just runs and will print information when a basic client connects.
 
 ####Client
 1. Open a Command Terminal window.
@@ -21,7 +21,7 @@ NOTE: The application just runs and will print information when a basic client c
 4. Run basic_client:
     basic_client
 
-NOTE: The application will exit after finding a service, executing the cat method, then exits.
+**NOTE:** The application will exit after finding a service, executing the cat method, then exits.
 
 ###Visual Studio
 The Basic sample applications are merged into a single Visual Studio project. 
@@ -34,6 +34,6 @@ or create a new Visual Studio project that includes just the sample you wish to 
     2. The keyboard F5 key can also work, unless you have changed this shortcut.
 4. A command prompt will open and you will see the output.
 
-NOTE: The basic_client application will exit after finding a 
+**NOTE:** The basic_client application will exit after finding a 
 service and executing the cat command.  Set breakpoints if you 
 wish to follow the application flow.

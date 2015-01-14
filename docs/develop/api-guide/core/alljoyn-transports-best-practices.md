@@ -19,46 +19,6 @@ This document discusses how to determine which AllJoyn Transports
 might be more suitable than others to different application traffic
 patterns and requirements.
 
-## Glossary of Terms
-### ARDP
-
-AllJoyn Reliable Datagram Protocol. ARDP is designed to provide,
-among other things, reliable delivery and ordering for UDP-based
-layer 4 transport mechanisms. In particular, ARDP is used in the
-UDP Transport to provide guarantees appropriate to AllJoyn Messaging.
-ARDP is modeled after RDP and extended for AllJoyn-specific requirements.
-
-### Bandwidth-Delay Product
-
-Refers to the product of a data link�s capacity in bits per second
-and its round-trip delay time. This characterizes the amount of data
-that can be in transit (sometimes called in-flight) in the network.
-
-### RDP
-
-Reliable Data Protocol. An efficient reliable data transport
-service for packet-based applications.
-
-### SYN, SYN+ACK, ACK
-
-The kinds of segments that are involved in a three-way handshake
-connection establishment protocol. Used in TCP and ARDP.
-
-### TCP
-
-Transmission Control Protocol. TCP is one of the core transport
-layer protocols that comprise the Internet protocol suite.
-TCP provides a reliable, ordered transmission model consisting
-of a stream of octets (bytes) between programs.
-
-### UDP
-
-User Datagram Protocol. UDP is one of the core transport layer
-protocols that comprise the Internet protocol suite. UDP provides
-a connectionless transmission model which exchanges messages
-called datagrams. Datagrams transmitted using UDP have no ordering
-or reliability guarantees.
-
 ## AllJoyn Transports
 
 One of the fundamental abstractions in an AllJoyn system is that
@@ -112,7 +72,7 @@ corresponds to the presentation layer in the seven-layer model.
 
 ![alljoyn-osi-seven-layer-arch][alljoyn-osi-seven-layer-arch]
 
-Figure: Mapping of AllJoyn system and OSI layer transports
+**Figure:** Mapping of AllJoyn system and OSI layer transports
 
 AllJoyn Messages are sent to a local Routing Node which is
 responsible for selecting an AllJoyn Transport over which
@@ -509,7 +469,7 @@ ARDP provides the fragmentation mechanism required to send
 maximal AllJoyn Messages (about 130 Kbytes) over UDP
 which has a maximum datagram size of 64 Kbytes.
 
-NOTE: For more information about UDP, review RFC 768: User
+**NOTE:** For more information about UDP, review RFC 768: User
 Datagram Protocol and RFC 908: Reliable Data Protocol.
 
 ### Advantages to using UDP
@@ -622,7 +582,7 @@ sufficient for many uses of UDP such as name services, it is
 small when compared to the bandwidth-delay product of modern
 Wi-Fi systems.
 
-NOTE: An 802.11n system using Modulation and Coding Scheme (MCS) 11
+**NOTE:** An 802.11n system using Modulation and Coding Scheme (MCS) 11
 can run at 300 megabits per second. Given a round-trip time of
 6 msec, this corresponds to a buffer size of 225 Kbytes.
 
@@ -667,7 +627,7 @@ While the level of tuning described below will be rarely needed,
 the scenario is provided for completeness and as an illustration
 of how the UDP Transport works.
 
-NOTE: This analysis was done using the default network and
+**NOTE:** This analysis was done using the default network and
 UDP protocol settings of the Linux system on which the experiments were run.
 
 #### SEGBMAX setting
@@ -679,7 +639,7 @@ AllJoyn Messages.
 
 ![segbmax-sensitivity-analysis][segbmax-sensitivity-analysis]
 
-Figure: SEGBMAX sensitivity analysis
+**Figure:** SEGBMAX sensitivity analysis
 
 Since UDP is a user-level protocol, all acknowledgments must
 be done at user privilege  , which implies a context switch
@@ -708,7 +668,7 @@ with SEGBMAX held constant at 4440 bytes.
 
 ![segmax-sensitivity-analysis][segmax-sensitivity-analysis]
 
-Figure: SEGMAX sensitivity analysis
+**Figure:** SEGMAX sensitivity analysis
 
 The plot starts with SEGMAX at 31 and plots the time to
 transfer a 10 megabyte file for each SEGMAX value. It can

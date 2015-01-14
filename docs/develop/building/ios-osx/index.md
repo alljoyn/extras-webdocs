@@ -71,8 +71,9 @@ Make sure you have an iOS device connected to your computer, then use
 Xcode to __Run__ the desired sample application. This will install 
 the application onto your device. 
 
-TIP: This command can also be used to build a sample application from a terminal
+**TIP:** This command can also be used to build a sample application from a terminal
 
+<!-- QUESTION FOR WAYNE: Need to insert command -->
 <!-- TODO - insert scons command here -->
 
 ## Add the AllJoyn&trade; framework to an iOS application

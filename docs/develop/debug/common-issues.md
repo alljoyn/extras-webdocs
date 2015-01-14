@@ -2,7 +2,7 @@
 
 Below is a list of common issues, debugging tricks, and solutions.
 
-## AllJoyn&trade; discover is not working in Android
+## The AllJoyn&trade; discover feature is not working in Android
 
 ### Check the setup
 
@@ -14,7 +14,7 @@ Below is a list of common issues, debugging tricks, and solutions.
 * Is there an AllJoyn router running?
 
   An AllJoyn router must be running for every app that uses 
-  the AllJoyn framework. The router can be in standalone or bundled form. |
+  the AllJoyn framework. The router can be in standalone or bundled form.
 
 * Is the access point conducive to a peer-to-peer network?
 
@@ -77,7 +77,8 @@ Below is a list of common issues, debugging tricks, and solutions.
 
 ## Peer presence detection
 
-How do I know when a peer is no longer available, or has moved out-of-range when I was talking to, or in a session with, that peer?
+How do I know when a peer is no longer available, or has moved 
+out of range when I was talking to, or in a session with, that peer?
 
 ### Background
 
@@ -106,7 +107,7 @@ The AllJoyn framework has three kinds of main listeners (excluding `AuthListener
   1. `sessionLost` - The bus calls this callback when the 
   last member of the session has left.
 
-  TIP: Developers might look at the service as one of the 
+  **TIP:** Developers might look at the service as one of the 
   members of the session and therefore think that as long 
   as the service is up, the session is up. This seems true 
   logically, but actually, a session must have two or more 
@@ -149,7 +150,7 @@ I don't have to wait too long?
  
   * Yes! You can manually set the link timeout using `SetLinkTimeout()`.
 
-  TIP: If set to a value < 40 seconds, the default is 40 seconds.
+  **TIP:** If set to a value < 40 seconds, the default is 40 seconds.
 
 * Why do we do this?	
 
@@ -265,7 +266,7 @@ The AllJoyn framework has three ways to send data across to a peer.
   amount of data rapidly on this socket. Sending 255 bytes 
   at a time is recommended.
 
-## App hangs when using AllJoyn
+## App hangs when using the AllJoyn framework
 
 A few possibilities:
 

@@ -25,7 +25,7 @@ environment that can be built with the Actions and Events feature.
 
 ![events-actions-sample-arch][events-actions-sample-arch]
 
-Figure: Events and Actions feature sample architecture
+**Figure:** Events and Actions feature sample architecture
  
 ## Events and Actions sequence flow
 
@@ -44,18 +44,18 @@ the software on the devices to be returned in the introspection XML.
 These can be created by the OEM, standardized descriptions 
 provided by the AllSeen Alliance can be used.
 
-1.  A device with the Event Picker application installed 
+1. A device with the Event Picker application installed 
 discovers other devices on the network that support the 
 Events interface. The device's UI presents a list of those 
 devices such as TV, washer, and thermostat.
-2.  The Event Picker application introspects the Events interface 
+2. The Event Picker application introspects the Events interface 
 on the devices listed in the UI, and presents a list of human 
 readable descriptions in the UI. Example descriptions include 
 TV is on, Washer cycle complete, and Thermostat cooling.
-3.  The device with the Event Picker application installed 
+3. The device with the Event Picker application installed 
 discovers devices on the network that support the Action interface. 
 The device's UI presents a list of those devices such as Kitchen Lights.
-4.  The Event Picker application introspects the Action methods 
+4. The Event Picker application introspects the Action methods 
 on the devices listed in the UI, and presents a list of human 
 readable descriptions in the UI. The events (TV is on, 
 Washer cycle complete, Thermostat cooling) are paired with 
@@ -155,7 +155,7 @@ For example, if an object implements two interfaces, X and Y
 and Y has some descriptions in English (en) and Chinese (cn)), 
 this method returns ["en", "fr", "cn"].
 
-NOTE: The language tags must comply with IETF language tag standards.
+**NOTE:** The language tags must comply with IETF language tag standards.
 
 #### IntrospectWithDescription
 
@@ -178,7 +178,7 @@ For example, if a device supports English ("en") and Spanish ("es"),
 and the requested language is Portuguese ("pt"), it is better 
 to return Spanish as it is Latin-based and may share some common words.
 
-NOTE: The AllJoyn library does not provide IETF language tag matching logic.
+**NOTE:** The AllJoyn library does not provide IETF language tag matching logic.
 
 #### Sample introspection XML
 
@@ -284,7 +284,7 @@ default language description even when the language requested
 is not matched. If the Translator returns NULL, no description 
 will be returned.
 
-NOTE: In this scenario, the description is a lookup tag that 
+**NOTE:** In this scenario, the description is a lookup tag that 
 is never returned in the introspection XML.
 
 ### Linux
@@ -404,12 +404,10 @@ To set descriptions for an interface, use the following annotations:
 
 | Interface | Annotation type | Annotations |
 |---|---|---|
-| org.alljoyn.bus.annotation | BusInterface | * descriptionLanguage |
-| | | * description |
-| | BusMethod | description |
-| | BusSignal | * description |
-| | | * sessionless |
-| | BusProperty | description |
+| org.alljoyn.bus.annotation | BusInterface | `descriptionLanguage`, `description` |
+|                            | BusMethod    | `description` |
+|                            | BusSignal    | `descriptionLanguage`, `description` |
+|                            | BusProperty  | `description` |
  
 #### Setting Translators
 
@@ -584,7 +582,7 @@ contains descriptions. This allows an application developer to
 receive and display descriptions when a lang tag of "" (empty string) 
 or a value that is not contained in the language array are asked for.
 
-NOTE: An example implementation of a Translator is contained 
+**NOTE:** An example implementation of a Translator is contained 
 in the ajtcl/sample/basic/eventaction_service.c.
 
 ##### Set Translator

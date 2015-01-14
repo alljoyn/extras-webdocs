@@ -64,7 +64,7 @@ The following figure shows the concepts of local and remote endpoints.
 
 ![local-remote-endpoints][local-remote-endpoints]
 
-Figure: Local and remote endpoints
+**Figure:** Local and remote endpoints
 
 The figure illustrates a hypothetical connection between an AllJoyn application 
 and a preinstalled Router. The AllJoyn application talks to a Core Library 
@@ -85,7 +85,7 @@ figure (AllJoyn router wiht multiple remote endpoints).
 
 ![alljoyn-router-multiple-remote-endpoints][alljoyn-router-multiple-remote-endpoints]
 
-Figure: AllJoyn router with multiple remote endpoints
+**Figure:** AllJoyn router with multiple remote endpoints
 
 Both the Core Library and the router maintain remote endpoints, 
 however they differ in terms of message routing functionality - 
@@ -99,7 +99,7 @@ into a single distributed AllJoyn bus as shown in the following figure.
 
 ![alljoyn-distributed-bus-b2b-endpoints][alljoyn-distributed-bus-b2b-endpoints]
 
-Figure: AllJoyn distributed bus with bus-to-bus endpoints
+**Figure:** AllJoyn distributed bus with bus-to-bus endpoints
 
 In this figure, one bus segment comprising an AllJoyn Router and 
 two Applications is shown in the top half. Another bus segment, 
@@ -142,7 +142,7 @@ On the Routing Node side, a Thin Library device connects as
 if it was any local Core Library connecting using a local 
 TCP loopback connection. 
 
-NOTE: This is how Bus Attachments connect to Routing Nodes in 
+**NOTE:** This is how Bus Attachments connect to Routing Nodes in 
 the Windows environment. The TCP transport is used for the 
 connection, but the data does not actually travel across the 
 network; but rather is "looped back" and sent back up the 
@@ -152,7 +152,7 @@ The Thin Library Endpoint usage is captured in the following figure.
 
 ![thin-core-library-endpoint][thin-core-library-endpoint]
  
-Figure: Thin Core Library Endpoint
+**Figure:** Thin Core Library Endpoint
 
 ## AllJoyn Transport in Networking Model
 
@@ -168,7 +168,7 @@ The following figure shows where AllJoyn Transports fit in the
 
 ![alljoyn-osi-seven-layer-arch][alljoyn-osi-seven-layer-arch]
 
-Figure: AllJoyn transport in the ISO/OSI 7-layer model
+**Figure:** AllJoyn transport in the ISO/OSI 7-layer model
 
 Underneath the Application Logic, there exists an AllJoyn Message 
 layer which is responsible for marshaling and unmarshaling of 
@@ -216,7 +216,7 @@ TransportMask bits are shown in the following table.
 | TRANSPORT_WFD | 0x0080 | Wi-Fi Direct transport (not currently supported). |
 | TRANSPORT_ANY | 0xFFFF & ~TRANSPORT_WFD | Any transport except Wi-Fi Direct. |
 
-NOTE: Currently, the AllJoyn system's WWAN, WLAN and LAN transports 
+**NOTE:** Currently, the AllJoyn system's WWAN, WLAN and LAN transports 
 are supported by a single underlying TCP transport. 
 
 If an AllJoyn application desires to only use TCP as the 
@@ -339,7 +339,7 @@ TCP Stream, and TCP socket as shown in the following figure.
 
 ![tcp-transport-data-plane-internal-architecture][tcp-transport-data-plane-internal-architecture]
 
-Figure: TCP transport data plane internal architecture
+**Figure:** TCP transport data plane internal architecture
 
 The routing functionality of a Routing Node connects to a TCP Endpoint, 
 which represents a Remote Endpoint for a TCP Transport connection. 
@@ -355,7 +355,7 @@ TCP Endpoint are shown in the following figure.
 
 ![tcp-endpoint-lifecycle-states][tcp-endpoint-lifecycle-states]
 
-Figure: TCP endpoint lifecycle states
+**Figure:** TCP endpoint lifecycle states
 
 TCP Endpoints are created either as a result of an active 
 connection request or an incoming call for a passive connection. 
@@ -397,7 +397,7 @@ the TCP Endpoint enters the INTIALIZED state.
 
 ![tcp-endpoint-auth-states][tcp-endpoint-auth-states]
 
-Figure: TCP endpoint authentication states
+**Figure:** TCP endpoint authentication states
 
 TCP Endpoint authentication uses the Simple Authentication and 
 Security Layer (SASL) framework "ANONYMOUS" mechanism. 
@@ -447,7 +447,7 @@ data plane architecture is captured in the following figure.
 
 ![udp-transport-data-plane-internal-architecture][udp-transport-data-plane-internal-architecture]
  
-Figure: UDP transport data plane internal architecture
+**Figure:** UDP transport data plane internal architecture
 
 The ARDP Stream component converts from the notion of a 
 Message stream to a stream of datagrams and, in turn, talks 
@@ -462,7 +462,7 @@ UDP Endpoints go through a well-defined lifecycle as shown in the following figu
 
 ![udp-endpoint-lifecycle][udp-endpoint-lifecycle]
 
-Figure: UDP endpoint lifecycle
+**Figure:** UDP endpoint lifecycle
 
 Endpoints are constructed because of either an Active or a 
 Passive connection request. Similar to the TCP concept, 
@@ -491,7 +491,7 @@ event, an immediate transition is made to the WAITING state.
 This allows all queued and in-flight Messages to be sent to the 
 remote side before an ARDP Disconnect is executed. 
 
-NOTE: Unlike TCP, there is no four-way ending handshake in ARDP - 
+**NOTE:** Unlike TCP, there is no four-way ending handshake in ARDP - 
 this is handled at the Session level in the UDP Transport state machine.  
 
 Once all data is transferred and acknowledged, a transition is 
@@ -515,7 +515,7 @@ in the following figure.
 
 ![ardp-state-machine][ardp-state-machine]
 
-Figure: ARDP state machine
+**Figure:** ARDP state machine
 
 As in TCP, connections may be started actively or passively.  
 An active, or outgoing connection begins by creating a UDP Endpoint 

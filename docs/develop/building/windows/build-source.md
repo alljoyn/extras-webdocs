@@ -15,7 +15,7 @@ for instructions for setting up Visual Studio 2008.
 
 ### Python 2.7.3 for Windows
 
-NOTE: Python 2.6 may also be used. Use the 32-bit version of 
+**NOTE:** Python 2.6 may also be used. Use the 32-bit version of 
 Python even if you are building the AllJoyn&trade; framework for a 64-bit architecture.
 
 1. Open a browser and navigate to http://www.python.org/download/.
@@ -25,7 +25,7 @@ Python even if you are building the AllJoyn&trade; framework for a 64-bit archit
 
 ### SCons 2.3.4 for Windows
 
-NOTE: SCons 1.3.0 may also be used.
+**NOTE:** SCons 1.3.0 may also be used.
 
 1. Open a browser and navigate to http://www.scons.org.
 2. From the SCons web page, under 'Scons 2.3.4 is available', click the **download page** link.
@@ -38,7 +38,7 @@ OpenSSL is required if you are building the AllJoyn framework
 for Windows XP or if your codebase is older than November 2011. 
 For other versions of Windows, see [Visual Studio 2008 Legacy Build - Microsoft Windows SDK 7.x][vs-2008-legacy-build-ms-windows-sdk-7x].
 
-NOTE: To avoid error messages, install Visual C++ 2008 Redistributables 
+**NOTE:** To avoid error messages, install Visual C++ 2008 Redistributables 
 before installing OpenSSL.
 
 1. Open a browser and navigate to http://www.slproweb.com/products/Win32OpenSSL.html.
@@ -46,7 +46,7 @@ before installing OpenSSL.
 3. Click **Download** and **Run**. The setup wizard appears.
 4. Proceed through the wizard steps to complete the C++ installation.
 
-   NOTE: It is best to download and use the latest version.
+   **NOTE:** It is best to download and use the latest version.
 
 5.  Return to the OpenSSL web page, and click **WinOpenSSL v1.0.1e**.
 6. Click **Run** and **Run** again. The setup wizard appears.
@@ -96,7 +96,7 @@ This tool is optional, but is required for creating documentation.
 
 MiKTeX is used to create LaTeX binaries and Windows style sheets.
 
-IMPORTANT: Install MiKTeX ONLY if you need to produce a PDF version of an API document.
+**IMPORTANT:** Install MiKTeX ONLY if you need to produce a PDF version of an API document.
 
 1. Open a browser and navigate to http://www.miktex.org/2.8/setup.
 2. From the MiKTeX web page, under **Installing a basic MiKTeX system**, click **Download**.
@@ -164,7 +164,7 @@ known location (e.g., `C:\apache-ant-1.9.0`).
 6. Click **Environment Variables**.
 7. Under the User variables, search for 'PATH'.
 
-   NOTE: There is a 'Path' variable under System variables, 
+   **NOTE:** There is a 'Path' variable under System variables, 
    which you could add to; however, it is considered good 
    practice to add new variables to User variables.
 
@@ -238,7 +238,7 @@ C:\>openssl version
 OpenSSL 1.0.0d 8 Feb 2011
 ```
 
-NOTE: OpenSSL not needed for all installations see 
+**NOTE:** OpenSSL not needed for all installations see 
 [openSSL v1.0.1e for Windows][openssl-version-windows] and 
 [Msysgit version 1.8.1.2 for Windows][msysgit-version-windows] for more information
 
@@ -318,7 +318,7 @@ C:\>cd allseen\core\alljoyn
 C:\allseen\core\alljoyn>scons OS=win7 CPU=x86_64 MSVC_VERSION=12.0 BINDINGS=cpp
 ```
 
-NOTE: If you are building a version older than 2.6, then 
+**NOTE:** If you are building a version older than 2.6, then 
 CPU=x86_64 will be required to build a 64-bit version of 
 the AllJoyn framework.
 
@@ -365,7 +365,7 @@ that is installed on your system:
 * For Microsoft Visual C++ 2010, it will be 10.0.
 * For Microsoft Visual C++ 2013, it will be 12.0.
 
-NOTE: If you are using Windows 7, you may need to run SCons as administrator.
+**NOTE:** If you are using Windows 7, you may need to run SCons as administrator.
 
 ### Build variants
 
@@ -409,7 +409,7 @@ Here is the path used on a development setup:
 set CLASSPATH="C:\junit\junit-4.11.jar"
 ```
 
-NOTE: These environment variables are already set if you 
+**NOTE:** These environment variables are already set if you 
 followed the instructions in [Adding environment variables][adding-environment-variables].
 
 As noted, to build Java code, use the same commands as were 
@@ -498,7 +498,7 @@ The values are:
 * 11.0 - Use Microsoft Visual C++ 2012
 * 11.0Exp - Use Microsoft Visual C++ Express Edition
 
-NOTE: Support for Visual Studio 2008 has been deprecated. 
+**NOTE:** Support for Visual Studio 2008 has been deprecated. 
 For the time being the scons script still defaults to 
 Visual Studio 2008. Be sure to use the right value for 
 your version of Visual Studio.
@@ -524,7 +524,7 @@ Example:
 scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 BR=on BINDINGS=cpp,java
 ```
 
-NOTE: Support for a stand-alone router was removed for Windows 
+**NOTE:** Support for a stand-alone router was removed for Windows 
 with the AllJoyn v2.6 release. Using BR=off on Windows will 
 result in unusable code. See [AllJoyn Router][alljoyn-router] 
 for more information.
@@ -593,7 +593,7 @@ another available port to use for device-to-device communication.
 
 ## Running Unit Tests
 
-NOTE: The following instructions are only valid for AllJoyn 
+**NOTE:** The following instructions are only valid for AllJoyn 
 version 2.6 and newer.
 
 ### Running C++ unit tests
@@ -702,7 +702,7 @@ drop-down list.
 
 ### Microsoft Visual Studio 2008 SP1 or Visual C++ 2008 Feature Pack Release
 
-NOTE: Microsoft Visual Studio 2008 Service Pack 1 (SP1) or the 
+**NOTE:** Microsoft Visual Studio 2008 Service Pack 1 (SP1) or the 
 Visual C++ 2008 Feature Pack Release is only required if you 
 are using Microsoft Visual Studio 2008 to build the AllJoyn framework.
  

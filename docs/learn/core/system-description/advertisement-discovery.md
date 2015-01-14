@@ -76,7 +76,7 @@ generating IS-AT and WHO-HAS messages for service discovery.
 
 ![name-based-discovery-arch][name-based-discovery-arch]
 
-Figure: Name-based discovery architecture
+**Figure:** Name-based discovery architecture
 
 ## IS-AT
 
@@ -134,7 +134,7 @@ behavior for name-based discovery.
 
 ![consumer-router-discovery-behavior][consumer-router-discovery-behavior]
 
-Figure: Consumer AllJoyn router discovery behavior
+**Figure:** Consumer AllJoyn router discovery behavior
 
 ### Message sequence
 
@@ -158,7 +158,7 @@ which immediately responds with an IS-AT message.
 
 ![typical-discovery-wkn][typical-discovery-wkn]
 
-Figure: Typical discovery of a well-known name
+**Figure:** Typical discovery of a well-known name
 
 #### Discovery over unreliable network
 
@@ -171,7 +171,7 @@ and Disc_Msg_Retry_Interval parameters.
 
 ![discovery-unreliable-network][discovery-unreliable-network]
 
-Figure: Discovery over unreliable network
+**Figure:** Discovery over unreliable network
 
 #### Discovery when IP connectivity is established late
 
@@ -186,7 +186,7 @@ FoundAdvertiseName for the requested well-known name.
 
 ![discovery-late-ip-connectivity][discovery-late-ip-connectivity]
 
-Figure: Discovery when IP connectivity is established late
+**Figure:** Discovery when IP connectivity is established late
 
 #### WKN lost due to loss of IP connectivity
 
@@ -203,7 +203,7 @@ initiates a LostAdvertiseName for that well-known name.
 
 ![wkn-lost-ip-connectivity][wkn-lost-ip-connectivity]
 
-Figure: Well-known name lost due to loss of IP connectivity
+**Figure:** Well-known name lost due to loss of IP connectivity
 
 #### Provider cancels well-known name advertisement
 
@@ -213,7 +213,7 @@ previously advertised well-known name.
 
 ![provider-cancels-wkn-advertisement][provider-cancels-wkn-advertisement]
 
-Figure: Provider cancels well-known name advertisement
+**Figure:** Provider cancels well-known name advertisement
 
 ##### Consumer cancels discovery for well-known name
 The following figure shows the message sequence for the 
@@ -221,7 +221,7 @@ scenario when a consumer application cancels discovery for a well-known name.
 
 ![consumer-cancels-wkn-discovery][consumer-cancels-wkn-discovery]
 
-Figure: Consumer cancels discovery for well-known name
+**Figure:** Consumer cancels discovery for well-known name
 
 #### Message structure
 
@@ -239,7 +239,7 @@ defines the message structure fields.
 
 ![name-service-message-structure][name-service-message-structure]
 
-Figure: Name service message structure
+**Figure:** Name service message structure
 
 ##### Name Service message structure fields
 
@@ -260,7 +260,7 @@ defines the IS-AT message fields
 
 ![is-at-message-format-v1][is-at-message-format-v1]
 
-Figure: IS-AT message format (version 1)
+**Figure:** IS-AT message format (version 1)
 
 ##### IS-AT message format version 1 fields
 
@@ -286,7 +286,7 @@ WHO-HAS message fields.
 
 ![who-has-message-format-v1][who-has-message-format-v1]
 
-Figure: WHO-HAS message format (version 1)
+**Figure:** WHO-HAS message format (version 1)
 
 ##### WHO-HAS message format version 1 fields
 
@@ -326,7 +326,7 @@ for the announcement-based discovery process.
 
 ![announcement-service-discovery-arch][announcement-service-discovery-arch]
 
-Figure: Announcement-based service discovery architecture
+**Figure:** Announcement-based service discovery architecture
 
 The Announcement message is sent as a sessionless signal 
 from the provider app to the AllJoyn router, and gets cached 
@@ -352,7 +352,7 @@ The following figure shows the message sequence for the announcement-based disco
 
 ![announcement-service-discovery][announcement-service-discovery]
 
-Figure: Announcement-based service discovery message sequence
+**Figure:** Announcement-based service discovery message sequence
 
 #### Announcement message
 
@@ -370,7 +370,7 @@ See the About HLD for Announcement message details.
 [AllJoyn discovery configuration parameters][alljoyn-discovery-config-params] captures 
 configuration parameter for legacy AllJoyn discovery.
 
-NOTE: Implementation may use different names for these parameters.
+**NOTE:** Implementation may use different names for these parameters.
 
 #### AllJoyn discovery configuration parameters
 
@@ -393,7 +393,7 @@ The following figure shows the high-level architecture for NGNS.
 
 ![ngns-high-level-arch][ngns-high-level-arch]
 
-Figure: NGNS high-level architecture
+**Figure:** NGNS high-level architecture
 
 The architecture shows main logical components related 
 to NGNS. The enhanced discovery and presence functionality 
@@ -476,7 +476,7 @@ This constitutes version 2 of the discovery protocol.
 The version number is set in the pv field of the "sender-info" 
 TXT record in the additional section of the mDNS query and response.
 
-NOTE: The 14.02 Name Service implementation uses version 0 and 1 
+**NOTE:** The 14.02 Name Service implementation uses version 0 and 1 
 of the discovery protocol. 
 
 ##### Usage of DNS-SD 
@@ -652,7 +652,7 @@ unicast to the consumer application.
 
 ![ngns-discovery-consumer-app-provider][ngns-discovery-consumer-app-provider]
 
-Figure: NGNS name-based discovery between consumer app and provider
+**Figure:** NGNS name-based discovery between consumer app and provider
 
 ##### NGNS consumer app with NGNS and Name Service provider apps
 
@@ -676,7 +676,7 @@ discovered in the WHO-HAS message.
 
 ![ngns-discovery-ngns-name-service-provider-apps][ngns-discovery-ngns-name-service-provider-apps]
 
-Figure: NGNS name-based discovery (NGNS and Name Service provider apps)
+**Figure:** NGNS name-based discovery (NGNS and Name Service provider apps)
 
 ##### FindAdvertisedName pending; provider apps arrive later
 
@@ -706,7 +706,7 @@ application sends IS-AT messages.
 
 ![find-advertised-name-api-called-provider-arrives-later][find-advertised-name-api-called-provider-arrives-later]
 
-Figure: FindAdvertisedName API called; provider arrives later
+**Figure:** FindAdvertisedName API called; provider arrives later
 
 #### Interface names discovery
 
@@ -736,7 +736,7 @@ sessionless signal fetch to retrieve the Announce signal.
 
 ![alljoyn-interface-query-ngns-consumer-provider-apps][alljoyn-interface-query-ngns-consumer-provider-apps]
 
-Figure: AllJoyn interface query (NGNS consumer app and NGNS provider app)
+**Figure:** AllJoyn interface query (NGNS consumer app and NGNS provider app)
 
 ##### NGNS consumer app; NGNS and Name Service provider app
 
@@ -776,7 +776,7 @@ AllJoyn interfaces being discovered.
 
 ![interface-query-ngns-consumer-app-ngns-ns-provider-apps][interface-query-ngns-consumer-app-ngns-ns-provider-apps]
 
-Figure: Interface query (NGNS consumer app; NGNS and Name Service provider apps)
+**Figure:** Interface query (NGNS consumer app; NGNS and Name Service provider apps)
 
 ##### Pending AllJoyn interface names query; provider apps arrive later
 
@@ -805,7 +805,7 @@ signal is sent to the consumer application if there is a match.
 
 ![pending-interface-query-ngns-consumer-app-ngns-ns-provider-apps][pending-interface-query-ngns-consumer-app-ngns-ns-provider-apps]
 
-Figure: Pending AllJoyn interface query (NGNS consumer app, NGNS and Name Service provider apps)
+**Figure:** Pending AllJoyn interface query (NGNS consumer app, NGNS and Name Service provider apps)
 
 #### Cancel advertisement
 
@@ -821,7 +821,7 @@ upon receipt of the cancel advertisement discovery message.
 
 ![cancel-advertised-name-ngns-consumer-app-ngns-ns-provider-apps][cancel-advertised-name-ngns-consumer-app-ngns-ns-provider-apps]
 
-Figure: Cancel advertised name (NGNS consumer app, NGNS and Name Service provider apps)
+**Figure:** Cancel advertised name (NGNS consumer app, NGNS and Name Service provider apps)
 
 #### Presence
 
@@ -858,7 +858,7 @@ message over unicast. The presence check is performed using D-Bus Ping method ca
 
 ![ping-api-over-ngns-ngns-consumer-provider-apps][ping-api-over-ngns-ngns-consumer-provider-apps]
 
-Figure: Ping API called by consumer application over NGNS (NGNS consumer app and NGNS provider app)
+**Figure:** Ping API called by consumer application over NGNS (NGNS consumer app and NGNS provider app)
 
 ##### Legacy presence with NGNS consumer app and Name Service provider app
 
@@ -870,7 +870,7 @@ with the discovered name so that presence for that name can be initiated.
 
 ![revert-legacy-presence-ngns-consumer-app-ns-provider-app][revert-legacy-presence-ngns-consumer-app-ns-provider-app]
 
-Figure: Reverting to legacy presence (NGNS consumer app and Name Service provider app)
+**Figure:** Reverting to legacy presence (NGNS consumer app and Name Service provider app)
 
 ### DNS-SD message format
 
@@ -879,7 +879,7 @@ AllJoyn framework makes use of the DNS-SD protocol.
 The AllJoyn discovery process is based on the DNS-SD and the 
 message format is captured below. 
 
-NOTE: <guid> in the resource records refers to the AllJoyn 
+**NOTE:** <guid> in the resource records refers to the AllJoyn 
 router'\'s GUID. In addition, the presence of specific records 
 in a given message is specified in the NGNS message sequences 
 capture above while the tables below show all the possible 

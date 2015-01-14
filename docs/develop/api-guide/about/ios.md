@@ -80,27 +80,39 @@ There are two ways to mark an interface as announced
 - Add the flag `ANNOUNCED` to the generated code for the bus object
 - Use AJNBusAttachment::SetAnnouceFlag
 
+<!--QUESTION FOR GEORGE: Need to resolve code snippet reference below-->
+
 [code snippet for both]
 
 ### Implement an AJNAboutDataListener and provide the values for About interface fields
 
-When a user wants to send an About announcement they would need to provide the implementation of two virutal functions that are a part of the AJNAboutDataListener. The intent is to fill in the about or announce data in form of a dictionary which is announced
+When a user wants to send an About announcement they would need 
+to provide the implementation of two virutal functions that are 
+a part of the AJNAboutDataListener. The intent is to fill in the 
+about or announce data in form of a dictionary which is announced
 
-The AJNAboutDataListener interface is required by the About service application to store the provisioned values for the About interface data fields (listed in [About interface data fields][about-interface-data-fields]).
+The AJNAboutDataListener interface is required by the About service 
+application to store the provisioned values for the About interface 
+data fields (listed in [About interface data fields][about-interface-data-fields]).
 See the [About Interface Definition][about-interface-definition]
 for more information.
 
-NOTE: It is recommended that OEMs create a shared provisioning file that includes the DefaultLanguage, DeviceName, and 
-DeviceID fields. This file can be used by developers to manage these fields in the AllJoyn services that make use of them.
+**NOTE:** It is recommended that OEMs create a shared provisioning file 
+that includes the DefaultLanguage, DeviceName, and DeviceID fields. 
+This file can be used by developers to manage these fields in the 
+AllJoyn services that make use of them.
 
-AJNAboutDataListener is a protocol in AllJoyn Objective-C bindings which means that it will has functions which need to be implemented by the class which implements the protocol
+AJNAboutDataListener is a protocol in AllJoyn Objective-C bindings 
+which means that it will has functions which need to be implemented 
+by the class which implements the protocol
 
 The interface declaration would look like:
 
 ```objc
 @interface MySampleClass <AJNAboutDataListener>
 ```
-The two functions in AJNAboutDataListener that need to be implemented in accordance with [About interface data fields][about-interface-data-fields] are
+The two functions in AJNAboutDataListener that need to be implemented 
+in accordance with [About interface data fields][about-interface-data-fields] are
 
 ```objc
 -(QStatus)getAboutDataForLanguage:(NSString *)language usingDictionary:(NSMutableDictionary **)aboutData
@@ -157,7 +169,7 @@ The two functions in AJNAboutDataListener that need to be implemented in accorda
 | DeviceName | no | yes | yes | s |
 | DeviceId | yes | yes | no | s |
 | AppName | yes | yes | yes | s |
-| Manufacturer | yes | yes | s |
+| Manufacturer | yes | yes | yes | s |
 | ModelNumber | yes | yes | yes | s |
 | SupportedLanguages | yes | no | no | as |
 | Description | yes | no | yes | s |
@@ -168,14 +180,16 @@ The two functions in AJNAboutDataListener that need to be implemented in accorda
 | SupportUrl | no | no | no | s |
 
 
+<!--QUESTION FOR GEORGE: Need to resolve code snippet reference below-->
+
 [code snippet showing how to fill in aboutdatalistener]
-
-
 
 
 ### Create and setup a new AJNBusAttachment
 
-Every AllJoyn application requires a base set to be in place before implementing specific features that include creating a BusAttachment and connecting to the AllJoyn framework.
+Every AllJoyn application requires a base set to be in place 
+before implementing specific features that include creating a 
+BusAttachment and connecting to the AllJoyn framework.
 
 ### Create instance of BusAttachment
 
@@ -186,7 +200,7 @@ initWithApplicationName:APPNAME allowRemoteMessages:ALLOWREMOTEMESSAGES];
 
 ### Create password for the bundled router
 
-NOTE: Thin libraries at AllSeen Alliance version 14.06 or higher 
+**NOTE:** Thin libraries at AllSeen Alliance version 14.06 or higher 
 do not require this step.
 
 To allow thin libraries to connect to the bundled router, 
@@ -206,8 +220,9 @@ Once created, the BusAttachment must be connected to the AllJoyn framework.
 [self.clientBusAttachment connectWithArguments:@""];
 ```
 
-NOTE: This step is not mandatory if you are only sending an announcement. To allow incoming connections, the formation 
-of a session is needed. The AllJoyn framework must be told that connections are allowed.
+**NOTE:** This step is not mandatory if you are only sending an announcement. 
+To allow incoming connections, the formation of a session is needed. 
+The AllJoyn framework must be told that connections are allowed.
 
 ```objc
 AJNSessionOptions *opt = [[AJNSessionOptions alloc] 
@@ -270,7 +285,8 @@ listed in [About data interface fields][about-interface-data-fields].
 Language-dependent fields support a single supplied text string. 
 Below is an example for the Description field on how to insert 
 into the PropertyStore. The code below can be used with the 
-field name being replaced by other field names listed in [About data interface fields][about-interface-data-fields].
+field name being replaced by other field names listed in 
+[About data interface fields][about-interface-data-fields].
 
 ```objc
 [self.aboutPropertyStoreImpl setDescription:@"This is an AllJoyn application" language:@"en"];
@@ -292,7 +308,6 @@ AboutService aboutService = AboutServiceImpl.getInstance();
 ```
 
 ### Add an AboutIcon Object (optional)
-
 
 
 #### Provision for the Icon content and URL
@@ -454,7 +469,7 @@ signal can be stale so it may be useful to ping the device to
 see if it is still present and responsive before attempting 
 to form a connection.
 
-NOTE: The AJNBusAttachment pingPeer method makes a bus call. 
+**NOTE:** The AJNBusAttachment pingPeer method makes a bus call. 
 If pingPeer is called inside an AllJoyn callback, `AJNBusAttachment 
 enableConcurrentCallbacks` must be called first.
 
@@ -474,13 +489,12 @@ If there is a need to request information that is not contained
 in the announcement (meaning they are not marked as announcable), 
 complete the tasks in the following subsections.
 
-
 #### Join a session
 
 Create a session with the application by using the 
 BusAttachment JoinSession API.
  
-NOTE: The variables name and port are set from the AboutData 
+**NOTE:** The variables name and port are set from the AboutData 
 from the Announce method.
 
 ```objc

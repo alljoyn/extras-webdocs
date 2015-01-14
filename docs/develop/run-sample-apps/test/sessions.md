@@ -53,7 +53,7 @@ Perform the following steps to verify application is advertising and has bound a
 Assume that an application has been written that uses the AllJoyn framework but there are problems discovering on other applications. The Sessions application can help isolate where the issue exists.
 
 1. Start the Sessions application.
-    NOTE: Platform must be connected to the same network as the AllJoyn application you wish to debug.
+    **NOTE:** Platform must be connected to the same network as the AllJoyn application you wish to debug.
 2. Type 'find <prefix>', where <prefix> is the start of the well-known name that should be advertised.
     Typing 'find org.alljoyn' when running the Basic Service would show the following:
     `FoundAdvertisedName name=org.alljoyn.Bus.sample namePrefix=org.alljoyn`
@@ -61,9 +61,12 @@ Assume that an application has been written that uses the AllJoyn framework but 
     `JoinSession(org.alljoyn.Bus.sample, 25, ...) succeeded with id = 186166334`
 
 ###Simulate a Service
-Perform the following steps to set up an application that binds a session and advertises a well-known name.
+Perform the following steps to set up an application that binds 
+a session and advertises a well-known name.
 1. Start the Sessions application.
 2. Type 'bind 123'.
 3. Type 'requestname org.allseen.test'.
 4. Type 'advertise org.allseen.test'.
-*Note: Open a new session application in a separate terminal and verify per steps in Simulate a client: 'find org.alljoyn.test', then 'join org.alljoyn.test 123'.*
+**NOTE:** Open a new session application in a separate terminal 
+and verify per steps in Simulate a client: 'find org.alljoyn.test', 
+then 'join org.alljoyn.test 123'

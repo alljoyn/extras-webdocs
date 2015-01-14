@@ -103,7 +103,7 @@ The generation of the `AppId` can occur through various online
 offerings. Perform a search for "GUID generator" on various
 online search engines to aid in the generation of the `AppId`.
 
-NOTE: If two or more applications use the same `AppId`, it does
+**NOTE:**If two or more applications use the same `AppId`, it does
 not hinder the `AboutObj` or its ability to interact with an
 `AboutProxy`. If an application using the `AboutProxy` relies on
 the `AppId` to display information, it may render incorrect results
@@ -128,7 +128,7 @@ to show the icon on a display.
 
 ### Ping discovered devices
 
-NOTE: The BusAttachment.Ping option is part of the
+**NOTE:** The BusAttachment.Ping option is part of the
 AllSeen Alliance 14.06 release.
 
 It is possible to receive an `org.alljoyn.About.Announce` signal with

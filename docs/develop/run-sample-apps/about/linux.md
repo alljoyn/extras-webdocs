@@ -24,7 +24,7 @@ In one of the terminal windows, run `AboutService`:
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/cpp/bin/samples/AboutService
 ```
 
-NOTE: The application just runs and will print information when an AboutClient connects.
+**NOTE:** The application just runs and will print information when an AboutClient connects.
 
 ### Run the AboutClient Sample App
 
@@ -34,7 +34,7 @@ In the other terminal window, run `AboutClient`:
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/cpp/bin/samples/AboutClient
 ```
 
-NOTE: The application searches for any instance of AboutService that is announcing
+**NOTE:** The application searches for any instance of AboutService that is announcing
 the `com.example.about.feature.interface.sample` it will connect to the service
 and call all the methods specified in the About Interface and the Echo method
 specified in the `com.example.about.feature.interface.sample` interface.
@@ -73,7 +73,7 @@ named `about`, you may need to run the sample for the different location
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/about/bin/AboutService
 ```
 
-NOTE: The application just runs and will print information when an AboutClient connects.
+**NOTE:** The application just runs and will print information when an AboutClient connects.
 
 ### Run the AboutClient Sample App
 
@@ -91,7 +91,7 @@ named `about`, you may need to run the sample for the different location
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/about/bin/AboutClient
 ```
 
-NOTE: The application searches for any instance of AboutService that is announcing
+**NOTE:** The application searches for any instance of AboutService that is announcing
 the `org.alljoyn.About` and `org.alljoyn.Icon` it will connect to the service
 and call all the methods specified in the About Interface and the the About Icon
 interface.

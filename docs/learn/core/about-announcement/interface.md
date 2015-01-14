@@ -8,14 +8,8 @@ To access a previous version of this document, click the release version link be
 |---|---|---|
 |[14.02][about-14.02] | 2/28/2014 | About interface version 1 was added. |
 |14.06 | 6/30/2014 | No updates. |
-|14.06 Update 1 | 9/29/2014 | * Updated the document title and Overview chapter title (changed from Specification to Definition) |
-| | | * Added the release version number to the document title for version tracking. |
-| | | * Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program. |
-| | | * Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program. |
-|14.12 | 12/17/2014 | * Changed DeviceName from required to not required |
-|  |  | * Additional clarification specifying the AppId must be 128-bit UUID as specified in RFC 4122 |
-| | | * Clean up to make requirements for methods and signals more clear |
-| | | *Icon interface was added. The icon interface has been part of AllJoyn&trade; and the About Feature since 14.02 however the interface definition documentation was not added till 14.12. |
+|14.06 Update 1 | 9/29/2014 | <ul><li>Updated the document title and Overview chapter title (changed from Specification to Definition)</li><li>Added the release version number to the document title for version tracking.</li><li>Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program.</li><li>Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program.</li></ul> |
+|14.12 | 12/17/2014 | <ul><li>Changed DeviceName from required to not required</li><li>Additional clarification specifying the AppId must be 128-bit UUID as specified in RFC 4122</li><li>Cleanup to make requirements for methods and signals more clear</li><li>Icon interface was added. The icon interface has been part of AllJoyn&trade; and the About Feature since 14.02; however, the interface definition documentation was not added until 14.12.</li></ul> |
 
 ## Definition Overview
 
@@ -26,12 +20,10 @@ illustrates the relationship between a client app and a service app.
 
 ![about-arch][about-arch]
 
-Figure: About feature architecture within the AllJoyn&trade; framework
+**Figure:** About feature architecture within the AllJoyn&trade; framework
 
-NOTE: All methods and signals are considered mandatory to 
+**NOTE:** All methods and signals are considered mandatory to 
 support the AllSeen Alliance Compliance and Certification program. 
-Individual parameters for a given method or signal may be considered 
-mandatory or optional, and are specified accordingly in this document.
 
 ## Discovery
 
@@ -58,7 +50,7 @@ service app to use its service framework offering.
 
 ![about-typical-discovery][about-typical-discovery]
 
-Figure: Typical discovery flow (client discovers a service app)
+**Figure:** Typical discovery flow (client discovers a service app)
 
 ### Nontypical discovery flow
 
@@ -67,7 +59,7 @@ discover a service app and make a request for more detailed information.
 
 ![about-nontypical-discovery][about-nontypical-discovery]
 
-Figure: Nontypical discovery call flow
+**Figure:** Nontypical discovery call flow
 
 ## Error Handling
 

@@ -1,14 +1,14 @@
 # Building OpenWRT
 
-AllJoyn feeds exist on the following OpenWRT platform releases:
+The AllJoyn&trade; framework feeds exist on the following OpenWRT platform releases:
 
 * v12.09 - official tagged release
 * Attitude Adjustment - current stable release
 * Barrier breaker - current development version
 
-## Build and Install AllJoyn
+## Build and Install the AllJoyn framework
 
-Follow these instructions to add AllJoyn to your OpenWRT environment.
+Follow these instructions to add the AllJoyn framework to your OpenWRT environment.
 
 ### Patch OpenSSL
 
@@ -73,20 +73,20 @@ make menuconfig
                         < > alljoyn-services_common
 ```
 
-### Install AllJoyn
+### Install the AllJoyn framework
 
-If you built AllJoyn as a module, move those IPKs over to
+If you built the AllJoyn framework as a module, move those IPKs over to
 your OpenWRT device and run `opkg install <alljoyn-package>`.
 
-If you built AllJoyn directly into the image, simply flash 
+If you built the AllJoyn framework directly into the image, simply flash 
 the new firmware onto your OpenWRT device.
 
 AllJoyn libs will be installed in `/usr/lib/` and binaries
 will be installed in `/usr/bin/`.
 
-## Run AllJoyn
+## Run the AllJoyn framework
 
-### Start AllJoyn
+### Start the AllJoyn framework
 
 Start the AllJoyn daemon
 
@@ -94,7 +94,7 @@ Start the AllJoyn daemon
 /etc/init.d/alljoyn start
 ```
 
-Optionally, enable the AllJoyn demon to start at boot-up.
+Optionally, enable the AllJoyn daemon to start at boot-up.
 
 ```sh
 /etc/init.d/alljoyn enable

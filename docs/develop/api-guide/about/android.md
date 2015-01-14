@@ -416,7 +416,7 @@ if a device is responsive. Contents of an `org.alljoyn.About.Announce` signal ca
 be stale so it is recommended to ping the device to see if it is still present
 and responsive before attempting to form a connection.
 
-NOTE: The `BusAttachment.ping` method makes a bus call. If `BusAttachment.ping`
+**NOTE:** The `BusAttachment.ping` method makes a bus call. If `BusAttachment.ping`
 is called inside an AllJoyn callback, `BusAttachment.enableConcurrentCallbacks`
 must be called first.
 
@@ -439,7 +439,7 @@ announcement, perform the following steps.
 
    Create a session with the application by calling `BusAttachment.joinSession`.
 
-   NOTE: The variables name and port are obtained from the
+   **NOTE:** The variables name and port are obtained from the
    AboutListener::Announced member function.
 
    ```java

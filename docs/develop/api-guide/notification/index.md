@@ -59,7 +59,7 @@ unreliable delivery, an Emergency notification should send
 multiple times, possibly until it can be verified that a user 
 has received it and taken action.
 
-NOTE: Use common sense when setting the message type. Consumers 
+**NOTE:** Use common sense when setting the message type. Consumers 
 should not receive numerous messages other than those specified 
 as an emergency notification. This is to avoid a person seeing 
 a message like "The sky is blue" 8 times when it does not 
@@ -82,7 +82,7 @@ As an example, consider a coffee maker that sends a notification
 when it is done brewing. An icon can be used to represent 
 the type of coffee that was selected, such as regular, strong, or decaf.
 
-NOTE The icon and audio data are not contained within the 
+**NOTE:** The icon and audio data are not contained within the 
 actual notification. Instead, an AllJoyn&trade; object path is used 
 to obtain the icon or audio content that is sent as part of 
 the notification. See the Notification API Guide listed at 
@@ -113,7 +113,7 @@ with the type of information included in the notification. For example,
 if the notification contains information that is no longer valid or 
 useful after 5 minutes, the TTL should be set to 5 minutes.
 
-NOTE: The TTL is not sent as part of the actual notification 
+**NOTE:** The TTL is not sent as part of the actual notification 
 payload, and is instead used by the Notification service internally
 
 ### UI considerations

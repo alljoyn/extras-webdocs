@@ -2,7 +2,7 @@
 
 ## Setup
 
-NOTE: The installation commands below refer specifically to 
+**NOTE:** The installation commands below refer specifically to 
 Debian/Ubuntu Linux. Equivalent commands are available for other distributions of Linux.
 
 * Build tools and libs
@@ -62,7 +62,7 @@ The binary for the AC Server sample is located at `$AJ_ROOT/services/sample_apps
 
 ## Add the AllJoyn framework to an application
 
-See the [Build an Application using the Thin Library section][build-app-thin-library] for instructions.
+See the [Build an Application using the Thin Library][build-app-thin-library] section for instructions.
 
 [download]: /download
 [build-app-thin-library]:  /develop/tutorial/thin-app

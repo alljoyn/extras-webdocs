@@ -36,7 +36,7 @@ AllJoyn session establishment.
 
 ![alljoyn-session-establishment-arch][alljoyn-session-establishment-arch]
 
-Figure: AllJoyn session establishment architecture
+**Figure:** AllJoyn session establishment architecture
 
 The provider app binds a session port with the AllJoyn router 
 for a given service. The combination of (well-known name/unique 
@@ -98,7 +98,7 @@ AllJoyn sessions with the multi-point session showing four participants.
 
 ![p2p-multipoint-session-examples][p2p-multipoint-session-examples]
 
-Figure: AllJoyn point-to-point and multi-point session examples
+**Figure:** AllJoyn point-to-point and multi-point session examples
 
 ### Raw session
 
@@ -116,7 +116,7 @@ Instead, a raw session carries unencapsulated raw data directly
 sent over TCP/UDP sockets. A raw session can only be a 
 point-to-point session. 
 
-NOTE: The raw session feature is only supported on the AllJoyn 
+**NOTE:** The raw session feature is only supported on the AllJoyn 
 standard client and is not supported on thin app. This feature 
 is being deprecated and it is recommended that developers not 
 to use the raw session feature.
@@ -128,7 +128,7 @@ message flow for a point-to-point session.
 
 ![establishing-p2p-session][establishing-p2p-session]
 
-Figure: AllJoyn session - establishing a point-to-point session
+**Figure:** AllJoyn session - establishing a point-to-point session
 
 The message flow steps are described below.
 
@@ -201,7 +201,7 @@ message flow for a multi-point session between two participants.
 
 ![establishing-multipoint-session][establishing-multipoint-session]
 
-Figure: AllJoyn session - establishing a multi-point session
+**Figure:** AllJoyn session - establishing a multi-point session
 
 A multi-point session follows same message flow as the 
 point-to-point session with the additional step of sending 
@@ -227,7 +227,7 @@ existing members adding the new joiner to their session-related tables.
 
 ![consumer-joins-multipoint-session][consumer-joins-multipoint-session]
 
-Figure: AllJoyn session - consumer joins a multi-point session
+**Figure:** AllJoyn session - consumer joins a multi-point session
 
 The message flow steps are described below.
 
@@ -276,13 +276,13 @@ clearing of sessionId and other session-related information
 from the session tables of that member. Whenever a session ends, 
 a SessionLost signal is sent to the application.  
 
-NOTE: Either the joiner or the host of the session can leave 
+**NOTE:** Either the joiner or the host of the session can leave 
 a session. A similar message flow is applicable when a session 
 host leaves the session.
 
 ![consumer-leaves-p2p-session][consumer-leaves-p2p-session]
 
-Figure: AllJoyn session - consumer leaves a point-to-point session
+**Figure:** AllJoyn session - consumer leaves a point-to-point session
 
 The message flow steps are described below.
 
@@ -315,7 +315,7 @@ remove the member that left the session.
 
 ![consumer-leaves-multipoint-session][consumer-leaves-multipoint-session]
 
-Figure: AllJoyn session - consumer leaves a multi-point session
+**Figure:** AllJoyn session - consumer leaves a multi-point session
 
 The message flow steps are described below.
 
@@ -351,7 +351,7 @@ to communicate; however, no new participants can join the multi-point session.
 
 ![provider-leaves-multipoint-session][provider-leaves-multipoint-session]
 
-Figure: AllJoyn session - provider leaves a multi-point session
+**Figure:** AllJoyn session - provider leaves a multi-point session
 
 #### Provider unbinds a session port
 
@@ -369,7 +369,7 @@ with session options specified by the provider.
 
 ![incompatible-session-options][incompatible-session-options]
 
-Figure: AllJoyn session - incompatible session options
+**Figure:** AllJoyn session - incompatible session options
 
 ## Session options
 
@@ -401,7 +401,7 @@ fields in the session option are specified as bit masks with values.
 
 ### Proximity session allowed values
 
-NOTE: The PROXIMITY_PHYSICAL and PROXIMITY_NETWORK options are 
+**NOTE:** The PROXIMITY_PHYSICAL and PROXIMITY_NETWORK options are 
 not supported semantically today, meaning no enforcement is 
 done for spatial scope. Only bit matching is done for these 
 options when looking to find a set of compatible set of 
@@ -504,7 +504,7 @@ The following figure shows the transmission schedule of the DBus pings.
 
 ![probe-transmission-schedule-for-detecting-missing-apps][probe-transmission-schedule-for-detecting-missing-apps]
  
-Figure: Probe transmission schedule for detecting missing apps
+**Figure:** Probe transmission schedule for detecting missing apps
 
 Connected AllJoyn applications will be able to select values 
 for idle and probe timeouts within a transport specific range 

@@ -26,9 +26,9 @@ typical standalone AllJoyn network.
 
 ![standalone-network-arch][standalone-network-arch]
 
-Figure: Standalone AllJoyn network architecture
+**Figure:** Standalone AllJoyn network architecture
 
-NOTE: In a Wi-Fi deployment, the AllJoyn framework requires 
+**NOTE:** In a Wi-Fi deployment, the AllJoyn framework requires 
 wireless isolation to be turned off at the access points to 
 enable peer-to-peer communication.
 
@@ -46,7 +46,7 @@ and Ethernet transports.
 
 ![bridging-multiple-transports][bridging-multiple-transports]
 
-Figure: Bridging multiple transports
+**Figure:** Bridging multiple transports
 
 ### Remote accessible AllJoyn network
 
@@ -65,7 +65,7 @@ for a remote accessible AllJoyn network.
 
 ![remote-network-arch][remote-network-arch]
 
-Figure: Remote accessible AllJoyn network architecture
+**Figure:** Remote accessible AllJoyn network architecture
 
 ## Device architecture
 
@@ -79,7 +79,7 @@ make use of it; examples of devices include TVs and set-top boxes
 device has both a bundled AllJoyn router for certain apps and a 
 standalone AllJoyn router for other apps on the device.  
 
-NOTE; An app always looks for a preinstalled AllJoyn core, so 
+**NOTE;** An app always looks for a preinstalled AllJoyn core, so 
 this will only happen if the preinstalled AllJoyn core was a 
 lower version than the bundled AllJoyn core.
 
@@ -104,7 +104,7 @@ for a single app with bundled AllJoyn router deployment scenario.
 
 ![single-app-bundled-router-device-arch][single-app-bundled-router-device-arch]
 
-Figure: AllJoyn device architecture (single app with bundled AllJoyn router)
+**Figure:** AllJoyn device architecture (single app with bundled AllJoyn router)
 
 #### Multiple apps with bundled AllJoyn router
 
@@ -117,7 +117,7 @@ for multiple apps with a bundled AllJoyn router deployment scenario.
 
 ![multiple-apps-bundled-router-device-arch][multiple-apps-bundled-router-device-arch]
 
-Figure: AllJoyn device architecture (multiple apps with bundled AllJoyn router)
+**Figure:** AllJoyn device architecture (multiple apps with bundled AllJoyn router)
 
 #### Multiple apps with standalone AllJoyn router
 
@@ -133,7 +133,7 @@ for multiple apps with a standalone AllJoyn router deployment scenario.
 
 ![multiple-apps-standalone-router-device-arch][multiple-apps-standalone-router-device-arch]
 
-Figure: AllJoyn device architecture (multiple apps with standalone AllJoyn router)
+**Figure:** AllJoyn device architecture (multiple apps with standalone AllJoyn router)
 
 ## AllJoyn router architecture
 
@@ -143,7 +143,7 @@ figure captures the functional architecture for the AllJoyn router.
 
 ![alljoyn-router-functional-arch][alljoyn-router-functional-arch]
 
-Figure: AllJoyn router functional architecture
+**Figure:** AllJoyn router functional architecture
 
 The AllJoyn router supports key features over multiple 
 underlying transports. The Advertisement and Discovery 
@@ -186,7 +186,7 @@ The following figure captures the AllJoyn thin app architecture.
 
 ![alljoyn-thin-app-arch][alljoyn-thin-app-arch]
 
-Figure: AllJoyn thin app architecture
+**Figure:** AllJoyn thin app architecture
 
 ## AllJoyn framework protocol stack
 
@@ -195,7 +195,7 @@ for the AllJoyn framework.
 
 ![alljoyn-protocol-stack][alljoyn-protocol-stack]
 
-Figure: AllJoyn protocol stack
+**Figure:** AllJoyn protocol stack
 
 At the top level, the AllJoyn framework protocol stack 
 consists of an application providing a number of application 

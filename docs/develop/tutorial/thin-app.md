@@ -145,7 +145,9 @@ AJ_BusSetPasswordCallback(&busAttachment, PasswordCallback);
 status = AJApp_ConnectedHandler(&busAttachment, AJAPP_MAX_INIT_ATTEPTS, AJAPP_SLEEP_TIME);
 ```
 
-After the connection has been made, perform the following steps to ensure the service frameworks function successfully (these are encapsulated in the call `AJApp_ConnectedHandler()` shown above).
+After the connection has been made, perform the following 
+steps to ensure the service frameworks function successfully 
+(these are encapsulated in the call `AJApp_ConnectedHandler()` shown above).
 
 1. Initialize the individual services. Upon successful connection 
 to the routing node, each service must set up a dedicated 
@@ -290,7 +292,7 @@ outlined in [Initialize the AllJoyn framework][initialize-alljoyn-framework] thr
 [Connect to the AllJoyn bus][connect-alljoyn-bus].
 
 
-NOTE: This must occur before a peer has connected or a service 
+**NOTE:** This must occur before a peer has connected or a service 
 framework API is executed to publish information or send information.
 
 ```c
@@ -597,7 +599,7 @@ are called to allow the service's business logic to perform
 the service's sample business logic. These callbacks are implemented 
 in the corresponding service's sample application code.
 
-NOTE: The message loop is considered idling when no messages 
+**NOTE:** The message loop is considered idling when no messages 
 are ready to marshal, and the MCU will sleep to conserve 
 resources for a small period of time.
 
@@ -678,20 +680,20 @@ for more information.
 
 | Field name | Required | Announced | Type |
 |---|---|---|---|
-| AppId | yes | yes | ay |
-| DefaultLanguage | yes | yes | s |
-| DeviceName | yes | yes |  |
-| DeviceId | yes | yes | s |
-| AppName | yes | yes | s |
-| Manufacturer | yes | yes | s |
-| ModelNumber | yes | yes | s |
-| SupportedLanguages | yes | no | as |
-| Description | yes | no | s |
-| DateofManufacture | no | no | s |
-| SoftwareVersion | yes | no | s |
-| AJSoftwareVersion | yes | no | s |
-| HardwareVersion | no | no | s |
-| SupportUrl | no | no | s |
+| `AppId` | yes | yes | `ay` |
+| `DefaultLanguage` | yes | yes | `s` |
+| `DeviceName` | yes | yes | `s` |
+| `DeviceId` | yes | yes | `s` |
+| `AppName` | yes | yes | `s` |
+| `Manufacturer` | yes | yes | `s` |
+| `ModelNumber` | yes | yes | `s` |
+| `SupportedLanguages` | yes | no | `as` |
+| `Description` | yes | no | `s` |
+| `DateofManufacture` | no | no | `s` |
+| `SoftwareVersion` | yes | no | `s` |
+| `AJSoftwareVersion` | yes | no | `s` |
+| `HardwareVersion` | no | no | `s` |
+| `SupportUrl` | no | no | `s` |
 
 The Configuration service framework uses the PropertyStore 
 to retrieve the provisioned (default and runtime) values 
@@ -704,9 +706,9 @@ See the [Configuration Interface Definition][config-interface-definition] for mo
 
 | Field name | Required | Announced | Type |
 |---|---|---|---|
-| DefaultLanguage | yes | yes | s |
-| DeviceName | yes | yes | s |
-| MaxLength | no | yes | q |
+| `DefaultLanguage` | yes | yes | `s` |
+| `DeviceName` | yes | yes | `s` |
+| `MaxLength` | no | yes | `q` |
 
 ##### PropertyStore example implementation
 
@@ -736,7 +738,7 @@ in [AboutData fields][about-data-fields].
 * ALL keys (AJSVC_PROPERTY_STORE_NUMBER_OF_KEYS) - This subset 
 contains ALL the fields.
 
-NOTE: Do NOT remove the counters (AJSVC_PROPERTY_STORE_NUMBER_OF_*)
+**NOTE:** Do NOT remove the counters (AJSVC_PROPERTY_STORE_NUMBER_OF_*)
 as the PropertyStore code refers to them!
 
 ```c
@@ -809,7 +811,7 @@ const char** propertyStoreDefaultLanguages = SUPPORTED_LANGUAGES;
 const uint8_t AJSVC_PROPERTY_STORE_NUMBER_OF_LANGUAGES = sizeof(SUPPORTED_LANGUAGES) / sizeof(char*);
 ```
 
-NOTE: The language names are according to the IETF language 
+**NOTE:** The language names are according to the IETF language 
 tags specified by RFC 5646. The example implementation supports 
 only simple languages and extended languages or variant sub-tags 
 (regional) languages. Hence, `LANG_NAME_LEN` is defined as 7.
@@ -1008,7 +1010,7 @@ PropertyStoreConfigEntry PropertyStoreRuntimeValues[AJSVC_PROPERTY_STORE_NUMBER_
 #endif
 ```
 
-NOTE: The size entry needs to match the actual allocation 
+**NOTE:** The size entry needs to match the actual allocation 
 buffer length that is provisioned for each field. Refer to 
 PropertyStore.c `PropertyStore_Init()` and `InitMandatoryPropertiesInRAM()` 
 for an example runtime initialization of the persisted fields.
@@ -1054,11 +1056,11 @@ remote clients. If the field is public, set the `mode7Public` bit to 1.
 4. Decide whether the field is to be allowed to be configured 
 remotely through the Configuration service framework. If the 
 field is updateable, then set the `mode0Write` bit to 1.
-   NOTE: If you set this bit, the field's index must be included 
+   **NOTE:** If you set this bit, the field's index must be included 
    in the Persisted or Config keys subsets.
 5. Decide whether the field is to be includedin the Announcement. 
 If the field is announced, then set the `mode1Announce` bit to 1.
-  NOTE: It is recommended to limit the inclusion of a field in 
+  **NOTE:** It is recommended to limit the inclusion of a field in 
   the Announcement according to its immediate relevance to the 
   relevant service framework's discovery. Only the value associated 
   with the currentDefaultLanguage will be sent in the Announcement.
@@ -1075,7 +1077,7 @@ set the `mode3Init` bit to 1 and add the relevant code to initialize it.
    `InitMandatoryPropertiesInRAM()` for an example setup 
    for the DeviceId and AppId fields.
 
-  NOTE: If you set this bit, the field's index must be 
+  **NOTE:** If you set this bit, the field's index must be 
   included in the Persisted keys subsets.
 8. Add relevant validation of updated value for your custom 
 key by modifying the default implementation of `IsValueValid()` 
@@ -1088,7 +1090,7 @@ to provision default value(s).
 10. Add entry in corresponding index of `propertyStoreRuntimeValues` 
 to provision for runtime value(s) buffer(s).
 
-NOTE: The example implementation of PropertyStore supports 
+**NOTE:** The example implementation of PropertyStore supports 
 properties with value of type String ('s') only. If your 
 property must be of a different type, you must provision the 
 default value as a String and perform the relevant de/serialization 
@@ -1261,7 +1263,7 @@ to persist to NVRAM.
 3. Finally, `AJ_ClearCredentials()` is called to revoke all 
 current keys based on the old passcode.
 
-NOTES:
+**NOTES**
 * The stored passcode is HEX and is limited to the size of 32, 
 allowing for 16 bytes long secret:
 

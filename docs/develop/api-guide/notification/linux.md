@@ -21,7 +21,7 @@
 
 ### Obtain the Notification service framework
 
-See the [Building Linux section][building-linux] 
+See the [Building Linux][building-linux] section
 for instructions on compiling the Notification service framework.
 
 ### Build a Notification Producer
@@ -58,14 +58,14 @@ and the AllJoyn framework set up.
 Complete the procedures in the following sections to guide 
 you in this process:
 
-* [Building Linux section][building-linux]
+* [Building Linux][building-linux] section
 * [About API Guide][about-api-guide-linux]
  
 ## Implementing a Notification Producer
 
 ### Initialize the AllJoyn framework
 
-See the [Building Linux section][building-linux] for instructions 
+See the [Building Linux][building-linux] section for instructions 
 to set up the AllJoyn framework.
 
 #### Create bus attachment
@@ -79,8 +79,8 @@ bus->Connect();
 
 The Notification producer depends on the About feature.
 
-For more information about the About feature, see the [About 
-API Guide][about-api-guide-linux].
+For more information about the About feature, see the 
+[About API Guide][about-api-guide-linux].
 
 #### Create a PropertyStore and fill it with the needed values
 
@@ -194,7 +194,7 @@ Sender = prodService->initSend(bus, propertyStoreImpl);
 
 ```cpp
 NotificationText textToSend1("en", "The fridge door is open"); 
-NotificationText textToSend2("ru", "????? ???????????? ???????");
+NotificationText textToSend2("de", "Die Kuhlschranktur steht offen");
 
 std::vector<NotificationText> vecMessages; 
 vecMessages.push_back(textToSend1); 
@@ -230,7 +230,7 @@ The following optional parameters can be added to the notification.
    
   ```cpp
   richAudioUrl audio1("en", "http://audioUrl.com/notif_en.wav"); 
-  richAudioUrl audio2("ru", "http://audioUrl.com/notif_ru.wav"); 
+  richAudioUrl audio2("de", "http://audioUrl.com/notif_de.wav"); 
   std::vector<RichAudioUrl> richAudioUrl; 
   richAudioUrl.push_back(audio1);
   richAudioUrl.push_back(audio2);
@@ -287,7 +287,7 @@ Sender->deleteLastMsg(deleteMessageType);
 
 ### Initialize the AllJoyn framework
 
-See the [Building Linux section][building-linux] for instructions 
+See the [Building Linux][building-linux] section for instructions 
 to set up the AllJoyn framework.
 
 #### Create bus attachment
@@ -389,8 +389,7 @@ which are the parameters of the method
 #### Start the consumer
 
 Start the consumer and pass it the bus attachment and the 
-notificationReceiver implmented in [Implement the 
-notificationReceiver interface][implement-notificationreceiver-interface].
+notificationReceiver implmented in [Implement the notificationReceiver interface][implement-notificationreceiver-interface].
 
 ```cpp
 conService->initReceive(busAttachment, Receiver);

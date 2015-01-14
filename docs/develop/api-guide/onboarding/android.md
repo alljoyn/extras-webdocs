@@ -6,10 +6,8 @@
 
 | Component | Description |
 |---|---|
-| AllJoyn&trade; Standard Library framework | * alljoyn.jar
-| | * alljoyn_about.jar |
-| Onboarding service framework package | alljoyn_onboarding.jar | 
-| | * alljoyn_onboarding_sdk.jar |
+| AllJoyn&trade; Standard Library framework | <ul><li>alljoyn.jar</li><li>alljoyn_about.jar</li></ul> |
+| Onboarding service framework package | <ul><li>alljoyn_onboarding.jar</li><li>alljoyn_onboarding_sdk.jar</li></ul> |
 | SampleApps utility package | alljoyn_apps_android_utils.jar |
 
 ### Reference Java application code
@@ -30,7 +28,7 @@ Complete the procedures in the following sections to guide you in this process:
  
 ### Set up the Onboarding service framework
 
-See the [Building Android section][building-android] for instructions 
+See the [Building Android][building-android] section for instructions 
 on compiling the Onboarding SDK.
 
 ### Build the Onboarder application
@@ -38,8 +36,8 @@ on compiling the Onboarding SDK.
 The following steps provides the high-level process to build 
 an Onboarding application on top of the Onboarding SDK.
 
-1. Create the base for the AllJoyn application. See the [About API Guide]
-[about-api-guide-android] for more information.
+1. Create the base for the AllJoyn application. See the 
+[About API Guide][about-api-guide-android] for more information.
 2. Add the Onboarding service framework and SDK components 
 to your project.
 3. Complete the tasks in [Implementing the Onboarder Application][implement-onboarder-app]. 
@@ -223,7 +221,7 @@ The onboarding process can take some time, resulting in possible
 connection timeouts. The SDK has an API to enable the application 
 to abort the process and return to idle state.
 
-NOTE: Aborting is not possible once the personal AP credentials 
+**NOTE:** Aborting is not possible once the personal AP credentials 
 have been passed to the onboardee.
 
 ```java
@@ -311,17 +309,13 @@ The following figure illustrates the AllJoyn device state during the onboarding 
 
 ![onboarding-state-diagram][onboarding-state-diagram]
 
-Figure: Onboarding state diagram
+**Figure:** Onboarding state diagram
 
 ### Onboarding process connection points
 
 | Field name | Required |
 |---|---|
-| SoftAP availability | SoftAP is available when the device is in any of the following states: |
-| | * Personal AP Not Configured |
-| | * Personal AP Configured/Not Validated |
-| | * Personal AP Configured/Error |
-| | * Personal AP Configured/Retry |
+| SoftAP availability | <p>SoftAP is available when the device is in any of the following states:</p><ul><li>Personal AP Not Configured</li><li>Personal AP Configured/Not Validated</li><li>Personal AP Configured/Error</li><li>Personal AP Configured/Retry</li></ul> |
 | Automatic connection to validated personal | At startup time, the device will automatically connect to the personal AP if is configured and validated. |
 | AP Failed connection attempts with personal AP | If the device is in personal AP Configured/Validated state but the device fails to connect after a configurable number of delayed attempts, it will move to state Personal AP Configured/Retry. In this state, the SoftAP is enabled to allow the device to be reconfigured. After a timer expires, the device goes back to the Personal AP Configured/Validated and it will try to connect to the Personal AP again. |
 

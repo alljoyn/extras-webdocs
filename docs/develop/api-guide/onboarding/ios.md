@@ -20,7 +20,7 @@ service framework libraries:
 
 ## Obtain the Onboarding service framework
 
-See the [Building iOS/OS X section][building-ios] for
+See the [Building iOS/OS X][building-ios] section for
 instructions on compiling the Onboarding service framework.
 
 ## Build the Onboarder application
@@ -54,7 +54,7 @@ you in this process:
 
 ### Initialize the AllJoyn framework
 
-See the [Building iOS/OS X section][building-ios] for 
+See the [Building iOS/OS X][building-ios] section for 
 instructions to set up the AllJoyn framework.
 
 ### Initialize the AboutService in client mode
@@ -165,7 +165,7 @@ resultStatus:resultStatus sessionId:sessionId];
 [onboardingClient connectTo:onboardeeBus sessionId:sessionId] ;
 ```
 
-NOTE: To see the device on the target AP, the user must connect 
+**NOTE:** To see the device on the target AP, the user must connect 
 to that personal AP by going to **Settings > Wi-Fi** and 
 choosing the required AP. The OS may switch to that AP but 
 it may switch to another AP that, for example, has been selected 

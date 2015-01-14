@@ -19,7 +19,7 @@ It covers the following topics:
 * Install the Android SDK and NDK
 * Install Eclipse and the ADT plug-in
 
-NOTE: The procedures described in this section require the 
+**NOTE:** The procedures described in this section require the 
 specified tool versions.
 
 ### Installing the Android SDK
@@ -104,11 +104,11 @@ found at the following location:
 
 http://developer.android.com/guide/developing/projects/projects-eclipse.html
 
-NOTE: If the plug-in cannot find the SDK executable, it displays 
+**NOTE:** If the plug-in cannot find the SDK executable, it displays 
 an error and then prompts  for its location. (Point it to where 
 you installed the SDK.) Also, if you haven't already selected 
-the packages that need installing (refer to [Installing the 
-Android SDK][install-android-sdk]), you are prompted to do so upon launching ADT.
+the packages that need installing (see [Installing the Android SDK][install-android-sdk]), 
+you are prompted to do so upon launching ADT.
 
 ### Downloading the OpenSSL header files and library
 
@@ -189,8 +189,8 @@ that are not available in the NDK are used.
  
 ### Obtaining the AllJoyn source
 
-If you followed the instructions in [The Android source][android-source], you 
-should have the repo tool and git installed on your system. 
+If you followed the instructions in [The Android source][android-source], 
+you should have the repo tool and git installed on your system. 
 Enter the following commands to get the AllJoyn source:
 
 ```sh

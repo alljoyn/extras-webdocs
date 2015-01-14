@@ -6,26 +6,9 @@ To access a previous version of this document, click the release version link be
 
 |Release version | Date | What changed |
 |---|---|---|
-| [14.02][controlpanel-14.02] | 2/28/2014 | The following interfaces were added: |
-| | | * ControlPanel.ControlPanel interface version 1 |
-| | | * ControlPanel.Container interface version 1 |
-| | | * ControlPanel.SecuredContainer interface version 1 |
-| | | * ControlPanel.Property interface version 1 |
-| | | * ControlPanel.SecuredProperty interface version 1 |
-| | | * ControlPanel.LabelProperty interface version 1 |
-| | | * ControlPanel.Action interface version 1 |
-| | | * ControlPanel.SecuredAction interface version 1 |
-| | | * ControlPanel.NotificationAction interface version 1 |
-| | | * ControlPanel.Dialog interface version 1 |
-| | | * ControlPanel.SecuredDialog interface version 1 |
-| | | * ControlPanel.ListProperty interface version 1 |
-| | | * ControlPanel.SecuredListProperty interface version 1 |
-| | | * ControlPanel.HTTPControl interface version 1 |
+| [14.02][controlpanel-14.02] | 2/28/2014 | <p>The following interfaces were added:</p><ul><li>ControlPanel.ControlPanel interface version 1</li><li>ControlPanel.Container interface version 1</li><li>ControlPanel.SecuredContainer interface version 1</li><li>ControlPanel.Property interface version 1</li><li>ControlPanel.SecuredProperty interface version 1</li><li>ControlPanel.LabelProperty interface version 1</li><li>ControlPanel.Action interface version 1</li><li>ControlPanel.SecuredAction interface version 1</li><li>ControlPanel.NotificationAction interface version 1</li><li>ControlPanel.Dialog interface version 1</li><li>ControlPanel.SecuredDialog interface version 1</li><li>ControlPanel.ListProperty interface version 1</li><li>ControlPanel.SecuredListProperty interface version 1</li><li>ControlPanel.HTTPControl interface version 1</li></ul> |
 | 14.06 | 6/30/2014 | No updates |
-| 14.06 Update 1 | 9/29/2014 | * Updated the document title and Overview chapter title (changed Specification to Definition). |
-| | | * Added the release version number to the document title for version tracking. |
-| | | * Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program. |
-| | | * Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program. |
+| 14.06 Update 1 | 9/29/2014 | <ul><li>Updated the document title and Overview chapter title (changed Specification to Definition)</li><li>Added the release version number to the document title for version tracking.</li><li>Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program.</li><li>Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program.</li></ul> |
 | 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
 
 ## Definition Overview
@@ -36,7 +19,7 @@ the relationship between a controllee app and a controller app.
 
 ![controlpanel-arch][controlpanel-arch]
 
-Figure: Control Panel service framework architecture within 
+**Figure:** Control Panel service framework architecture within 
 the AllJoyn&trade; framework
 
 The OEM is responsible for writing the Control interfaces and 
@@ -46,7 +29,7 @@ The UI Toolkit Adaption Layer, a library used to map the metadata
 to platform-specific UI elements, is made available as part of the 
 Control Panel service framework release.
 
-NOTE: All methods and signals are considered mandatory to support 
+**NOTE:** All methods and signals are considered mandatory to support 
 the AllSeen Alliance Compliance and Certification program. 
 
 ## Discovery
@@ -69,7 +52,7 @@ panel that does not change once rendered.
 
 ![controlpanel-static-call-flow][controlpanel-static-call-flow]
 
-Figure: Static Control Panel call flow
+**Figure:** Static Control Panel call flow
 
 ### Dynamic Control Panel flow
 
@@ -78,7 +61,7 @@ changes as the end user interacts with the widgets.
 
 ![controlpanel-dynamic-call-flow][controlpanel-dynamic-call-flow]
 
-Figure: Dynamic Control Panel call flow
+**Figure:** Dynamic Control Panel call flow
 
 ## Error Handling
 
@@ -105,7 +88,7 @@ panel is implemented using several AllJoyn objects.
 
 ![controlpanel-busobject-map][controlpanel-busobject-map]
 
-Figure: BusObject map
+**Figure:** BusObject map
 
 The objects are organized to support multiple units and multiple 
 languages. Only the top-level panels should be listed in the announcement.
@@ -128,13 +111,13 @@ control panel.
 
 ![controlpanel-washing-machine-example][controlpanel-washing-machine-example]
 
-Figure: Washing machine example
+**Figure:** Washing machine example
 
 #### Sprinkler system example
 
 ![controlpanel-sprinkler-system-example][controlpanel-sprinkler-system-example]
 
-Figure: Sprinkler system example
+**Figure:** Sprinkler system example
 
 ## ControlPanel Interface
 
@@ -144,7 +127,7 @@ needs to advertise this type of object in the About announcement.
 No other objects in the Control Panel service framework tree 
 should be announced.
 
-NOTE: It's the responsibility of the controller to introspect 
+**NOTE:** It's the responsibility of the controller to introspect 
 the children objects to locate the corresponding root container 
 of the given panel for the specific language code.
 
@@ -179,21 +162,22 @@ controller to render the UI for a container widget.
 
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
-| `org.alljoyn.ControlPanel.Container` | 1 | no | `/ControlPanel/{unit)/{panelName}/{language}/.../{containerName}` |
-| | | | Examples: |
-| | | | /ControlPanel/washing/consolePanel/en |
-| | | | /ControlPanel/sprinkler/mainPanel/en/Schedules/InputForm/RunOnDays |
+| `org.alljoyn.ControlPanel.Container` | 1 | no | <p>`/ControlPanel/{unit)/{panelName}/{language}/.../{containerName}`</p><p>Examples:</p><ul><li>/ControlPanel/washing/consolePanel/en</li><li>/ControlPanel/sprinkler/mainPanel/en/Schedules/InputForm/RunOnDays</li></ul> |
 | `org.alljoyn.ControlPanel.SecuredContainer` | 1 | yes | `/ControlPanel/{unit)/{panelName}/{language}/.../{containerName}` |
 
 ### Properties
 
-|Property name | Signature | List of values | Read/Write | Description |
+| Property name | Signature | List of values | Read/Write | Description |
 |---|:---:|---|---|---|
 | Version | `q` | Positive integers | Read-only | Interface version number |
-| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
-| | | | | **Mask** / **Name** / **Description** |
-| | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states. States bit mask information is detailed below. |
 | OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [Container widget metadata][container-widget-metadata] for more information. |
+
+**States property bit mask information**
+
+| Mask | Name | Description |
+|:---:|---|---|
+| 0x01 | enabled | Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
 
 #### Container widget metadata
 
@@ -252,10 +236,7 @@ Each widget is represented by an AllJoyn object implementing this interface.
 
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
-| `org.alljoyn.ControlPanel.Property` | 1 | no | `/ControlPanel/{unit)/{panel}/{language}/.../{object name}` |
-| | | | Examples: |
-| | | | /ControlPanel/washing/consolePanel/en/Mode |
-| | | | /ControlPanel/sprinkler/mainPanel/en/Schedules/InputForm/ScheduleName |
+| `org.alljoyn.ControlPanel.Property` | 1 | no | <p>`/ControlPanel/{unit)/{panel}/{language}/.../{object name}`</p><p>Examples:</p><ul><li>/ControlPanel/washing/consolePanel/en/Mode</li><li>/ControlPanel/sprinkler/mainPanel/en/Schedules/InputForm/ScheduleName</li></ul> |
 | `org.alljoyn.ControlPanel.SecuredProperty` | 1 | yes | `/ControlPanel/{unit}/{panel}/.../{object name}` |
 
 ### Properties
@@ -263,12 +244,16 @@ Each widget is represented by an AllJoyn object implementing this interface.
 |Property name | Signature | List of values | Read/Write | Description |
 |---|:---:|---|---|---|
 | Version | `q` | Positive integers | Read-only | Interface version number |
-| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
-| | | | | **Mask** / **Name** / **Description** |
-| | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
-| | | | | 0x02 / writable / Indicates whether the widget is writable. |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states. States bit mask information is detailed below. |
 | OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [Property widget metadata][property-widget-metadata] for more information. |
 | Values | `v` | N/A | Read-write | Actual value of the property. When modifying the property, the device may give the AllJoyn error `org.alljoyn.Error.MethodNotAllowed` if the property is ReadOnly. The supported data types are listed in [Supported data types][supported-data-types]. |
+
+**States property bit mask information**
+
+| Mask | Name | Description |
+|:---:|---|---|
+| 0x01 | enabled | Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
+| 0x02 | writable | Indicates whether the widget is writable. |
 
 #### Property widget metatdata
 
@@ -303,23 +288,26 @@ Each widget is represented by an AllJoyn object implementing this interface.
 
 | Category | Supported data types |
 |---|---|
-| Scalar types | * BOOLEAN - b |
-| | * BYTE - y |
-| | * BYTE ARRAY - ay |
-| | * Numeric types: |
-| |   * INT16 - n |
-| |   * UINT16 - q |
-| |   * INT32 - i |
-| |   * UNT32 - u |
-| |   * INT64 - x |
-| |   * UINT64 - t |
-| |   * DOUBLE - d |
-| | * STRING - s |
-| Composite types | All composite data type must have the following signature--q(type)--where the first value is an enum value indicating the composite type |
-| | **Composite type enum** / **Composite type name** / **Signature** / **Description** |
-| | 0 / Date / `q(qqq)` / Data type per RFC3339. There are three fields: date-mday (1-31); date-month (1-12); and date-fullyear (4-digit year). |
-| | 1 / Time / `q(qqq)` / Time type per RFC3339. There are three fields: time-hour (0-23); time-minute (0-59); and time-second (0-59). |
+| Scalar types | <ul><li>BOOLEAN - b</li><li>BYTE - y</li><li>BYTE ARRAY - ay</li><li>Numeric types (types listed below)</li><li>STRING - s</li></ul> |
+| Composite types | All composite data type must have the following signature--q(type)--where the first value is an enum value indicating the composite type. Details provided below. |
 | Collection of records | Array of records of only scalar and supported composite types. All records in the array must be of the same record type. |
+
+**Numeric types**
+
+* INT16 - n
+* UINT16 - q
+* INT32 - i
+* UNT32 - u
+* INT64 - x
+* UINT64 - t
+* DOUBLE - d
+
+**Composite types information**
+
+| Composite type enum | Composite type name | Signature | Description |
+|---|---|---|---|
+| 0 | Date | `q(qqq)` | Data type per RFC3339. There are three fields: date-mday (1-31); date-month (1-12); and date-fullyear (4-digit year). |
+| 1 | Time | `q(qqq)` | Time type per RFC3339. There are three fields: time-hour (0-23); time-minute (0-59); and time-second (0-59). |
 
 #### List of values
 
@@ -396,20 +384,22 @@ by an AllJoyn object implementing this interface.
  
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
-| `org.alljoyn.ControlPanel.LabelProperty` | 1 | no | `/ControlPanel/{unit}/{panel}/{language}/.../ {object name}` |
-| | | | Example: |
-| | | | /ControlPanel/airconditioner/consolel/Warning |
+| `org.alljoyn.ControlPanel.LabelProperty` | 1 | no | <p>`/ControlPanel/{unit}/{panel}/{language}/.../ {object name}`</p><p>Example:</p><p>/ControlPanel/airconditioner/consolel/Warning</p> |
 
 ### Properties
 
 |Property name | Signature | List of values | Read/Write | Description |
 |---|:---:|---|---|---|
 | Version | `q` | Positive integers | Read-only | Interface version number |
-| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
-| | | | | **Mask** / **Name** / **Description** |
-| | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states. States bit mask information is detailed below. |
 | Label | `s` | N/A | Read-only | Text label |
 | OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [LabelProperty widget metadata][labelproperty-widget-metadata] for more information. |
+
+**States bit mask information**
+
+| Mask | Name | Description |
+|---|---|---|
+| 0x01 | enabled | Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
 
 #### LabelProperty widget metadata
 
@@ -471,9 +461,7 @@ of the `Exec` method call for this Action widget.
  
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
-| `org.alljoyn.ControlPanel.Action` | 1 | no | `/ControlPanel/{unit}//{panel}/{language}/.../{object name}` |
-| | | | Example: |
-| | | | /ControlPanel/{unit}/{panel}/{language}/.../{object name}  |
+| `org.alljoyn.ControlPanel.Action` | 1 | no | <p>`/ControlPanel/{unit}//{panel}/{language}/.../{object name}`</p><p>Example:</p><p>/ControlPanel/{unit}/{panel}/{language}/.../{object name}</p>  |
 | `org.alljoyn.ControlPanel.SecuredAction` | 1 | yes | `/ControlPanel/{unit}/{panel}/{language}/.../{object name}` |
 
 ### Properties
@@ -481,10 +469,14 @@ of the `Exec` method call for this Action widget.
 |Property name | Signature | List of values | Read/Write | Description |
 |---|:---:|---|---|---|
 | Version | `q` | Positive integers | Read-only | Interface version number |
-| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
-| | | | | **Mask** / **Name** / **Description** |
-| | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states. States bit mask information is detailed below. |
 | OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [Action widget metadata][action-widget-metadata] for more information. |
+
+**States bit mask information**
+
+| Mask | Name | Description |
+|---|---|---|
+| 0x01 | enabled | Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
 
 #### Action widget metadata
 
@@ -565,9 +557,7 @@ specific language code.
  
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
-| `org.alljoyn.ControlPanel.NotificationAction` | 1 | no | `/NotificationPanel/{unit}/{actionPanelName}` |
-| | | | Example: |
-| | | | /NotificationPanel/washing/CycleCompleted  |
+| `org.alljoyn.ControlPanel.NotificationAction` | 1 | no | <p>`/NotificationPanel/{unit}/{actionPanelName}`</p><p>Example:</p><p>/NotificationPanel/washing/CycleCompleted</p> |
 
 ### Properties
 
@@ -591,7 +581,7 @@ The controller must dismiss this notification panel.
 
 ### Introspection XML
 
-```
+```xml
 <node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.NotificationAction">
@@ -611,9 +601,7 @@ has a message and up to three action buttons.
  
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
-| `org.alljoyn.ControlPanel.Dialog` | 1 | no | `/ControlPanel/{unit)/{panelName}/{language}/.../{dialogName}` |
-| | | | Example: |
-| | | | /ControlPanel/washing/mainPanel/en/Confirmation  |
+| `org.alljoyn.ControlPanel.Dialog` | 1 | no | <p>`/ControlPanel/{unit)/{panelName}/{language}/.../{dialogName}`</p><p>Example:</p><p>/ControlPanel/washing/mainPanel/en/Confirmation</p> |
 | `org.alljoyn.ControlPanel.SecuredDialog` | 1 | yes | `/ControlPanel/{unit}/{panel}/{language}/.../{dialogName}` |
 
 ### Properties
@@ -621,12 +609,16 @@ has a message and up to three action buttons.
 |Property name | Signature | List of values | Read/Write | Description |
 |---|:---:|---|---|---|
 | Version | `q` | Positive integers | Read-only | Interface version number |
-| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
-| | | | | **Mask** / **Name** / **Description** |
-| | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states. States bit mask information is detailed below. |
 | OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [Dialog widget metadata][dialog-widget-metadata] for more information. |
 | Message | `q` | N/A | Read-only | Display message. |
 | NumActions | `q` | 1-3 | Read-only | Number of available actions. |
+
+**States bit mask information**
+
+| Mask | Name | Description |
+|---|---|---|
+| 0x01 | enabled | Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
 
 #### Dialog widget metadata
 
@@ -717,7 +709,7 @@ The metadata has changed. This can occur due to changes in any of the property o
 
 ### Introspection XML
 
-```
+```xml
 <node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://www.allseenalliance.org/schemas/introspect.xsd">
    <interface name="org.alljoyn.ControlPanel.Dialog">
@@ -745,9 +737,7 @@ display/input form.
  
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
-| `org.alljoyn.ControlPanel.ListProperty` | 1 | no | `/ControlPanel/{unit}/{language}/{panel}/{object name}` |
-| | | | Example: |
-| | | | /ControlPanel/sprinkler/mainPanel/en/Schedules  |
+| `org.alljoyn.ControlPanel.ListProperty` | 1 | no | <p>`/ControlPanel/{unit}/{language}/{panel}/{object name}`</p><p>Example:</p><p>/ControlPanel/sprinkler/mainPanel/en/Schedules</p> |
 | `org.alljoyn.ControlPanel.SecuredListProperty` | 1 | yes | `/ControlPanel/{unit}/{language}/{panel}/.../{object name}` |
 
 ### Properties
@@ -755,14 +745,15 @@ display/input form.
 |Property name | Signature | List of values | Read/Write | Description |
 |---|:---:|---|---|---|
 | Version | `q` | Positive integers | Read-only | Interface version number |
-| States | `u` | Bit mask | Read-only | Bit mask for various widget states |
-| | | | | **Mask** / **Name** / **Description** |
-| | | | | 0x01 / enabled / Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
+| States | `u` | Bit mask | Read-only | Bit mask for various widget states. States bit mask information is detailed below. |
 | OptParams | `a{qv}` | N/A | Read-only | Metadata dictionary. See [ListProperty widget metadata][listproperty-widget-metadata] for more information. |
-| Value | `a{qs}` | N/A | Read-only | List of records. Each record in the list holds the following fields: |
-| | | | | * recordID ('q'): the record ID |
-| | | | | * label ('s'): the label to display on the list |
-| | | | | The record data are not exposed in this property. The `View` method call can be used to view each record. |
+| Value | `a{qs}` | N/A | Read-only | <p>List of records. Each record in the list holds the following fields:</p><ul><li>recordID ('q'): the record ID</li><li>label ('s'): the label to display on the list</li></ul><p>The record data are not exposed in this property. The `View` method call can be used to view each record.</p> |
+
+**States bit mask information**
+
+| Mask | Name | Description |
+|---|---|---|
+| 0x01 | enabled | Indicates whether the widget is enabled. A disabled widget should be grayed out or invisible. |
 
 #### ListProperty widget metadata
 

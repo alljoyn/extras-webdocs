@@ -259,7 +259,7 @@ on a single device might look like, conceptually.
 
 ![prototypical-alljoyn-bus][prototypical-alljoyn-bus]
 
-Figure: Prototypical AllJoyn bus
+**Figure:** Prototypical AllJoyn bus
 
 Points about the prototypical AllJoyn bus are detailed below.
 
@@ -291,7 +291,7 @@ Linux host is formed when required by the components.
 
 ![device-device-comm][device-device-comm]
 
-Figure: Device-to-device communication handled by the AllJoyn framework
+**Figure:** Device-to-device communication handled by the AllJoyn framework
 
 The management of this communication link is handled by the 
 AllJoyn system and may be formed using a number of underlying 
@@ -309,7 +309,7 @@ worry about the location of that component.
 
 ![dist-bus-local-bus][dist-bus-local-bus]
 
-Figure: A distributed AllJoyn bus appears as a local bus
+**Figure:** A distributed AllJoyn bus appears as a local bus
 
 ### Bus router
 
@@ -327,7 +327,7 @@ service is more typically used, however we refer to it as the AllJoyn router.
 
 ![bubble-diagram-bus][bubble-diagram-bus]
 
-Figure: Relating bubble diagrams to the bus
+**Figure:** Relating bubble diagrams to the bus
 
 In order to visualize the AllJoyn router, it is useful to create 
 a bubble diagram. Consider two AllJoyn bus segments, one residing 
@@ -340,7 +340,7 @@ translated into the illustration shown in the folliwing figure.
 
 ![alljoyn-bubble-diagram][alljoyn-bubble-diagram]
 
-Figure: AllJoyn bubble diagrams
+**Figure:** AllJoyn bubble diagrams
 
 The bubbles can be viewed as computer processes running on a 
 distributed system. The two client (C) and the service (S) 
@@ -822,7 +822,7 @@ accomplishes for you. A user need only be aware that messages
 are routed correctly over a transport mechanism that meets 
 the abstract needs of the application.
 
-####Self-Join Feature
+#### Self-join feature
 
 In AllJoyn releases up to R14.06, it was impossible for applications
 to join a session they themselves hosted. For applications that consume 
@@ -833,7 +833,7 @@ removes this asymmetry by allowing applications to join the sessions
 they themselves host. Consequently, a locally hosted bus object can be 
 treated in exactly the same way as a remotely hosted bus object.
 
-#### Determining the Presence of a Peer - Pinging and Auto-Pinging
+#### Determining the presence of a peer - pinging and auto-pinging
 
 Sometimes, a application needs to know which peers are present on the communication 
 channel ("the wire") and which aren't.  For this reason, a PING API was introduced in 
@@ -880,7 +880,7 @@ all of these pieces are related.
 
 ![hypothetical-alljoyn-bus-instance][hypothetical-alljoyn-bus-instance]
 
-Figure: Overview of a hypothetical AllJoyn bus instance
+**Figure:** Overview of a hypothetical AllJoyn bus instance
 
 At the center is the dark line representing the AllJoyn bus. 
 The bus has "exits" which are the BusAttachments assigned 
@@ -916,7 +916,7 @@ mechanism it should use to advertise the service and begins doing so.
 
 ![service-performs-advertise][service-performs-advertise]
 
-Figure: Service performs an Advertise
+**Figure:** Service performs an Advertise
 
 When a prospective client wants to locate a service for consumption, 
 it issues a find name request. Its local router device, again 
@@ -925,7 +925,7 @@ look for advertisements and probes for advertisements.
 
 ![client-requests-find-name][client-requests-find-name]
 
-Figure: Client requests to Find Name
+**Figure:** Client requests to Find Name
 
 Once the devices move into proximity, they begin hearing 
 each other's advertisements and discovery requests over whichever 
@@ -934,14 +934,14 @@ service hears the discovery requests and responds.
 
 ![router-reports-found-name][router-reports-found-name]
 
-Figure: Router reports Found Name
+**Figure:** Router reports Found Name
 
 Finally, the following figure shows the client receiving an indication 
 that there is a new router in the area that is hosting the desired service.
 
 ![client-discovers-service][client-discovers-service]
 
-Figure: Client discovers service
+**Figure:** Client discovers service
 
 The client and service sides of the developing scenario both 
 use methods and callbacks on their bus attachment object to 
@@ -1034,7 +1034,7 @@ The following figure shows the architecture of the system from a user
 
 ![client-service-peer-arch][client-service-peer-arch]
 
-Figure: Basic client, service, or peer architecture
+**Figure:** Basic client, service, or peer architecture
 
 At the highest level are the language bindings. The AllJoyn system 
 is written in C++, so for users of this language, no bindings 
@@ -1114,7 +1114,7 @@ on a particular host.
 
 ![router-arch][router-arch]
 
-Figure: Basic router architecture
+**Figure:** Basic router architecture
 
 For example, a Bluetooth transport would handle the complexities 
 of creating and managing piconets in the Bluetooth system. 
@@ -1200,3 +1200,4 @@ than those developed on other platforms.
 [client-discovers-service]: /files/learn/standard-core/client-discovers-service.png
 [client-service-peer-arch]: /files/learn/standard-core/client-service-peer-arch.png
 [router-arch]: /files/learn/standard-core/router-arch.png
+

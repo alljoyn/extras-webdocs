@@ -15,7 +15,7 @@ on a 64-bit operating system, install these required development libraries:
      libc6-dev-i386 libssl-dev:i386 libxml2-dev:i386
   ```
 
-NOTE: libssl-dev and libxml2-dev do not have multilib support. 
+**NOTE:** libssl-dev and libxml2-dev do not have multilib support. 
 This means, if the 32-bit version of the developer libraries 
 are installed, then the 64-bit version is replaced with the 
 32-bit version. You can delete the 32-bit version of the libraries 
@@ -23,7 +23,7 @@ and reinstall the 64-bit version if you wish to go back to 64-bit.
 
 ## Python v2.6/2.7
 
-NOTE: Python v3.0 is not compatible and will cause errors.
+**NOTE:** Python v3.0 is not compatible and will cause errors.
 
 1. Python is a common part of most Linux distributions. You can 
 determine whether Python is already installed on your system by
@@ -109,7 +109,7 @@ the following command:
 
 ### Uncrustify v0.57
 
-NOTE: Uncrustify v0.57 is specifically required. No other 
+**NOTE:** Uncrustify v0.57 is specifically required. No other 
 version of Uncrustify would work as we intend it to work.
 
 There are two ways to install Uncrustify v0.57.
@@ -128,7 +128,7 @@ There are two ways to install Uncrustify v0.57.
    $ sudo make install
   ```
  
-NOTE: In some cases, Uncrustify has failed to build on the new 
+**NOTE:** In some cases, Uncrustify has failed to build on the new 
 version of Ubuntu. Try making the following change to get 
 Uncrustify to build:
 
@@ -209,7 +209,7 @@ the headers in the SDK are used).
 Java 6 or greater may be used to build the AllJoyn framework 
 on a Linux platform.
 
-IMPORTANT: Using apt-get install java will download open-jdk not 
+**IMPORTANT:** Using apt-get install java will download open-jdk not 
 sun-jdk. The AllJoyn framework requires sun-jdk.
 
 Install Java using one of these two mechanisms.
@@ -361,7 +361,7 @@ but is required for building the C++ unit tests.
 3. Unzip the contents of gtest-1.6.0.zip to a known location 
 (e.g., $HOME/gtest/gtest-1.6.0).
 
-IMPORTANT: Do not use apt-get install libgtest-dev. Download 
+**IMPORTANT:** Do not use apt-get install libgtest-dev. Download 
 the source code from code.google.com.
 
 ## Obtain the AllJoyn source
@@ -401,16 +401,16 @@ $ scons CPU=x86_64 BINDINGS=<comma separated list (cpp,java,c,unity,js)>
    ex) $ scons CPU=x86_64 BINDINGS="cpp,java"
 ```
 
-NOTE: For a full list of SCons command line options to build 
+**NOTE:** For a full list of SCons command line options to build 
 the AllJoyn framework, enter `scons -h`.
 
-NOTE: Use the SCons variable `BINDINGS` to list the language 
+**NOTE:** Use the SCons variable `BINDINGS` to list the language 
 bindings for which you would like to build. To limit the build 
 to just C++, for example, use BINDINGS=cpp. Use a comma-separated 
 list for multiple bindings. For example, to build for Java and 
 C++, use  BINDINGS=java,cpp.
 
-NOTES:
+**NOTES**
 
 * The path specified for the CLASSPATH environment variable 
 is the full path name to the junit jar file that was downloaded earlier.
@@ -542,7 +542,7 @@ $ scons GTEST_DIR=$HOME/gtest/gtest-1.6.0
 ## Running the AllJoyn Applications
 
 
-NOTE: For v2.6 and onward, Bundled Router mode only.
+**NOTE:** For v2.6 and onward, Bundled Router mode only.
 
 To ensure that the Linux development platform is set up 
 correctly, use the instructions in this section to run 
@@ -586,7 +586,7 @@ another application:
 
 ## AllJoyn router command line executable
 
-NOTE: Applies only to versions before 2.6.
+**NOTE:** Applies only to versions before 2.6.
 
 The concept of bundling a router with the application was 
 introduced in v2.6. Prior to this version, to run any AllJoyn 
@@ -642,7 +642,7 @@ For examples of different configuration files, see examples in:
 <workspace>/alljoyn_core/daemon/test/conf.
 ```
 
-NOTE: Not all configuration files found in the daemon/test/conf 
+**NOTE:** Not all configuration files found in the daemon/test/conf 
 directory are valid for use on a computer running Linux.
 
 ### Verify that the router is running
@@ -674,7 +674,7 @@ basic client exiting with status 0 (ER_OK)
 
 ## Running Unit Tests
 
-NOTE: The following instructions are valid only for the AllJoyn 
+**NOTE:** The following instructions are valid only for the AllJoyn 
 framework version 2.6 and newer.
 
 ### Running C++ unit tests
@@ -723,7 +723,7 @@ For all paths, replace {OS}, {CPU}, and {VARIANT} with the
 actual value used when the code was built (i.e., use the same OS, 
 CPU, and VARIANT option specified when running SCons).
 
-NOTE: If the code was built using the bundled router 
+**NOTE:** If the code was built using the bundled router 
 (i.e., SCons flag BR=on), then ajtest can be run without 
 first starting the separate alljoyn-daemon.
 

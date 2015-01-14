@@ -143,7 +143,7 @@ Listen for a sessionEstablished event to verify the session
 was established successfully. When a session is established, 
 a collection of control panel containers is received.
 
-NOTE: There may be more than one control panel container, each 
+**NOTE:** There may be more than one control panel container, each 
 intended for a different use. For example, one for the home user 
 and another for a technician. Each element of the container is a 
 DeviceControlPanel and provided per language.
@@ -249,7 +249,7 @@ A typical method is to show a toast to the user that an error occurred.
 
 ### Compile the code
 
-See the [Building Android section][building-android] for instructions on how to 
+See the [Building Android][building-android] section for instructions on how to 
 compile the application with this service framework.
 
 [building-android]: /develop/building/android

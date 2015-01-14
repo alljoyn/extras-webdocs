@@ -45,7 +45,7 @@ About Server and possibly Config Server instances send announcements.
 Verify the BusAttachment has been created, started and 
 connected before implementing a Config Client.
 
-NOTE:  Code in this chapter references a variable 
+**NOTE:**  Code in this chapter references a variable 
 `clientBusAttachment` (the BusAttachment variable name).
 
 ### Establish the AboutService object
@@ -150,7 +150,7 @@ The peer device/application configuration can be reset to
 factory defaults through the ConfigClient via the 
 `FactoryReset()` method call.
 
-NOTE: This is a no-reply call, so its success cannot be determined directly.
+**NOTE:** This is a no-reply call, so its success cannot be determined directly.
 
 ```objc
 [self.configClient factoryResetWithBus:self.annBusName 
@@ -162,7 +162,7 @@ NOTE: This is a no-reply call, so its success cannot be determined directly.
 The peer application can be restarted though the ConfigClient 
 via the Restart() method call.
 
-NOTE:  This is a no-reply call, so its success cannot be 
+**NOTE:**  This is a no-reply call, so its success cannot be 
 determined directly.
 
 ```objc
@@ -177,7 +177,7 @@ though the ConfigClient using the SetPasscode() method call.
 This revokes the current encryption keys and regenerates new 
 ones based on the new shared secret, namely the passcode.
 
-NOTE: The realm name is currently ignored.
+**NOTE:** The realm name is currently ignored.
 
 ```objc
 NSString *pass = @"123456";

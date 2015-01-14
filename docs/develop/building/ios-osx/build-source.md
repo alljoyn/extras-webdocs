@@ -22,7 +22,7 @@ http://itunes.apple.com/us/app/xcode/id497799835?mt=12.
 6. Select the **Components** tab.
 7. Verify that the Command Line Tools have been installed.
 
-   NOTE: You may need to run the following command from a 
+   **NOTE:** You may need to run the following command from a 
    terminal window to install the Command Line Tools:
 
    ```sh
@@ -61,7 +61,7 @@ $ brew install git
 
 ### Appledoc
 
-NOTE: Appledoc is not required if you do not want to generate 
+**NOTE:** Appledoc is not required if you do not want to generate 
 the API Reference Manual.
 
 The appledoc tool generates documentation for the AllJoyn 
@@ -83,7 +83,7 @@ Objective-C language binding. For more information, see http://gentlebytes.com/a
 
 ### Doxygen
 
-NOTE: Doxygen is not required if you do not want to generate the 
+**NOTE:** Doxygen is not required if you do not want to generate the 
 API Reference Manual.
 
 The Doxygen tool generates documentation for the AllJoyn C++ 
@@ -102,7 +102,7 @@ language binding. For more information, see http://www.doxygen.org.
 
 ### Graphviz
 
-NOTE: Graphviz is not required if you do not want to generate 
+**NOTE:** Graphviz is not required if you do not want to generate 
 the API Reference Manual.
 
 The Graphviz Dot tool diagrams class hierarchies. For more 
@@ -233,7 +233,7 @@ Upon completion of the build, your binaries will be located in the following dir
    <alljoyn_root_directory>/alljoyn_core/build/darwin/[arm|x86]/[debug|release]/dist
    ```
 
-   NOTE: For OS X builds, the binaries will be located under the `.../darwin/x86/...`
+   **NOTE:** For OS X builds, the binaries will be located under the `.../darwin/x86/...`
    directory. For iOS builds, the binaries will be located under the `.../darwin/arm/   ` directory.
 
 ### Command line build 

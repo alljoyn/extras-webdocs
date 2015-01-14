@@ -137,6 +137,14 @@ interfaces and metadata that are used for discovery.
 
 [Learn more][about]
 
+### ARDP
+
+AllJoyn Reliable Datagram Protocol. ARDP is designed to provide,
+among other things, reliable delivery and ordering for UDP-based
+layer 4 transport mechanisms. In particular, ARDP is used in the
+UDP Transport to provide guarantees appropriate to AllJoyn Messaging.
+ARDP is modeled after RDP and extended for AllJoyn-specific requirements.
+
 ### Audio service framework
 
 Open implementation built using the AllJoyn framework that 
@@ -146,6 +154,12 @@ allows for synchronized audio to play back on one or many Sinks.
 
 Application that carries out the IFTTT rules. Related to the 
 [Events and Actions feature][events-and-actions].
+
+### Bandwidth-Delay Product
+
+Refers to the product of a data link�s capacity in bits per second
+and its round-trip delay time. This characterizes the amount of data
+that can be in transit (sometimes called in-flight) in the network.
 
 ### Base services
 
@@ -411,6 +425,11 @@ Refers to a network that does not include a cloud-based service
 
 Refers to a network that includes a cloud-based service
 
+### RDP
+
+Reliable Data Protocol. An efficient reliable data transport
+service for packet-based applications.
+
 ### Reliable event
 
 An event this is sent with guaranteed delivery to all interested consumers. 
@@ -467,6 +486,11 @@ AllJoyn app that uses the AllJoyn Standard Library.
 ### Standard core
 
 Contains the Standard library and router library
+
+### SYN, SYN+ACK, ACK
+
+The kinds of segments that are involved in a three-way handshake
+connection establishment protocol. Used in TCP and ARDP.
 
 ### Thin app
 

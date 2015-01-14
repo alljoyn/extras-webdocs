@@ -20,7 +20,7 @@
 3. Open up the Visual Studio project contained.
 4. Change the build settings to match the target SDK (Release/Debug) and CPU (Win32/x64).
 
-   NOTE: These must match or you will receive build errors.
+   **NOTE:** These must match or you will receive build errors.
 
 5. Click the menu option **Build**>**Rebuild**.
 When the build is complete, open the (CPU)/(SDK Version) folder to find the .exe files contained.
@@ -39,7 +39,7 @@ Double-click the applications to open them. A command prompt appears that contai
 
 3. Edit *Additional Include Directories* and add $(ALLJOYN_SDK_HOME)\inc.
 
-   NOTE: ALLJOYN_SD_HOME setup in Set up step 3 above.
+   **NOTE:** ALLJOYN_SD_HOME setup in Set up step 3 above.
 
 4. Select **Preprocessor** under C/C++.
 
@@ -57,6 +57,7 @@ Double-click the applications to open them. A command prompt appears that contai
 
 
 ### Makefile
+
 Perform the following steps at a high level. Changes may be needed due to how the existing Makefile is structured.
 
 1. Open your Makefile.

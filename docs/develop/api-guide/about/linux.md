@@ -1,6 +1,8 @@
 # About API Guide - C++
 
-These APIs were add to AllJoyn&trade; 14.12 release for using the About Feature in an
+<!-- QUESTION FOR GEORGE: I don't understand this first statement. Please resolve.-->
+
+These APIs were added to AllJoyn&trade; 14.12 release for using the About Feature in an
 older release please see: [Legay Linux About API Guide][about-linux-legacy]
 
 ## Reference code
@@ -154,7 +156,7 @@ When adding the interface to the BusObject you can specify if that interface is
 announced by adding the `ANNOUNCED` value to the `AddInterface()` member
 function.
 
-_NOTE:_ The BusObject adds method handlers for methods specified in the
+**NOTE:** The BusObject adds method handlers for methods specified in the
 `com.example.about.feature.interface.sample` interface. If it contained any
 properties it would also be responsible for add Get/Set handler functions for
 the properties as well. The code lets the object path be passed in at
@@ -241,8 +243,8 @@ listed in the `SupportedLanguages`
 ### Fill in your `AboutData`
 
 The `AboutData` is an instance of the `AboutDataListener` interface. For most
-developers the `AboutData` will provide the `AboutDataListener` dictionary of
-key/value pairs (`a{sv}`). Needed to send an `Announce signal.
+developers, the `AboutData` will provide the `AboutDataListener` dictionary of
+key/value pairs (`a{sv}`). This is needed to send an `Announce signal.
 
 ```cpp
 // Setup the about data
@@ -448,7 +450,7 @@ if a device is responsive. Contents of an Announce signal can
 be stale so it is recommended to ping the device to see if it 
 is still present and responsive before attempting to form a connection.
 
-NOTE: The `BusAttachment::Ping` member function makes a bus call. If `Ping` 
+**NOTE:** The `BusAttachment::Ping` member function makes a bus call. If `Ping` 
 is called inside an AllJoyn callback, `BusAttachment::EnableConcurrentCallbacks`
 must be called first.
 
@@ -471,7 +473,7 @@ announcement, perform the following steps.
 
    Create a session with the application by calling `BusAttachment::JoinSession`.
  
-   NOTE: The variables name and port are obtained from the
+   **NOTE:** The variables name and port are obtained from the
    AboutListener::Announced member function.
 
    ```cpp
@@ -524,7 +526,7 @@ announcement, perform the following steps.
    // Get the MimeType
    retIcon.mimetype
    ```
-
+<!--QUESTION FOR GEORGE: Need to resolve TODOs-->
 <!--TODO add section on adding user defined values to AboutData -->
 <!--TODO add section on Creating child AboutData implementation -->
 <!--TODO add section on Making an AboutDataListener from legacy PropertyStore -->

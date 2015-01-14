@@ -64,10 +64,11 @@ an instance of the ConfigService class. Any application using
 Config Server also requires an About Server to facilitate the 
 discovery via Announcements.
 
-NOTE: Verify the BusAttachment has been created, started and 
-connected before implementing the ConfigService. See the [About API Guide]
-[about-api-guide-android] for the code snippets. Code in this 
-section references a variable `mBus` (the BusAttachment variable name).
+**NOTE:** Verify the BusAttachment has been created, started and 
+connected before implementing the ConfigService. See the 
+[About API Guide][about-api-guide-android] for the code snippets. 
+Code in this section references a variable `mBus` (the BusAttachment 
+variable name).
 
 ### Declare listener class
 
@@ -95,7 +96,7 @@ mBus.enableConcurrentCallbacks();
 
 ### Bind session port
 
-NOTE: This step is not mandatory if you are only sending an announcement.
+**NOTE:** This step is not mandatory if you are only sending an announcement.
 
 To allow incoming connections, the formation of a session is needed. 
 The AllJoyn framework must be told that connections are allowed.
@@ -148,12 +149,12 @@ for more information.
 
 | Field name | Required | Signature |
 |---|---|---|
-| DefaultLanguage | yes | s |
-| DeviceName | yes | s |
+| `DefaultLanguage` | yes | `s` |
+| `DeviceName` | yes | `s` |
 
-NOTE: Any changes made to these fields should be written to 
-a shared provisioning file. See the [About API Guide]
-[about-api-guide-android] for more information.
+**NOTE:** Any changes made to these fields should be written to 
+a shared provisioning file. See the [About API Guide][about-api-guide-android] 
+for more information.
 
 #### Sample ConfigStore implementation
 
@@ -642,7 +643,7 @@ configClient.ResetConfigurations((String)announceMap.get("DefaultLanguage"), fie
 The peer device/application configuration can be reset to 
 factory defaults through the ConfigClient via the `FactoryReset()` method call.
 
-NOTE: This is a no-reply call, so its success cannot be determined directly.
+**NOTE:** This is a no-reply call, so its success cannot be determined directly.
 
 ```java
 configClient.FactoryReset();
@@ -653,7 +654,7 @@ configClient.FactoryReset();
 The peer application can be restarted though the ConfigClient 
 via the `Restart()` method call.
 
-NOTE: This is a no-reply call, so its success cannot be determined directly.
+**NOTE:** This is a no-reply call, so its success cannot be determined directly.
 
 ```java
 configClient.Restart();
@@ -666,7 +667,7 @@ through the ConfigClient via the `SetPasscode()` method call.
 This revokes the current encryption keys and regenerates new 
 ones based on the new shared secret, namely the passcode.
 
-NOTE: The realm name is currently ignored.
+**NOTE:** The realm name is currently ignored.
 
 ```java
 byte [] passcode = new byte [] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };

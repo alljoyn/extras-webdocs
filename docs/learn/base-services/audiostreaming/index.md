@@ -4,7 +4,7 @@ The AllJoyn&trade; Audio service framework is a full-feature implementation
 using the AllJoyn framework that allows for synchronized audio playback on
 one or many Sinks. An application using the Audio service framework can
 discover nearby Sinks and by adding them have the ability to stream audio
-(PCM data) by calling a single command to play on all added Sinks.  The
+(PCM data) by calling a single command to play on all added Sinks. The
 service provides controls to pause, stop, play, volume up/down, and mute.
 
 ## Concepts and Terminology
@@ -19,16 +19,16 @@ Two roles exist:
 
 The Audio Service framework uses the interfaces standardized in this
 software framework in order to move PCM data to each device. When PCM
-data is sent is is done so via an AllJoyn Signal.  The Source will form
+data is sent is is done so via an AllJoyn Signal. The Source will form
 a point-to-point session with each Sink that it wishes to send audio.
 It will then send a Signal on each session that includes the audio
 data chunk and a timestamp. The timestamp is used to provide an simple
 synchronization between the multiple speakers.
 
 Prior to being able to send audio, a Source must first tell the Sink
-the details of the audio that it wishes to send.  The Source is
+the details of the audio that it wishes to send. The Source is
 responsible for requesting the capabilities of each Sink in addition
-to the FIFO size.  The Source then prefills the FIFO and starts the 
+to the FIFO size. The Source then prefills the FIFO and starts the 
 process of sending more data chunks as the song plays.
 
 When media and volume controls are used the function on a separate

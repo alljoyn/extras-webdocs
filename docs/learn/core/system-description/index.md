@@ -5,7 +5,7 @@
 | Release version | Date | What changed |
 |---|---|---|
 | 14.06 | 9/26/2014 | Initial release |
-| 14.12 | 12/17/2014 | <p>Updates for new functionality added in 14.12 release:<p><ul><li>UDP Transport design</li><li>TCP vs UDP Transport selection logic at the router</li><li>mDNS-based discovery for the router at the TCL</li><li>Updates to SLS fetch backoff design to support linear+exponential backoff</li><li>Router Probing mechanism to detect missing applications</li><li>Router logic to detect and disconnect slow reader nodes</li></ul><p>Other updates:</p></li><li>Endpoints usage by AllJoyn Transport</li><li>TCP Transport data plane architecture and state machine</li><li>AllJoyn Protocol Version mapping for different releases</li><li>Link timeout mechanism between routers to detect missing routers</li></ul>
+| 14.12 | 12/17/2014 | <p>Updates for new functionality added in 14.12 release:</p><ul><li>UDP Transport design</li><li>TCP vs UDP Transport selection logic at the router</li><li>mDNS-based discovery for the router at the TCL</li><li>Updates to SLS fetch backoff design to support linear+exponential backoff</li><li>Router Probing mechanism to detect missing applications</li><li>Router logic to detect and disconnect slow reader nodes</li></ul><p>Other updates:</p></li><li>Endpoints usage by AllJoyn Transport</li><li>TCP Transport data plane architecture and state machine</li><li>AllJoyn Protocol Version mapping for different releases</li><li>Link timeout mechanism between routers to detect missing routers</li></ul>
 
 This section describes in detail how AllJoyn works at the system level.
 
@@ -50,7 +50,7 @@ proximal IoE networks interconnected with each other via the Internet.
 
 ![ioe-network-example][ioe-network-example]
 
-Figure: IoE network example
+**Figure:** IoE network example
 
 Smart devices within each IoE proximal network can dynamically 
 discover and communicate with each other over direct peer-to-peer 
@@ -116,7 +116,7 @@ The following figure shows an AllJoyn network with 4 devices.
 
 ![alljoyn-network][alljoyn-network]
 
-Figure: AllJoyn network
+**Figure:** AllJoyn network
 
 Device 1 and Device 2 have only Provider applications providing 
 AllJoyn services. Device 3 has only consumer applications consuming 
@@ -208,7 +208,7 @@ An AllJoyn router can be either bundled with each application
 
 ![alljoyn-bundled-standalone-router-examples][alljoyn-bundled-standalone-router-examples]
 
-Figure: AllJoyn bundled and standalone router examples
+**Figure:** AllJoyn bundled and standalone router examples
 
 An AllJoyn router has an associated AllJoyn protocol version 
 that defines the set of functionality it supports. This protocol 
@@ -225,7 +225,7 @@ bus local to the device as shown below.
 
 ![logical-router-bus-mapping][logical-router-bus-mapping]
 
-Figure: Logical mapping of AllJoyn router to AllJoyn bus
+**Figure:** Logical mapping of AllJoyn router to AllJoyn bus
 
 The logical AllJoyn bus maps to a single AllJoyn router in two cases:  
 
@@ -238,7 +238,7 @@ The logical AllJoyn bus maps to multiple AllJoyn router instances
 in the bundled deployment model with multiple apps on the device, 
 shown as UC1.
 
-NOTE: The AllJoyn router and AllJoyn bus terminology are used 
+**NOTE:*8 The AllJoyn router and AllJoyn bus terminology are used 
 interchangeably in this document as these refer to same set of 
 bus functionality provided by the AllJoyn system.
 
@@ -248,8 +248,7 @@ connecting to the bus.
 
 ![alljoyn-bus][alljoyn-bus]
 
-Figure: AllJoyn bus
-
+**Figure:** AllJoyn bus
 
 The AllJoyn bus provides a medium for communication between 
 apps connected to the bus. AllJoyn buses on multiple devices 
@@ -261,7 +260,7 @@ form a logical distributed AllJoyn software bus as shown below.
 
 ![distributed-alljoyn-bus][distributed-alljoyn-bus]
 
-Figure: AllJoyn bus
+**Figure:** Distributed AllJoyn bus
 
 The distributed AllJoyn bus hides all the communication 
 link details from the applications running on multiple devices. 
@@ -296,7 +295,7 @@ follows the format below:
 Unique Name = ":"<AJ router GUID>"."<Seq #>
 ```
 
-NOTE: The ":<AJ router GUID>.1" unique name is always given 
+**NOTE:** The ":<AJ router GUID>.1" unique name is always given 
 to the AllJoyn router local endpoint.
 
 The following figure shows the unique name assignment for three connected 
@@ -304,7 +303,7 @@ apps to an AllJoyn bus by a single AllJoyn router with GUID=100.
 
 ![uniquename-assignment-1][uniquename-assignment-1]
 
-Figure: AllJoyn unique name assignment 1 (multiple apps connected to single AllJoyn router)
+**Figure:** AllJoyn unique name assignment 1 (multiple apps connected to single AllJoyn router)
 
 This scenario illustrates a device with multiple AllJoyn 
 applications connected to a single AllJoyn router. It is 
@@ -321,10 +320,9 @@ AllJoyn bus.
 
 ![uniquename-assignment-2][uniquename-assignment-2]
 
-Figure: AllJoyn unique name assignment 2 (each app has instance of AllJoyn router)
+**Figure:** AllJoyn unique name assignment 2 (each app has instance of AllJoyn router)
 
-
-NOTE: The GUID part in each unique name is different and 
+**NOTE:** The GUID part in each unique name is different and 
 corresponds to the GUID for the associated AllJoyn router. 
 
 The following figure shows the unique name assignment for 
@@ -333,7 +331,7 @@ distributed AllJoyn bus.
 
 ![uniquename-assignment-3][uniquename-assignment-3]
 
-Figure: AllJoyn unique name assignment 3 (AllJoyn apps on two devices connected over distributed AllJoyn bus)
+**Figure:** AllJoyn unique name assignment 3 (AllJoyn apps on two devices connected over distributed AllJoyn bus)
 
 #### Well-known name
 
@@ -396,7 +394,7 @@ service object and proxy object.
 
 ![alljoyn-service-object-proxy-object][alljoyn-service-object-proxy-object]
 
-Figure: AllJoyn service object and AllJoyn proxy object
+**Figure:** AllJoyn service object and AllJoyn proxy object
 
 Each AllJoyn service object instance has an associated object 
 path that uniquely identifies that object instance. This object 
@@ -495,7 +493,7 @@ AllJoyn bus via the AllJoyn core Library.
 
 ![alljoyn-core-library][alljoyn-core-library]
 
-Figure: AllJoyn core library
+**Figure:** AllJoyn core library
 
 An AllJoyn core library can be a Standard Core Library (SCL), 
 developed for use by AllJoyn standard applications or a 
@@ -572,7 +570,7 @@ The following figure shows different endpoints in the AllJoyn system.
 
 ![alljoyn-endpoints][alljoyn-endpoints]
 
-Figure: AllJoyn endpoints
+**Figure:** AllJoyn endpoints
 
 #### Introspection
 
@@ -594,7 +592,7 @@ objects, interfaces, and interface members.
 
 ![alljoyn-entity-relationship][alljoyn-entity-relationship]
 
-Figure: AllJoyn entity relationship
+**Figure:** AllJoyn entity relationship
 
 An AllJoyn-enabled device can support one or more AllJoyn 
 applications. Each AllJoyn application supports one or more 
@@ -615,7 +613,7 @@ captured in the following figure.
 
 ![alljoyn-service-service-object-relationship][alljoyn-service-service-object-relationship]
 
-Figure: AllJoyn service and AllJoyn service object relationship
+**Figure:** AllJoyn service and AllJoyn service object relationship
 
 ### AllJoyn services
 
@@ -632,7 +630,7 @@ functionality. Initial AllJoyn service frameworks include
 Configuration service framework, Onboarding service framework, 
 Notification service framework, and Control Panel service framework. 
 
-NOTE: Service frameworks are also referred to as base services.
+**NOTE:** Service frameworks are also referred to as base services.
 
 Example: a refrigerator application can make use of the Onboarding 
 service framework to onboard a refrigerator to a home network 

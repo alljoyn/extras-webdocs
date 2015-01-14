@@ -18,7 +18,7 @@
 
 ## Obtain the Notification service framework
 
-See the [Building Android section][building-android] for instructions 
+See the [Building Android][building-android] section for instructions 
 on compiling the Notification service framework.
 
 ### Build a Notification Producer
@@ -62,7 +62,7 @@ Complete the procedures in the following sections to guide you in this process:
 
 ### Initialize the AllJoyn framework
 
-See the [Building Android section][building-android] for instructions to 
+See the [Building Android][building-android] section for instructions to 
 set up the AllJoyn framework.
 
 ### Start the AboutService in server mode
@@ -117,7 +117,7 @@ isSenderStarted	= true;
 ```java
 List<NotificationText> text = new LinkedList<NotificationText>(); 
 text.add(new NotificationText("en", "The fridge door is open")); 
-text.add(new NotificationText("ru", "????? ???????????? ???????"));
+text.add(new NotificationText("de", "Die Kuhlschranktur steht offen"));
 ```
 
 #### Create a notification object
@@ -145,7 +145,7 @@ notification. Each audio URL is set per language.
   ```java
    List< RichAudioUrl> audioUrl = new LinkedList< RichAudioUrl>(); 
    audioUrl.add(new NotificationText("en", "http://audioUrl.com/notif_en.wav")); 
-   audioUrl.add(new NotificationText("ru", "http://audioUrl.com/notif_ru.wav""));
+   audioUrl.add(new NotificationText("de", "http://audioUrl.com/notif_de.wav""));
 
       notif.setRichAudioUrl(audioUrl);
   ```

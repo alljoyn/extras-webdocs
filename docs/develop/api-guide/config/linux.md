@@ -7,7 +7,7 @@
 |Server class | Description |
 |---|---|
 | ConfigService | Class that implements the interface org.alljoyn.Config as a service framework.|
-| PropertyStore | Interface that supplies the list of properties required for ReadAll() and enables user manipulation of their values via Update(), Delete() and Reset ().|
+| PropertyStore | Interface that supplies the list of properties required for ReadAll() and enables user manipulation of their values via Update(), Delete() and Reset().|
 
 ### Classes used to remotely manipulate ConfigData
 
@@ -36,7 +36,11 @@ it with the ConfigStore and callbacks.
 ## Setting up the AllJoyn framework and About feature
 
 The steps required for this service framework are universal 
-to all applications that use the AllJoyn framework and for any application using one or more AllJoyn service frameworks. Prior to use of the Configuration service framework as a Config Server or Config Client, the About feature must be implemented and the AllJoyn framework set up.
+to all applications that use the AllJoyn framework and for 
+any application using one or more AllJoyn service frameworks. 
+Prior to use of the Configuration service framework as a Config 
+Server or Config Client, the About feature must be implemented 
+and the AllJoyn framework set up.
 
 Complete the procedures in the following documents to guide 
 you in this process:
@@ -48,9 +52,10 @@ you in this process:
 
 Implementing a Config Server requires creating and registering 
 an instance of the ConfigService class. Any application using 
-Config Server also requires an About Server to facilitate the discovery via Announcements.
+Config Server also requires an About Server to facilitate the 
+discovery via Announcements.
 
-NOTE: Verify the BusAttachment has been created, started and 
+**NOTE:** Verify the BusAttachment has been created, started and 
 connected before implementing the ConfigService. See the 
 [About API Guide][about-api-guide-linux] for the code snippets. 
 Code in this chapter references a variable `mBus` 
@@ -119,8 +124,8 @@ See the [Configuration Interface Definition] for more information.
 
 |Field name | Required | Type |
 |---|---|---|
-| DefaultLanguage | yes | s |
-| DeviceName | yes | s |
+| `DefaultLanguage` | yes | `s` |
+| `DeviceName` | yes | `s` |
 
 An example PropertyStore implementation (ConfigStore) is 
 provided below that specifies the following dictionary of 
@@ -612,7 +617,7 @@ DeviceNamesType::const_iterator iter = deviceNames.find(languages[0]);
 
    }
 propertyStore->setDescription("This is an AllJoyn application", "en"); 
-propertyStore->setDescription("Esta es una AllJoyn aplicación", "sp"); 
+propertyStore->setDescription("Esta es una AllJoyn aplicacion", "sp"); 
 propertyStore->setDescription("C'est une Alljoyn application", "fr");
 
 propertyStore->setManufacturer("Company", "en"); 
@@ -681,8 +686,8 @@ aboutService->Register(port);
 bus->RegisterBusObject(*aboutService);
 ```
 
-For more information about the About feature, see the [About 
-API Guide][about-api-guide-linux].
+For more information about the About feature, see the 
+[About API Guide][about-api-guide-linux].
 
 ### Implement the callbacks required by the Config Server
 
@@ -797,7 +802,7 @@ use the ConfigClient class. The AboutClient class must be used
 so that your application is notified when applications with 
 About Server and possibly Config Server instances can send announcements.
 
-NOTE: Verify the BusAttachment has been created, started and 
+**NOTE:** Verify the BusAttachment has been created, started and 
 connected before implementing a Config Client. See the [About 
 API Guide][about-api-guide-linux] for the code snippets. 
 Code in this chapter references a variable `mBus` 
@@ -932,7 +937,7 @@ The peer device/application configuration can be reset to
 factory defaults through the ConfigClient using the 
 `FactoryReset()` method call.
 
-NOTE: This is a no-reply call, so its success cannot be 
+**NOTE:** This is a no-reply call, so its success cannot be 
 determined directly.
 
 ```cpp
@@ -944,7 +949,7 @@ configClient->FactoryReset(busname.c_str(), id);
 The peer application can be restarted though the ConfigClient 
 using the Restart() method call.
 
-NOTE: This is a no-reply call, so its success cannot be 
+**NOTE:** This is a no-reply call, so its success cannot be 
 determined directly.
 
 ```cpp
@@ -958,7 +963,7 @@ though the ConfigClient using the `SetPasscode()` method call.
 This revokes the current encryption keys and regenerates new 
 ones based on the new shared secret, namely the passcode.
 
-NOTE: The realm name is currently ignored.
+**NOTE:** The realm name is currently ignored.
 
 ```cpp
 configClient->SetPasscode(busname.c_str(), "MyDeamonRealm", 8, (const uint8_t*) NEW_PASSCODE, id);

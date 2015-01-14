@@ -2,7 +2,7 @@
 
 ## Setup
 
-NOTE: The installation commands below refer specifically to 
+**NOTE:** The installation commands below refer specifically to 
 Debian/Ubuntu Linux. Equivalent commands are available for other distributions of Linux.
 
 * Build tools and libs

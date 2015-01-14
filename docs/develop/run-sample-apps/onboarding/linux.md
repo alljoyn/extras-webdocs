@@ -23,7 +23,7 @@ In one of the terminal windows, run `OnboardingService`:
 $AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/onboarding/bin/OnboardingService
 ```
 
-NOTE: The `OnboardingService` sample app is just a shell implementation - 
+**NOTE:** The `OnboardingService` sample app is just a shell implementation - 
 no onboarding actually occurs!
 
 ### Run the OnboardingClient Sample App

@@ -11,7 +11,7 @@ receive About announcements on a single iOS device.
 
 Alternately, run the app as a client on one device, and as a service on another device.
 
-NOTE: Both devices must be on the same Wi-Fi network.
+**NOTE:** Both devices must be on the same Wi-Fi network.
 
 ## Run the About sample app as a Client
 
@@ -46,7 +46,7 @@ of nearby applications that have been discovered.
 2. At the bottom of the screen, click **Start About Service**.
 3. The application is now running in Server mode.
 
-NOTE: To interact with the About Service, either run the sample 
+**NOTE:** To interact with the About Service, either run the sample 
 app as an About Client on the same device or on a different device, 
 as detailed in [Run the About sample app as a Client](#run-the-about-sample-app-as-a-client).
 

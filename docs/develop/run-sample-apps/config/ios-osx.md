@@ -19,7 +19,7 @@ and testing using just a single device.
 
 Alternately, run the app as a client on one device, and as a server on another device.
 
-NOTE: If you are running the client and server on separate devices, 
+**NOTE:** If you are running the client and server on separate devices, 
 both devices must be on the same Wi-Fi network.
 
 ## Run the Configuration service sample app as a Client
@@ -32,7 +32,7 @@ area below the Disconnect from AllJoyn button, any nearby
 applications that have been discovered via the About feature 
 that also support the Configuration service framework are listed.
   ![][config-client-3]  
-   NOTE: Note: If there are not any nearby devices running the 
+   **NOTE:** If there are not any nearby devices running the 
   Configuration service framework, follow the steps in 
   [Run the Configuration service sample app as a Server][run-config-sample-app-as-server] 
   to run the application simultaneously as a Config Server. 
@@ -67,7 +67,7 @@ of nearby applications that have been discovered.
 2. At the bottom of the screen, press the **Start Service** button.
 3. The application is now running in Server mode.
   ![][config-service-1]
-   NOTE: Note: To interact with the Config Server, either run 
+   **NOTE:** To interact with the Config Server, either run 
    the sample app as a Config Client on the same device or on 
    a different device, as detailed in 
    [Run the Configuration service sample app as a Client][run-config-sample-app-as-client].

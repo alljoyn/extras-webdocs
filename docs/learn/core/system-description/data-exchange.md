@@ -11,7 +11,7 @@ must be established to exchange data between provider and consumer
 applications except when sending sessionless signals 
 (see [Sessionless Signal][sessionless-signal]). 
 
-NOTE: AllJoyn service objects are not tied to any specific 
+**NOTE:** AllJoyn service objects are not tied to any specific 
 AllJoyn session. Any service object can be accessed over any AllJoyn session.
 
 The following figure shows the functional architecture for 
@@ -19,7 +19,7 @@ the provider application.
 
 ![provider-functional-arch][provider-functional-arch]
 
-Figure: Provider functional architecture
+**Figure:** Provider functional architecture
 
 Aspects about the architecture follow.
 
@@ -55,7 +55,7 @@ the consumer application.
 
 ![consumer-functional-arch][consumer-functional-arch]
 
-Figure: Consumer functional architecture
+**Figure:** Consumer functional architecture
 
 Aspects of this architecture follow.
 
@@ -94,7 +94,7 @@ is sent back to the consumer app.
 
 ![data-exchange-method-calls-reply-sent][data-exchange-method-calls-reply-sent]
 
-Figure: Data exchange via method calls (reply sent)
+**Figure:** Data exchange via method calls (reply sent)
 
 The message flow steps are described below.
 
@@ -192,7 +192,7 @@ and no reply is sent by the provider app.
 
 ![data-exchange-method-calls-reply-not-sent][data-exchange-method-calls-reply-not-sent]
 
-Figure: Data exchange via method calls (reply not sent)
+**Figure:** Data exchange via method calls (reply not sent)
 
 Most of the message flow steps are similar to the reply sent 
 message flow returning a method reply. The following captures 
@@ -218,7 +218,7 @@ app to exchange data.
 
 ![data-exchange-signals][data-exchange-signals]
 
-Figure: Data exchange via signals
+**Figure:** Data exchange via signals
 
 A signal gets forwarded to all participants in a session if 
 only sessionId is specified in the header (no destination field). 
@@ -336,7 +336,7 @@ member='Foo',path='/bar/foo',destination=':452345.34'"
 The AllJoyn framework supports a subset of D-Bus match rules 
 as captured in [Match rule keys supported by the AllJoyn framework][match-rule-keys]. 
 
-NOTE: The AllJoyn does not support D-Bus specified arg[0,1...N], 
+**NOTE:** The AllJoyn does not support D-Bus specified arg[0,1...N], 
 arg[0,1,...N]path, arg0namespace and eavesdrop='true' in match rules.
 
 ### Match rule keys supported by the AllJoyn framework
@@ -430,7 +430,7 @@ Definitions for each message format field are provided in subsequent tables.
 
 ![alljoyn-message-format][alljoyn-message-format]
 
-Figure: AllJoyn message format
+**Figure:** AllJoyn message format
 
 ### Message format fields supported by the AllJoyn framework
 
@@ -459,8 +459,8 @@ Figure: AllJoyn message format
 
 | Name | Value | Description |
 |---|:---:|---|
-| NO_REPLY_EXPECTED | 0x01 | <p>Indicates that no reply (method_return or error) is expected for the Method Call. The reply can be omitted as an optimization.</p><p>NOTE: The provider app can still send back a reply despite this flag.</p> |
-| AUTO_START | 0x02 | <p>Indicates a request to start the service if not running. It is up to the AllJoyn core to honor this or not.</p><p>NOTE: This flag is currently not supported.</p> |
+| NO_REPLY_EXPECTED | 0x01 | <p>Indicates that no reply (method_return or error) is expected for the Method Call. The reply can be omitted as an optimization.</p><p>**NOTE:** The provider app can still send back a reply despite this flag.</p> |
+| AUTO_START | 0x02 | <p>Indicates a request to start the service if not running. It is up to the AllJoyn core to honor this or not.</p><p>**NOTE:** This flag is currently not supported.</p> |
 | ALLOW_REMOTE_MSG | 0x04 | Indicates that messages from remote hosts should be allowed (valid only in Hello message sent from app to the AllJoyn core). If set by the app, the AllJoyn core allows messages from remote apps/hosts to be sent to the application. |
 | (Reserved) | 0x08 | Reserved/Unused |
 | SESSIONLESS | 0x10 | Indicates a sessionless signal message |
@@ -521,7 +521,7 @@ AllJoyn routing table = List (session Id, List (destination app endpoint,
 next hop B2B endpoint))
 ```
 
-NOTE: A given destination endpoint can appear multiple times 
+**NOTE:** A given destination endpoint can appear multiple times 
 as part of different sessionId entries in an AllJoyn routing 
 table. In this case, if there are multiple possible paths to a 
 remote destination, different bus-to-bus endpoints can be used 
@@ -537,7 +537,7 @@ are part of the session.
 
 ![alljoyn-routing-example][alljoyn-routing-example]
 
-Figure: AllJoyn routing example
+**Figure:** AllJoyn routing example
 
 The AllJoyn router on each of the device maintains a routing 
 table. [Sample routing table on provider device][sample-routing-table-on-provider-device] and

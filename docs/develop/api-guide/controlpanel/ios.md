@@ -20,7 +20,7 @@
 
 ## Obtain the Control Panel service framework
 
-See the [Building iOS/OS X section][building-ios] for 
+See the [Building iOS/OS X][building-ios] section for 
 instructions on compiling the Control Panel service framework.
 
 ## Build a Controller
@@ -59,7 +59,7 @@ you in this process:
 
 ### Initialize the AllJoyn framework
 
-See the [Building iOS/OS X section][building-ios] for 
+See the [Building iOS/OS X][building-ios] section for 
 instructions to set up the AllJoyn framework.
 
 ### Start the AboutService in client mode
@@ -107,7 +107,7 @@ respond to new announcements.
 
 For each announcement that is received, check if it implements 
 the ControlPanel interface. If it does, save it as a 
-controllable device for later use.
+controllee device for later use.
 
 ```objc
 - (void)announceWithVersion:(uint16_t)version 
@@ -148,8 +148,8 @@ GetControlPanelViewController *getCpanelView =
 
 ### Compile the code
 
-See the [Building iOS/OS X section][building-ios] for 
-instructions on how to compile the application with this service framework.
+See the [Building iOS/OS X][building-ios] section for instructions 
+on how to compile the application with this service framework.
 
 [building-ios]: /develop/building/ios-osx
 [about-api-guide-ios]: /develop/api-guide/about/ios

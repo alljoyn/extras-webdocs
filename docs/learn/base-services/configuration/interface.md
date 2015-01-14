@@ -8,11 +8,7 @@ To access a previous version of this document, click the release version link be
 |---|---|---|
 | [14.02][config-14.02] | 2/28/2014 | Config interface version 1 was added. |
 | 14.06 | 6/30/2014 | No updates |
-| 14.06 Update 1 | 9/29/2014 | * Updated the document title and Overview chapter title (changed from Specification to Definition). |
-| | | * Added the release version number to the document title for version tracking. |
-| | | * Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program. |
-| | | * Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program. |
-| | | * Added configData output parameter information to the GetConfigurations method. |
+| 14.06 Update 1 | 9/29/2014 | <ul><li>Updated the document title and Overview chapter title (changed from Specification to Definition).</li><li>Added the release version number to the document title for version tracking.</li><li>Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program.</li><li>Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program.</li><li>Added configData output parameter information to the GetConfigurations method.</li></ul> |
 | 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
 
 ## Definition Overview
@@ -33,7 +29,7 @@ framework and the device hosting the AllJoyn client application.
 
 ![config-arch][config-arch]
 
-Figure: Configuration service framework architecture within the AllJoyn framework
+**Figure:** Configuration service framework architecture within the AllJoyn framework
 
 The figure describes the scope of Configuration service 
 framework and About feature in a multiple applications-per-device 
@@ -46,7 +42,7 @@ configuration.
 Configuration service framework) functionality via the local 
 user interface.
 
-NOTE: All methods and signals are considered mandatory to support 
+**NOTE:** All methods and signals are considered mandatory to support 
 the AllSeen Alliance Compliance and Certification program. 
 
 ## Typical Call Flows
@@ -65,7 +61,7 @@ data. See [Config Interface][config-interface] for complete details.
 
 ![config-device-config][config-device-config]
 
-Figure: Device configuration change call flow
+**Figure:** Device configuration change call flow
 
 ### Factory reset
 
@@ -78,7 +74,7 @@ for complete details.
 
 ![config-device-factory-reset][config-device-factory-reset]
 
-Figure: Device factory reset call flow
+**Figure:** Device factory reset call flow
 
 ### Error handling
 
@@ -234,10 +230,7 @@ application developer can add additional fields.
 
 | Field name| Mandatory | Localized | Signature | Description |
 |---|:---:|:---:|:---:|---|
-| DefaultLanguage | yes | no | `s` | Default language supported by the device. IETF language tags specified by RFC 5646. |
-|  |  |  |  | * If the parameter is not set as per the RFC, the error `org.alljoyn.Error.InvalidValue` is returned. |
-|  |  |  |  | * If a language tag is not supported by the device, the error `org.alljoyn.Error.LanguageNotSupported` is returned. |
-|  |  |  |  | In this case, the default language on the device is unchanged. |
+| DefaultLanguage | yes | no | `s` | <p>Default language supported by the device. IETF language tags specified by RFC 5646.</p><ul><li>If the parameter is not set as per the RFC, the error `org.alljoyn.Error.InvalidValue` is returned.</li><li>If a language tag is not supported by the device, the error `org.alljoyn.Error.LanguageNotSupported` is returned.</li></ul><p>In this case, the default language on the device is unchanged.</p> |
 | DeviceName | no | yes | `s` | Device name assigned by the user. The device name appears on the UI as the friendly name of the device.|
 
 ## Introspection XML

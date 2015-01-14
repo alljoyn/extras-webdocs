@@ -61,20 +61,20 @@ store the provisioned values for the data fields listed in
 
 | Field name | Required | Announced | Type |
 |---|---|---|---|
-| AppId | yes | yes | ay |
-| DefaultLanguage | yes | yes | s |
-| DeviceName | yes | yes |  |
-| DeviceId | yes | yes | s |
-| AppName | yes | yes | s |
-| Manufacturer | yes | yes | s |
-| ModelNumber | yes | yes | s |
-| SupportedLanguages | yes | no | as |
-| Description | yes | no | s |
-| DateofManufacture | no | no | s |
-| SoftwareVersion | yes | no | s |
-| AJSoftwareVersion | yes | no | s |
-| HardwareVersion | no | no | s |
-| SupportUrl | no | no | s |
+| `AppId` | yes | yes | `ay` |
+| `DefaultLanguage` | yes | yes | `s` |
+| `DeviceName` | yes | yes | `s` |
+| `DeviceId` | yes | yes | `s` |
+| `AppName` | yes | yes | `s` |
+| `Manufacturer` | yes | yes | `s` |
+| `ModelNumber` | yes | yes | `s` |
+| `SupportedLanguages` | yes | no | `as` |
+| `Description` | yes | no | `s` |
+| `DateofManufacture` | no | no | `s` |
+| `SoftwareVersion` | yes | no | `s` |
+| `AJSoftwareVersion` | yes | no | `s` |
+| `HardwareVersion` | no | no | `s` |
+| `SupportUrl` | no | no | `s` |
 
 #### PropertyStore implementation
 
@@ -102,7 +102,7 @@ remote clients. If the field is public then set the
 4. Decide whether the field is to be included in the 
 Announcement. If the field is announced then set the 
 `mode1Announce` bit to 1.
-   NOTE: It is recommended to limit the inclusion of a field 
+   **NOTE:** It is recommended to limit the inclusion of a field 
    in the Announcement according to its immediate relevance 
    to the appropriate service framework's discovery.Only the 
    value associated with the current DefaultLanguage will be 
@@ -117,14 +117,14 @@ set the `mode3Init` bit to 1 and add the relevant code to initialize it.
 Refer to `PropertyStore_Init()` and `InitMandatoryPropertiesInRAM()` 
 in PropertyStore.c file for an example setup for the DeviceId and 
 AppId fields.
-   NOTE:  If you set this bit, the field's index must be included 
+   **NOTE:**  If you set this bit, the field's index must be included 
    in the Persisted keys subset.
 7. Add an entry in the corresponding index of `propertyStoreDefaultValues` 
 to provision default value(s).
 8. Add an entry in the corresponding index of `propertyStoreRuntimeValues` 
 to provision for runtime value(s) buffer(s).
 
-NOTES
+**NOTES**
 
 * This is required if the field was defined as runtime initialized, 
 i.e., the `mode3Init` bit to 1 in the corresponding entry in `propertyStoreProperties`.
@@ -196,8 +196,8 @@ organize and set up the build process to incorporate the
 necessary files to compile your Thin Library application.
 
 For more details on how to combine this AllJoyn feature with 
-other AllJoyn service framework software, see the [Build an 
-Application Using Thin Library section][build-app-thin-library].
+other AllJoyn service framework software, see the 
+[Build an Application Using Thin Library section][build-app-thin-library].
 
 [build-app-thin-library]: /develop/tutorial/thin-app
 [about-interface-definition]: /learn/core/about-announcement/interface

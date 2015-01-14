@@ -12,13 +12,8 @@ sinks and sources.
 
 | Sink class | Description |
 |---|---|
-| AudioSinkObject | Class that implements the following AllJoyn&trade; interfaces: |
-| | * org.alljoyn.Stream.Port |
-| | * org.alljoyn.Stream.Port.AudioSink |
-| | * org.alljoyn.Control.Volume |
-| StreamObject | Class that implements the following AllJoyn interfaces: |
-| | * org.alljoyn.Stream |
-| | * org.alljoyn.Stream.Clock |
+| AudioSinkObject | <p>Class that implements the following AllJoyn&trade; interfaces:</p><ul><li>org.alljoyn.Stream.Port</li><li>org.alljoyn.Stream.Port.AudioSink</li><li>org.alljoyn.Control.Volume</li></ul> |
+| StreamObject | <p>Class that implements the following AllJoyn interfaces:</p><ul><li>org.alljoyn.Stream</li><li>org.alljoyn.Stream.Clock</li></ul> |
 | AudioDevice | Abstract class for implementing access to an audio device/sound card. |
 | ALSADevice | Subclass of AudioDevice that implements access to an audio device using the Audio Linux Sound Architecture (ALSA) API. |
 
@@ -40,8 +35,8 @@ sinks and sources.
 
 ## Compile the Audio service framework
 
-1. Follow the steps in the [Configuring the Build Environment 
-(Linux Platform) section][config-build-env-linux]. Stop prior to the Building AllJoyn section.
+1. Follow the steps in the [Configuring the Build Environment (Linux Platform) section][config-build-env-linux]. 
+Stop prior to the Building AllJoyn section.
 2. Pull down the source code:
 
    ```sh
@@ -120,7 +115,7 @@ status = msgBus->Connect(NULL);
 Implementing a Sink to receive streaming audio requires 
 creating and registering an instance of the StreamObject class.
 
-NOTE: Verify the BusAttachment has been created, started and 
+**NOTE:** Verify the BusAttachment has been created, started and 
 connected before implementing the Sink. See [Setting up the 
 AllJoyn Framework][set-up-alljoyn-framework] for the code snippets. 
 Code in this section references a variable `msgBus` (the 
@@ -175,7 +170,7 @@ const char* joiner ) {
 The properties advertised should be customized for the device 
 the Sink is running on.
 
-  NOTE: See the [About API Guide][about-api-guides] for the 
+  **NOTE:** See the [About API Guide][about-api-guides] for the 
   platform you are targeting for required and optional properties 
   that the About feature can assign. The AppId field and other 
   values below are examples and should not be reused in commercial 
@@ -298,7 +293,7 @@ The unique name the AllJoyn framework provides is acceptable
 for this purpose because the Audio service framework relies 
 on the AboutService API to distribute information about the device.
 
-NOTE: In most applications that use the AllJoyn framework and 
+**NOTE:** In most applications that use the AllJoyn framework and 
 do not use the About feature, a descriptive well-known name 
 is chosen to advertise.
 
@@ -353,7 +348,7 @@ as well as check if they have already been added.
 The following code snippet adds any new Sink that has not 
 already been added.
 
-NOTE: AddSink allows for audio to be played back on that device 
+**NOTE:** AddSink allows for audio to be played back on that device 
 once `SinkAdded` (from the SinkListener below) has been called. 
 After `SinkAdded` is called, call `OpenSink` on each Sink that 
 should receive audio. Play and Pause commands will affect all 
@@ -431,7 +426,7 @@ However, there is no guarantee that the format you specify
 will be used. If a Sink does not support your preferred format, 
 `SinkPlayer` automatically defaults to raw audio.
 
-NOTE: This must be called prior to adding a Sink using `AddSink()`. 
+**NOTE:** This must be called prior to adding a Sink using `AddSink()`. 
 
 To support ALAC (Apple Lossless): 
 
@@ -492,7 +487,7 @@ Once you are done streaming, unregister the SinkSearcher,
 remove any sinks that are still part of the SinkPlayer, 
 and then delete the SinkPlayer.
 
-NOTE: The SinkPlayer object must be deleted before the BusAttachment object.
+**NOTE:** The SinkPlayer object must be deleted before the BusAttachment object.
 
 ```cpp
 searcher.Unregister(); 
@@ -523,25 +518,25 @@ The following defines the AudioDevice methods your subclass must implement.
 
 | Method | Description |
 |---|---|
-| Open() | Open and prepare the audio device for playback, and start playing as soon as it receives data. |
-| Close() | Close audio device and free any resources. |
-| Play() | Start audio device playback. |
-| Pause() | Pause audio device playback. |
-| Play() | Resume after a pause. |
-| Recover() | Recover from underrun if one has occurred. |
-| GetDelay() | Get audio device delay (time until new samples will be audible). |
-| GetFramesWanted() | Get the number of frames the audio device wants. |
-| Write() | Write samples to audio device. |
-| GetMute() | Gets the audio device mute state. |
-| SetMute() | Sets the audio device mute state. |
-| GetVolumeRange() | Gets the audio device volume range. |
-| GetVolume() | Gets the audio device volume. |
-| SetVolume() | Set audio device volume and mute state. |
-| AddListener() | Adds a listener for volume and mute events. |
-| RemoveListener() | Removes a listener for volume and mute events. |
+| `Open()` | Open and prepare the audio device for playback, and start playing as soon as it receives data. |
+| `Close()` | Close audio device and free any resources. |
+| `Play()` | Start audio device playback. |
+| `Pause()` | Pause audio device playback. |
+| `Play()` | Resume after a pause. |
+| `Recover()` | Recover from underrun if one has occurred. |
+| `GetDelay()` | Get audio device delay (time until new samples will be audible). |
+| `GetFramesWanted()` | Get the number of frames the audio device wants. |
+| `Write()` | Write samples to audio device. |
+| `GetMute()` | Gets the audio device mute state. |
+| `SetMute()` | Sets the audio device mute state. |
+| `GetVolumeRange()` | Gets the audio device volume range. |
+| `GetVolume()` | Gets the audio device volume. |
+| `SetVolume()` | Set audio device volume and mute state. |
+| `AddListener()` | Adds a listener for volume and mute events. |
+| `RemoveListener()` | Removes a listener for volume and mute events. |
 
 
-### Example Open() implementation
+### Example `Open()` implementation
 
 ```cpp
 bool ALSADevice::Open( const char *format, uint32_t sampleRate, 
@@ -644,7 +639,7 @@ return true;
 }
 ```
 
-### Example Write() implementation
+### Example `Write()` implementation
 
 An important part of the write implementation is that the 
 call should be blocking until the write is complete.

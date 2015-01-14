@@ -40,7 +40,7 @@ how AllJoyn thin applications fit in the overall AllJoyn distributed system.
 
 ![thin-app-arch][thin-app-arch]
 
-Figure: Thin app context architecture
+**Figure:** Thin app context architecture
 
 It shows two thin AllJoyn-enabled devices (device 3 and device 4) 
 with a single AllJoyn thin application installed on each of them. 
@@ -55,7 +55,7 @@ the discovered AllJoyn router over TCP. Once connected with
 the AllJoyn router, the thin app is just like any other 
 application endpoint on the AllJoyn distributed bus. 
 
-NOTE: More than one thin application can connect to a given AllJoyn router. 
+**NOTE:** More than one thin application can connect to a given AllJoyn router. 
 
 A thin app can act as an AllJoyn service provider, an AllJoyn 
 service consumer or both. It follows the same session establishment 
@@ -75,7 +75,7 @@ if the thin app is acting as an AllJoyn service provider.
 
 ![thin-app-functional-arch][thin-app-functional-arch]
 
-Figure: Thin app functional architecture
+**Figure:** Thin app functional architecture
 
 The AJTCL consists of some key functional modules as shown in 
 the previous figure, among other supported functions. These include 
@@ -176,7 +176,7 @@ AllJoyn router.
 
 ![ajtcl-router-discovery-connection-pre-1412][ajtcl-router-discovery-connection-pre-1412]
 
-Figure: AJTCL router discovery and connection (pre-14.12 release)
+**Figure:** AJTCL router discovery and connection (pre-14.12 release)
 
 The AJTCL sends out a WHO-HAS message for the BusNode well-known 
 name following the message schedule as described in 
@@ -206,7 +206,7 @@ for the AJTCL discovering and connecting with the AllJoyn router.
 
 ![ajtcl-router-discovery-connection-1412][ajtcl-router-discovery-connection-1412]
 
-Figure: AJTCL router discovery and connection (14.12 release)
+**Figure:** AJTCL router discovery and connection (14.12 release)
 
 The AJTCL supports both mDNS and legacy discovery mechanism. If the 
 AJTCL minimum AJPV is lower than "10", the AJTCL can connect 
@@ -316,12 +316,12 @@ that the thin app is connected remotely with the AllJoyn router.
 The following figure shows an example message flow for a thin 
 app discovering a well-known name prefix. 
 
-NOTE: Rhe AJTCL and AllJoyn router exchange data using AllJoyn 
+**NOTE:** The AJTCL and AllJoyn router exchange data using AllJoyn 
 messages (method_call/reply and signals).
 
 ![thin-app-discovering-wkn-prefix][thin-app-discovering-wkn-prefix]
 
-Figure: Thin app discovering a well-known-name prefix
+**Figure:** Thin app discovering a well-known-name prefix
 
 The AJTCL provides support for following core AJ functionality:
 
@@ -389,7 +389,8 @@ The following table shows the thin app compatibility matrix across the 14.02 and
 
 [app-layer-authentication]: #app-layer-authentication
 [ajtcl-to-alljoyn-router-connection]: #ajtcl-to-alljoyn-router-connection
-[who-has-message-schedule-pre-1412]: #who-has-message-schedule-pre-14-12-
+[alljoyn-router-blacklisting]: #alljoyn-router-blacklisting
+[who-has-message-schedule-pre-1412-release]: #who-has-message-schedule-pre-14-12-release-
 [discovery-message-schedule-1412-release]: #discovery-message-schedule-14-12-release-
 
 

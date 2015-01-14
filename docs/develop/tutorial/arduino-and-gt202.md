@@ -27,11 +27,11 @@ board as shown in the GT202 pinout diagram.
 
 ![arduino-due-board-connections][arduino-due-board-connections]
 
-Figure: Arduino Due board connections
+**Figure:** Arduino Due board connections
 
 ![gt202-pinout][gt202-pinout]
 
-Figure: GT202 kit pinout
+**Figure:** GT202 kit pinout
 
 ## Installing Third-Party Software
 
@@ -41,53 +41,27 @@ Figure: GT202 kit pinout
 
 | Tool | Minimum version requirement | Installer/Notes |
 |---|---|---|
-| ARM GNU Tool Chain | 4.8 2013q4 | Download the [installer](https://launchpad.net/gcc-arm-embedded/4.8/4.8-2013-q4-major/%2Bdownload/gcc-arm-none-eabi-4_8-2013q4-20131204-win32.exe) and execute. |
-| | | Windows will install the ARM GNU Tool Chain in (C:\Program Files (x86)\GNU Tools ARM Embedded\4.8 2013q4\bin) which may be used for an environmental variable. |
-| FreeRTOS | 7.6.0 | 1.	Download the [ZIP file](https://sourceforge.net/projects/freertos/files/FreeRTOS/V7.6.0/) and unzip to the local drive. |
-| | | 2. Note the path where the FreeRTOS ZIP file is extracted as it may be used in an environment variable. |
-| Atmel Software Framework | 3.15 | 1. Download the [ZIP file](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and unzip to local drive. |
-| | | 2. Note the path where the framework ZIP file is extracted as it may be used in an environment variable. |
-| | | This requires providing contact information to receive a link to the software. |
-| J-Link software | 4.8.4a | Download the [software and documentation](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and install. |
-| | | You must enter the serial number of the j-link device to complete the download. |
-| Eclipse IDE | Release 2 | Download the [appropriate Windows bit version](http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplersr1). |
-| | | Uncompress the file folder to the local drive. |
-| | | If JRE (Java Runtime Environment) or JDK (Java Development Kit) has previously been installed, skip installing JRE (noted below). |
-| Java Runtime Environment (required for Eclipse) | | Download and install [JRE](http://www.oracle.com/technetwork/java/javase/downloads/java-se-jre-7-download-432155.html).
-| Atmel Studio IDE | 6.1 | Download the [installer (full)](http://www.atmel.com/tools/atmelstudio.aspx) and install. |
-| | | **NOTE:** The installation requires the PC to restart. |
-| Python | 2.7.3 | Python 2.6 may also be used. |
-| | | Use the 32-bit version of Python even if you are building the AllJoyn framework for a 64-bit architecture. |
-| | | 1. Open a browser and navigate to http://www.python.org/download/. |
-| | | 2. From the Python web page, select Python 2.7.3 Windows Installer (32-bit). |
-| | | 3. Click **Run** and **Run** again. The Python setup wizard appears. |
-| | | 4. Click **Finish**, **Yes**, and **Finish** again. |
-| SCons | 2.3.0 | 1. Open a browser and navigate to http://www.scons.org. |
-| | | 2. From the SCons web page, under 'Scons 2.3.0.final.0 is available', click the download page. |
-| | | 3. Select scons-2.3.0.final.0.win32.exe, and click **Run** and **Run** again. The setup wizard appears. |
-| | | 4. Proceed through the wizard steps to complete the SCons installation. |
+| ARM GNU Tool Chain | 4.8 2013q4 | <p>Download the [installer](https://launchpad.net/gcc-arm-embedded/4.8/4.8-2013-q4-major/%2Bdownload/gcc-arm-none-eabi-4_8-2013q4-20131204-win32.exe) and execute.</p><p>Windows will install the ARM GNU Tool Chain in (C:\Program Files (x86)\GNU Tools ARM Embedded\4.8 2013q4\bin) which may be used for an environmental variable.</p> |
+| FreeRTOS | 7.6.0 | <ol><li>Download the [ZIP file](https://sourceforge.net/projects/freertos/files/FreeRTOS/V7.6.0/) and unzip to the local drive.</li><li>Note the path where the FreeRTOS ZIP file is extracted as it may be used in an environment variable.</li></ol> |
+| Atmel Software Framework | 3.15 | <ol><li>Download the [ZIP file](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and unzip to local drive.</li><li>Note the path where the framework ZIP file is extracted as it may be used in an environment variable.</li></ol><p>This requires providing contact information to receive a link to the software.</p> |
+| J-Link software | 4.8.4a | <p>Download the [software and documentation](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and install.</p><p>You must enter the serial number of the j-link device to complete the download./p> |
+| Eclipse IDE | Release 2 | <p>Download the [appropriate Windows bit version](http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplersr1).</p><p>Uncompress the file folder to the local drive.</p><p>If JRE (Java Runtime Environment) or JDK (Java Development Kit) has previously been installed, skip installing JRE (noted below).</p> |
+| Java Runtime Environment (required for Eclipse) | &nbsp; | Download and install [JRE](http://www.oracle.com/technetwork/java/javase/downloads/java-se-jre-7-download-432155.html).
+| Atmel Studio IDE | 6.1 | <p>Download the [installer (full)](http://www.atmel.com/tools/atmelstudio.aspx) and install.</p><p>**NOTE:** The installation requires the PC to restart.</p> |
+| Python | 2.7.3 | <p>Python 2.6 may also be used.</p><p>Use the 32-bit version of Python even if you are building the AllJoyn framework for a 64-bit architecture.</p><ol><li>Open a browser and navigate to http://www.python.org/download/.</li><li>From the Python web page, select Python 2.7.3 Windows Installer (32-bit).</li><li>Click **Run** and **Run** again. The Python setup wizard appears.</li><li>Click **Finish**, **Yes**, and **Finish** again.</li></ol> |
+| SCons | 2.3.0 | <ol><li>Open a browser and navigate to http://www.scons.org.</li><li>From the SCons web page, under 'Scons 2.3.0.final.0 is available', click the download page.</li><li>Select scons-2.3.0.final.0.win32.exe, and click **Run** and **Run** again. The setup wizard appears.</li><li>Proceed through the wizard steps to complete the SCons installation.</li></ol> |
 
 ### Linux (Ubuntu 12.04)
 
 | Tool | Minimum version requirement | Installer/Notes |
 |---|---|---|
-| ARM GNU Tool Chain | 4.8 2013q4 | 1. Open terminal and input `sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded` |
-| | | 2. Press **Enter** to continue when prompted. |
-| | | 3. Input `sudo apt-get update` |
-| | | 4. Input `sudo apt-get install gcc-arm-none-eabi` |
-| FreeRTOS | 7.6.0 | 1. Download the [ZIP file](https://sourceforge.net/projects/freertos/files/FreeRTOS/V7.6.0/) and unzip to the local drive. |
-| | | 2. Note the path where the ZIP file is extracted as it may be used in an environment variable. |
-| Atmel Software Framework | 3.15 | 1. Download the [ZIP file](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and unzip to the local drive. |
-| | | 2. Note the path where the ZIP file is extracted as it may be used in an environment variable. |
-| | | This requires providing contact information to receive a link to the software. |
-| J-Link software | 4.84a | Download the [software and documentation](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and install DEB, RPM or TGZ format. |
-| | | You must enter the serial number of the j-link device to complete the download. |
-| Eclipse IDE | Release 2 | 1.  Download the [appropriate Linux version](http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplersr1). |
-| | | 2. Uncompress the file folder to the local drive. |
-| | | If JRE (Java Runtime Environment) or JDK (Java Development Kit) has previously been installed, skip installing JRE (noted below). |
-| Java Runtime Environment (required for Eclipse) | | Open terminal and input `sudo apt-get install openjdk-7-jre` |
-| Atmel Studio IDE | 6.1 | Download [installer (full)](http://www.atmel.com/tools/atmelstudio.aspx) and install. |
-| | | **NOTE:** The installation may require the PC to restart. |
+| ARM GNU Tool Chain | 4.8 2013q4 | <ol><li>Open terminal and input `sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded`</li><li>Press **Enter** to continue when prompted.</li><li>Input `sudo apt-get update`</li><li>Input `sudo apt-get install gcc-arm-none-eabi`</li></ol> |
+| FreeRTOS | 7.6.0 | <ol><li>Download the [ZIP file](https://sourceforge.net/projects/freertos/files/FreeRTOS/V7.6.0/) and unzip to the local drive.</li><li>Note the path where the ZIP file is extracted as it may be used in an environment variable.</li></ol> |
+| Atmel Software Framework | 3.15 | <ol><li>Download the [ZIP file](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and unzip to the local drive.</li><li>Note the path where the ZIP file is extracted as it may be used in an environment variable.</li></ol><p>This requires providing contact information to receive a link to the software.</p> |
+| J-Link software | 4.84a | <p>Download the [software and documentation](http://www.atmel.com/tools/AVRSOFTWAREFRAMEWORK.aspx) and install DEB, RPM or TGZ format.</p><p>You must enter the serial number of the j-link device to complete the download.</p> |
+| Eclipse IDE | Release 2 | <ol><li>Download the [appropriate Linux version](http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplersr1).</li><li>Uncompress the file folder to the local drive.</li></ol><p>If JRE (Java Runtime Environment) or JDK (Java Development Kit) has previously been installed, skip installing JRE (noted below).</p> |
+| Java Runtime Environment (required for Eclipse) | &nbsp; | Open terminal and input `sudo apt-get install openjdk-7-jre` |
+| Atmel Studio IDE | 6.1 | <p>Download [installer (full)](http://www.atmel.com/tools/atmelstudio.aspx) and install.</p><p>**NOTE:** The installation may require the PC to restart.</p> |
 | SCons	| 2.3.0 | Open terminal and input `sudo apt-get install scons` |
 
 ## Configuring the Project Environment
@@ -101,18 +75,18 @@ Figure: GT202 kit pinout
    git clone https://git.allseenalliance.org/gerrit/core/ajtcl.git
    ```
 
-The directory structure follows. Items in bold are used in 
+The directory structure follows. Items marked with ** used in 
 compilation and contain objects files.
 
 ```
-ajtcl (root folder)
-   bsp (Board-specific package)
-      due(Arduino Due target platform files) 
+**ajtcl (root folder)
+   **bsp (Board-specific package)
+      **due (Arduino Due target platform files) 
          config
-   crypto (Encryption) 
+   **crypto (Encryption) 
       ecc
    external
-      sha2 
+      **sha2 
    inc
    java
       ecompass
@@ -122,14 +96,14 @@ ajtcl (root folder)
                alljoyn
                   bus
                      samples
-   malloc (Memory allocation)
-   RTOS (Real Time Operating System)
-      FreeRTOS (RTOS used for Arduino Due)
+   **malloc (Memory allocation)
+   **RTOS (Real Time Operating System)
+      **FreeRTOS (RTOS used for Arduino Due)
    Samples
       basic
       network
       secure
-   src (TCL source files) 
+   **src (TCL source files) 
    target
       arduino
          examples
@@ -152,17 +126,17 @@ ajtcl (root folder)
             AJ_svclite
       linux
       win32
-   test (test applications .elf)
-      WSL (unit and API applications .elf) 
+   **test (test applications .elf)
+      **WSL (unit and API applications .elf) 
    tools
    unit_test
       test_report
-   WSL (APIs used for SPI with GT202)
+   **WSL (APIs used for SPI with GT202)
 ```
 
 ### Set up environment variables
 
-NOTE: These variables can be passed into SCons without setting 
+**NOTE:** These variables can be passed into SCons without setting 
 environmental variables.
 
 #### Windows 7
@@ -215,7 +189,7 @@ location of the GNU ARM Toolchain.
    2. Enter "scons -h".
    The environmental paths found by the SCons script will be displayed.
 
-NOTE: The default will mirror actual since there are no default 
+**NOTE:** The default will mirror actual since there are no default 
 values set in the script.
 
 ### Configure the build file
@@ -292,7 +266,7 @@ The makefile will build several target applications with a .elf extension
 Complete the procedures in this section using Eclipse.
 
 #### Initial setup
-NOTE: Do not run any setup functions in the background while 
+**NOTE:** Do not run any setup functions in the background while 
 performing the steps below as this may fail to load some required libraries.
 
 ##### Install the GNU ARM compiler and J-Link debugging
@@ -345,7 +319,8 @@ to view the Project Explorer.
 8. Validate the IDE can compile the project by either 
 clicking the hammer icon on the ribbon bar or entering Ctrl-B.
 
-NOTE: After the project has completed compilation, all available applications (*.elf) are available to flash and debug.
+**NOTE:** After the project has completed compilation, all 
+available applications (*.elf) are available to flash and debug.
 
 #### Flash and debug
 

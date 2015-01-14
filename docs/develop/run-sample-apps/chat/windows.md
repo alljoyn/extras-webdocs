@@ -19,7 +19,7 @@ applications upon pressing **Enter**.
 
 ###Visual Studio
 
-NOTE: Unless you make a modification to the source code, this 
+**NOTE:** Unless you make a modification to the source code, this 
 sample will not run using the play command. It requires startup 
 arguments as stated above.
 

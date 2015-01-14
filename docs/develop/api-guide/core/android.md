@@ -13,7 +13,7 @@
 There are several samples provided as part of the AllJoyn&trade; framework. 
 The samples may be found in the AllJoyn SDK in the java/samples folder.
 
-NOTE: If you wish to start a new AllJoyn project instead, 
+**NOTE:** If you wish to start a new AllJoyn project instead, 
 see [Starting a New Project for Desktop Development][start-new-project-desktop-development].
 
 1. Start Eclipse.
@@ -45,7 +45,7 @@ Rebuild the auto-generated gen folder.
 
 Use the same process to import any sample of interest.
 
-NOTE: For an Android project, some versions on Eclipse require 
+**NOTE:** For an Android project, some versions on Eclipse require 
 the need to right-click on the project, then select 
 **Android Tools > Fix Project Properties**. If you still 
 encounter an error with the Android project, right-click 
@@ -93,7 +93,7 @@ the new Android project.
    |-AndroidManifest.xml
    ```
 
-NOTE: It may be simpler to copy an already existing libs folder 
+**NOTE:** It may be simpler to copy an already existing libs folder 
 from one of the samples found in <AllJoyn dist folder>/java/samples.
 
 6. In Eclipse, right-click on your project and select the **Properties** option.
@@ -125,7 +125,7 @@ Native library location, and Access rules for alljoyn.jar.
 alljoyn.jar <alljoyn_dist>/java/docs.
 12. Click **Finish**.
 
-NOTE: To add the AllJoyn framework to an already existing project, 
+**NOTE:** To add the AllJoyn framework to an already existing project, 
 go to the project properties, select the 'Java Build Path' properties, 
 and follow the steps listed above.
  
@@ -401,7 +401,7 @@ public interface MultipleReturnValuesInterface {
 }
 ```
 
-NOTE: The replySignature has to be specified, or the AllJoyn framework 
+**NOTE:** The replySignature has to be specified, or the AllJoyn framework 
 assumes the replySignature is a struct with the replySignature "(ii)".
 
 Parentheses indicate a struct, which is a single return value, while 
@@ -465,7 +465,7 @@ if (status != Status.OK) {
 }
 ```
 
-NOTE: This code would have to be in a class that implements the 
+**NOTE:** This code would have to be in a class that implements the 
 BusObject. If it did not implement the BusObject, the following 
 line would not work:
 
@@ -602,7 +602,7 @@ dynamically-formed, peer-to-peer network.
 Once the well-known name has been discovered, your application 
 can join a started communication session using a user-selected session port.
 
-NOTE:  Valid SessionPort values range from 1 to 0xFFFF.
+**NOTE:** Valid SessionPort values range from 1 to 0xFFFF.
 
 #### How discovery works
 
@@ -949,7 +949,7 @@ try {
 
 Not all methods need to return a value and not all methods need input arguments.
  
-NOTE: Remote methods cannot be called until we have obtained 
+**NOTE:** Remote methods cannot be called until we have obtained 
 an interface object from the ProxyBusObject class. Trying to 
 call a remote method before obtaining the interface could result 
 in your application crashing. The mSampleInterface is a null object 
@@ -1256,7 +1256,7 @@ implemented in [Code 25. Implementation of the PropertiesInterface - service][co
 as well as the `GetAll method` from the D-Bus standard to 
 get the `TextSize` property.
 
-NOTE: The GetAll method can return multiple values into a Map. 
+**NOTE:** The GetAll method can return multiple values into a Map. 
 Each property can be accessed using the name of the property.
 
 #### Code 27. Calling the properties interface and using the GetAll method for properties
@@ -1691,7 +1691,11 @@ SRP logon uses the familiar user name/password method for
 identity verification. This should be familiar to anyone 
 who has used online shopping, email, or banking.
 
-Unlike SRP key exchange and RSA key exchange, SRP logon requires the user to enter the user name/password every time a session is established. The verification only lasts for the length of the session. If the program is shut down and then restarted, the user is asked to re-authenticate.
+Unlike SRP key exchange and RSA key exchange, SRP logon requires 
+the user to enter the user name/password every time a session 
+is established. The verification only lasts for the length of 
+the session. If the program is shut down and then restarted, 
+the user is asked to re-authenticate.
 
 ![msc-srp-logon-option-1][msc-srp-logon-option-1]
 
@@ -2410,8 +2414,8 @@ methods are instantiated for an ECDHE_NULL key exchange.
 
 Figure: MSC ECDHE_NULL key exchange
 
-[Code 41. ECDHE_NULL Key Exchange AuthListener - service and client][code-41] shows registering an AuthListener with 
-the name ECDHE_NULLKeyXListener.
+[Code 41. ECDHE_NULL Key Exchange AuthListener - service and client][code-41] 
+shows registering an AuthListener with the name ECDHE_NULLKeyXListener.
 
 #### Code 41. ECDHE_NULL Key Exchange AuthListener - service and client
 
@@ -2587,10 +2591,7 @@ in the certificate are network-byte-order byte arrays.
 
 | Field name | Data type | Description |
 |---|---|---|
-| version | UINT8[4] | version is 1. |
-| | | ECC curve is NIST P-256 |
-| | | External Data digest algorithm is SHA-256. |
-| | | DSA algorithm is ECC NIST P-256 DSA. |
+| version | UINT8[4] | <p>version is 1.</p><p>ECC curve is NIST P-256</p><p>External Data digest algorithm is SHA-256.</p><p>DSA algorithm is ECC NIST P-256 DSA.</p> |
 | issuer | UINT8[76] | The issuer field. |
 | subject | UINT8[76] | The subject field. |
 | validityFrom | UINT8[8] | The validity period. Subfield Valid From. It's represented in seconds since EPOCH Jan 1, 1970. |
@@ -2774,7 +2775,7 @@ named foo. The file is called fileName.ks.
 * `C:\Users\<user_name>\foo\fileName.ks` (Windows 7)
 * `/home/<user_name>/foo/fileName.ks` (Linux)
 
-NOTE: The three-parameter option should be used when registering 
+**NOTE:** The three-parameter option should be used when registering 
 an authListener in Android (see [Security]).
 
 Multiple applications can share a single keystore; however, the 
@@ -2910,7 +2911,7 @@ will not output logs unless you use the following call:
 BusAttachnent.setDaemonDebug("ALL", 7);
 ```
 
-NOTE: There is an error debug level that is always printed 
+**NOTE:** There is an error debug level that is always printed 
 and cannot be turned off.
 
 #### Set ER_DEBUG_\* environment variable
@@ -3094,7 +3095,7 @@ By using the access permission in the interface, we are
 preventing a client application from accessing data without 
 also requesting the same device permission level as the service.
 
-IMPORTANT: 
+**IMPORTANT:** 
    The peer permission check model only applies when 
    the service/client are on the same device. If the service 
    and client are on different devices, the peer permission 

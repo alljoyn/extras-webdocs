@@ -13,7 +13,7 @@ able to send and receive notifications on a single iOS device.
 Alternately, you can run the app as a Producer on one device, 
 and as a Consumer on another device.
 
-NOTE: Both devices must be on the same Wi-Fi network.
+**NOTE:** Both devices must be on the same Wi-Fi network.
 
 ## Run the Notification Sample App as a Producer
 
@@ -34,7 +34,7 @@ a message type of INFO, WARNING, or EMERGENCY.
 9. Press the __Send__ button to send the notification.
   ![][producer-3]
     
-NOTE: To receive and view the notification you sent, either 
+**NOTE:** To receive and view the notification you sent, either 
 run the Notification service sample app as a Consumer 
 on the same device or on a different device.
 
@@ -57,7 +57,7 @@ on the same device or on a different device.
 The application will now receive notifications.
   ![][consumer-2]
 
-NOTE: To receive notifications in the app, either run the 
+**NOTE:** To receive notifications in the app, either run the 
 Notification service sample app as a Producer on the same 
 device or on a different device, as detailed in 
 [Run the Notification sample app as a Producer][run-notif-sample-app-producer].

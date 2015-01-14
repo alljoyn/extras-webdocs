@@ -11,16 +11,16 @@
 The audio source should not use session ID 0 to broadcast the 
 Data signal; it should send Data signals on each AudioSink's session.
 
-NOTE: Care should be taken when specifying the amount of data 
+**NOTE:** Care should be taken when specifying the amount of data 
 to send in each signal so as not to interrupt the delivery of 
 audio data.
 
 ### Clock synchronization
 
 The maximum error of the clock synchronization algorithm defined 
-in the [Audio Interface Definition][audio-interface-definition] is the value u
-sed in the AdjustTime step. The algorithm may be repeated to 
-bind the maximum error.
+in the [Audio Interface Definition][audio-interface-definition] 
+is the value used in the AdjustTime step. The algorithm may be 
+repeated to bind the maximum error.
 
 ### UI considerations
 
@@ -49,13 +49,13 @@ to refresh the list is an easy way to empower the user with
 the ability to start searching for Sinks again.
 
 When the Refresh button is pressed, make a call into your 
-SinkSearcher object to call the Refresh() method. When doing 
+SinkSearcher object to call the `Refresh()` method. When doing 
 this, the list that is displayed should be cleared and, as 
 the SinkSearcher responds with SinkFound callbacks, the list 
 is populated again.
  
 Refer to the Audio service framework APIs for more information 
-about SinkSearcher::Refresh().
+about `SinkSearcher::Refresh()`.
 
 ### When to add a Sink
 

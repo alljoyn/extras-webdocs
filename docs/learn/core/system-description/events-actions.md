@@ -29,7 +29,7 @@ for the Events and Actions feature.
 
 ![events-actions-arch][events-actions-arch]
 
-Figure: Events and Actions context architecture
+**Figure:** Events and Actions context architecture
 
 Events and actions are advertised in the Announcement signal 
 using the org.allseen.Inrospectable interface. Any advertised 
@@ -49,7 +49,7 @@ automation in the IoE network. These IFTTT rules get configured
 on a Rule Engine which could be on the same device or a different 
 device than the Authoring app. 
 
-NOTE: The Rules Engine is beyond the scope of current design 
+**NOTE:** The Rules Engine is beyond the scope of current design 
 and its implementation is left to the ecosystem). The Rules Engine 
 app detects when the event is emitted. Based on the configured 
 IFTTT rules, it executes actions (method call) on the action-receiving devices.

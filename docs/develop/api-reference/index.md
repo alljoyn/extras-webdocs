@@ -10,6 +10,8 @@
 |Control Panel   |[C++][cp-cpp]   |[Java][cp-java]    |[Objective-C][cp-objc]   |&nbsp;        |[C (Thin)][cp-thin-c]
 |Services Common |[C++][sc-cpp]   |&nbsp;             |[Objective-C][sc-objc]   |&nbsp;        |[C (Thin)][sc-thin-c]
 |Sample Apps     |[C++][sa-cpp]   |&nbsp;             |&nbsp;                   |&nbsp;        |&nbsp;
+|DDAPI           |[C++][ddapi-cpp]|&nbsp;             |&nbsp;                   |&nbsp;        |&nbsp;
+
 
 [core-cpp]: https://allseenalliance.org/docs/api/cpp/index.html
 [core-java]: https://allseenalliance.org/docs/api/java/index.html
@@ -42,4 +44,4 @@
 
 [sa-cpp]: https://allseenalliance.org/docs/framework/cpp/sample_apps/index.html
 
-
+[ddapi-cpp]: https://allseenalliance.org/docs/ddapi/cpp

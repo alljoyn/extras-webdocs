@@ -10,6 +10,7 @@
 |----------|----------|----------|-----------
 |Source    |[alljoyn-14.12.00-src.tar.gz][source-alljoyn-1412]|14.12.00|[Release Notes][core-notes-1412]
 |          |[ajtcl-14.12.00-src.tar.gz][source-ajtcl-1412]|14.12.00|[Release Notes][core-notes-1412]
+|          |[alljoyn-ddapi-v14.12-src.tar.gz][ddapi]|14.12.00|[Release Notes][ddapi-crn]
 |Android   |[Core SDK - release][android-core-rel-1412]|14.12.00|[Release Notes][core-notes-1412]
 |          |[Core SDK - debug][android-core-debug-1412]|14.12.00|[Release Notes][core-notes-1412]
 |iOS       |[Core SDK][ios-core-1412]                  |14.12.00|[Release Notes][core-notes-1412]
@@ -79,3 +80,6 @@
 
 [14-02-00-zip]: https://allseenalliance.org/sites/default/files/archives/alljoyn-docs-14.02.00.zip
 [14-06-00-zip]: https://allseenalliance.org/sites/default/files/archives/alljoyn-docs-14.06.00.zip
+
+[ddapi]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-ddapi-v14.12-src.tar.gz
+[ddapi-crn]: https://wiki.allseenalliance.org/datadriven/ddapi_14.12_release_review

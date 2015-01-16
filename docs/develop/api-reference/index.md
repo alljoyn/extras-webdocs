@@ -44,4 +44,4 @@
 
 [sa-cpp]: https://allseenalliance.org/docs/framework/cpp/sample_apps/index.html
 
-[ddapi-cpp]: https://allseenalliance.org/docs/ddapi/cpp
+[ddapi-cpp]: https://allseenalliance.org/docs/ddapi/cpp/index.html

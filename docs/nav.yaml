@@ -103,11 +103,23 @@
               path: /learn/base-services/controlpanel/interface-14-02
               hidden: 1
               contents:
+        - name: Time
+          path: /learn/base-services/time
+          contents:
+            - name: Interface
+              path: /learn/base-services/time/interface
+              contents:
         - name: Audio Streaming
           path: /learn/base-services/audiostreaming
           contents:
             - name: Interface
               path: /learn/base-services/audiostreaming/interface
+              contents:
+        - name: Media Delivery
+          path: /learn/base-services/media-delivery
+          contents:
+            - name: Interface
+              path: /learn/base-services/media-delivery/interface
               contents:
     - name: Glossary
       path: /learn/glossary
@@ -361,11 +373,29 @@
             - name: Thin Linux
               path: /develop/api-guide/controlpanel/thin-linux
               contents:
+        - name: Time
+          path: /develop/api-guide/time
+          contents:
+            - name: Android
+              path: /develop/api-guide/time/android
+              contents:
+            - name: Linux
+              path: /develop/api-guide/time/linux
+              contents:
+            - name: Thin Linux
+              path: /develop/api-guide/time/thin-linux
+              contents:
         - name: Audio Streaming
           path: /develop/api-guide/audio-streaming
           contents:
             - name: Linux
               path: /develop/api-guide/audio-streaming/linux
+              contents:
+        - name: Media Delivery
+          path: /develop/api-guide/media-delivery
+          contents:
+            - name: Linux
+              path: /develop/api-guide/media-delivery/linux
               contents:
         - name: Events and Actions
           path: /develop/api-guide/events-and-actions

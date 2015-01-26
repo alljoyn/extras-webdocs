@@ -8,7 +8,9 @@
 |[Configuration][config]  |[Android][config-android]     |[Linux][config-linux] |[iOS][config-ios]     |[Thin Linux][config-thin-linux]
 |[Notification][notif]    |[Android][notif-android]      |[Linux][notif-linux]  |[iOS][notif-ios]      |[Thin Linux][notif-thin-linux]
 |[Control Panel][cp]      |[Android][cp-android]         |[Linux][cp-linux]     |[iOS][cp-ios]         |[Thin Linux][cp-thin-linux]
+|[Time][ts]               |[Android][ts-android]         |[Linux][ts-linux]     |&nbsp;                |[Thin Linux][ts-thin-linux]
 |[Audio Streaming][as]    |&nbsp;                        |[Linux][as-linux]     |&nbsp;                |&nbsp;
+|[Media Delivery][md]    |&nbsp;                        |[Linux][md-linux]     |&nbsp;                |&nbsp;
 |[Events And Actions][ea] |&nbsp;                        |&nbsp;                |&nbsp;                |&nbsp;
 
 [core]: /develop/api-guide/core
@@ -43,7 +45,15 @@
 [cp-ios]: /develop/api-guide/controlpanel/ios
 [cp-thin-linux]: /develop/api-guide/controlpanel/thin-linux
 
+[ts]: /develop/api-guide/time
+[ts-android]: /develop/api-guide/time/android
+[ts-linux]: /develop/api-guide/time/linux
+[ts-thin-linux]: /develop/api-guide/time/thin-linux
+
 [as]: /develop/api-guide/audio-streaming
 [as-linux]: /develop/api-guide/audio-streaming/linux
+
+[md]: /develop/api-guide/media-delivery
+[md-linux]: /develop/api-guide/media-delivery/linux
 
 [ea]: /develop/api-guide/events-and-actions

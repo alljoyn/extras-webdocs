@@ -19,10 +19,17 @@ the AllSeen Alliance project.
 * [Control Panel][controlpanel]. Allows devices to advertise a virtual control
   panel to be controlled remotely.
   
+* [Time][time]
+
 * [Audio Streaming][audiostreaming]. Allows for synchronized audio playback on one or many Sinks.
+
+* [Media Delivery][media-delivery]
+
 
 [onboarding]: /learn/base-services/onboarding
 [configuration]: /learn/base-services/configuration
 [notification]: /learn/base-services/notification
 [controlpanel]: /learn/base-services/controlpanel
+[time]: /learn/base-services/time
 [audiostreaming]: /learn/base-services/audiostreaming
+[media-delivery]: /learn/base-services/media-delivery

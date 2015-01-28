@@ -681,7 +681,7 @@ available, then session setup will be done over TCP Transport.
 
 
 
-[alljoyn-endpoints]: /learn/core/system-description/index#alljoyn-endpoints
+[alljoyn-endpoints]: /learn/core/system-description#alljoyn-endpoints
 
 
 [alljoyn-transportmask-definition]: #alljoyn-transportmask-definition

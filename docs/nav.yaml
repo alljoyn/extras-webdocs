@@ -62,7 +62,16 @@
               contents:
             - name: Events and Actions
               path: /learn/core/system-description/events-actions
-              contents:         
+              contents: 
+        - name: Security 2.0
+          path: /learn/core/security2_0
+          contents:
+            - name: Interface
+              path: /learn/core/security2_0/interface
+              contents:
+            - name: High-Level Design
+              path: /learn/core/security2_0/hld
+              contents:
     - name: Base Services
       path: /learn/base-services
       contents:

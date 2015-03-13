@@ -733,20 +733,13 @@ The junit tests are always built at the same time as the Java
 bindings. The junit tests are specifically designed to test the 
 Java bindings.
 
-1. Copy and rename from alljoyn_java/build.xml.top to the 
-workspace build.xml folder.
-
-   ```sh
-      cp alljoyn_java/build.xml.top/build.xml
-   ```
-
-2. From the top build folder, use ant to start the test.
+1. From the top build folder, use ant to start the test.
 
    ```sh
       ant test -DOS={OS} -DCPU={CPU} -DVARIANT={VARIANT}
    ```
  
-3. Find the HTML version of the results in the following location:
+2. Find the HTML version of the results in the following location:
 
    ```sh
       <workspace>/build/{OS}/{CPU}/{VARIANT}/test/java/reports/junit/

@@ -58,7 +58,7 @@ functions are subject to change without notice.
 | SHA-256 | Secure Hash Algorithm SHA-2 with digest size of 256 bits or 32 bytes. |
 | Trust profile | Information used by peers to introduce themselves when contacting each other. |
 | Certificate Authority (CA) | Entity that issues a digital certificate |
- 
+
 ## System Design
 
 ### Overview
@@ -84,10 +84,11 @@ Security 2.0 Permission Management module manages a database of access
 credentials and the Access Control Lists (ACLs).
 
 Figure shows the system architecture of the Security 2.0 feature.
-![security-system-diagram][security-system-diagram]
+![security-system-diagram][]
 
 **Figure:** Security system diagram
 
+[security-system-diagram]: /files/learn/security2_0/security-system-diagram.png
 ### Premises
 
 The following Table lists the premises for the Security 2.0 features.
@@ -119,9 +120,11 @@ allow the device/application to make itself claimable again.
 
 ##### Claim factory-reset device without out-of-band registration data
 
-![claim-a-factory-reset-device-without-out-of-band-registration-data][claim-a-factory-reset-device-without-out-of-band-registration-data]
+![claim-a-factory-reset-device-without-out-of-band-registration-data][]
 
 **Figure:** Claim a factory-reset device without out-of-band registration data
+
+[claim-a-factory-reset-device-without-out-of-band-registration-data]: /files/learn/security2_0/claim-a-factory-reset-device-without-out-of-band-registration-data.png
 
 ##### Claim factory-reset device using out-of-band registration data
 
@@ -129,9 +132,11 @@ A device manufacturer can provision a key to support the claiming process. The
 key is provided to the user out of band. An example is a QR code or a token
 delivered via email or text messaging. The user is prompted for the key when
 establish connection with the device.
-![claiming-a-factory-reset-device-using-out-of-band-registratin-data][claiming-a-factory-reset-device-using-out-of-band-registratin-data]
+![claiming-a-factory-reset-device-using-out-of-band-registratin-data][]
 
 **Figure:** Claiming a factory-reset device using out-of-band registration data
+
+[claiming-a-factory-reset-device-using-out-of-band-registratin-data]: /files/learn/security2_0/claiming-a-factory-reset-device-using-out-of-band-registratin-data.png
 
 #### Define a guild
 
@@ -154,9 +159,11 @@ data format for more information.
 #### Install a policy
 
 An admin can install a policy for the application.
-![install-a-policy][install-a-policy]
+![install-a-policy][]
 
 **Figure:** Install a policy
+
+[install-a-policy]: /files/learn/security2_0/install-a-policy.png
 
 #### Add an application to a guild
 
@@ -165,9 +172,11 @@ in the application. This act adds the application to the guild. In order for a
 provider to emit signals to other members of the guild, the provider must have a
 membership certificate with proper authorization to do so.
 
-![add-an-application-to-a-guild][add-an-application-to-a-guild]
+![add-an-application-to-a-guild][]
 
 **Figure:** Add an application to a guild
+
+[add-an-application-to-a-guild]: /files/learn/security2_0/add-an-application-to-a-guild.png
 
 ####  Add a user to a guild
 
@@ -175,10 +184,11 @@ The guild authority uses the Security Manager to generate the membership
 certificate for the user for the given guild ID. The guild authority can
 restrict the permissions for this user.
 
-![add-a-user-to-a-guild][add-a-user-to-a-guild]
+![add-a-user-to-a-guild][]
 
 **Figure:** Add a user to a guild
 
+[add-a-user-to-a-guild]: /files/learn/security2_0/add-a-user-to-a-guild.png
 #### Delegating membership certificate
 
 If a grantee receives a membership certificate with a delegate flag enabled, the
@@ -186,9 +196,11 @@ grantee can issue the same membership certificate to others with the same
 authorization or more restrictive authorization. The peer verifies that no
 further delegation is allowed.
 
- ![reissue-membership-certificate][reissue-membership-certificate]
+ ![reissue-membership-certificate][]
 
 **Figure:** Reissue membership certificate
+
+[reissue-membership-certificate]: /files/learn/security2_0/reissue-membership-certificate.png
 
 #### Add a guild equivalence certificate to an application
 An admin can add a guild equivalence certificate to the application so the
@@ -196,9 +208,11 @@ membership certificates issued by other certificate authorities (like friends)
 can be trusted.  These certificate holders would only have access to permissions
 assigned to that specific guild.
 
-![add-a-guild-equivalence-certificate-to-an-application][add-a-guild-equivalence-certificate-to-an-application]
+![add-a-guild-equivalence-certificate-to-an-application][]
 
 **Figure:** Add a guild equivalence certificate to an application
+
+[add-a-guild-equivalence-certificate-to-an-application]: /files/learn/security2_0/add-a-guild-equivalence-certificate-to-an-application.png
 
 #### Certificate revocation
 
@@ -235,9 +249,11 @@ availability to distribute updates to applications.
 Using the destination’s public key, the Distribution Service discovers the
 target and attempts to install the updated policies and certificates.
 
-![distribution-of-policy-updates-and-certificate][distribution-of-policy-updates-and-certificate]
+![distribution-of-policy-updates-and-certificate][]
 
 **Figure:** Distribution of policy updates and certificate
+
+[distribution-of-policy-updates-and-certificate]: /files/learn/security2_0/distribution-of-policy-updates-and-certificate.png
 
 #### Application Manifest
 
@@ -281,9 +297,11 @@ application manifest.
 The following flow shows how the Security Manager uses the manifest data
 provided by the application to generate local policy and membership policies.
 
-![guilding-policy-using-manifest][guilding-policy-using-manifest]
+![guilding-policy-using-manifest][]
 
 **Figure:** Building Policy using manifest
+
+[guilding-policy-using-manifest]: /files/learn/security2_0/guilding-policy-using-manifest.png
 
 ### Access validation
 
@@ -292,25 +310,30 @@ provided by the application to generate local policy and membership policies.
 A typical provider validation of the consumer permissions when a secure
 interface is requested.
 
-![validation-flow][validation-flow]
+![validation-flow][]
 
 **Figure:** Validation Flow
+
+[validation-flow]: /files/learn/security2_0/validation-flow.png
 
 #### Validating a consumer policy
 
 A typical consumer policy validation when a secure method call is called by the
 consumer’s app.
 
-![validating-a-consumer-policy][validating-a-consumer-policy]
+![validating-a-consumer-policy][]
 
 **Figure:** Validating a consumer policy
 
 2.4.3 Exchanging the membership certificates during session establishment
 During the AllJoyn session establishment, the peers exchange the membership certificates..
 
-![exchange-a-trust-profile][exchange-a-trust-profile]
+![exchange-a-trust-profile][]
 
 **Figure:** Exchange a trust profile
+
+[validating-a-consumer-policy]: /files/learn/security2_0/validating-a-consumer-policy.png
+[exchange-a-trust-profile]: /files/learn/security2_0/exchange-a-trust-profile.png
 
 #### Anonymous session
 
@@ -321,15 +344,19 @@ these devices. In such a scenario, the consumer application can ask the
 Permission Management module to switch to an ECDHE_NULL session for a short
 period of time.
 
-![anonymous-access][anonymous-access]
+![anonymous-access][]
 
 **Figure:** Anonymous access
 
+[anonymous-access]: /files/learn/security2_0/anonymous-access.png
+
 #### Validating an admin user
 
-![validating-an-admin-user][validating-an-admin-user]
+![validating-an-admin-user][]
 
 **Figure:** Validating an admin user
+
+[validating-an-admin-user]: /files/learn/security2_0/validating-an-admin-user.png
 
 #### Emitting a session-based signal
 
@@ -338,9 +365,11 @@ verifies whether there is any peer that is allowed to receive the signal. Upon
 receipt of the signal, the consumer checks whether provider is authorized to
 emit the given signal.
 
-![validating-a-session-based-signal][validating-a-session-based-signal]
+![validating-a-session-based-signal][]
 
 **Figure:** Validating a session-based signal
+
+[validating-a-session-based-signal]: /files/learn/security2_0/validating-a-session-based-signal.png
 
 ### Authorization data format
 
@@ -356,9 +385,11 @@ used for exchanging and persisting the authorization data:
 
 The following diagram describes the format structure of the authorization data.
 
-![authorization-data-format-structure][authorization-data-format-structure]
+![authorization-data-format-structure][]
 
 **Figure:** Authorization Data Format Structure
+
+[authorization-data-format-structure]: /files/learn/security2_0/authorization-data-format-structure.png
 
 ##### Authorization data field definition
 **Root level**
@@ -417,7 +448,7 @@ The following table describes the rule enforcement.
 
 Whenever an encrypted message is created or received, the authorization rules
 are searched using the message header data (object path, interface name, and
-member name) and the requested permission listed in the Table 2-2: Permission 
+member name) and the requested permission listed in the Table 2-2: Permission
 Matrix.
 
 ##### Matching Algorithm within a Policy Term
@@ -606,39 +637,51 @@ Users:  Dad, Mom, and son
 
 #### Users set up by Dad
 
-![use-case-users-set-up-by-dad][use-case-users-set-up-by-dad]
+![use-case-users-set-up-by-dad][]
 
 **Figure:** Use case - users set up by Dad
 
+[use-case-users-set-up-by-dad]: /files/learn/security2_0/use-case-users-set-up-by-dad.png
+
 #### Living room set up by Dad
 
-![use-case-living-room-set-up-by-dad][use-case-living-room-set-up-by-dad]
+![use-case-living-room-set-up-by-dad][]
 
 **Figure:** Use case - living room set up by Dad
 
+[use-case-living-room-set-up-by-dad]: /files/learn/security2_0/use-case-living-room-set-up-by-dad.png
+
 #### Son's bedroom set up by son
 
-![use-case-sons-bedroom-set-up-by-son][use-case-sons-bedroom-set-up-by-son]
+![use-case-sons-bedroom-set-up-by-son][]
 
 **Figure:** Use case - son's bedroom set up by son
 
+[use-case-sons-bedroom-set-up-by-son]: /files/learn/security2_0/use-case-sons-bedroom-set-up-by-son.png
+
 #### Master bedroom set up by Dad
 
-![use-case-master-bedroom-set-up-by-dad][use-case-master-bedroom-set-up-by-dad]
+![use-case-master-bedroom-set-up-by-dad][]
 
 **Figure:** Use case - master bedroom set up by Dad
 
+[use-case-master-bedroom-set-up-by-dad]: /files/learn/security2_0/use-case-master-bedroom-set-up-by-dad.png
+
 #### Son can control different TVs in the house
 
-![use-case-son-can-control-different-tvs-in-the-house][use-case-son-can-control-different-tvs-in-the-house]
+![use-case-son-can-control-different-tvs-in-the-house][]
 
 **Figure:** Use case – Son can control different TVs in the house
 
+[use-case-son-can-control-different-tvs-in-the-house]: /files/learn/security2_0/use-case-son-can-control-different-tvs-in-the-house.png
+
 #### Living room tablet controls TVs in the house
 
-![use-case-living-room-tablet-controls-tvs][use-case-living-room-tablet-controls-tvs]
+![use-case-living-room-tablet-controls-tvs][]
 
 **Figure:** Use case - Living room tablet controls TVs
+
+[use-case-living-room-tablet-controls-tvs]: /files/learn/security2_0/use-case-living-room-tablet-controls-tvs.png
 
 ## Enhancements to Existing Framework
 
@@ -674,18 +717,18 @@ supported.  Other suites will be added as codes are available.
 ### Permission NotifyConfig Announcement
 
 The Permission module provides a session-less signal with the following information:
-1.	A number field named **claimable** to show the claim state of the application.  The possible values of this field are:
+1. A number field named **claimable** to show the claim state of the application.  The possible values of this field are:
    - 0 -- not claimable
    - 1 – claimable
    - 2 - claimed
-2.	The public key 
-3.	The permission policy serial number
+2. The public key
+3. The permission policy serial number
 
 This signal is emitted when
-1.	The bus attachment is enable with peer security using ECDHE key exchanges
-2.	The application is claimed or do a factory reset
-3.	The application has a permission policy installed
-4.	The application has its permission policy removed
+1. The bus attachment is enable with peer security using ECDHE key exchanges
+2. The application is claimed or do a factory reset
+3. The application has a permission policy installed
+4. The application has its permission policy removed
 
 ## Future Considerations
 
@@ -698,29 +741,5 @@ considered in future releases of Security 2.0.
 [rfc5246]: http://tools.ietf.org/html/rfc5246#page-75
 [rfc6655]: http://tools.ietf.org/html/rfc6655
 [rfc7251]: http://tools.ietf.org/html/rfc7251
-
-[security-system-diagram]: /files/learn/security2_0/security-system-diagram.png
-[claim-a-factory-reset-device-without-out-of-band-registration-data]: /files/learn/security2_0/claim-a-factory-reset-device-without-out-of-band-registration-data.png
-[claiming-a-factory-reset-device-using-out-of-band-registratin-data]: /files/learn/security2_0/claiming-a-factory-reset-device-using-out-of-band-registratin-data.png
-[install-a-policy]: /files/learn/security2_0/install-a-policy.png
-[add-an-application-to-a-guild]: /files/learn/security2_0/add-an-application-to-a-guild.png
-[add-a-user-to-a-guild]: /files/learn/security2_0/add-a-user-to-a-guild.png
-[reissue-membership-certificate]: /files/learn/security2_0/reissue-membership-certificate.png
-[add-a-guild-equivalence-certificate-to-an-application]: /files/learn/security2_0/add-a-guild-equivalence-certificate-to-an-application.png
-[distribution-of-policy-updates-and-certificate]: /files/learn/security2_0/distribution-of-policy-updates-and-certificate.png
-[guilding-policy-using-manifest]: /files/learn/security2_0/guilding-policy-using-manifest.png
-[validation-flow]: /files/learn/security2_0/validation-flow.png
-[validating-a-consumer-policy]: /files/learn/security2_0/validating-a-consumer-policy.png
-[exchange-a-trust-profile]: /files/learn/security2_0/exchange-a-trust-profile.png
-[anonymous-access]: /files/learn/security2_0/anonymous-access.png
-[validating-an-admin-user]: /files/learn/security2_0/validating-an-admin-user.png
-[validating-a-session-based-signal]: /files/learn/security2_0/validating-a-session-based-signal.png
-[authorization-data-format-structure]: /files/learn/security2_0/authorization-data-format-structure.png
-[use-case-users-set-up-by-dad]: /files/learn/security2_0/use-case-users-set-up-by-dad.png
-[use-case-living-room-set-up-by-dad]: /files/learn/security2_0/use-case-living-room-set-up-by-dad.png
-[use-case-sons-bedroom-set-up-by-son]: /files/learn/security2_0/use-case-sons-bedroom-set-up-by-son.png
-[use-case-master-bedroom-set-up-by-dad]: /files/learn/security2_0/use-case-master-bedroom-set-up-by-dad.png
-[use-case-son-can-control-different-tvs-in-the-house]: /files/learn/security2_0/use-case-son-can-control-different-tvs-in-the-house.png
-[use-case-living-room-tablet-controls-tvs]: /files/learn/security2_0/use-case-living-room-tablet-controls-tvs.png
 
 [policy-templates]: #policy-templates

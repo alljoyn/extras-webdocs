@@ -32,7 +32,7 @@ The AllJoyn core library implements all of the logic for authentication
 and encryption except the Auth Listener. The Auth Listener is a callback 
 function implemented by the application to provide auth credentials 
 (e.g., PIN or password) or verify auth credentials (e.g., verify 
-certificate chain in case of ALLJOYN_RSA_KEYX). Authentication 
+certificate chain in case of ALLJOYN_ECDHE_ECDSA). Authentication 
 and encryption keys are stored in a key store managed by 
 the Security module. 
 
@@ -50,9 +50,14 @@ The AllJoyn framework supports the following auth mechanisms
 for app-to-app level authentication:
 
 * ALLJOYN_SRP_KEYX - Secure Remote Password (SRP) key exchange
-* ALLJOYN _SRP_LOGON - Secure Remote Password (SRP) logon with username and password
-* ALLJOYN _RSA_KEYX - RSA key-exchange using X509 certificates
-* ALLJOYN _PIN_KEYX - PIN-based key-exchange developed for thin applications.
+* ALLJOYN_SRP_LOGON - Secure Remote Password (SRP) logon with username and password
+* ALLJOYN_ECDHE_NULL - Elliptic Curve Diffie-Hellman (ephemeral) key exchange
+  with no authentication
+* ALLJOYN_ECDHE_PSK -  Elliptic Curve Diffie-Hellman (ephemeral) key exchange
+  authenticated with a pre-shared key (PSK)
+* ALLJOYN_ECDHE_ECDSA - Elliptic Curve Diffie-Hellman (ephemeral) key exchange
+  authenticated with an X.509 ECDSA certifi pre-shared key (PSK)
+
 
 The AllJoyn framework also supports ANONYMOUS and EXTERNAL 
 auth mechanisms as defined by the D-Bus specification. 
@@ -66,7 +71,7 @@ on the Linux platform.
 
 ### Security changes in the 14.06 release 
 
-In the 14.06 release, the ALLJOYN _PIN_KEYX auth mechanism 
+In the 14.06 release, the ALLJOYN_PIN_KEYX auth mechanism 
 is removed from the AllJoyn thin core library. This auth 
 mechanism continues to be supported by the AllJoyn standard 
 core library. 
@@ -74,10 +79,9 @@ core library.
 The following new Elliptic Curve Diffie-Hellman Ephemeral 
 (ECDHE) based auth mechanism are added: 
 
-* ECDHE_NULL is an anonymous key agreement. There is no PIN 
-or passphrase required.
+* ECDHE_NULL is key agreement without authentication 
 * ECDHE_PSK is a key agreement authenticated with a pre-shared 
-key like a PIN, passphrase, or symmetric key.
+symmetric key.
 * ECDHE_ECDSA is a key agreement authenticated with an asymmetric 
 key validated with an ECDSA signature.
 
@@ -91,6 +95,12 @@ continue to be supported in AllJoyn standard core library.
 
 For more information about these changes, see the latest version 
 of the [Security HLD](https://wiki.allseenalliance.org/core/security_enhancements).
+
+### Security changes in the 15.04 release 
+
+In the 15.04 release, the ALLJOYN_PIN_KEYX and ALLJOYN_RSA_KEYX authentication
+mechanisms have been removed from the standard client.  Support for ECDSA X.509
+was added. 
 
 ## Security concepts
 
@@ -385,11 +395,11 @@ the SASL string is sent in the hex form. The generated string
 is then passed as a parameter to the AuthChallenge method call 
 or method reply.
 
-For example, to initiate authentication for ALLJOYN_RSA_KEYX, 
+For example, to initiate authentication for ALLJOYN_SRP_KEYX, 
 generated string would be: 
 
 ```
-"AUTH ALLJOYN_RSA_KEYX <c_rand in hex>"
+"AUTH ALLJOYN_SRP_KEYX <c_rand in hex>"
 ```
 
 This includes the SASL AUTH command, auth mechanism, and auth data in hex form. 
@@ -408,137 +418,6 @@ by the AllJoyn framework.
 | OK | Consumer->Provider  | The client has been authenticated. |
 | REJECTED | Consumer->Provider | On the consumer side, indicates that the current authentication exchange has failed, and further exchange of DATA is inappropriate. The consumer tries another mechanism, or tries providing different responses to challenges. |
 | ERROR | <ul><li>Consumer->Provider</li><li>Provider->Consumer</li></ul> | On the consumer or provider side, either the provider or consumer did not know a command, does not accept the given command in the current context, or did not understand the arguments to the command. |
-
-### ALLJOYN _RSA_KEYX
-
-The ALLJOYN_RSA_KEYX auth mechanism is designed to be primarily 
-used by applications that can present certificates issued by 
-a common CA to each other for authentication purpose. 
-Implementation supports self-signed certificates as well. 
-
-The following figure shows the message flow for the ALLJOYN_RSA_KEYX 
-auth mechanism. Both sides maintain a running hash of 
-security messages exchanged which is used by the server 
-to verify that it is talking to the same client to minimize 
-man-in-the middle attack. 
-
-**NOTE:** It was decided to not include any certificate chain 
-verification inside the AllJoyn Security implementation because 
-each platform provides platform-specific mechanism to verify 
-the certificate chain.
-
-![alljoyn-rsa-keyx-auth-mechanism][alljoyn-rsa-keyx-auth-mechanism]
-
-**Figure:** ALLJOYN_RSA_KEYX auth mechanism
-
-The message flow steps are described below.
-
-1. The consumer (client) app generates a 28 bytes client 
-random string c_rand. 
-2. The consumer app generates an AuthChallenge METHOD_CALL 
-message and passes "AUTH ALLJOYN_RSA_KEYX <c_rand>" as 
-parameter in that message. The consumer app sends the 
-method call to the provider (server) app via the AllJoyn router. 
-3. The provider app generates a 28 bytes server random string s_rand. 
-4. The provider app generates an AuthChallenge METHOD_RETURN 
-message and passes "DATA <s_rand>" as parameter in that message. 
-The provider app sends a method reply to the consumer app 
-via the AllJoyn router.
-5. The consumer app generates an AuthChallenge METHOD_CALL 
-message to send the client's certificate chain C_X509 to the server.
-   * The client certificate chain is specified using X.509 
-   type. Refer to section 7.4.6 in [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt). 
-   * The consumer app passes "DATA <C_X509>
-    as parameter to the method call. 
-   * The consumer app sends the method call to the provider 
-   (server) app via the AllJoyn router.
-6. The provider app invokes the AuthListener callback 
-registered by the application to verify the client certificate 
-chain C_X509. The AuthListener returns an OK response meaning 
-the cert verification was successful.
-7. The provider app generates an AuthChallenge METHOD_RETURN 
-message and provides its own server certificate chain S_X509 
-in that message. 
-8. The provider app passes "DATA <S_X509>" as parameter 
-in that message. Refer to section 7.4.2 in [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt). 
-The provider app sends method reply to the consumer app via 
-the AllJoyn router.
-9. The consumer app invokes the AuthListener callback registered 
-by the application to verify server certificate chain S_X509. 
-The AuthListener returns an OK response meaning cert 
-verification was successful.
-10. The consumer app computes a 48 bytes premaster secret random.
-11. The consumer app computes the master secret based 
-on premaster secret, c_rand, and s_rand. The master secret 
-is a 48 bytes value and is computed using algorithm described 
-in section 8.1 in [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt).
-12. The consumer app encrypts the premaster secret using the 
-server's public key.
-13. The consumer app generates an AuthChallenge METHOD_CALL 
-message to send encrypted premaster secret to the server. 
-The consumer app passes "DATA <encrypted premaster secret>" 
-as parameter to the method call. The consumer app sends method 
-call to the provider (server) app via the AllJoyn router.
-14. The provider app decrypts the premaster secret using 
-its private key. The provider app then computes the master 
-secret based on the premaster secret, c_rand, and s_rand 
-using same algorithm used by the client (per section 8.1 in 
-[RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt)). 
-15. The provider app generates another 28 bytes random 
-string s_rand2.
-16. The provider app generates an AuthChallenge METHOD_RETURN 
-message and passes "DATA <s_rand2>" as parameter in that message. 
-The provider app sends method reply to the consumer app via the 
-AllJoyn router.
-17. The consumer app computes a signed hash C_Hash of all the 
-handshake messages exchanged up to this point. The hash is 
-signed with client's private key. Refer to section 7.4.8 in 
-[RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt).
-18. The consumer app generates an AuthChallenge METHOD_CALL 
-message to send the signed hash to the server. The consumer 
-app passes "DATA <C_Hash>"as parameter to the method call. 
-The consumer app sends the method call to the provider (server) 
-app via the AllJoyn router.
-19. The provider app decrypts the signed hash with client's 
-public key. It then verifies that the received hash value 
-is the same as the hash of handshake messages it has maintained 
-(excluding the last message). 
-20. The provider app computes a "server finish" s_verifier 
-as per the algorithm in section 7.4.9 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt).
-The s_verifier is generated based on the master secret, 
-hash of handshake messages, and "server finish" label.
-21. The provider app generates an AuthChallenge METHOD_RETURN 
-message and passes "DATA <s_verifier>" as parameter in that 
-message. The provider app sends the method reply to the 
-consumer app via the AllJoyn router.
-22. The consumer app generates the "server finish" verifier 
-using the same algorithm as the provider app, and verifies 
-that the computed value is same as the received s_verifier. 
-23. The consumer app computes a "client finish" c_verifier 
-as per the algorithm in section 7.4.9 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt). 
-The c_verifier is generated based on the master secret, 
-hash of handshake messages, and "client finish" label.
-24. The consumer app generates an AuthChallenge METHOD_CALL 
-message to send the c_verifier to the server. The consumer app 
-passes "DATA <c_verifier>" as parameter to the method call. 
-The consumer app sends method call to the provider (server) 
-app via the AllJoyn router.
-25. The provider app generates the "client finish" verifier 
-using the same algorithm as the consumer app and verifies 
-that the computed value is same as the received c_verifier. 
-   At this point, the client and server have authenticated with each other. 
-26. The provider app generates an AuthChallenge METHOD_RETURN 
-message indicating authentication is complete. The provider app 
-passes "OK <s_GUID>" as parameter in that message, where 
-s_GUID is the auth GUID of the provider app. The provider app 
-sends the method reply to the consumer app via the AllJoyn router.
-27. The consumer app sends an AuthChallenge METHOD_CALL to 
-the provider app specifying "BEGIN <c_GUID>" as parameter. 
-This indicates to the provider that the client has received 
-the OK message, and the stream of data messages is about to begin. 
-The c_GUID is the auth GUID of the consumer app.
-28. The provider app sends an AuthChallenge METHOD_RETURN 
-message specifying "BEGIN" as parameter.
 
 ### ALLJOYN_SRP_KEYX
 
@@ -650,73 +529,6 @@ password from the AuthListener.
 ![alljoyn-srp-logon-auth-mechanism][alljoyn-srp-logon-auth-mechanism]
 
 **Figure:** ALLJOYN_SRP_LOGON auth mechanism
-
-### ALLJOYN_PIN_KEYX
-
-The following figure shows the message flow for the ALLJOYN_PIN_KEYX 
-auth mechanism. This auth mechanism is specifically designed 
-for thin applications prior to the 14.06 release.
-
-![alljoyn-pin-keyx-auth-mechanism][alljoyn-pin-keyx-auth-mechanism]
-
-**Figure:** ALLJOYN_PIN_KEYX auth mechanism
-
-The message flow steps are described below.
-
-1. The consumer app generates a 28 bytes client random string c_rand. 
-2. The consumer (client) app generates an AuthChallenge METHOD_CALL 
-message and passes "AUTH ALLJOYN_PIN_KEYX <c_rand>" as parameter 
-in that message. The consumer app sends the method call to the 
-provider (server) app via the AllJoyn router. 
-3. The provider app invokes the AuthListener callback registered 
-by the application to request a PIN. The AuthListener returns the PIN.
-4. The provider app generates a 28 bytes server random string s_rand.
-5. The provider app computes a premaster secret based on the PIN. 
-6. The provider app computes a master secret based on the 
-premaster secret, c_rand, and s_rand as per the algorithm 
-in section 8.1 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt). 
-7. The provider app computes a "server finish" 16 bytes s
-_verifier using the AES CCM algorithm. The s_verifier is 
-generated based on the master secret and "server finish" label.
-8. The provider app generates an AuthChallenge METHOD_RETURN 
-message and passes "DATA <s_rand:s_verfier>" as parameter 
-to that message. The provider app sends the method reply 
-to the consumer app via the AllJoyn router. 
-9. The consumer app invokes the AuthListener callback 
-registered by the application to request a PIN. The AuthListener 
-returns the PIN.
-10. The consumer app computes a premaster secret based on the PIN.
-11. The consumer app computes a master secret based on the 
-premaster secret, c_rand, and s_rand as per the algorithm in 
-section 8.1 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt). 
-12. The consumer app generates the "server finish" verifier 
-using the same algorithm as the provider app, and verifies 
-that the computed value is same as the received s_verifier. 
-13. The consumer app computes a "client finish" c_verifier 
-as per the algorithm in section 7.4.9 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt). 
-The c_verifier is generated based on the master secret and 
-"client finish" label.
-14. The consumer app generates an AuthChallenge METHOD_CALL 
-message to send c_verifier to the server. The consumer app 
-passes "DATA <c_verifier>" as parameter to the method call. 
-The consumer app sends method call to the provider (server) 
-app via the AllJoyn router.
-15. The provider app generates the "client finish" verifier 
-using the same algorithm as the consumer app, and verifies 
-that the computed value is same as the received c_verifier. 
-   At this point, the client and server have authenticated with each other. 
-16. The provider app generates an AuthChallenge METHOD_RETURN 
-message indicating that authentication is complete. The provider 
-app passes "OK <s_GUID>" as parameter in that message, where 
-s_GUID is the auth GUID of the provider app. The provider app 
-sends the method reply to the consumer app via the AllJoyn router.
-17. The consumer app sends an AuthChallenge METHOD_CALL to 
-the provider app specifying "BEGIN <c_GUID>" as parameter. 
-indicates to the provider that the client has received the 
-OK message, and the stream of data messages is about to begin. 
-The c_GUID is auth GUID of the consumer app.
-18. The provider app sends an AuthChallenge METHOD_RETURN 
-message specifying "BEGIN" as parameter.
 
 ### ECDHE key exchanges
 

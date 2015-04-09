@@ -1,8 +1,8 @@
 #AllJoyn™ Security 2.0 Feature High-Level Design
 
-## Introduction
+# Introduction
 
-### Purpose and scope
+## Purpose and scope
 
 This document captures the system level design for the enhancements to the
 AllJoyn™ framework to support the Security 2.0 feature requirements. Related
@@ -10,7 +10,7 @@ interfaces and API design is captured at a functional level. Actual definition
 for interfaces and APIs is outside the scope of this document. Features and
 functions are subject to change without notice.
 
-### Revision history
+## Revision history
 
 | Revision | Date | Change Log |
 |---|---|---|
@@ -20,636 +20,1032 @@ functions are subject to change without notice.
 | Rev 1 Update 3 | October 30, 2014 | Update the authorization data section based on agreement from the technical conference call on October 14, 2014. |
 | Rev 1 Update 4 | December 23, 2014 | Update the Certificate section and changes listed in JIRA tickets ASACORE-1170, 1256, 1259, 1260. |
 | Rev 1 Update 5 | January 15, 2015 | Update the rule enforcing table after the conference call on Janurary 13, 2015 by the Security2.0 working group. |
-| Rev 1 Update 6 | February 2, 2015 | Update the authorization data after the conference call on Janurary 20, 2015 by the Security2.0 working group.  Updated the permission matrix to reflect the concept of Provide permission. |
+| Rev 1 Update 6 | March 31, 2015 | <p>Update the authorization data after the conference call on Janurary 20, 2015 by the Security2.0 working group. Updated the permission matrix to reflect the concept of Provide permission.</p><p>Updated based on review comments by the Security 2.0 working group on March 6, 2015.</p><p>Add the updated information on Security Manager and manifest from the Wiki</p><p>Updated based on review comments by the Security 2.0 working group on March 13, 2015 and on March 19, 2015.</p><p>Updated based on open issue discussion on March 23, 2015. Updated based on comments on March 31, 2015 short review.</p> |
 
-### Acronyms and terms
+## Acronyms and terms
 
 | Acronym/term | Description |
 |---|---|
 | About data | Data from the About feature. For more information, refer to the  [About Feature Interface Spec.][about-interface] |
 |ACL | Access Control List |
 | AES CCM | The Advanced Encryption Standard 128-bit block cypher using Counter with CBC-MAC mode. Refer to [RFC 3610][rfc3610] for more information. |
-| Provider | An AllJoyn application advertises its interfaces so other AllJoyn application may access/control it. |
-| Consumer | An AllJoyn application which is able to control or uses services provided by another AllJoyn application. |
-| Device | A physical device that may contain one or more AllJoyn applications.  In this document, whenever the term “device” is used, it indicates the system application of the given physical device. |
 | AllJoyn framework | Open source peer-to-peer framework that allows for abstraction of low-level network concepts and APIs. |
+| Authentication GUID | <p>The Authentication GUID is a GUID assigned to a keystore for authentication purposes.  This GUID is persisted in the keystore and provides a long-term identity for the application. Typically, this GUID is associated with a single application. In the scenario where a group of related applications share a given key store, they also share the same authentication GUID.</p> <p>This GUID is used as a mapping key for storing and accessing authentication and encryption keys.   All key materials associated with another peer is stored in the key store with the peer’s authentication GUID as the mapping key.</p> |
+| Certificate Authority (CA) | Entity that issues a digital certificate |
+| Consumer | An AllJoyn application consuming services on the AllJoyn network. |
+| Device | A physical device that may contain one or more AllJoyn applications.  In this document, whenever the term “device” is used, it indicates the system application of the given physical device. |
 | DSA | Digital Signature Algorithm |
 | ECC | Elliptic Curve Cryptography |
 | ECDHE | Elliptic Curve Diffie-Hellman Ephemeral key exchange |
 | ECDHE_ECDSA | ECDHE key agreement with asymmetric DSA based authentication. |
 | ECDHE_NULL | ECDHE key agreement only. No authentication. |
 | ECDHE_PSK | ECDHE key agreement with symmetric key/pin/password based authentication. |
-| User | The person or business entity interacting with AllJoyn applications. |
-| Factory-reset device | A device is restored to the original configuration. |
-| Friend | A user who has a trusted relationship with the owner |
+| Factory-reset application | An application restored to the original configuration. |
 | Grantee | The application or user who is the subject of a certificate. |
-| GUID | Globally Unique Identifier |
-| Guild | A logical grouping of devices, applications, and users. It is identified by a guild ID which is a GUID. An application can be installed with a policy to expose services to members of the guild. An application or user holding a membership certificate is in fact a member of the guild. Any member of the guild can access the services exposed to the guild by the applications with policies defined for that guild. |
-| Guild Authority | A guild authority is the user or application that defines the guild policy and grant membership certificates to other. The guild authority is the certificate authority for that guild. |
+| GUID | Globally Unique Identifier. A 128 bit identifier generated randomly in a way that the probability of collision is negligible. |
 | Holder | The application or user possessing a certificate. |
-| Issuer | The application or user signing a certificate. |
+| Keystore | <p>A repository of security keys and certificates.  An application instance can have at least one keystore.  A keystore is associated with a bus attachment.  If an application uses multiple bus attachments, it can have more than one keystores.  The practice of using multiple bus attachments is discouraged because of complex side effect.</p> <p>Multiple applications running as the same user can choose to share the same keystore, but if they do, they are considered as if they were the same application since they are treated as the same security principal.</p> |
 | OOB | Out Of Band |
+| Peer | A remote application participating in the AllJoyn messaging. |
 | Permission Management module | The AllJoyn Core module that handles all the permission authorization. |
-| PermissionMgmt | A set of AllJoyn interfaces to manage the permissions for the AllJoyn application.  The implementation is provided by the Permission Management module |
-| Security Manager | A set of AllJoyn interfaces to manage cryptographic keys, generate and distribute certificates. |
-| Security Appliance | A security appliance is a type of Security Manager that is always present. |
-|IoE | Internet of Everything |
-| Peer | Application participating in the AllJoyn messaging. |
+| Producer | An AllJoyn application providing services on the AllJoyn network. |
+| Security Group | A logical grouping of devices, applications, and users. It is identified by a group ID which is a GUID and the security group authority public key. An application can be installed with a policy to expose services to members of the security group. An application or user holding a membership certificate is in fact a member of the security group. Any member of the security group can access the services exposed to the group by the applications with ACLs defined for that group. |
+| Security Group Authority | A security group authority is the user or application that defines the security group and grant membership certificates to other. The security group authority is the certificate authority for that group. |
+| Security Manager | A service used to manage cryptographic keys, and generate and distribute certificates. |
 | SHA-256 | Secure Hash Algorithm SHA-2 with digest size of 256 bits or 32 bytes. |
-| Trust profile | Information used by peers to introduce themselves when contacting each other. |
-| Certificate Authority (CA) | Entity that issues a digital certificate |
- 
-## System Design
+| User | The person or business entity interacting with AllJoyn applications. |
 
-### Overview
+# System Design
+
+## Overview
 
 The goal of the Security 2.0 feature is to allow an application to validate
-access to secure interfaces or secure objects based on policies installed by the
-owner.  This feature is part of the AllJoyn Core library.  It is not an option
-for the application to enforce permission.  It is up to the user to dictate how
-the application performs based on the access control lists (ACLs) defined for
-the application.  The AllJoyn Core Permission Management component does all the
-enforcement including the concept of mutual authorization before any message
-action can be taken.
+access to interfaces or objects based on policies installed by the owner.  This
+feature is part of the AllJoyn Core library.  It is not an option for the
+application to enforce permission.  It is up to the user to dictate how the
+application performs based on the access control lists (ACLs) defined for the
+application.  The AllJoyn Core Permission Management component does all the
+enforcement including the concept of mutual or one-way authorization before any
+message action can be taken.
 
-The Security Manager is optional service that helps the user with key management
-and permission rules building.  Using policy templates defined by application
-developer, the Security Manager builds the application manifest to let the
-end-user authorize which interactions the application can do.  The security
-Manger is optional because the permissions can be installed directly into the
-application.
+The Security Manager is a service that helps the user with key management and
+permission rules building.  Using application manifest defined by an application
+developer, the Security Manager builds the access control lists to let the
+end-user authorize which interactions the application can do.  An application
+developer does not have to build a security manager.  The permission can be
+installed by another application or another security manager.
 
 In addition to the encrypted messaging (using AES CCM) between the peers, the
 Security 2.0 Permission Management module manages a database of access
 credentials and the Access Control Lists (ACLs).
 
+
 Figure shows the system architecture of the Security 2.0 feature.
-![security-system-diagram][security-system-diagram]
+![security-system-diagram][]
 
 **Figure:** Security system diagram
 
-### Premises
+[security-system-diagram]: /files/learn/security2_0/security-system-diagram.png
+## Premises
 
 The following Table lists the premises for the Security 2.0 features.
 **Table:** Security 2.0 premises
 
 | Topic | Definition | Premises |
 |---|---|---|
-| Identity | The application identification | All peers are identified by a GUID and  cryptographic public key |
-| Admin | An admin (or administrator) is a peer with administrator privilege for the application | <ul><li>An admin has full access to any object and interface in the application</li><li>An admin becomes a certificate authority</li><li>An admin can add/remove another admin</li></ul> |
-| Claiming | Incorporate a factory-reset device with the Permission Management | <ul><li>A factory-reset device has no list of certificate authorities.</li><li>A factory-reset device has no admin</li><li>Anyone can claim as an admin for a factory-reset device.</li></ul> |
-| Policy | <p>A policy is a list of rules governing  the behavior of an application</p><p>A policy template is a list of rules defined by the application developer to guide the user for policy building.</p><p>A signed policy is a policy signed by an admin		An admin can install, update, or remove a policy.</p> | <ul><li>A newer signed policy can be installed by any peer. Developers can define policy templates to help the user with policy building.</li><li>Signed policy data must be encrypted if it is not delivered by the admin</li><li>Guild-specific policy specifies the permissions granted to members of the guild. The guild authority becomes a certificate authority for that particular guild.</li><li>A policy may exist at the provider or consumer side. Policy enforcement applies wherever it resides.</li><li>A policy is considered private.  It is not exchanged with any peer.</li><li>An application may zero or more policies.</li><li>An admin can query the existing policy installed in the application</li></ul> |
-| Membership certificate | A membership certificate is the proof of a guild membership | <ul><li>Membership certificates are exchanged between peers.  The authorization data signed by this certificate are used for mutual authorization purposes.</li><li>An application trusts the membership certificate if the issuer or any subject in the issuer’s certificate chain matches any of the application certificate authorities.</li><li>A membership certificate holder can generate additional membership certificate for the given guild with the same or more restrictive permissions if the delegate flag is enabled. This type of membership certificate will not allow further delegation.</li><li>A membership certificate must have a guild ID.</li><li>A device or application can accept any number of membership certificates</li></ul> |
-| User equivalent certificate | A user equivalence certificate allows the holder to act like the issuer | The holder has the same access rights as the issuer |
-| Authorization data | The permission rules | <ul><li>Authorization data are not present in the membership certificate</li><li>The membership authorization data is signed by the membership certificate issuer</li><li>Authorization data can be requested from the certificate holder.</li></ul> |
-| Guild equivalence certificate | Certificate maps other guilds to a specific guild | <ul><li>An admin can add a guild equivalence certificate to the application. This mechanism allows other guilds to map to a specific guild.</li><li>The subject in the certificate is the equivalence guild authority’s public key. A membership certificate generated from that guild authority or its delegates will have access to the specific guild defined in the guild equivalence cert.</li></ul> |
-| Identity certificate | Certificate that signs the identity information. | <ul><li>Certificate with a digest of the actual identity data.</li><li>The Certificate has an alias field for that identity in addition to the external Identification data</li><li>A peer can request for the other peer’s identity certificate and identity data.</li><li>An application trusts identity certificate issued by any of the application’s certificate authorities and guild equivalence authorities.</li></ul> |
-| Security Manager | | <ul><li>Security Manager can push signed policy to subject application</li></ul>
+| Identity | The application security principal | Each peer is identified by an authentication GUID  and a cryptographic public key |
+| Admin | An admin (or administrator) is a security principal with administrator privilege for the application | <ul><li>An admin has full access to any object and interface in the application</li><li>An admin becomes a certificate authority</li><li>An admin can be a public key or a security group</li></ul> |
+| Claim | Incorporate a factory-reset application with the Permission Management | <ul><li>A factory-reset application has no list of certificate authorities for AllJoyn security.</li><li>A factory-reset application has no admin for AllJoyn security.</li><li>Anyone can claim as an admin for a factory-reset application.</li></ul> |
+| Policy | <p>A policy is a list of rules governing  the behavior of an application</p><p>A policy template is a list of rules defined by the application developer to guide the user for policy building.</p> | <ul>An admin can install, update, or remove a policy.<li></li><li>A newer policy can be installed by any authorized peer. Developers can define policy templates to help the admin with policy building.</li><li>Security group specific policy specifies the permissions granted to members of the group. The security group authority becomes a certificate authority for that particular group.</li><li>A policy may exist at the producer or consumer side. Policy enforcement applies wherever it resides.</li><li>A policy may exist at the producer or consumer side. Policy enforcement applies wherever it resides.</li><li>A policy may exist at the producer or consumer side. Policy enforcement applies wherever it resides. A keystore has at most one policy.  A complex application with multiple bus attachments can use a shared keystore in one bus attachment and an app-specific keystore for another bus attachment. In such case, the complex application has in fact more than one policies.</li><li>An admin can query the existing policy installed in the keystore.</li></ul> |
+| Membership certificate | A membership certificate is the proof of a security group membership | <ul><li>Membership certificates are exchanged between peers.  The authorization data signed by this certificate are used for mutual authorization purposes.</li><li>An application trusts a membership certificate if the issuer or any subject in the issuer’s certificate chain is the owner or the security group authority.</li><li>A membership certificate holder can generate additional membership certificates for the given security group with the same or more restrictive permissions if the delegate flag is enabled. This type of membership certificate will not allow further delegation.</li><li>A membership certificate must have a security group ID.</li><li>An application can accept the installation of any number of membership certificates into its keystore.</li></ul> |
+| Identity certificate | Certificate that signs the identity information. | <ul><li>The Certificate has an identity alias stored in the X.509 SubjectAltName extension field.</li><li>An application trusts identity certificate issued by the owner, any of the application’s certificate authorities, or any of the security group authorities listed in the application’s policy.</li></ul> |
+| Manifest data | The permission rules accompanying the identity certificate | <ul><li>Manifest data are not present in the identity certificate. They are accompanied with the identity certificate.</li><li>The manifest data digest is present in the identity certificate.</li><li>The manifest data syntax is the same as the policy syntax.  While the policy stays local the manifest data is presented to the peer along with the identity certificate.<li></ul> |
+| Security Manager | An application used to manage cryptographic keys, and generate certificates. | <ul><li>Security Manager can push policy and certificates to application</li></ul> |
 
-### Typical operations
+## Typical operations
 
 The following subsections describe the typical operations performed by a user.
 
-#### Claim a factory-reset device
+### Assumptions
 
-A user can claim any factory reset device. Claiming is first-come, first-claim
-action. That user becomes the admin.  The procedure to make the device to become
-claimable again is manufacturer’s specific.  There will be an API call that
-allow the device/application to make itself claimable again.
+In all the flows listed in this section, the Security Manager is assumed to be
+claimed by another Security Manager or to be self-claimed.  The certificates may
+have been issued from sources in the cloud.  As the result, the Security Manager
+is shown with one certificate authority and an identify certificate.
 
-##### Claim factory-reset device without out-of-band registration data
+### Sample Certificates and Policy Entries
 
-![claim-a-factory-reset-device-without-out-of-band-registration-data][claim-a-factory-reset-device-without-out-of-band-registration-data]
+The following is a high level presentation of certificates and policy entries
+used in the flows in this section.
 
-**Figure:** Claim a factory-reset device without out-of-band registration data
+![sample-certificates-and-policy-entries][]
 
-##### Claim factory-reset device using out-of-band registration data
+**Figure:** Sample Certificates and ACL entries
 
-A device manufacturer can provision a key to support the claiming process. The
-key is provided to the user out of band. An example is a QR code or a token
-delivered via email or text messaging. The user is prompted for the key when
-establish connection with the device.
-![claiming-a-factory-reset-device-using-out-of-band-registratin-data][claiming-a-factory-reset-device-using-out-of-band-registratin-data]
+[sample-certificates-and-policy-entries]:/files/learn/security2_0/sample-certificates-and-policy-entries.png
 
-**Figure:** Claiming a factory-reset device using out-of-band registration data
+#### The peer types
 
-#### Define a guild
+The following peer types are supported in the permission policy
 
-A user can define a guild (logical grouping of devices and users) using the
-Security Manager. When the user specifies a guild name, the Security Manager
-creates the guild ID (typically a GUID value).
+| Peer Type | Description |
+|---|---|
+| ANONYMOUS_USER | The peer is not authenticated. It uses ECDHE_NULL key exchange. |
+| ANY_USER | The peer is authenticated via ECDHE_ECDSA key exchange. Its identity certificate’s trust is verified against any of the application’s  certificate authority (including the security group authorities) |
+| RESTRICTED_USER | The peer is authenticated via ECDHE_ECDSA key exchange.  Its identity certificate’s trust is verified against the specific certificate authority listed in the policy for this type of peer. |
+| PUBLIC_KEY | <p>The peer is authenticated via ECDHE_ECDSA key exchange.  Its identity certificate’s trust is verified against any of the application’s certificate authority (including the security group authorities).</p><p>The peer must have the specific public key.</p> |
+| SECURITY_GROUP | <p>The peer is authenticated via ECDHE_ECDSA key exchange.  Its identity certificate’s trust is verified against any of the application’s certificate authority (including the security group authorities).</p><p>The peer must possess a membership certificate with the specific security group ID.</p> |
 
-#### Example of building a policy
+### Define a security group
 
-A user uses a Security Manager application to build a policy. The application
-queries the AllJoyn About feature data and the list of policy templates from the
-device. The Security Manager application can do further introspection of the
-device for the detailed information of secured interfaces and secured objects,
-and prompts the user to select the permissions to include in the policy.
+Any user can define a security group (logical grouping of applications and
+users) using a Security Manager. When the user specifies a security group name
+(for display purpose), the Security Manager creates the security group ID
+(a GUID value).
 
-A policy may contain a number of policy terms.  Each term can be targeted to any
-user, a guild, or a particular user.  Please refer to the section Authorization
-data format for more information.
+### Required Key Exchanges
 
-#### Install a policy
+The framework requires either ECHDE_NULL or ECDHE_PSK key exchange for the claim
+process.  Once the application is claimed, only the ECDHE_ECDSA key exchange is
+allowed unless the policy allows for anonymous user; in such case, ECDHE_NULL is
+acceptable.
+
+### Certificate exchange during session establishment
+
+During the AllJoyn ECHDE_ECDSA key exchange and session establishment, the peers
+exchange identity certificate, manifest data, and all membership certificates.
+Since all the membership certificates are exchanged, there is a potential
+information disclosure vulnerability.  It is desired to have a more intelligent
+selection algorithm to provide membership certificates on demand and
+need-to-know basis.  This algorithm needs to take into account of the latency of
+the certificate exchange during the method call invocation.
+
+During the ECDHE_ECDSA key exchange phase, the Identity certificate is exchanged.
+The application trusts the peer if the issuer of the peer’s identity certificate
+is the owner or any of the application certificate authorities.
+
+After the session key is generated, the peers exchange all the membership
+certificates.  Each membership certificate’s trust is checked against the
+owner’s public key or the public key of any of the security group authorities.
+
+![exchange-manifest-and-membership-certificates][]
+
+**Figure:** Exchange manifest and membership certificates
+
+[exchange-manifest-and-membership-certificates]:/files/learn/security2_0/exchange-manifest-and-membership-certificates.png
+
+### Claim a factory-reset application
+
+Using a Security Manager any user can claim any factory-reset application. The
+factory-reset application is assumed to be already onboarded to the network.
+Claiming is a first-come, first-claim action. That user becomes the admin. The
+user also installs an admin security group. The procedure to make the
+application to become claimable again is manufacturer-specific. There will be an
+API call that allows the application to make itself claimable again.
+
+#### Claim factory-reset application without out-of-band registration data
+
+![claim-a-factory-reset-device-without-out-of-band-registration-data][]
+
+**Figure:** Claim a factory-reset application without using out-of-band
+registration data
+
+The identity certificate will be used for authentication in the ECDHE_ECDSA key
+exchange.
+
+[claim-a-factory-reset-device-without-out-of-band-registration-data]: /files/learn/security2_0/claim-a-factory-reset-device-without-out-of-band-registration-data.png
+
+#### Claim factory-reset application using out-of-band registration data
+
+An application manufacturer can provision a key to support the claiming process.
+The ECDHE_PSK key exchange is used in this scenario. The key is provided to the
+user out of band. An example is a QR code or a token delivered via email or text
+messaging. The user is prompted for the key when establishing a connection with
+the factory-reset application.
+
+![claiming-a-factory-reset-device-using-out-of-band-registratin-data][]
+
+**Figure:** Claiming a factory-reset application using out-of-band registration
+data
+
+[claiming-a-factory-reset-device-using-out-of-band-registratin-data]: /files/learn/security2_0/claiming-a-factory-reset-device-using-out-of-band-registratin-data.png
+
+### Example of building a policy
+A user uses a Security Manager application to build a policy. The Security
+Manager application queries the About data and manifest data from the
+application. The Security Manager application can do further introspection of
+the application for the detailed information of securable interfaces and secured
+objects, and prompt the user to select the permissions to include in the policy.
+A policy may contain a number of ACLs.  Please refer to section
+[(Authorization data format)][authorization-data-format] for more information.
+
+### Install a policy
 
 An admin can install a policy for the application.
-![install-a-policy][install-a-policy]
+![install-a-policy][]
 
 **Figure:** Install a policy
 
-#### Add an application to a guild
+[install-a-policy]: /files/learn/security2_0/install-a-policy.png
 
-An admin signs a membership certificate with the given guild ID and installs it
-in the application. This act adds the application to the guild. In order for a
-provider to emit signals to other members of the guild, the provider must have a
-membership certificate with proper authorization to do so.
+### Install a manifest
+An admin can install a manifest for the application.
 
-![add-an-application-to-a-guild][add-an-application-to-a-guild]
+![install-manifest][]
 
-**Figure:** Add an application to a guild
+**Figure:** Install manifest
 
-####  Add a user to a guild
+[install-manifest]: /files/learn/security2_0/install-manifest.png
 
-The guild authority uses the Security Manager to generate the membership
-certificate for the user for the given guild ID. The guild authority can
-restrict the permissions for this user.
+### Add an application to a security group
 
-![add-a-user-to-a-guild][add-a-user-to-a-guild]
+An admin issues a membership certificate with the given security group ID and
+installs it in the application’s keystore. This act adds the application to the
+security group.
 
-**Figure:** Add a user to a guild
+![add-an-application-to-a-security-group][]
 
-#### Delegating membership certificate
+**Figure:** Add an application to a security group
 
-If a grantee receives a membership certificate with a delegate flag enabled, the
-grantee can issue the same membership certificate to others with the same
-authorization or more restrictive authorization. The peer verifies that no
-further delegation is allowed.
+[add-an-application-to-a-security-group]: /files/learn/security2_0/add-an-application-to-a-security-group.png
 
- ![reissue-membership-certificate][reissue-membership-certificate]
+### Add a user to a security group
+
+The security group authority uses the Security Manager to generate the
+membership certificate for the user for the given security group ID.
+
+![add-a-user-to-a-security-group][]
+
+**Figure:** Add a user to a security group
+
+[add-a-user-to-a-security-group]: /files/learn/security2_0/add-a-user-to-a-security-group.png
+
+### Security Manager
+
+#### Introduction
+
+The AllJoyn security 2.0 ecosystem consists of many applications and devices.
+Those applications and devices are deployed in various setups and for them it is
+impossible to know up front what other peers they will see around them let alone
+know how they should interact with them. Which peers can be trusted, which
+rights do those peers have… So after being deployed, applications and devices
+have to be configured. The people in charge of configuring the system, the
+administrators need a tool for this. Such a tool is called a security manager.
+
+Depending on your setup, you need a different tool. A large enterprise has
+different requirements than a home does. Not all administrators have a strong
+technical background. A tool for home users should have a straightforward,
+understandable user interface (hiding the more complex features). These
+simplifications should be done inside the security manager, so it is transparent
+for applications and devices in which setup they are deployed. Application
+developers should make no distinction between enterprise and small home.
+
+A security configuration consists of two parts:
+1. Certificates: certificates provide proof that an application is managed by a
+   security manager. They can be used to gain access to resources of other peers
+   or to provide resources themselves to others. The certificates describe the
+   rights the holder has.
+2. Policy: A policy is a list of Access Control Lists (ACLs). These ACLs
+   describe how other peers can access the holder of the policy.
+
+Security managers use AllJoyn to transfer this configuration to applications and
+devices they manage.
+
+#### Security Manager Architecture
+
+A security manager is a tool that can take multiple forms. For a home setup it
+can be a single application accessed by one person. For an enterprise setup,
+multiple administrators need to use it, so its core can run on a server, with
+some local application talking to it. When discussing the functional blocks of
+the security manager, it is important to understand that those blocks can reside
+on different machines and that for some of these we even have multiple
+instances.
+* The manager provides certificates. In order to generate and sign certificates,
+  it needs to have a certificate authority (CA).
+* Configuration storage: The security manager should keep track of what the
+  configuration looks like. To do so, it should persist the configuration data.
+* UI: The administrator needs to interact with the security manager in order to
+  make configuration changes. The user interfaces doesn't need to be part of the
+  manager itself. It could be running in a web browser or it could offer a REST
+  API, so that custom UI can be built on top.
+* AllJoyn Agent (security manager agent): Configuration updates are sent using
+  AllJoyn as the communication protocol. The agent is the component which does
+  the interaction with the managed peers.
+
+The following assumptions are made:
+* The four functional blocks of the security manager can be combined into a
+  single application, but it should be possible to run them in different
+  applications or even on different hosts.
+* A security manager can have multiple security manager agents acting on its
+  behalf.
+* The security manager topology is transparent for AllJoyn applications.
+* A security manager is identified by the public key of its CA. We call this the
+  key of the security manager.
+
+The Alliance envisions multiple implementations of security managers and does
+not provide implementation specifications. The alliance does specify how
+security managers need to interact with AllJoyn security 2.0 based applications
+and devices.
+* org.allseen.Security.PermissionMgmt.Notification: a session-less signal sent
+  by the applications. This can be used to discover applications and devices.
+* org.allseen.Security.PermissionMgmt: For changing the configuration of
+  applications.
+
+#### What the Security Manager manages
+We already mentioned a number of times that a security manager manages
+applications and devices. But what does it mean and do we really manage
+applications and devices? The security manager agent will use AllJoyn security
+features to set up a secure connection to a peer. The only way it has to
+identify this peer is by the looking at that peer's public key. Since we hand
+out certificates granting rights to this key, in fact it means we are managing
+keys. So when asking what are we managing, we should ask ourselves who has
+access to a key? There is no easy answer to this questions. It all depends on
+the OS and platform the software is running on.
+* On a plain Linux or Windows machine, applications can choose to protect data
+  on a per-user basis, making it hard to protect the key from other applications
+  running as the same user. On the other hand, the key is also not
+  application-specific. When the same application runs as a different user, it
+  can't access the key anymore.
+* Operating systems on smartphone do a better job at sandboxing applications.
+  The link between key and application is stronger there.
+
+How many keys you need per device depends on the device:
+* A single-function device (e.g., a temperature sensor) is considered as one big
+  Application. One key to do all operations.
+* Every app on a smartphone is considered as an app on its own, so one key per
+  application.
+* The built-in firmware of a smart TV is also considered as a single app.
+  Applications installed on top of the firmware of the TV are separate apps and
+  should have their own key.
+
+##### What we can trust
+
+The AllSeen alliance offers software stack that runs on top of some hardware
+within an OS. The stack can be embedded in an application which is installed on
+a device or could be integrated in a firmware of a device. The security manager
+cannot distinguish this. He only sees a remote peer. Furthermore the security
+manager cannot assume applications are running on trustworthy systems. If an
+application runs on a compromised or malicious system, there is little we can do
+inside the app to protect.  A genuine application running on malicious system,
+should be treated as malicious. We should protect the ecosystem by:
+1. Being able to revoke the rights granted to an application.
+2. Make sure compromised or even malicious applications are limited to rights
+  they were given. Since we can't trust the OS or hardware the applications is
+  running on, these checks must be done at the remote peer side.
+
+The protective measure should be defined so that a well-behaving app on a well
+behaving system can protect itself from any unwarranted access. If both peers
+are malicious, then there is little we can do. But then they don't need AllSeen
+to malicious things. There is a risk though that 2 malicious applications team
+up. Each individual app gets a small acceptable set of rights, but then
+combining their rights to launch an attack.
+
+When claiming an application two considerations must be made:
+1. Can I trust the application?
+2. Can I trust the device and it is running on? But not only the device and it
+   OS, but for desktops systems as well which other applications are there?
+   These apps might to try get access to the keystore of the genuine app. This
+   is not something we can fix within the AllSeen alliance. This remains an
+   integration aspect.
+
+##### Sharing Keystores
+When an application is claimed, it will store its certificates inside a
+keystore. This keystore can be shared. The security manager nor the system can
+prevent applications from doing this. Is it recommended to share keystores? It
+has the advantage that you only have to claim one application, while multiple
+applications can use it. However the certificates in the store will only grant a
+limited set of permission to it users. Sharing the store only makes sense if it
+was granted all permissions required by its users. Sharing keystore can be
+allowed if the applications granted access to it are known upfront and the union
+of rights is known.
+
+Sharing keystores does have some side effects, every app using the keystore will
+appear as a manageable application. The security will be able to manage one
+keystore via multiple apps. Adding an extra layer of complexity to get
+concurrent access right.
+
+We also partially lose the ability to sandbox applications, as applications
+using a shared keystore get full set of rights linked to the store and not
+necessarily the ones they strictly need.
+
+##### Applications integrated in firmware
+The firmware of a device could consist of multiple smaller AllSeen applications.
+From end-user perspective you only want to claim this device once. Those
+applciations are allowed to share their keystore, but only of them should
+provide the PermissionMgmt interface. So only one application is seen from
+security manager perspective. When expressing the permission required for this
+application, it should request all permission required by the apps on that
+device.
+
+##### Standalone applications
+Standalone applications are apps downloaded and installed on a desktop computer,
+tablet or smart phone or something similar. Standalone applications should not
+share their  keystore with other applications. If such an application is built
+out of separate sub-applications (each of them a using separate bus attachment),
+then they should follow the same rules as applications integrated in firmware.
+
+#### Security Manager Operations
+The security manager allows the following operations:
+- security group management: create, update and delete security groups
+    - allow grouping of applications. A group is uniquely defined by GUID and
+      the public key of a security manager. Applications can become members of a
+      group when they are issued a membership certificate for that group
+- identity management: create, update and delete identities
+    - Identities are used to define the users of application. Users can map to
+      physical persons, but they could also a more conceptual meaning. An
+      identity is represented by a GUID and the public key of the defining
+      security manager. Applications can act on behalf of a user when they
+      receive an identity certificate for that user. Applications should only
+      have one identity certificate.
+- application/key management:
+    - Claim applications: make it managed by this security manager
+    - manage AllJoyn certificates for these applications
+    - manage policy (ACL's) of applications
+    - force application to become un-managed again
+
+#### Inter Security Manager Interaction
+When applications interact with each other, they check if the interaction is
+allowed by their policies as previously set by their security manager. In
+practice, a peer must present a certificate (chain) signed by its security
+manager public key. Meaning that with the basic features we created silos, you
+can only talk to applications managed by your own security manager. In practice
+applications managed by different security managers need to interact with each
+other as well. We provide 2 ways to do this: Delegation and Restricted User.
+
+##### Delegation
+###### Use case
+I’m the administrator of my home ecosystem. I claim appliances in the home and
+provide them with configuration. I as administrator am the only person having
+access to the security manager. When my kids want to get access to an appliance,
+then they have to ask me to get approval for each application they want to use.
+This is not workable. With delegation, my security manager gives a membership
+certificate with delegation rights to the security manager of each of my kids.
+With this certificate, they can delegate these rights to their applications.
+They only need to ask one time and then they can make any of their applications
+part of my group. Even though my kids did not interact directly with each other,
+with these delegated certificates they interact with each other in the scope of
+this group.
+
+###### Limitations
+The followings are the limitations of using delegation.
+- You can only authenticate members of the group. Mutual authenticated requests
+  can only be done between members of the group.
+- My kids get Remote-control rights for the TV by giving them a membership
+  certificate with delegation rights for my TV Group. Their remote control
+  applications become member of the TV group. If I give my TV a policy for the
+  TV group, then the TV will allow the request from the RC apps of my kids. This
+  requires my kids to define an ANY-USER policy for TV operations for their
+  apps. This is ok for TVs RC operations. If mutual authentication is required,
+  the TV must become member of the TV group as well.
+- For a chat use case you need to know who is sending a message and to whom
+  you’re sending messages to. So mutual authentication is required and all
+  participants have to be in that group.
+- As policy is defined on group level, it is impossible to differentiate between
+  kids and parents within the scope of a single group. It would require separate
+  groups to achieve this.
+
+###### Delegating membership certificate Flow
+
+In the X.509 membership certificate, the delegate concept is represented by the
+basicConstraints extension CA flag.  If a grantee receives a membership
+certificate with the X.509 basicConstraints extension CA flag equal to true, the
+grantee can issue a membership certificate to others with the same ACL or more
+restrictive ACL. Any peer validating a certificate chain verifies that no
+further delegation has been done, or the chain is considered invalid.
+
+ ![reissue-membership-certificate][]
 
 **Figure:** Reissue membership certificate
 
-#### Add a guild equivalence certificate to an application
-An admin can add a guild equivalence certificate to the application so the
-membership certificates issued by other certificate authorities (like friends)
-can be trusted.  These certificate holders would only have access to permissions
-assigned to that specific guild.
+[reissue-membership-certificate]: /files/learn/security2_0/reissue-membership-certificate.png
 
-![add-a-guild-equivalence-certificate-to-an-application][add-a-guild-equivalence-certificate-to-an-application]
+##### Restricted access for other security manager
 
-**Figure:** Add a guild equivalence certificate to an application
+Restricted access tries to address the same problem as delegation but takes a
+different approach to solve it. With delegation, you give a certificate to an
+application. With that certificate the application can prove it is allowed
+access to a group. With restricted access we define a policy on our managed
+applications that allows applications from a different security manager to get
+access. This would be as if we would pre-install the delegated membership
+certificate on all our managed applications. So when the peer comes around, he
+doesn't need to send the proof, the application already has it. Since policy
+comes from a trusted source, we don't need to distribute certificates, we can
+define a more compact ACL.
 
-#### Certificate revocation
+In practice, the security manager defines a restricted peer type for all
+applications that need to interact with the applications of the peer security
+manager. This ACL restricts applications of that security manager to a specific
+set of rules. Those applications just need to prove that they are owned with an
+identity certificate verifiable with the peer security manager certificate
+authority. That authority is installed with the restricted peer entry into the
+local application policy.
 
-The application will validate the certificate using a revocation service
-provided by the Security Manager.
+As example use case: Suppose we have a real-estate agent. When showing a house
+to clients, he'd like to show-off the AllSeen-enabled home automation system.
+This can be achieved with either delegation or restricted user. The advantage of
+restricted user is that if he potentially needs to show 100 homes, he can do it
+based on 1 certificate instead of 100 for the delegation scenario. There is less
+risk for information disclosure. If someone could get hold of the 100
+certificates, then he can learn who the home sellers are. In the restricted user
+case, the seller's public keys are in the policy of the agent's app and policy
+is never shared.
 
-The Certificate Revocation Service is expected to provide a method call that
-takes in the certificate and return whether the given certificate is revoked.
+###### Install a restricted user ACL Flow
+The admin install a RESTRICTED_USER ACL into his local application’s policy to
+allow his friend to have access to the local application.  
 
-The application looks in the “self” section of its installed policy for the peer
-that provides the Certificate Revocation Service.  If the application can’t
-locate any of the Certificate Revocation Service, the certificate revocation
-check will be skipped.
+![add-restricted-user-rules-to-an-application][]
 
-If a membership certificate is revoked, all signed authorization data related to
-the membership certificate is no longer valid.
+**Figure:** Add restricted user rules to an application
 
-#### Distribution of policy updates and membership certificates
+[add-restricted-user-rules-to-an-application]: /files/learn/security2_0/add-restricted-user-rules-to-an-application.png
 
-An admin uses the Security Manager to generate updated policy and membership
-certificates, encrypt the payload with a session key derived from the some nonce
-value and the master secret for the &lt;sender, recipient&gt; pair.  The package
-including the sender public key, destination public key, nonce, and encrypted
-payload is sent to the Distribution Service to delivery to the target.  The
-target uses the information in the package to locate the master secret to
-generate the corresponding session key to decrypt the payload.  Once the
-decryption is successful, the target signs the hash of the package and provide
-the signature in the reply.
+### Application Manifest
+When considering where AllSeen enabled applications will run, smartphones are an
+obvious target. A lot of applications are available in various the app stores.
+Unfortunately not all of these applications are trustworthy. Example the
+flashlight app which asked for access to phonebook, network, etc. Same as the
+application is sandboxed on the smartphone, we would like to sandbox
+applications within the AllSeen security 2.0 context. If I install an
+AllSeen TV remote control app, then I would like it only to have rights to do TV
+operations. Nothing more. Since we can't trust the application, we can't assume
+it will behave properly. So these restrictions must be enforced by the peers.
+For the RC example, the TV must check the app has permissions. When remote
+control app tries to open the door, then the door must reject the call.
 
-The Distribution Service is a service provided by the Security Appliance or the
-Security Manager.  This service provides persistent storage and high
-availability to distribute updates to applications.
+The main goal of an application manifest is to inform an admin which interfaces
+an application will produce and consume. Once the admin accepts the manifest,
+the manifest is signed and installed on the application. The signed manifest
+will be used to enforce the application cannot produce or consume any
+unwarranted interfaces.
 
-Using the destination’s public key, the Distribution Service discovers the
-target and attempts to install the updated policies and certificates.
+A signed application manifest limits the potential interfaces a malicious
+application can access within a set of well-behaving applications.
 
-![distribution-of-policy-updates-and-certificate][distribution-of-policy-updates-and-certificate]
+The goal of an application manifest is similar application manifests on Android,
+in which an end-user has to accept a list of permissions when installing a new
+application on his phone which are enforced by Android. The implementation is
+however different, as described below.
 
-**Figure:** Distribution of policy updates and certificate
+##### Requirements
 
-#### Application Manifest
+###### Manifest Format
 
-The main goal of a manifest is to inform the end-user which services an
-application will provide and consume.  Manifest enforcement ensures the
-application cannot provide nor consume any unwarranted services. The trustworthy
-description of the interfaces shall be presented to the user in a human readable
-and localized fashion.
+The manifest must be expressed at the interface level. It may be expressed at
+the member level, but this is not recommended as this increases the complexity
+that needs to be handled by the admin.
 
-The manifest shall be enforced by the receiving peer, as a malicious application
-may not be trusted to enforce it locally.
+##### Manifest Acceptance
 
-##### Manifest Format
+The manifest must be presented to the admin in a user-friendly way. As the
+interface names might not be very informative, they must be mapped to a
+user-friendly description.
 
-The format of the manifest is similar to the format of the authorization data.
-Please refer to the section [Policy Templates][policy-templates] below for more
-information.
+The descriptions of the interfaces must be trustworthy. As a malicious
+application can by definition not be trusted, the descriptions must be provided
+by a trusted third party.
 
-##### Trusted Description
+The descriptions of the interfaces should be localized to the admin.
 
-The manifest data provided by the application does not contain any description.
-The description would be provided via HTTPS by a Service Description Server:
+The AllSeen Alliance must provide descriptions for any standard AllSeen
+interface, as reviewed and accepted by the Interface Review Board (IRB).
 
-1.	Provided by the developer using the reserve domain name of the interface name
-2.	Provided by the AllSeen Alliance
+The application developer must provide the descriptions of any application
+specific interfaces.
 
-The developer must at least provide the description for the interface.  An
-interface member listed in the manifest should have a description.  If there is
-no description for the member, the interface description will be used in its
-place.
+If a manifest is defined at the member level, a description for each listed member must be available.
 
-##### Manifest enforcement
+##### Manifest Enforcement
 
-As manifest are incorporated in the membership policy, no additional enforcement
-mechanism is required.  The remote peer will intersect the rules in its local
-policy with the rules defined in the membership policy to enforce the
-application manifest.
+When an application tries to produce or consume without a signed manifest
+granting him to do so, the AllSeen framework must return an authorization
+failure error.
 
-##### Generating Policy and Membership Based on Manifest
+The accepted manifest must be enforced by the peer application, as a malicious
+application may not be trusted to enforce it locally.
 
-The following flow shows how the Security Manager uses the manifest data
-provided by the application to generate local policy and membership policies.
+##### Manifest Update
+Whenever an application is updated and does not require additional rights, it
+may still use the previously signed manifest. Only when the update requires
+additional rights, the admin must accept a new manifest for that application.
 
-![guilding-policy-using-manifest][guilding-policy-using-manifest]
+##### Implementation Scenario
+When an administrator wants to add an application to one of his security groups,
+he needs to accept a manifest of the application. When he accepts the manifest,
+its contents digest will be encoded in a new identity certificate.
+
+1. The security manager discovers the remote application through the
+   NotifyConfig signal.
+2. The admin adds the application to one of his security groups.
+3. The security manager retrieves the manifest template of the application.
+4. The security manager contacts a server to retrieve the human readable
+   description of the interfaces and presents them to the admin.
+5. The admin accepts (or rejects) the description of the manifest. When the
+   admin rejects the manifest, the application will not receive a manifest.
+6. The security manager encodes the digest of the requested (& accepted)
+   permissions in a new identity certificate.
+7. The security manager installs the new identity certificate and manifest on
+   the application.
+
+![building-policy-using-manifest][]
 
 **Figure:** Building Policy using manifest
 
-### Access validation
+[building-policy-using-manifest]: /files/learn/security2_0/building-policy-using-manifest.png
 
-#### Validation flow
+##### Application
+The application developer needs to embed the manifest in his application. There
+should be a platform specific callback function to retrieve the manifest that
+belongs to an application. For Android, it could be based on convention,
+providing the manifest as a file inside the application package. For small
+embedded devices, the manifest could be part of the application.
 
-A typical provider validation of the consumer permissions when a secure
-interface is requested.
+To ease the generation of membership certificates by the security manager, the
+manifest format should line up with the format that is used to express access
+rules in the membership certificates.
 
-![validation-flow][validation-flow]
+##### Interface Description Server
 
-**Figure:** Validation Flow
+The server serving the descriptions of the interfaces can either be:
+1. Hosted by the application developer for application specific interfaces. To
+   prevent spoofing attacks, the URL of this server MUST be based on the reverse
+   domain name of the interface name.
+2. Hosted by the AllSeen Alliance for common AllSeen interfaces. This server
+   MUST be hosted on a predefined URL. This server MUST be contacted over HTTPS.
+##### Manifest Enforcement
+When applying the specific policy rules, the remote peer will enforce the rules
+specified in the manifest since the manifest is associated with the identity
+certificate.
 
-#### Validating a consumer policy
+## Access validation
 
-A typical consumer policy validation when a secure method call is called by the
-consumer’s app.
+### Validating policy on a producer
+This is a typical producer validation of a consumer’s permissions when the
+consumer makes a method call on a secure interface.
 
-![validating-a-consumer-policy][validating-a-consumer-policy]
 
-**Figure:** Validating a consumer policy
+![validating-policy-on-a-producer][]
 
-2.4.3 Exchanging the membership certificates during session establishment
-During the AllJoyn session establishment, the peers exchange the membership certificates..
+**Figure:** Validating policy on a producer
 
-![exchange-a-trust-profile][exchange-a-trust-profile]
+[validating-policy-on-a-producer]: /files/learn/security2_0/validating-policy-on-a-producer.png
 
-**Figure:** Exchange a trust profile
+### Validating policy on a consumer
+This is a typical consumer policy validation when the consumer application calls
+a secure method call.
 
-#### Anonymous session
+![validating-policy-for-a-consumer][]
+
+**Figure:** Validating policy for a consumer
+
+[validating-policy-for-a-consumer]: /files/learn/security2_0/validating-policy-for-a-consumer.png
+
+### Validating policy on a consumer that requires producers membership in a security group
+The following flow shows a policy enforcement on the consumer that requires the
+producer belong to a security group.
+
+![consumer-policy-requires-producer-belong-to-a-security-group][]
+
+**Figure:** Consumer policy requires producer belong to a security group
+
+[consumer-policy-requires-producer-belong-to-a-security-group]: /files/learn/security2_0/consumer-policy-requires-producer-belong-to-a-security-group.png
+
+### Anonymous session
 
 In scenarios when there is no trust established between two peers such as when a
 guest comes into the user's home, the guest’s consumer application can still
-control certain devices if and only if there is an ANY_USER policy installed on
-these devices. In such a scenario, the consumer application can ask the
-Permission Management module to switch to an ECDHE_NULL session for a short
-period of time.
+control certain applications if and only if there are ACLs specified for
+ANONYMOUS_USER installed on these devices.
 
-![anonymous-access][anonymous-access]
+Note that ANY_USER refers to authenticated peers while ANONYMOUS_USER refers to
+unauthenticated peers.
+
+The consumer always use ECDHE_ECDSA to contact a peer.  If the key exchange
+fails, it can fallback to ECDHE_NULL and contact the peer as an anonymous user.
+This process is automated so the application developer does not need to drive
+the key exchange process.
+
+![anonymous-access][]
 
 **Figure:** Anonymous access
 
-#### Validating an admin user
+[anonymous-access]: /files/learn/security2_0/anonymous-access.png
 
-![validating-an-admin-user][validating-an-admin-user]
+### Validating an admin user
 
-**Figure:** Validating an admin user
+![validating-an-admin][]
 
-#### Emitting a session-based signal
+**Figure:** Validating an admin
 
-Before emitting a session-based signal to existing connections, the provider
-verifies whether there is any peer that is allowed to receive the signal. Upon
-receipt of the signal, the consumer checks whether provider is authorized to
-emit the given signal.
+[validating-an-admin]: /files/learn/security2_0/validating-an-admin.png
 
-![validating-a-session-based-signal][validating-a-session-based-signal]
+### Emitting a session-based signal
+
+Before emitting a session-based signal to existing connections, the producer
+verifies whether it is allowed to emit the given signal to any authorized party.
+Upon receipt of the signal, the consumer checks whether it has the authorization
+to accept the given signal.  The consumer verifies the producer’s manifest for
+proper authorization.
+
+![validating-a-session-based-signal][]
 
 **Figure:** Validating a session-based signal
 
-### Authorization data format
+[validating-a-session-based-signal]: /files/learn/security2_0/validating-a-session-based-signal.png
 
-#### The format is binary and exchanged between peers using AllJoyn marshalling
+## Authorization data format
+
+### The format is binary and exchanged between peers using AllJoyn marshalling
 The authorization data will be in binary format.  The following guidelines are
 used for exchanging and persisting the authorization data:
-1.	The authorization data will use AllJoyn marshalling to exchange with other peers.
-2.	The AllJoyn marshalling will be used to generate signed buffer for DSA purpose.
-3.	The AllJoyn marshalling will be used to serialize the data for persistence purpose.
-4.	The parser will ignore any field that it does not support.
+1. The authorization data will use AllJoyn marshalling to exchange with other peers.
+2. The AllJoyn marshalling will be used to generate buffers to be signed.
+3. The AllJoyn marshalling will be used to serialize the data for persistence.
+4. The parser will ignore any field that it does not support.
 
-#### Format Structure
+### Format Structure
 
-The following diagram describes the format structure of the authorization data.
+The following diagram describes the format structure of the ACL data.
 
-![authorization-data-format-structure][authorization-data-format-structure]
+![authorization-data-format-structure][]
 
 **Figure:** Authorization Data Format Structure
 
-##### Authorization data field definition
+[authorization-data-format-structure]: /files/learn/security2_0/authorization-data-format-structure.png
+
+#### Authorization data field definition
 **Root level**
 
 | Name | Data type | Required | Description |
 |---|---|---|---|
 | version | number | yes | The specification version number.  The current spec version number is 1. |
-| serialNumber | number | yes | The serial number of the policy |
-| admins | Array of  peer objects | no | The list of peers who have the admin privilege for the application. An admin peer becomes a certificate authority for the application. |
-| terms | Array of  policy terms | no | List of policy terms.  A term specifies the permissions the application can perform. |
+| serialNumber | number | yes | The serial number of the policy. The serial number is used to detect of an update to an older policy. |
+| ACLs | Array of  ACLs | yes | List of access control lists. |
 
-**Policy Term**
+**Access Control List**
 
 | Name | Data type | Required | Description |
 |---|---|---|---|
-| peers | array of objects | no | List of peers.  There are multiple types of peers.  A peer object has the following fields:<br><table><tr><th>Name</th><th>Data Type</th><th>Required</th><th>Description</th></tr><tr><td>type</td><td>number</td><td>yes</td><td>The peer type. The following are the valid type of peers:<ul><li>ANY</li><li>GUID</li><li>GUILD</li></ul></td></tr><tr><td>keyInfo</td><td>structure of GUID and Public Key</td><td>no</td><td>The peer key info data. Depending on peer type, the keyInfo is:<br><ul><li>ANY – not applicable</li><li>GUID – the GUID and public key of the peer</li><li>GUILD – the GUID of the guild and the public,key of the guild authority</li></ul></td></tr></table> |
-| rules | array of rules | no | List of allowed rules. The application is allowed to perform the actions specified in the given rules.<br>The default rule is to allow nothing. |
+| peers | array of objects | no | List of peers.  There are multiple types of peers.  A peer object has the following fields:<br><table><tr><th>Name</th><th>Data Type</th><th>Required</th><th>Description</th></tr><tr><td>type</td><td>number</td><td>yes</td><td>The peer type. The following are the valid type of peers:<ul><li>ANONYMOUS_USER  (unauthenticated peer)</li><li>ANY_USER (authenticated peer)</li><li>RESTRICTED_USER (authenticated user validated by a specific certificate authority)</li><li>PUBLIC_KEY</li><li>SECURITY_GROUP</li></ul></td></tr><tr><td>publicKey</td><td>Public Key</td><td>no</td><td>The peer key info data. Depending on peer type, the publicKey is:<br><ul><li>ANONYMOUS_USER – not applicable</li><li>ANY_USER – not applicable</li><li>RESTRICTED_USER – the public key of the certificate authority</li><li>PUBLIC_KEY – the public key of the peer</li><li>SECURITY_GROUP – the public key of the security group authority</li></ul></td></tr><tr><td>sgID</td><td>GUID</td><td>No</td><td>Security group ID.  This is applicable only the type SECURITY_GROUP.</td></tr></table> |
+| rules | array of rules | no | <p>List of allowed rules. The application is allowed to perform the actions specified in the given rules.</p><p>The default rule is to allow nothing.</p> |
 
 **Rule Record**
 
 | Name | Data type | Required | List of values | Description |
 |---|---|---|---|---|
-| obj | string | no |  | Object path of the secured object. A \* indicates a prefix match.<br> **If the object path is specified, the remaining fields are ignored.  In other words, a rule is either object path specific or interface specific.** |
-| ifn | string | no |  | Interface name. A \* indicates a prefix match. |
+| obj | string | no |  | Object path of the secured object. A \* at the end indicates a prefix match.  When there is no \*, it is an exact match. |
+| ifn | string | no |  | Interface name. A \* at the end indicates a prefix match.  When there is no \*, it is an exact match. |
 
 
 **Interface Member Record**
 
 | Name | Data type | Required | List of values | Description |
 |---|---|---|---|---|
-| mbr | string | no |  | Member name |
-| type | number | no | <ul><li>M: method call</li><li><li>S: signal</li><li>P: property</li></ul> | Message type. If the type is not specified, the Interface definition will be examined in the following order to determine whether the member name is.<ol><li>A method call or signal.</li><li>A property.</li></ol> |
-| action | byte | no |  | The action mask flag. The list of valid masks:<br><ul><li>0x01: Denied</li><li>0x02: Provide – allows to send signal, perform method calls and produce properties</li><li>0x04: Observe – allows to receive signals and get properties</li><li>0x08: Modify – Observe + Set properties + method calls</li></ul> |
-| mutualAuth | boolean | no |  | Mutual authorization required. Both peers (local and remote) are required to be granted.<br>Default is yes. |
+| mbr | string | no |  | Member name.  A \* at the end indicates a prefix match.  When there is no \*, it is an exact match. |
+| type | number | no | <ul><li>0: any</li><li>1: method call</li><li>2: signal</li><li>3: property</li></ul> | Message type.<br>Default is any |
+| action | byte | no |  | The action mask flag. The list of valid masks:<br><ul><li>0x01: Denied</li><li>0x02: Provide – allows sending signal, exposing method calls and producing properties</li><li>0x04: Observe – allows receiving signals and getting properties</li><li>0x08: Modify – set properties and make method calls</li></ul> |
 
+#### Enforcing the rules at message creation or receipt
 
-##### Enforcing the rules at message creation or receipt
+The following table lists the required action mask base on the message.
 
-The following table describes the rule enforcement.
+**Table:** Action Mask Matrix
 
-**Table:** Permission Matrix
-
-| Message Action | Local Policy<br>If there is no local policy, the default action is denied.<br>Admin user has full access. | Remote peer’s membership auth data.<br>Check when the authorization is guild specific. |
+| Message Action | Local Policy | Remote peer’s manifest |
 |---|---|---|
-| send GetProperty | Peer has PROVIDE permission for this property | Peer has PROVIDE permission for this property |
-| receive GetProperty | Peer has OBSERVE permission for this property | Peer has OBSERVE permission for this property |
-| send SetProperty | Peer has PROVIDE permission for this property | Peer has PROVIDE permission for this property |
-| receive SetProperty | Peer has MODIFY permission for this property | Peer has MODIFY permission for this property |
-| send method call | Peer has PROVIDE permission for this method call | Peer has PROVIDE permission for this method call |
-| receive method call | Peer has MODIFY permission for this method call | Peer has MODIFY permission for this method call |
-| send signal | Peer has OBSERVE permission for this signal | Peer has OBSERVE permission for this signal |
-| receive signal | Peer has PROVIDE permission for this signal | Peer has PROVIDE permission for this signal |
+| send GetProperty | Remote peer has PROVIDE permission for this property | Remote peer has PROVIDE permission for this property |
+| receive GetProperty | Remote peer has OBSERVE permission for this property | Remote peer has OBSERVE permission for this property |
+| send SetProperty | Remote peer has PROVIDE permission for this property | Remote peer has PROVIDE permission for this property |
+| receive SetProperty | Remote peer has MODIFY permission for this property | Remote peer has MODIFY permission for this property |
+| send method call | Remote peer has PROVIDE permission for this method call | Remote peer has PROVIDE permission for this method call |
+| receive method call | Remote peer has MODIFY permission for this method call | Remote peer has MODIFY permission for this method call |
+| send signal | Remote peer has OBSERVE permission for this signal | Remote peer has OBSERVE permission for this signal |
+| receive signal | Remote peer has PROVIDE permission for this signal | Remote peer has PROVIDE permission for this signal |
 
+##### Initial policy after claim
 
-##### Search Algorithm
+Right after the application is claimed, an initial policy is created automatically with the following feature:
+
+1. Admin group has full access
+2. Outgoing messages are authorized
+3. Incoming messages are not authorized
+
+An example of the initial policy is:<br>
+peer: SECURITY_GROUP<br>
+pubKey: admin authority key<br>
+sgID: admin group ID<br>
+ifn: \*<br>
+mbr: \*<br>
+action: 0x0E (PROVIDE | OBSERVE | MODIFY)<br>
+peer: ANY_USER<br>
+ifn: \*<br>
+mbr: \*<br>
+action: 0x06   (PROVIDE | OBSERVE)<br>
+
+#### Search Algorithm
 
 Whenever an encrypted message is created or received, the authorization rules
 are searched using the message header data (object path, interface name, and
-member name) and the requested permission listed in the Table 2-2: Permission 
-Matrix.
+member name) and the requested permission listed in the [Action Mask Matrix][action-mask-matrix] Table.
 
-##### Matching Algorithm within a Policy Term
+[action-mask-matrix]: #enforcing-the-rules-at-message-creation-or-receipt
 
-The following matching algorithm is used to find a match within a policy term.
-Once a match is found within the rules, the search stops.
- - If the rule has both object path and interface name, the message must prefix match both.
- - If the rule has object path, the message must prefix match the object path.
- - If the rule has interface name, the message must prefix match the interface
-   name.
- - Find match in member name
- - Verify whether the requested permission is allowed by the authorization mask
-   at the member.
-   - When a member name has an exact match and is explicitly denied access then
-     the rule is not a match.
-   - When a member name has an exact match and is authorized then the rule is a
-     match
-   - When a member name has a prefix match and is explicitly denied access then
-     the rule is not a match.
-   - When a member name has a prefix match and is authorized then the rule is a
-     match
+#### Matching Algorithm within a Policy Term
 
-##### Search Priorities for Policy Terms
+The following matching algorithm is used to find a match within an ACL.  Once a
+match or an explicit deny is found within the rules, the search stops.
+- If the rule specifies both object path and interface name, the message must
+  match both.
+- If the rule specifies object path, the message must match the object path.
+- If the rule specifies interface name, the message must match the interface
+  name.
+- If the rule specifies member name, the message must match the member name.
+- If the rule specifies a type, the message must match the type
+- Verify whether the requested permission is allowed by the action mask at the
+  member.
+   - When a member name has an exact match and the action mask indicates access
+     is explicitly denied then the explicit deny is found.
+   - When a member name has an exact match and is allowed by the action mask
+     then a match is found.
+   - When a member name has a prefix match and the action mask indicates access
+     explicitly denied then the explicit deny is found.
+   - When a member name has a prefix match and is allowed by the action mask
+     then is a match is found.
 
-Policy terms are searched in this order.  Once a match or an explicit deny is
+
+#### Search Priorities for Policy ACLs
+Policy ACLs are searched in this order.  Once a match or an explicit deny is
 found, the search stops.
+1. All public key policy ACLs
+2. All security group policy ACLs are applied in undefined order. Per
+   security-group-in-common, the materialized authorization rules are the
+   intersection of the authorization rules between the consumer and producer. A
+   match found in any of the security group policy ACLs is consider a match is
+   found.
+3. The restricted-user policy ACLs
+4. The any-user policy ACLs.
+5. The anonymous-user policy ACLs
 
-1. All peer-specific policy terms
-2. All guild-in-common policy terms are applied in undefined order. Per
-   guild-in-common, the materialized authorization rules are the intersection of
-   the authorization rules between the consumer and provider.
-3.	The ANY-USER policy terms
-
-#### Policy Templates
-An application developer can define policy templates to help the Security
-Manager to build consumer and provider policies.  A policy template provides the
-following data in:
-
-- Specification version number
-- List of permission rules
-
-### Certificates
-
+## Certificates
 The following subsections detail the supported certificates.  The certificate
 format is X.509 v3.  The certificate lifetime will be considered in order to
 avoid having to revoke the certificate.  However, certain devices do not have
-access to a trusted real time clock.  In such cases, the application on those
+access to a trusted real time clock.  In such cases, applications on those
 devices will not be able to validate the certificate lifetime, thus relying on
-the certificate revocation.
+certificate
 
-#### Main Certificate Structure
-
+### 2.6.1 Main Certificate Structure
 All AllSeen X.509 certificates have the following ASN.1 structure.  Currently
 only the ECDSA (prime256v1) certificates are supported.
+
 ```
 Certificate ::= SEQUENCE {
-tbsCertificate TBSCertificate,
-signatureAlgorithm SEQUENCE { 1.2.840.10045.4.3.2 (ecdsa-with-sha256) },
-signatureValue BIT STRING
+    tbsCertificate TBSCertificate,
+    signatureAlgorithm SEQUENCE { 1.2.840.10045.4.3.2 (ecdsa-with-sha256) },
+    signatureValue BIT STRING
 }
 
 TBSCertificate ::= SEQUENCE {
-version v3(2),
-serialNumber INTEGER,
-signature SEQUENCE { 1.2.840.10045.4.3.2 (ecdsa-with-sha256) },
-issuer SEQUENCE { 2.5.4.3 (commonName), UTF8 STRING },
-validity Validity,
-subject Name,
-subjectPublicKeyInfo SEQUENCE { 1.2.840.10045.2.1 (id-ecPublicKey), 1.2.840.10045.3.1.7 (prime256v1), BIT STRING },
-issuerUniqueID IMPLICIT UniqueIdentifier OPTIONAL,
-subjectUniqueID IMPLICIT UniqueIdentifier OPTIONAL,
-extensions EXPLICIT
-	}
+    version v3(2),
+    serialNumber INTEGER,
+    signature SEQUENCE { 1.2.840.10045.4.3.2 (ecdsa-with-sha256) },
+    issuer SEQUENCE { 2.5.4.3 (commonName), UTF8 STRING },
+    validity Validity,
+    subject Name,
+    subjectPublicKeyInfo SEQUENCE { 1.2.840.10045.2.1 (id-ecPublicKey), 1.2.840.10045.3.1.7 (prime256v1), BIT STRING },
+    issuerUniqueID IMPLICIT UniqueIdentifier OPTIONAL,
+    subjectUniqueID IMPLICIT UniqueIdentifier OPTIONAL,
+    extensions EXPLICIT
+}
+
+Extensions ::= SEQUENCE {
+    BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN (FALSE) },
+    SubjectAltName SEQUENCE { 2.5.29.17 (subjectAltName), OCTET STRING },
+    AuthorityKeyIdentifier SEQUENCE { 1.2.5.29.35  (id-ce-authorityKeyIdentifier), OCTET STRING }
+}
 ```
 
-##### Security 2.0 Custom OIDs
+#### AuthorityKeyIdentifier
+The AuthorityKeyIdentifier standard extension field will hold 64 bits of data
+comprising of a four-bit type field with the value 0100 followed by the least
+significant 60 bits of the SHA-256 hash of the value of the BIT STRING
+subjectPublicKey (excluding the tag, length, and number of unused bits).
+
+#### Security 2.0 Custom OIDs
 All Security 2.0 custom OIDs will start with `1.3.6.1.4.1.44924.1` where
 `1.3.6.1.4.1.44924` is the registered AllSeen Alliance Private Enterprise
 Number.
 
-#### Identity certificate
+### Identity certificate
 
-The identity certificate is used to associate an application with an identity alias.
+The identity certificate is used to associate application, user or device with
+an identity alias.  This allows an identity alias to have a number of identity
+certificates installed in different keystores.
 
-The alias is encoded in the SubjectAltName field in the extensions.
+The identity alias is encoded in the SubjectAltName field in the extensions.
 
 The extensions include the following fields:
-
-- CertificateType: the type of certificate within the AllSeen ecosystem.  An
-  identity certificate has certificate type equal to 1.
-- SubjectAltName: the alias for the identity.
-- AssociatedDigest: the digest of the associated identity data. For example, an
-  identity VCard.
-
+ - CertificateType: the type of certificate within the AllSeen ecosystem.  An
+   identity certificate has certificate type equal to 1.
+ - SubjectAltName: the alias for the identity.
+ - AssociatedDigest: the digest of the associated manifest data.
 Both the CertificateType and AssociatedDigest have custom OIDs under the
 Security 2.0 root.
-```
-SubjectName ::= SEQUENCE { 2.5.4.3 (commonName), UTF8 STRING },
 
+```
 Extensions ::= SEQUENCE {
 BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN (FALSE) },
-CertificateType SEQUENCE { 1.3.6.1.4.1.44924.1.1 (AllSeen Certificate Type), INTEGER (1) },
 SubjectAltName SEQUENCE { 2.5.29.17 (subjectAltName), OCTET STRING },
+AuthorityKeyIdentifier SEQUENCE { 1.2.5.29.35  (id-ce-authorityKeyIdentifier), OCTET STRING },
+CertificateType SEQUENCE { 1.3.6.1.4.1.44924.1.1 (AllSeen Certificate Type), INTEGER (1) },
 AssociatedDigest SEQUENCE { 1.3.6.1.4.1.44924.1.2 (AllSeen Certificate Digest), 2.16.840.1.101.3.4.2.1 (sha-256), OCTET STRING }
 }
 ```
 
-#### Membership certificate
+### Membership certificate
 
-The membership certificate is used to assert an application is part of a guild.
+The membership certificate is used to assert an application, user or device is
+part of a security group.
 
-The guild identifier is encoded in the Organization Unit Name within the Subject
-Distinguished Name field.
+The security group identifier is encoded with a 16 network byte order octets
+encoded in the SubjectAltName field in the extensions.
 
 The extensions include the following fields:
+ - CertificateType: the type of certificate within the AllSeen ecosystem.  A
+   membership certificate has certificate type equal to 2.
+ - SubjectAltName: the security group ID.
 
-- CertificateType: the type of certificate within the AllSeen ecosystem.  A
-  membership certificate has certificate type equal to 2.
-- AssociatedDigest: the digest of the associated authorization data.
+The CertificateType has a custom OID defined under the Security 2.0 root.
 
-Both the CertificateType and AssociatedDigest have custom OIDs under the Security 2.0 root.
 ```
-SubjectName ::= SEQUENCE { 2.5.4.11 (organizationalUnitName), UTF8 STRING, 2.5.4.3 (commonName), UTF8 STRING },
-
 Extensions ::= SEQUENCE {
-BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN default FALSE },
-CertificateType SEQUENCE { 1.3.6.1.4.1.44924.1.1 (AllSeen Certificate Type), INTEGER (2) },
-AssociatedDigest SEQUENCE { 1.3.6.1.4.1.44924.1.2 (AllSeen Certificate Digest), 2.16.840.1.101.3.4.2.1 (sha-256), OCTET STRING }
+BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN (FALSE) },
+SubjectAltName SEQUENCE { 2.5.29.17 (subjectAltName), OCTET STRING },
+AuthorityKeyIdentifier SEQUENCE { 1.2.5.29.35  (id-ce-authorityKeyIdentifier), OCTET STRING },
+CertificateType SEQUENCE { 1.3.6.1.4.1.44924.1.1 (AllSeen Certificate Type), INTEGER (1) }
 }
 ```
 
-#### Guild equivalence certificate
-The guild equivalence certificate is used to map other certificates to a
-specific guild.
-
-The guild identifier is encoded in the Organization Unit Name within the Subject
-Distinguished Name field.
-
-The extensions include the following fields:
-- CertificateType: the type of certificate within the AllSeen ecosystem.  A
-  guild equivalence certificate has certificate type equal to 3.
-
-```
-SubjectName ::= SEQUENCE { 2.5.4.11 (organizationalUnitName), UTF8 STRING, 2.5.4.3 (commonName), UTF8 STRING },
-
-Extensions ::= SEQUENCE {
-BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN default FALSE },
-CertificateType SEQUENCE { 1.3.6.1.4.1.44924.1.1 (AllSeen Certificate Type), INTEGER (2) }
-}
-```
-#### User equivalence certificate
-
-The user equivalence certificate enables the holder to act as an agent of the
-issuer.  The holder has the same access privilege as the issuer.  If the
-delegate flag is turned on, the holder can issue certificates that have the same
-effect as if they were signed by the issuer.
-
-The extensions include the following fields:
-- CertificateType: the type of certificate within the AllSeen ecosystem.  A user
-  equivalence certificate has certificate type equal to 4.
-- IssuerPublicKeyInfo: the public key of the issuer
-
-```
-SubjectName ::= SEQUENCE { 2.5.4.11 (organizationalUnitName), UTF8 STRING, 2.5.4.3 (commonName), UTF8 STRING },
-
-Extensions ::= SEQUENCE {
-BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN default FALSE },
-CertificateType SEQUENCE { 1.3.6.1.4.1.44924.1.1 (AllSeen Certificate Type), INTEGER (2) },
-PrincipalPublicKeyInfo SEQUENCE { 1.3.6.1.4.1.44924.1.3 (AllSeen Issuer Public Key), 1.2.840.10045.3.1.7 (prime256v1), BIT STRING}
-
-}
-```
-
-### Sample use cases
+## Sample use cases
 The solution listed here for the use cases is just a typical solution.  It is
 not intended to be the only solution.
 
-#### Users and devices
+### Users and devices
 Users:  Dad, Mom, and son
+
+| Security Group | Members |
+|---|---|
+| homeAdmin | Dad, Mom |
+| sonAdmin | Son |
+| dadOnlyAdmin | Dad |
+| livingRoom | TV, living room tablet, son’s room TV, master bedroom TV, master bedroom tablet |
+| masterBedrom | Master bedroom tablet |
 
 | Room | Devices | Notes |
 |---|---|---|
-| Living room | TV, Set-top box, tablet, Network-attached Storage (NAS) | <ul><li>All devices owned by Dad</li><li>All devices are accessible for the whole family</li><li>Tablet is managed by Dad, but the whole family can use it</li></ul> |
-| Son’s bedroom | TV | <ul><li>Owned and managed by son</li><li>Devices are allowed to interact with living room devices but the parent al control feature is denied.</li></ul> |
-| Master bedroom | TV, tablet | <ul><li>TV used by Mom and Dad only</li><li>Tablet used by Dad only</li><li>Devices can interact with living room devices</li></ul> |
+| Living room | TV, Set-top box, tablet, Network-attached Storage (NAS) | <ul><li>All devices claimed by Dad and managed by Mon and Dad using the security group homeAdmin<li>All devices are accessible for the whole family</li></ul> |
+| Son’s bedroom | TV | <ul><li>Claimed and managed by son</li><li>TV is allowed to interact with living room devices for streaming data</li></ul>
+| Master bedroom | TV, tablet | <ul><li>TV used by Mom and Dad only</li><li>Tablet used by Dad only</li><li>TV is allowed to interact with living room devices for streaming data</li><li>Tablet has full control of living room devices including the parent control feature</li></ul> |
 
-#### Users set up by Dad
+### Users set up by Dad
 
-![use-case-users-set-up-by-dad][use-case-users-set-up-by-dad]
+![use-case-users-set-up-by-dad][]
 
 **Figure:** Use case - users set up by Dad
 
-#### Living room set up by Dad
+[use-case-users-set-up-by-dad]: /files/learn/security2_0/use-case-users-set-up-by-dad.png
 
-![use-case-living-room-set-up-by-dad][use-case-living-room-set-up-by-dad]
+### Living room set up by Dad
+
+![use-case-living-room-set-up-by-dad][]
 
 **Figure:** Use case - living room set up by Dad
 
-#### Son's bedroom set up by son
+[use-case-living-room-set-up-by-dad]: /files/learn/security2_0/use-case-living-room-set-up-by-dad.png
 
-![use-case-sons-bedroom-set-up-by-son][use-case-sons-bedroom-set-up-by-son]
+### Son's bedroom set up by son
+
+![use-case-sons-bedroom-set-up-by-son][]
 
 **Figure:** Use case - son's bedroom set up by son
 
-#### Master bedroom set up by Dad
+[use-case-sons-bedroom-set-up-by-son]: /files/learn/security2_0/use-case-sons-bedroom-set-up-by-son.png
 
-![use-case-master-bedroom-set-up-by-dad][use-case-master-bedroom-set-up-by-dad]
+### Master bedroom set up by Dad
+
+![use-case-master-bedroom-set-up-by-dad][]
 
 **Figure:** Use case - master bedroom set up by Dad
 
-#### Son can control different TVs in the house
+[use-case-master-bedroom-set-up-by-dad]: /files/learn/security2_0/use-case-master-bedroom-set-up-by-dad.png
 
-![use-case-son-can-control-different-tvs-in-the-house][use-case-son-can-control-different-tvs-in-the-house]
+### Son can control different TVs in the house
+
+![use-case-son-can-control-different-tvs-in-the-house][]
 
 **Figure:** Use case – Son can control different TVs in the house
 
-#### Living room tablet controls TVs in the house
+[use-case-son-can-control-different-tvs-in-the-house]: /files/learn/security2_0/use-case-son-can-control-different-tvs-in-the-house.png
 
-![use-case-living-room-tablet-controls-tvs][use-case-living-room-tablet-controls-tvs]
+### Living room tablet controls TVs in the house
+
+![use-case-living-room-tablet-controls-tvs][]
 
 **Figure:** Use case - Living room tablet controls TVs
 
-## Enhancements to Existing Framework
+[use-case-living-room-tablet-controls-tvs]: /files/learn/security2_0/use-case-living-room-tablet-controls-tvs.png
 
-### Crypto Agility Exchange
+# Enhancements to Existing Framework
+
+## Crypto Agility Exchange
 
 In order to provide the AllJoyn peers to express the desire to pick some
-particular cryptographic cypher suite to use in the key exchange and the
+particular cryptographic cipher suite to use in the key exchange and the
 encryption of the messages, new key exchange suite identifiers will be added to
-the framework to express the choice of cypher and MAC algorithms.  The new
+the framework to express the choice of cipher and MAC algorithms.  The new
 identifiers may come from the list of TSL cipher suites specified in
-[Appendix A.5 of TLS RFC5246][rfc5246] , [RFC6655][rfc6655], and [RFC7251][rfc7251].
+[Appendix A.5 of TLS RFC5246][rfc5246] , [RFC6655][rfc6655], and
+[RFC7251][rfc7251].
 
 The following table shows the list of existing key exchange suites:
 
@@ -657,13 +1053,13 @@ The following table shows the list of existing key exchange suites:
 |---|---|---|
 | ALLJOYN_ECDHE_NULL | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
 | ALLJOYN_ECDHE_PSK | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
-| ALLJOYN_ECDHE_ECDSA | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li><li>SPKI based certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li><li>Deprecated</li></ul> |
-| ALLJOYN_RSA_KEYX | <ul><li>AES_128_CCM_8</li><li>SHA256</li><li>X.509 certificate</li></ul> |	<ul><li>Standard Client</li></ul> |
-| ALLJOYN_PIN_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client</li><li>Thin Client version 14.02 or older</li></ul> |
+| ALLJOYN_ECDHE_ECDSA | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
+| ALLJOYN_RSA_KEYX | <ul><li>AES_128_CCM_8</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li></ul> |
+| ALLJOYN_PIN_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client version 14.12 or older</li><li>Thin Client version 14.02 or older</li></ul> |
 | ALLJOYN_SRP_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client</li></ul> |
 | ALLJOYN_SRP_LOGON | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client</li></ul> |
 
-The following table shows the potential list of TSL cipher suites to be
+The following table shows the potential list of TLS cipher suites to be
 supported.  Other suites will be added as codes are available.
 
 | TLS cipher suite | Additional Crypto Parameters | Availability | RFC |
@@ -671,25 +1067,79 @@ supported.  Other suites will be added as codes are available.
 | TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 | <ul><li>Curve NIST P-256 (secp256r1)</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> | [7251][rfc7251] |
 | TLS_RSA_WITH_AES_128_CCM_8 | <ul><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li></ul> | [6655][rfc6655] |
 
-### Permission NotifyConfig Announcement
+## Permission NotifyConfig Announcement
 
-The Permission module provides a session-less signal with the following information:
-1.	A number field named **claimable** to show the claim state of the application.  The possible values of this field are:
+The Permission module provides a session-less signal to allow the Security
+Manager discovering the applications to claim or to distribute updated policy or
+certificates.  The current features provided by the About session-less signal
+does not fulfill the Security Manager discovery requirement.  The signal
+provides the following information:
+1. A number field named **claimable** to show the claim state of the application.  The possible values of this field are:
    - 0 -- not claimable
    - 1 – claimable
    - 2 - claimed
-2.	The public key 
-3.	The permission policy serial number
+2. The authentication GUID and public key
+3. The permission policy serial number
 
 This signal is emitted when
-1.	The bus attachment is enable with peer security using ECDHE key exchanges
-2.	The application is claimed or do a factory reset
-3.	The application has a permission policy installed
-4.	The application has its permission policy removed
+1. The bus attachment is enabled with peer security using ECDHE key exchanges
+2. The application is claimed or do a factory reset
+3. The application has a permission policy installed
+4. The application has its permission policy removed
 
-## Future Considerations
+# Features In Future Releases
 
-###  Broadcast signals and multipoint sessions
+### Certificate revocation (not fully designed)
+The application will validate the certificate using a revocation service
+provided by the Security Manager.  The revocation service is a distributed
+service.
+
+The Certificate Revocation Service is expected to provide a method call that
+takes in the certificate and return whether the given certificate is revoked.
+
+The application looks in its installed policy for the peer that provides the
+Certificate Revocation Service.  If the application can’t locate any of the
+Certificate Revocation Service, the certificate revocation check will be
+skipped.
+
+If a membership certificate is revoked, all signed authorization data related to
+the membership certificate is no longer valid.
+
+#### Current work-around
+The admin can blacklist a peer by installing a deny rule in the application
+policy to deny access for the given peer.
+
+### Distribution of policy updates and membership certificates (not fully designed)
+The Distribution Service is a service provided by a Security Manager.  This
+service provides persistent storage and high availability to distribute updates
+to applications.
+
+An admin uses the Security Manager to generate updated policy and membership
+certificates, encrypt the payload with a session key derived from a nonce value
+and the master secret for the <sender, recipient> pair.  The package including
+the sender public key, recipient public key, nonce, and encrypted payload is
+sent to the Distribution Service to delivery to the recipient.  The recipient
+uses the information in the package to locate the master secret to generate the
+corresponding session key to decrypt the payload.  Once the decryption is
+successful, the recipient signs the hash of the package and provide the
+signature in the reply.
+
+![distribution-of-policy-update-and-certificates][]
+
+**Figure:** Distribution of policy update and certificates
+
+[distribution-of-policy-update-and-certificates]: /files/learn/security2_0/distribution-of-policy-update-and-certificates.png
+
+### Policy Templates
+An application developer can define policy templates to help the Security
+Manager to build consumer and producer policies.  A policy template provides the
+following data in:
+ - Specification version number
+ - List of permission rules
+
+# Future Considerations
+
+##  Broadcast signals and multipoint sessions
 All security enhancements for broadcast signals and multipoint sessions will be
 considered in future releases of Security 2.0.
 
@@ -699,28 +1149,5 @@ considered in future releases of Security 2.0.
 [rfc6655]: http://tools.ietf.org/html/rfc6655
 [rfc7251]: http://tools.ietf.org/html/rfc7251
 
-[security-system-diagram]: /files/learn/security2_0/security-system-diagram.png
-[claim-a-factory-reset-device-without-out-of-band-registration-data]: /files/learn/security2_0/claim-a-factory-reset-device-without-out-of-band-registration-data.png
-[claiming-a-factory-reset-device-using-out-of-band-registratin-data]: /files/learn/security2_0/claiming-a-factory-reset-device-using-out-of-band-registratin-data.png
-[install-a-policy]: /files/learn/security2_0/install-a-policy.png
-[add-an-application-to-a-guild]: /files/learn/security2_0/add-an-application-to-a-guild.png
-[add-a-user-to-a-guild]: /files/learn/security2_0/add-a-user-to-a-guild.png
-[reissue-membership-certificate]: /files/learn/security2_0/reissue-membership-certificate.png
-[add-a-guild-equivalence-certificate-to-an-application]: /files/learn/security2_0/add-a-guild-equivalence-certificate-to-an-application.png
-[distribution-of-policy-updates-and-certificate]: /files/learn/security2_0/distribution-of-policy-updates-and-certificate.png
-[guilding-policy-using-manifest]: /files/learn/security2_0/guilding-policy-using-manifest.png
-[validation-flow]: /files/learn/security2_0/validation-flow.png
-[validating-a-consumer-policy]: /files/learn/security2_0/validating-a-consumer-policy.png
-[exchange-a-trust-profile]: /files/learn/security2_0/exchange-a-trust-profile.png
-[anonymous-access]: /files/learn/security2_0/anonymous-access.png
-[validating-an-admin-user]: /files/learn/security2_0/validating-an-admin-user.png
-[validating-a-session-based-signal]: /files/learn/security2_0/validating-a-session-based-signal.png
-[authorization-data-format-structure]: /files/learn/security2_0/authorization-data-format-structure.png
-[use-case-users-set-up-by-dad]: /files/learn/security2_0/use-case-users-set-up-by-dad.png
-[use-case-living-room-set-up-by-dad]: /files/learn/security2_0/use-case-living-room-set-up-by-dad.png
-[use-case-sons-bedroom-set-up-by-son]: /files/learn/security2_0/use-case-sons-bedroom-set-up-by-son.png
-[use-case-master-bedroom-set-up-by-dad]: /files/learn/security2_0/use-case-master-bedroom-set-up-by-dad.png
-[use-case-son-can-control-different-tvs-in-the-house]: /files/learn/security2_0/use-case-son-can-control-different-tvs-in-the-house.png
-[use-case-living-room-tablet-controls-tvs]: /files/learn/security2_0/use-case-living-room-tablet-controls-tvs.png
-
 [policy-templates]: #policy-templates
+[authorization-data-format]: #authorization-data-format

@@ -13,17 +13,21 @@
 |          |[alljoyn-ddapi-v14.12-src.tar.gz][ddapi]|14.12.00|[Release Notes][ddapi-crn]
 |          |[AllJoynCodeGenSetup-14.12.tar.gz][codegen-1412]|14.12.00|[Release Notes][codegen-notes-1412]
 |          |[alljoyn-services-14.12.00-src.tar.gz][source-base-services-1412]|14.12.00|[Release Notes][base-services-notes-1412]
+|          |Lighting [service_framework-14.12.zip][source-lighting-service_framework-1412]|14.12.00|[Release Notes][lighting-notes-1412]
+|          |Lighting [apps-14.12.zip][source-lighting-apps-1412]|14.12.00|[Release Notes][lighting-notes-1412]
 |Android   |[Core SDK - release][android-core-rel-1412]|14.12.00b|[Release Notes][core-notes-1412]
 |          |[Core SDK - debug][android-core-debug-1412]|14.12.00b|[Release Notes][core-notes-1412]
 |          |[Onboarding SDK][android-onboarding-1412]  |14.12.00 |[Release Notes][base-services-notes-1412]
 |          |[Configuration SDK][android-config-1412]   |14.12.00 |[Release Notes][base-services-notes-1412]
 |          |[Notification SDK][android-notif-1412]     |14.12.00 |[Release Notes][base-services-notes-1412]
 |          |[Control Panel SDK][android-controlpanel-1412]|14.12.00 |[Release Notes][base-services-notes-1412]
+|          |[Lighting SDK][android-lighting-1412]      |14.12.00 |[Release Notes][lighting-notes-1412]
 |iOS       |[Core SDK][ios-core-1412]                  |14.12.00b|[Release Notes][core-notes-1412]
 |          |[Onboarding SDK][ios-onboarding-1412]  |14.12.00|[Release Notes][base-services-notes-1412]
 |          |[Configuration SDK][ios-config-1412]   |14.12.00|[Release Notes][base-services-notes-1412]
 |          |[Notification SDK][ios-notif-1412]     |14.12.00|[Release Notes][base-services-notes-1412]
 |          |[Control Panel SDK][ios-controlpanel-1412]|14.12.00|[Release Notes][base-services-notes-1412]
+|          |[Lighting SDK][ios-lighting-1412]      |14.12.00 |[Release Notes][lighting-notes-1412]
 |Windows   |[Windows SDK (64-bit)][win-64bit-core-1412]|14.12.00b|[Release Notes][core-notes-1412]
 |          |[Windows Thin Core SDK][win-thin-1412]     |14.12.00|[Release Notes][core-notes-1412]
 |          |[Onboarding SDK (32-bit)][win32-onboarding-1412]  |14.12.00 |[Release Notes][base-services-notes-1412]
@@ -61,6 +65,12 @@
 * Documentation
   * [14.02 (zip)][14-02-00-zip]
   * [14.06 (zip)][14-06-00-zip]
+
+[source-lighting-service_framework-1412]: https://git.allseenalliance.org/cgit/lighting/service_framework.git/snapshot/service_framework-14.12.zip
+[source-lighting-apps-1412]: https://git.allseenalliance.org/cgit/lighting/apps.git/snapshot/apps-14.12.zip
+[lighting-notes-1412]: https://wiki.allseenalliance.org/lighting/lighting_14.12_release_review
+[android-lighting-1412]: https://allseenalliance.org/releases/alljoyn/14.12/Lighting_SDK_Android_14_12_beta.zip
+[ios-lighting-1412]: https://allseenalliance.org/releases/alljoyn/14.12/Lighting_SDK_iOS_14_12_beta.zip
 
 [source-base-services-1412]: https://allseenalliance.org/releases/alljoyn/14.12/alljoyn-services-14.12.00-src.tar.gz
 [base-services-notes-1412]: https://wiki.allseenalliance.org/baseservices/base_services_14.12_release_review

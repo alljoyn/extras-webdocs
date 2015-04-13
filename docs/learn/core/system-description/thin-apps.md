@@ -349,7 +349,7 @@ app discovering a well-known name prefix.
 **NOTE:** The AJTCL and AllJoyn router exchange data using AllJoyn
 messages (method_call/reply and signals).
 
-![img RN Discovery][RN Discovery]
+![img RN Discovery][]
 
 **Figure:** Thin app discovering a well-known-name prefix
 

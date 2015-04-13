@@ -47,9 +47,9 @@
 
 [ddapi-cpp]: https://allseenalliance.org/docs/ddapi/cpp/index.html
 
-[lsf-cc-cpp]: https://allseenalliance.org/docs/framework/cpp/lighting/controllerclient
-[lsf-cs-cpp]: https://allseenalliance.org/docs/framework/cpp/lighting/controllerservice
-[lsf-sdk-java]: https://allseenalliance.org/docs/framework/java/lighting/sdk
-[lsf-sdk-objc]: https://allseenalliance.org/docs/framework/objc/lighting/sdk
-[lsf-ls-c]: https://allseenalliance.org/docs/framework/tcl/lighting/lampservice
+[lsf-cc-cpp]: https://allseenalliance.org/docs/framework/cpp/lighting/controllerclient/index.html
+[lsf-cs-cpp]: https://allseenalliance.org/docs/framework/cpp/lighting/controllerservice/index.html
+[lsf-sdk-java]: https://allseenalliance.org/docs/framework/java/lighting/sdk/index.html
+[lsf-sdk-objc]: https://allseenalliance.org/docs/framework/objc/lighting/sdk/index.html
+[lsf-ls-c]: https://allseenalliance.org/docs/framework/tcl/lighting/lampservice/index.html
 

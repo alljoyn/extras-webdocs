@@ -59,16 +59,14 @@ project **Navigator**, and add the following XML text:
       <node name="org/alljoyn/Bus/sample">
          <annotation name="org.alljoyn.lang.objc" value="SampleObject"/>
          <interface name="org.alljoyn.bus.sample">
-            <annotation name="org.alljoyn.lang.objc" 
-   value="SampleObjectDelegate"/>
+            <annotation name="org.alljoyn.lang.objc" value="SampleObjectDelegate"/>
+            <annotation name="org.alljoyn.lang.objc.announced" value="true"/>
             <method name="Concatentate">
                <arg name="str1" type="s" direction="in">
-                  <annotation name="org.alljoyn.lang.objc" 
-   value="concatenateString:"/>
+                  <annotation name="org.alljoyn.lang.objc" value="concatenateString:"/>
                </arg>
                <arg name="str2" type="s" direction="in">
-                  <annotation name="org.alljoyn.lang.objc" 
-   value="withString:"/>
+                  <annotation name="org.alljoyn.lang.objc" value="withString:"/>
                </arg>
                <arg name="outStr" type="s" direction="out"/>
             </method>
@@ -118,15 +116,21 @@ in any Objective-C code emitted.
 ```xml
 <interface name="org.alljoyn.bus.sample">
 <annotation name="org.alljoyn.lang.objc" value="SampleObjectDelegate"/>
+<annotation name="org.alljoyn.lang.objc.announced" value="true"/>
 ```
 
 On the above lines, an interface element named org.alljoyn.bus.sample 
 is created. Interface elements contain method, signal and 
-property elements, as well as annotation elements. In this case, 
-the annotation tells the code generator to create an Objective-C 
+property elements, as well as annotation elements.
+
+The first annotation tells the code generator to create an Objective-C 
 protocol for the interface and name it SampleObjectDelegate. 
 All interfaces on bus objects are implemented in Objective-C 
 as protocols.
+
+The second annotation tells the code generator that the objects implementing
+this interface must be announced through the About discovery mechanism. The code
+generator will generate the necessary code to make this happen.
 
 ```xml
 <method name="Concatentate">

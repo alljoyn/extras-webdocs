@@ -11,6 +11,7 @@
 |Services Common |[C++][sc-cpp]   |&nbsp;             |[Objective-C][sc-objc]   |&nbsp;        |[C (Thin)][sc-thin-c]
 |Sample Apps     |[C++][sa-cpp]   |&nbsp;             |&nbsp;                   |&nbsp;        |&nbsp;
 |DDAPI           |[C++][ddapi-cpp]|&nbsp;             |&nbsp;                   |&nbsp;        |&nbsp;
+|Lighting<br>&nbsp;    |[Controller Client][lsf-cc-cpp]<br>[Controller Service][lsf-cs-cpp]    |[SDK][lsf-sdk-java]<br>&nbsp;    |[SDK][lsf-sdk-objc]<br>&nbsp;    |&nbsp;    |[Lamp Service][lsf-ls-c]<br>&nbsp;
 
 
 [core-cpp]: https://allseenalliance.org/docs/api/cpp/index.html
@@ -45,3 +46,10 @@
 [sa-cpp]: https://allseenalliance.org/docs/framework/cpp/sample_apps/index.html
 
 [ddapi-cpp]: https://allseenalliance.org/docs/ddapi/cpp/index.html
+
+[lsf-cc-cpp]: https://allseenalliance.org/docs/framework/cpp/lighting/controllerclient/index.html
+[lsf-cs-cpp]: https://allseenalliance.org/docs/framework/cpp/lighting/controllerservice/index.html
+[lsf-sdk-java]: https://allseenalliance.org/docs/framework/java/lighting/sdk/index.html
+[lsf-sdk-objc]: https://allseenalliance.org/docs/framework/objc/lighting/sdk/index.html
+[lsf-ls-c]: https://allseenalliance.org/docs/framework/tcl/lighting/lampservice/index.html
+

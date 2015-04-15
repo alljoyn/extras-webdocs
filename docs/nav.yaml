@@ -304,8 +304,14 @@
             - name: Alljoyn Transports Best Practices
               path: /develop/api-guide/core/alljoyn-transports-best-practices
               contents:
-            - name: Auto-Ping
+            - name: AutoPinger
               path: /develop/api-guide/core/auto-ping
+              contents:
+            - name: Observer
+              path: /develop/api-guide/core/observer
+              contents:
+            - name: Property Cache
+              path: /develop/api-guide/core/propcache
               contents:
         - name: About
           path: /develop/api-guide/about

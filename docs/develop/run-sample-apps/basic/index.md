@@ -1,6 +1,6 @@
 # Running the Basic Sample
 
-The Basic sample application provides the ability to execute a concatinate method - cat.
+The Basic sample application provides the ability to execute a concatenate method - cat.
 
 The Service application is designed to advertise a well-known name: "org.alljoyn.Bus.sample".
 It will accept sessions on the session port 25.

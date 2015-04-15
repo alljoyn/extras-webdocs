@@ -8,6 +8,8 @@ or be written in a different language binding.
 * [Chat][chat] This sample shows how to send AllJoyn Signals on a session.
 * [About][about] These samples show how to use the About feature for 
   announcing and discovering.
+* [Observer][observer] These samples show how to use the Observer API for easy
+  discovery and session management.
 * [Onboarding][onboarding] These samples show how to use the two sides of the 
   Onboarding service framework, the Onboarder and the Onboardee.
 * [Config][config] These samples show how to use the Configuration service framework.
@@ -22,6 +24,7 @@ or be written in a different language binding.
 [basic]: /develop/run-sample-apps/basic
 [chat]: /develop/run-sample-apps/chat
 [about]: /develop/run-sample-apps/about
+[observer]: /develop/run-sample-apps/observer
 [onboarding]: /develop/run-sample-apps/onboarding
 [config]: /develop/run-sample-apps/config
 [notification]: /develop/run-sample-apps/notification

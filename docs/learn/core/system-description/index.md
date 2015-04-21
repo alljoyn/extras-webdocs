@@ -894,25 +894,27 @@ that apply to the thin app based on available RAM size.
 
 ### AllJoyn protocol version
 
-Functionality implemented by the AllJoyn Router is versioned 
-through an AllJoyn Protocol Version (AJPV) field. The following
-table shows the AllJoyn Protocol Version for various AllJoyn releases. 
-The AJPV is exchanged between routers as part of the BusHello 
-messaging during the AllJoyn session establishment. This field 
-is used by the thin app to determine compatibility with 
-discovered routers for connecting to the AllJoyn distributed bus.
+Functionality implemented by the AllJoyn Router is versioned through an AllJoyn
+Protocol Version (AJPV) field. The following table shows the AJPV for various
+AllJoyn releases; unless otherwise noted the AJPV for the major release version
+applies to all the patch release versions as well. The AJPV is exchanged
+between routers as part of the BusHello messaging during the AllJoyn session
+establishment and between the leaf and routing node when the leaf node connects
+to the router. This field is used by the core libraries to identify
+compatibility with the router, and specifically by thin apps to determine
+whether or not to connect to a particular router or keep searching for another
+one.  It is also used by the router to determine if functionality is available
+at the leaf (e.g. self-join, SessionLostWithReason, etc.)
 
-#### AllJoyn release -> protocol version mapping
+** Table: ** AllJoyn Release to Protocol Version mapping
 
-| Release version | AllJoyn protocol version |
-|---|:---:|
-| legacy 03.04.06 | 9 |
-| v14.02 | 9 |
-| v14.06 | 10 |
-| v14.06a | 10 |
-| v14.12 | 11 |
-
-
+| &#160; Release version &#160; | &#160; AJPV &#160; |
+|:------------------------------:|:-----------------:|
+|        legacy 03.04.06         |        9          |
+|        v14.02                  |        9          |
+|        v14.06                  |        10         |
+|        v14.12                  |        11         |
+|        v15.04                  |        12         |
 
 
 [list-of-subjects]: /learn/core/system-description/

@@ -6,7 +6,7 @@
 
   ```sh
   $ sudo apt-get install build-essential libgtk2.0-dev
-     libssl-dev xsltproc ia32-libs libxml2-dev
+     libssl-dev xsltproc ia32-libs libxml2-dev libcap-dev
   ```
 2. To create a 32-bit build of the AllJoyn&trade; framework
 on a 64-bit operating system, install these required development libraries:

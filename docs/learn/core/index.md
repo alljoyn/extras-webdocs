@@ -154,6 +154,13 @@ properties, receiving signals.
 
 ![alljoyn-core-components][alljoyn-core-components]
 
+In many cases, the client-side discovery, session setup and proxy object
+management follow a simple, common pattern across applications. The Standard
+Core library offers a convenience API for these cases with the
+[Observer][observer-api-guide] class. The Observer class automates About
+announcement parsing, session management and proxy object creation for the
+client application.
+
 ## Learn more
 
 * [Learn more about the AllJoyn Standard Core][aj-scl]
@@ -169,3 +176,4 @@ properties, receiving signals.
 [aj-system]: /learn/core/system-description
 [aj-scl]: /learn/core/standard-core
 [aj-tcl]: /learn/core/thin-core
+[observer-api-guide]: /develop/api-guide/core/observer/

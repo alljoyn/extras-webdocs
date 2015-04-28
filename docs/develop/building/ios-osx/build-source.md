@@ -4,12 +4,12 @@
 
 The AllJoyn&trade; build environment requires:
 
-* Apple computer system with OS X 10.8 (Mountain Lion) or above
-* Xcode 5.x or higher (versions of Xcode earlier than 5.x are not supported)
+* Apple computer system with OS X 10.9 (Mavericks) or above
+* Xcode 6.x or higher
 
 ## Installation
 
-Install the following on your OS X 10.8 system:
+Install the following on your OS X 10.9 or above system:
 
 ### Xcode
 
@@ -22,7 +22,7 @@ http://itunes.apple.com/us/app/xcode/id497799835?mt=12.
 6. Select the **Components** tab.
 7. Verify that the Command Line Tools have been installed.
 
-   **NOTE:** You may need to run the following command from a 
+   **NOTE:** You may need to run the following command from a
    terminal window to install the Command Line Tools:
 
    ```sh
@@ -35,13 +35,13 @@ Use Homebrew to deploy SCons, git, and uncrustify to your OS X system.
 
 1. Open a browser and navigate to http://mxcl.github.com/homebrew/.
 2. Download Homebrew.
-3. Navigate to https://github.com/mxcl/homebrew/wiki/installation, 
+3. Navigate to https://github.com/mxcl/homebrew/wiki/installation,
 and follow the directions for installation.
 
 ### SCons
 
-Use the SCons build tool to generate the AllJoyn C++ API binaries 
-for iOS and OS X. 
+Use the SCons build tool to generate the AllJoyn C++ API binaries
+for iOS and OS X.
 
 To install SCons, open a terminal window, and type the following command:
 
@@ -61,18 +61,18 @@ $ brew install git
 
 ### Appledoc
 
-**NOTE:** Appledoc is not required if you do not want to generate 
+**NOTE:** Appledoc is not required if you do not want to generate
 the API Reference Manual.
 
-The appledoc tool generates documentation for the AllJoyn 
+The appledoc tool generates documentation for the AllJoyn
 Objective-C language binding. For more information, see http://gentlebytes.com/appledoc/.
 
 1. Open a browser and navigate to https://github.com/tomaz/appledoc.
- 
-2. Do one of the folliowing: 
+
+2. Do one of the folliowing:
 
    1. Download appledoc.
-   2. To install using Homebrew, open a terminal window and type 
+   2. To install using Homebrew, open a terminal window and type
    the following command:
 
    ```sh
@@ -83,17 +83,17 @@ Objective-C language binding. For more information, see http://gentlebytes.com/a
 
 ### Doxygen
 
-**NOTE:** Doxygen is not required if you do not want to generate the 
+**NOTE:** Doxygen is not required if you do not want to generate the
 API Reference Manual.
 
-The Doxygen tool generates documentation for the AllJoyn C++ 
+The Doxygen tool generates documentation for the AllJoyn C++
 language binding. For more information, see http://www.doxygen.org.
 
 1. Open a browser and navigate to http://www.doxygen.org.
 2. Do one of the following:
 
    1. Download and install doxygen.
-   2. To install using Homebrew, open a terminal window and 
+   2. To install using Homebrew, open a terminal window and
    type the following command:
 
    ```sh
@@ -102,18 +102,18 @@ language binding. For more information, see http://www.doxygen.org.
 
 ### Graphviz
 
-**NOTE:** Graphviz is not required if you do not want to generate 
+**NOTE:** Graphviz is not required if you do not want to generate
 the API Reference Manual.
 
-The Graphviz Dot tool diagrams class hierarchies. For more 
+The Graphviz Dot tool diagrams class hierarchies. For more
 information, see http://www.graphviz.org.
 
 1. Open a browser and navigate to http://graphviz.org.
- 
+
 2. Do one of the following:
 
    1. Download and install graphviz.
-   2. To install using Homebrew, open a terminal window and 
+   2. To install using Homebrew, open a terminal window and
    type the following command:
 
    ```sh
@@ -122,7 +122,7 @@ information, see http://www.graphviz.org.
 
 ### Obtaining the AllJoyn source
 
-To download the AllJoyn source code, including the Objective-C 
+To download the AllJoyn source code, including the Objective-C
 language binding, which is the AllJoyn framework:
 
 1. Open a terminal window.
@@ -136,42 +136,50 @@ language binding, which is the AllJoyn framework:
 
 ### Obtaining OpenSSL
 
-OpenSSL is an open source toolkit for implementing the 
-Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1). 
+OpenSSL is an open source toolkit for implementing the
+Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1).
 Although the Mac OS X SDK includes OpenSSL, the iOS SDK does not include it.
 
-1. To build the OpenSSL framework for iOS, download the source 
+1. To build the OpenSSL framework for iOS, download the source
 code at the following web address:
 
    http://www.openssl.org/
 
-2. Copy the OpenSSL source into a separate folder on your 
-development system, not under the AllJoyn framework source 
+2. Copy the OpenSSL source into a separate folder on your
+development system, not under the AllJoyn framework source
 directory tree. For example,
 
    /Development/openssl/openssl-1.0.1
 
-3. Download the Xcode project that can be used to build 
+3. Download the Xcode project that can be used to build
 Open SSL for iOS from GitHub at the following web address:
 
    https://github.com/sqlcipher/openssl-xcode/
 
-4. Navigate to the top level OpenSSL source folder in Finder 
-(i.e., `/Development/openssl/openssl-1.0.1`), and copy the 
+4. Navigate to the top level OpenSSL source folder in Finder
+(i.e., `/Development/openssl/openssl-1.0.1`), and copy the
 openssl.xcodeproj folder you downloaded from GitHub into this folder.
 5. Open the openssl.xcodeproj in Xcode.
-6.  In Xcode, build the crypto target (libssl.a and libcrypto.a) 
-for each combination of configuration (debug|release) and 
-platform (iphoneos|iphonesimulator) that you need for your 
+
+ Make sure of the following :
+
+  * 'Valid Architectures' field has 'arm64' as one of the values.
+  * Under Architectures you have 'Standard architectures (armv7, arm64)' selected
+  * 'Build Active Architecture Only = No'
+
+
+6.  In Xcode, build the crypto target (libssl.a and libcrypto.a)
+for each combination of configuration (debug|release) and
+platform (iphoneos|iphonesimulator) that you need for your
 iOS project by selecting **Product > Build For > (your desired configuration)**.
-7. Create a new folder called **build** under the top-level 
+7. Create a new folder called **build** under the top-level
 OpenSSL folder created in step 2 (i.e., `/Development/openssl/openssl-1.0.1/build`).
-8. Locate your OpenSSL build products folders (i.e., Debug-iphoneos) 
-in the /Users/<your username>/Library/Developer/Xcode/DerivedData/XXXXXXXXXXXXX-openssl/Build/Products folder, 
-and copy all the <configuration>-<platform> folders, like Debug-iphoneos, 
+8. Locate your OpenSSL build products folders (i.e., Debug-iphoneos)
+in the /Users/<your username>/Library/Developer/Xcode/DerivedData/XXXXXXXXXXXXX-openssl/Build/Products folder,
+and copy all the <configuration>-<platform> folders, like Debug-iphoneos,
 to the build folder created in step 7.
-   You should now have a folder structure similar to the 
-   following, containing libssl and libcrypto for each $(CONFIGURATION)-$(PLATFORM_NAME) 
+   You should now have a folder structure similar to the
+   following, containing libssl and libcrypto for each $(CONFIGURATION)-$(PLATFORM_NAME)
    you built in step 6:
 
    ```sh
@@ -200,33 +208,33 @@ to the build folder created in step 7.
     ```
 ## Building the AllJoyn Framework
 
-Using the Xcode Integrated Development Environment (IDE) to 
-build the AllJoyn SDK is much easier than using the command line. 
-We therefore recommend using the Xcode IDE to produce the 
+Using the Xcode Integrated Development Environment (IDE) to
+build the AllJoyn SDK is much easier than using the command line.
+We therefore recommend using the Xcode IDE to produce the
 AllJoyn binaries for OS X or iOS.
 
 ### Xcode IDE build
- 
+
 1. Do one of the following:
 
-   1. Navigate in Finder to the `<alljoyn root directory>/alljoyn_objc` directory, 
+   1. Navigate in Finder to the `<alljoyn root directory>/alljoyn_objc` directory,
    and double-click the `alljoyn_darwin.xcodeproj` file to launch Xcode.
    OR
-   2. Open Xcode, select **File > Open**, and choose the 
+   2. Open Xcode, select **File > Open**, and choose the
    `<alljoyn root directory>/alljoyn_objc/alljoyn_darwin.xcodeproj` file.
 
-2. Just as with any Xcode project, select the active Scheme 
-to control which version of the AllJoyn framework is built. 
-There are schemes for the AllJoyn framework targeting OS X and iOS. 
-The active scheme is controlled by a selection box located in the 
+2. Just as with any Xcode project, select the active Scheme
+to control which version of the AllJoyn framework is built.
+There are schemes for the AllJoyn framework targeting OS X and iOS.
+The active scheme is controlled by a selection box located in the
 upper left-hand corner of the Xcode user interface.
-3. Click the selection box for the active scheme to see a 
-menu of all schemes configured for the Xcode project and 
-allow you to select the platform to build. For instance, 
-when building the AllJoyn framework on iOS, you might select 
+3. Click the selection box for the active scheme to see a
+menu of all schemes configured for the Xcode project and
+allow you to select the platform to build. For instance,
+when building the AllJoyn framework on iOS, you might select
 iOS Device, iPad Simulator, or iPhone simulator as platforms for the build.
-4. Once you select a scheme and a platform to build against, select 
-**Product > Build** from the Xcode menu to build the AllJoyn framework. 
+4. Once you select a scheme and a platform to build against, select
+**Product > Build** from the Xcode menu to build the AllJoyn framework.
 Upon completion of the build, your binaries will be located in the following directory:
 
    ```sh
@@ -236,10 +244,10 @@ Upon completion of the build, your binaries will be located in the following dir
    **NOTE:** For OS X builds, the binaries will be located under the `.../darwin/x86/...`
    directory. For iOS builds, the binaries will be located under the `.../darwin/arm/   ` directory.
 
-### Command line build 
+### Command line build
 
 1. Open a terminal window.
-2. Change your directory to `<alljoyn root directory>/alljoyn_objc` 
+2. Change your directory to `<alljoyn root directory>/alljoyn_objc`
 by running the following command:
 
    ```sh
@@ -247,26 +255,35 @@ by running the following command:
    ```
 
 3. To build for:
-   1. iOS devices, run the following command:
+
+   * 64-bit iOS devices, run the following command:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild 
+   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
       -project alljoyn_darwin.xcodeproj
-   -scheme alljoyn_core_ios -sdk iphoneos -configuration Debug
+      -scheme alljoyn_core_arm64 -sdk iphoneos -configuration Debug
    ```
 
-   2. iOS simulator, run the following command:
+   * For all other iOS devices, run the following command:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild 
+   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
       -project alljoyn_darwin.xcodeproj
-   -scheme alljoyn_core_ios -sdk iphonesimulator -configuration Debug
+      -scheme alljoyn_core_ios -sdk iphoneos -configuration Debug
    ```
 
-   3. OS X, run the following command:
+   * iOS simulator, run the following command:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild 
+   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
       -project alljoyn_darwin.xcodeproj
-   -scheme alljoyn_core_osx
+      -scheme alljoyn_core_ios -sdk iphonesimulator -configuration Debug
+   ```
+
+   * OS X, run the following command:
+
+   ```sh
+   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
+      -project alljoyn_darwin.xcodeproj
+      -scheme alljoyn_core_osx
    ```

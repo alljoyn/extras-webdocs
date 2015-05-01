@@ -1,52 +1,52 @@
 # API Guide
 
-|Guide                    |Android                       |Linux                 |iOS                   |Thin Linux
-|-------------------------|------------------------------|----------------------|----------------------|----------
-|[Core][core]             |[Android][core-android]       |&nbsp;                |[iOS][core-ios]       |&nbsp;
-|[About][about]           |[Android][about-android]      |[Linux][about-linux]  |[iOS][about-ios]      |[Thin Linux][about-thin-linux]
-|[Onboarding][onboarding] |[Android][onboarding-android] |&nbsp;                |[iOS][onboarding-ios] |&nbsp;
-|[Configuration][config]  |[Android][config-android]     |[Linux][config-linux] |[iOS][config-ios]     |[Thin Linux][config-thin-linux]
-|[Notification][notif]    |[Android][notif-android]      |[Linux][notif-linux]  |[iOS][notif-ios]      |[Thin Linux][notif-thin-linux]
-|[Control Panel][cp]      |[Android][cp-android]         |[Linux][cp-linux]     |[iOS][cp-ios]         |[Thin Linux][cp-thin-linux]
-|[Audio Streaming][as]    |&nbsp;                        |[Linux][as-linux]     |&nbsp;                |&nbsp;
-|[Events And Actions][ea] |&nbsp;                        |&nbsp;                |&nbsp;                |&nbsp;
-|[Data-Driven API][ddapi] |&nbsp;                        |&nbsp;                |&nbsp;                |&nbsp;
+|Guide                    |Java                   |C++                 |Objective-C                  |C (Thin Core)                     |
+|-------------------------|:---------------------:|:------------------:|:---------------------------:|:--------------------------------:|
+|[Core][core]             |[Java][core-java]      |&nbsp;              |[Objective-C][core-objc]      |&nbsp;                            |
+|[About][about]           |[Java][about-java]     |[C++][about-cpp]  |[Objective-C][about-objc]     |[C (Thin Core)][about-c-thin] |
+|[Onboarding][onboarding] |[Java][onboarding-java]|&nbsp;              |[Objective-C][onboarding-objc]|&nbsp;                            |
+|[Configuration][config]  |[Java][config-java]    |[C++][config-cpp] |[Objective-C][config-objc]    |[C (Thin Core)][config-c-thin]|
+|[Notification][notif]    |[Java][notif-java]     |[C++][notif-cpp]  |[Objective-C][notif-objc]     |[C (Thin Core)][notif-c-thin] |
+|[Control Panel][cp]      |[Java][cp-java]        |[C++][cp-cpp]     |[Objective-C][cp-objc]        |[C (Thin Core)][cp-c-thin]    |
+|[Audio Streaming][as]    |&nbsp;                 |[C++][as-cpp]     |&nbsp;                       |&nbsp;                            |
+|[Events And Actions][ea] |&nbsp;                 |&nbsp;              |&nbsp;                       |&nbsp;                            |
+|[Data-Driven API][ddapi] |&nbsp;                 |&nbsp;              |&nbsp;                       |&nbsp;                            |
 
 
 [core]: /develop/api-guide/core
-[core-android]: /develop/api-guide/core/android
-[core-ios]: /develop/api-guide/core/ios
+[core-java]: /develop/api-guide/core/java
+[core-objc]: /develop/api-guide/core/objc
 
 [about]: /develop/api-guide/about
-[about-android]: /develop/api-guide/about/android
-[about-linux]: /develop/api-guide/about/linux
-[about-ios]: /develop/api-guide/about/ios
-[about-thin-linux]: /develop/api-guide/about/thin-linux
+[about-java]: /develop/api-guide/about/java
+[about-cpp]: /develop/api-guide/about/cpp
+[about-objc]: /develop/api-guide/about/objc
+[about-c-thin]: /develop/api-guide/about/c-thin
 
 [onboarding]: /develop/api-guide/onboarding
-[onboarding-android]: /develop/api-guide/onboarding/android
-[onboarding-ios]: /develop/api-guide/onboarding/ios
+[onboarding-java]: /develop/api-guide/onboarding/java
+[onboarding-objc]: /develop/api-guide/onboarding/objc
 
 [config]: /develop/api-guide/config
-[config-android]: /develop/api-guide/config/android
-[config-linux]: /develop/api-guide/config/linux
-[config-ios]: /develop/api-guide/config/ios
-[config-thin-linux]: /develop/api-guide/config/thin-linux
+[config-java]: /develop/api-guide/config/java
+[config-cpp]: /develop/api-guide/config/cpp
+[config-objc]: /develop/api-guide/config/objc
+[config-c-thin]: /develop/api-guide/config/c-thin
 
 [notif]: /develop/api-guide/notification
-[notif-android]: /develop/api-guide/notification/android
-[notif-linux]: /develop/api-guide/notification/linux
-[notif-ios]: /develop/api-guide/notification/ios
-[notif-thin-linux]: /develop/api-guide/notification/thin-linux
+[notif-java]: /develop/api-guide/notification/java
+[notif-cpp]: /develop/api-guide/notification/cpp
+[notif-objc]: /develop/api-guide/notification/objc
+[notif-c-thin]: /develop/api-guide/notification/c-thin
 
 [cp]: /develop/api-guide/controlpanel
-[cp-android]: /develop/api-guide/controlpanel/android
-[cp-linux]: /develop/api-guide/controlpanel/linux
-[cp-ios]: /develop/api-guide/controlpanel/ios
-[cp-thin-linux]: /develop/api-guide/controlpanel/thin-linux
+[cp-java]: /develop/api-guide/controlpanel/java
+[cp-cpp]: /develop/api-guide/controlpanel/cpp
+[cp-objc]: /develop/api-guide/controlpanel/objc
+[cp-c-thin]: /develop/api-guide/controlpanel/c-thin
 
 [as]: /develop/api-guide/audio-streaming
-[as-linux]: /develop/api-guide/audio-streaming/linux
+[as-cpp]: /develop/api-guide/audio-streaming/cpp
 
 [ea]: /develop/api-guide/events-and-actions
 [ddapi]: /develop/api-guide/ddapi

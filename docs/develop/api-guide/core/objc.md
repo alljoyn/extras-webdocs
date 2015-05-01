@@ -1,4 +1,4 @@
-# Core API Guide - iOS
+# Core API Guide - Objective-C
 
 ## Create a New Xcode iOS Project
 
@@ -350,4 +350,3 @@ wish to build. Open the Xcode project for the above template
 and examine the source files within. Allow some time to examine
 the README file included with this project, as it contains
 information on the files included in the project.
-

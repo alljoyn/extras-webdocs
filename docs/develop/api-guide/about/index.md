@@ -6,14 +6,14 @@ About Feature can access more information. Making it possible to fill in some
 fields for the developer. If your application is still using the older APIs the
 legacy API guides can be used as reference.
 
-* [Android][about-android]
-* [Linux][about-linux]
-* [iOS][about-ios]
-* [Thin Linux][about-thin-linux]
+* [Java][about-java]
+* [C++][about-cpp]
+* [Objective-C][about-objc]
+* [C (Thin Core)][about-c-thin]
 
 _Legacy API Guides_
-* [Android][about-android-legacy]
-* [Linux][about-linux-legacy]
+* [Java][about-java-legacy]
+* [C++][about-cpp-legacy]
 
 
 ## Common Best Practices
@@ -29,7 +29,7 @@ connection between the AllJoyn&trade; app and the AllJoyn router is lost.
 This can happen in the following scenarios:
 
 * The standalone router is restarted (manually or otherwise)
-* The Onboarding service framework forces a restart of the 
+* The Onboarding service framework forces a restart of the
   standalone router after onboarding a device.
 
 After `BusListener::BusDisconnected` is invoked:

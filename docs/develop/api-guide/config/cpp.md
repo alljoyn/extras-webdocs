@@ -1,4 +1,4 @@
-# Configuration API Guide - Linux
+# Configuration API Guide - C++
 
 ## Reference code
 
@@ -17,12 +17,12 @@
 
 ## Obtain the Configuration service framework
 
-See the [Building Linux section][building-linux] 
+See the [Building Linux section][building-linux]
 for instructions on compiling the Configuration service framework.
 
 ## Build an application that uses ConfigServer
 
-The following steps provide the high-level process to build an 
+The following steps provide the high-level process to build an
 application that will maintain ConfigData.
 
 1. Create the base for the AllJoyn&trade; application.
@@ -30,40 +30,40 @@ application that will maintain ConfigData.
 3. Initialize the AboutService in service mode.
 4. Instantiate a ConfigStore.
 5. Implement the callbacks required by the Config Server.
-6. Initialize the ConfigService in server mode, providing 
+6. Initialize the ConfigService in server mode, providing
 it with the ConfigStore and callbacks.
 
 ## Setting up the AllJoyn framework and About feature
 
-The steps required for this service framework are universal 
-to all applications that use the AllJoyn framework and for 
-any application using one or more AllJoyn service frameworks. 
-Prior to use of the Configuration service framework as a Config 
-Server or Config Client, the About feature must be implemented 
+The steps required for this service framework are universal
+to all applications that use the AllJoyn framework and for
+any application using one or more AllJoyn service frameworks.
+Prior to use of the Configuration service framework as a Config
+Server or Config Client, the About feature must be implemented
 and the AllJoyn framework set up.
 
-Complete the procedures in the following documents to guide 
+Complete the procedures in the following documents to guide
 you in this process:
 
 * [Building Linux section][building-linux]
-* [About API Guide][about-api-guide-linux]
- 
+* [About API Guide][about-api-guide-cpp]
+
 ## Implementing an App: Config Server
 
-Implementing a Config Server requires creating and registering 
-an instance of the ConfigService class. Any application using 
-Config Server also requires an About Server to facilitate the 
+Implementing a Config Server requires creating and registering
+an instance of the ConfigService class. Any application using
+Config Server also requires an About Server to facilitate the
 discovery via Announcements.
 
-**NOTE:** Verify the BusAttachment has been created, started and 
-connected before implementing the ConfigService. See the 
-[About API Guide][about-api-guide-linux] for the code snippets. 
-Code in this chapter references a variable `mBus` 
+**NOTE:** Verify the BusAttachment has been created, started and
+connected before implementing the ConfigService. See the
+[About API Guide][about-api-guide-cpp] for the code snippets.
+Code in this chapter references a variable `mBus`
 (the BusAttachment variable name).
 
 ### Initialize the AllJoyn framework
 
-See the [Building Linux section][building-linux] for instructions 
+See the [Building Linux section][building-linux] for instructions
 to set up the AllJoyn framework.
 
 #### Create bus attachment
@@ -77,15 +77,15 @@ bus->Connect();
 
 Config Server uses peer security.
 
-Create a KeyListener class that inherits from ajn::AuthListener. 
-It needs to implement two functions: RequestCredentials and 
+Create a KeyListener class that inherits from ajn::AuthListener.
+It needs to implement two functions: RequestCredentials and
 AuthenticationComplete.
 
 ```cpp
 class SrpKeyXListener : public ajn::AuthListener {
    public:
-      bool RequestCredentials(const char* authMechanism, 
-         const char* authPeer, 
+      bool RequestCredentials(const char* authMechanism,
+         const char* authPeer,
          uint16_t authCount, const char* userId,
          uint16_t credMask, Credentials& creds);
       void AuthenticationComplete(const char* authMechanism, const char* authPeer,
@@ -94,13 +94,13 @@ class SrpKeyXListener : public ajn::AuthListener {
 };
 ```
 
-`RequestCredentials()` needs to set the password using Creds 
+`RequestCredentials()` needs to set the password using Creds
 and return true.
 
 ```cpp
 creds.SetPassword(Password);
 return true;
-``` 
+```
 
 Instantiate the keylistener class and enable peer security.
 
@@ -111,13 +111,13 @@ bus->EnablePeerSecurity("ALLJOYN_PIN_KEYX ALLJOYN_SRP_KEYX ALLJOYN_ECDHE_PSK", k
 
 ### Implement PropertyStore to produce a ConfigStore
 
-The PropertyStore interface is required by the AboutService 
-to store the provisioned values for the About interface data 
+The PropertyStore interface is required by the AboutService
+to store the provisioned values for the About interface data
 fields. See the [About Interface Definition][about-interface-definition] for more information.
 
-The ProperyStore interface is also required by the ConfigService 
-to store and facilitate manipulation of some updateable fields 
-(listed in [Config interface data fields][config-interface-data-fields]). 
+The ProperyStore interface is also required by the ConfigService
+to store and facilitate manipulation of some updateable fields
+(listed in [Config interface data fields][config-interface-data-fields]).
 See the [Configuration Interface Definition] for more information.
 
 #### Config interface data fields
@@ -127,16 +127,16 @@ See the [Configuration Interface Definition] for more information.
 | `DefaultLanguage` | yes | `s` |
 | `DeviceName` | yes | `s` |
 
-An example PropertyStore implementation (ConfigStore) is 
-provided below that specifies the following dictionary of 
+An example PropertyStore implementation (ConfigStore) is
+provided below that specifies the following dictionary of
 metadata fields:
 
 * Keys are the field names.
-* Values are a Map of String to Object entries where the 
+* Values are a Map of String to Object entries where the
 String is the language tag associated with the Object value.
 
-This implementation extends the example AboutStore implementation 
-in the [About API Guide][about-api-guide-linux] and is 
+This implementation extends the example AboutStore implementation
+in the [About API Guide][about-api-guide-cpp] and is
 passed to the AboutService instead of AboutStore.
 
 ```cpp
@@ -149,7 +149,7 @@ configFile) : m_IsInitialized(false)
 
 void PropertyStoreImpl::Initialize()
 {
-   m_IsInitialized = true; m_factoryProperties.clear(); 
+   m_IsInitialized = true; m_factoryProperties.clear();
    m_factoryProperties.insert(m_Properties.begin(), m_Properties.end());
 
    //m_factoryProperties - overwrite the values that are found in
@@ -204,7 +204,7 @@ QStatus PropertyStoreImpl::ReadAll(const char* languageTag, Filter filter, ajn::
    } else {
       PropertyMap::iterator it = m_Properties.find(DEFAULT_LANG);
       if (it == m_Properties.end()) {
- 
+
          return ER_LANGUAGE_NOT_SUPPORTED;
       }
       CHECK_RETURN(it->second.getPropertyValue().Get("s", &languageTag))
@@ -229,11 +229,11 @@ property.getLanguage().compare(languageTag) == 0)) {
          CHECK(argsWriteData[writeArgCount].Set("{sv}", property.getPropertyName().c_str(),
                                           new
 MsgArg(property.getPropertyValue())))
- 
+
          argsWriteData[writeArgCount].SetOwnershipFlags(MsgArg::OwnsArgs,true;
 
          writeArgCount++;
-      } 
+      }
       CHECK(all.Set("a{sv}", writeArgCount, argsWriteData))
       all.SetOwnershipFlags(MsgArg::OwnsArgs, true);
    } while (0);
@@ -254,7 +254,7 @@ QStatus PropertyStoreImpl::Update(const char* name, const char* languageTag, con
    PropertyStoreKey propertyKey = getPropertyStoreKeyFromName(name);
    if (propertyKey >= NUMBER_OF_KEYS) {
       return ER_FEATURE_NOT_AVAILABLE;
- 
+
    }
 
    // check the languageTag
@@ -300,18 +300,18 @@ propertiesIter.second; it++) {
       const PropertyStoreProperty& property = it->second;
       if (property.getIsWritable()) {
          if ((languageTag == NULL && property.getLanguage().empty()) || (languageTag != NULL && property.getLanguage().compare(languageTag)
- 
+
 == 0)) {
- 
+
             temp = new PropertyStoreProperty(property.getPropertyName(),
- 
+
 *value, property.getIsPublic(),
 
                property.getIsAnnouncable());
             if (languageTag) {
 
             property.getIsWritable(),
- 
+
                temp->setLanguage(languageTag);
          }
          m_Properties.erase(it);
@@ -356,7 +356,7 @@ QStatus PropertyStoreImpl::Delete(const char* name, const char* languageTag)
    if (languageTag == NULL) {
       return ER_INVALID_VALUE;
    } else if (languageTag[0] == 0) {
- 
+
 
       PropertyMap::iterator it = m_Properties.find(DEFAULT_LANG);
       if (it == m_Properties.end()) {
@@ -383,14 +383,14 @@ QStatus PropertyStoreImpl::Delete(const char* name, const char* languageTag)
          const PropertyStoreProperty& property = it->second;
          if (property.getIsWritable()) {
             if ((languageTag == NULL && property.getLanguage().empty()) || (languageTag != NULL && property.getLanguage().compare(languageTag)
- 
+
    == 0)) {
 
                m_Properties.erase(it);
                // insert from backup. deleted = true;
                break;
             }
-         } 
+         }
       }
 
       if (!deleted) {
@@ -408,7 +408,7 @@ QStatus PropertyStoreImpl::Delete(const char* name, const char* languageTag)
          const PropertyStoreProperty& property = it->second;
          if (property.getIsWritable()) {
             if ((languageTag == NULL && property.getLanguage().empty()) || (languageTag != NULL && property.getLanguage().compare(languageTag)
- 
+
    == 0)) {
 
                m_Properties.insert(PropertyPair(it->first, it->second));
@@ -424,7 +424,7 @@ QStatus PropertyStoreImpl::Delete(const char* name, const char* languageTag)
                      std::cout << "Calling Announce after ResetConfiguration"
 
    << std::endl;
- 
+
                  }
                  return ER_OK;
               }
@@ -461,7 +461,7 @@ PropertyStoreKey PropertyStoreImpl::getPropertyStoreKeyFromName(qcc::String cons
       std::map<std::string, std::string> data;
 
       if (!IniParser::ParseFile(m_factoryConfigFileName.c_str(), data)) {
- 
+
       std::cerr << "Could not parse configFile" << std::endl;
       return false;
    }
@@ -511,7 +511,7 @@ data.find(AboutPropertyStoreImpl::getPropertyStoreName(DEVICE_ID).c_str());
 
    if (iter != data.end()) {
       qcc::String appGUID = iter->second.c_str();
- 
+
       UpdateFactoryProperty(APP_ID, NULL, MsgArg("s", appGUID.c_str()));
    }
 
@@ -544,12 +544,12 @@ propertiesIter.second; it++) {
    const PropertyStoreProperty& property = it->second;
 
    if ((languageTag == NULL && property.getLanguage().empty()) || (languageTag != NULL && property.getLanguage().compare(languageTag)
- 
+
 == 0)) {
- 
+
 
       temp = new PropertyStoreProperty(property.getPropertyName(), value,
- 
+
 property.getIsPublic(),
 property.getIsWritable(),
 property.getIsAnnouncable());
@@ -561,7 +561,7 @@ property.getIsAnnouncable());
       break;
    }
 }
- 
+
 
    if (temp == NULL) {
       return;
@@ -576,20 +576,20 @@ property.getIsAnnouncable());
 
 ```cpp
 propertyStore = new PropertyStoreImpl(FACTORYCONFIGFILENAME, CONFIGFILENAME);
-propertyStore->setDeviceName(deviceName); 
-propertyStore->setAppId(appIdHex); 
+propertyStore->setDeviceName(deviceName);
+propertyStore->setAppId(appIdHex);
 propertyStore->setAppName(appName);
 propertyStore->setDefaultLang(defaultLanguage);
 
-propertyStore->setModelNumber("Wxfy388i"); 
-propertyStore->setDateOfManufacture("10/1/2199"); 
-propertyStore->setSoftwareVersion("12.20.44 build 44454"); 
-propertyStore->setAjSoftwareVersion(ajn::GetVersion()); 
+propertyStore->setModelNumber("Wxfy388i");
+propertyStore->setDateOfManufacture("10/1/2199");
+propertyStore->setSoftwareVersion("12.20.44 build 44454");
+propertyStore->setAjSoftwareVersion(ajn::GetVersion());
 propertyStore->setHardwareVersion("355.499. b");
 
-std::vector<qcc::String> languages(3); 
-languages.push_back("en"); 
-languages.push_back("sp"); 
+std::vector<qcc::String> languages(3);
+languages.push_back("en");
+languages.push_back("sp");
 languages.push_back("fr");
 propertyStore->setSupportedLangs(languages);
 
@@ -612,16 +612,16 @@ DeviceNamesType::const_iterator iter = deviceNames.find(languages[0]);
    if (iter != deviceNames.end()) {
       CHECK_RETURN(propertyStore->setDeviceName(iter->second.c_str(), languages[2]));
    } else {
- 
+
       CHECK_RETURN(propertyStore->setDeviceName("Mon nom de l'appareil", "fr"));
 
    }
-propertyStore->setDescription("This is an AllJoyn application", "en"); 
-propertyStore->setDescription("Esta es una AllJoyn aplicacion", "sp"); 
+propertyStore->setDescription("This is an AllJoyn application", "en");
+propertyStore->setDescription("Esta es una AllJoyn aplicacion", "sp");
 propertyStore->setDescription("C'est une Alljoyn application", "fr");
 
-propertyStore->setManufacturer("Company", "en"); 
-propertyStore->setManufacturer("Empresa", "sp"); 
+propertyStore->setManufacturer("Company", "en");
+propertyStore->setManufacturer("Empresa", "sp");
 propertyStore->setManufacturer("Entreprise", "fr");
 
 propertyStore->setSupportUrl("http://www.allseenalliance.org");
@@ -630,8 +630,8 @@ propertyStore->Initialize();
 
 ### Implement a BusListener and SessionPortListener
 
-In order to bind a SessionPort and accept sessions, a new 
-class must be created that inherits from the AllJoyn 
+In order to bind a SessionPort and accept sessions, a new
+class must be created that inherits from the AllJoyn
 BusListener and SessionPortListener classes.
 
 The class must contain the following function:
@@ -641,11 +641,11 @@ bool AcceptSessionJoiner(SessionPort sessionPort, const char* joiner, const
 SessionOpts& opts)
 ```
 
-The AcceptSessionJoiner function will be called any time a 
-joinsession request is received; the Listener class needs 
-to dictate whether the joinsession request should be accepted 
-or rejected by returning true or false, respectively. These 
-considerations are application-specific and can include any 
+The AcceptSessionJoiner function will be called any time a
+joinsession request is received; the Listener class needs
+to dictate whether the joinsession request should be accepted
+or rejected by returning true or false, respectively. These
+considerations are application-specific and can include any
 of the following:
 
 * The SessionPort the request was made on
@@ -657,37 +657,37 @@ Here is an example of a full class declaration for the listener class.
 ```cpp
 class CommonBusListener : public ajn::BusListener, public ajn::SessionPortListener {
 
-public: 
+public:
    CommonBusListener();
    ~CommonBusListener();
-   bool AcceptSessionJoiner(ajn::SessionPort sessionPort, 
+   bool AcceptSessionJoiner(ajn::SessionPort sessionPort,
       const char* joiner, const ajn::SessionOpts& opts);
    void setSessionPort(ajn::SessionPort sessionPort);
       ajn::SessionPort getSessionPort();
    private:
       ajn::SessionPort m_SessionPort;
 };
-``` 
+```
 
 ### Initialize the AboutService in server mode
 
 ```cpp
-busListener = new CommonBusListener(); 
+busListener = new CommonBusListener();
 AboutServiceApi::Init(*bus, *propertyStore);
 AboutServiceApi* aboutService = AboutServiceApi::getInstance();
 busListener->setSessionPort(port);
-bus->RegisterBusListener(*busListener); 
-TransportMask transportMask = TRANSPORT_ANY; 
+bus->RegisterBusListener(*busListener);
+TransportMask transportMask = TRANSPORT_ANY;
 SessionPort sp = port;
-SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, 
+SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false,
 SessionOpts::PROXIMITY_ANY, transportMask);
 bus->BindSessionPort(sp, opts, *busListener);
 aboutService->Register(port);
 bus->RegisterBusObject(*aboutService);
 ```
 
-For more information about the About feature, see the 
-[About API Guide][about-api-guide-linux].
+For more information about the About feature, see the
+[About API Guide][about-api-guide-cpp].
 
 ### Implement the callbacks required by the Config Server
 
@@ -736,8 +736,8 @@ ConfigServiceListenerImpl::~ConfigServiceListenerImpl()
 
 void ConfigServiceListenerImpl::PersistPassword(const char* daemonRealm, const char* passcode)
 {
-   std::map<std::string, std::string> data; 
-   data["daemonrealm"] = daemonRealm; 
+   std::map<std::string, std::string> data;
+   data["daemonrealm"] = daemonRealm;
    data["passcode"] = passcode;
    IniParser::UpdateFile(m_PropertyStore->GetConfigFile().c_str(), data);
 }
@@ -764,30 +764,30 @@ msgBus->RegisterBusObject(*configService);
 ```cpp
 AdvertiseName(SERVICE_TRANSPORT_TYPE);
 aboutService->Announce();
-``` 
+```
 
 ### Unregister and delete ConfigService and BusAttachment
 
 When your process is done with the ConfigService delete variables used:
 
 ```cpp
-if (configService) { 
-   delete configService; 
+if (configService) {
+   delete configService;
    configService = NULL;
 }
 
-if (configServiceListenerImpl) { 
-   delete configServiceListenerImpl; 
+if (configServiceListenerImpl) {
+   delete configServiceListenerImpl;
    configServiceListenerImpl = NULL;
 }
 
-if (keyListener) { 
-   delete keyListener; 
+if (keyListener) {
+   delete keyListener;
    keyListener = NULL;
 }
 
-if (propertyStoreImpl) { 
-   delete propertyStoreImpl; 
+if (propertyStoreImpl) {
+   delete propertyStoreImpl;
    propertyStoreImpl = NULL;
 }
 
@@ -797,20 +797,20 @@ msgBus = NULL;
 
 ## Implementing an App: Config Client
 
-To implement an application to receive and modify ConfigData, 
-use the ConfigClient class. The AboutClient class must be used 
-so that your application is notified when applications with 
+To implement an application to receive and modify ConfigData,
+use the ConfigClient class. The AboutClient class must be used
+so that your application is notified when applications with
 About Server and possibly Config Server instances can send announcements.
 
-**NOTE:** Verify the BusAttachment has been created, started and 
-connected before implementing a Config Client. See the [About 
-API Guide][about-api-guide-linux] for the code snippets. 
-Code in this chapter references a variable `mBus` 
+**NOTE:** Verify the BusAttachment has been created, started and
+connected before implementing a Config Client. See the [About
+API Guide][about-api-guide-cpp] for the code snippets.
+Code in this chapter references a variable `mBus`
 (the BusAttachment variable name).
 
 ### Initialize the AllJoyn framework
 
-See the [Building Linux section][building-linux] for 
+See the [Building Linux section][building-linux] for
 instructions to set up the AllJoyn framework.
 
 #### Create bus attachment
@@ -824,8 +824,8 @@ busAttachment ->Connect();
 
 Config Client uses peer security.
 
-Create a KeyListener class that inherits from ajn::AuthListener. 
-It needs to implement two functions: RequestCredentials and 
+Create a KeyListener class that inherits from ajn::AuthListener.
+It needs to implement two functions: RequestCredentials and
 AuthenticationComplete.
 
 ```cpp
@@ -861,8 +861,8 @@ Complete the following steps.
 3. Register the announce handler, if there is a Config interface.
 4. Join a session.
 
-For more information about the About feature, see the [About 
-API Guide][about-api-guide-linux].
+For more information about the About feature, see the [About
+API Guide][about-api-guide-cpp].
 
 ### Create the ConfigService client object
 
@@ -872,14 +872,14 @@ configClient = new ConfigClient(*busAttachment);
 
 #### Request the ConfigData
 
-The Configurations data structure is filled by the `GetConfigurations()` 
-method call. Configurations can be iterated through to determine 
-the contents. The content definition is found in the [Configuration 
+The Configurations data structure is filled by the `GetConfigurations()`
+method call. Configurations can be iterated through to determine
+the contents. The content definition is found in the [Configuration
 Interface Definition][config-interface-definition].
 
 ```cpp
 ConfigClient::Configurations configurations;
-if ((status = configClient->GetConfigurations(busname.c_str(), 
+if ((status = configClient->GetConfigurations(busname.c_str(),
       "en", configurations, id)) == ER_OK) {
    for (ConfigClient::Configurations::iterator it = configurations.begin();
       it != configurations.end(); ++it) { qcc::String key = it->first; ajn::MsgArg value = it->second;
@@ -892,7 +892,7 @@ value.Signature().compare("as") == 0) {
          size_t fieldListNumElements;
          status = value.Get("as", &fieldListNumElements, &stringArray);
          for (unsigned int i = 0; i < fieldListNumElements; i++) {
-            char* tempString; stringArray[i].Get("s", &tempString); 
+            char* tempString; stringArray[i].Get("s", &tempString);
             printf("%s ", tempString);
          }
          printf("\n");
@@ -902,7 +902,7 @@ value.Signature().compare("as") == 0) {
 
 ####  Update the ConfigData
 
-The received data can be updated through the ConfigClient 
+The received data can be updated through the ConfigClient
 using the `UpdateConfigurations()` method call.
 
 ```cpp
@@ -912,7 +912,7 @@ configClient->UpdateConfigurations(busname.c_str(), NULL, configurations, id);
 
 #### Get the interface version
 
-The peer device/application configuration can query for the 
+The peer device/application configuration can query for the
 interface version.
 
 ```cpp
@@ -922,7 +922,7 @@ configClient->GetVersion(busname.c_str(), version, id);
 
 #### Reset the ConfigData
 
-The ConfigData can be reset to default through the ConfigClient 
+The ConfigData can be reset to default through the ConfigClient
 using the `ResetConfigurations()` method call.
 
 ```cpp
@@ -933,11 +933,11 @@ configClient->ResetConfigurations(busname.c_str(), "en", configNames, id);
 
 #### Reset the peer device application to factory defaults
 
-The peer device/application configuration can be reset to 
-factory defaults through the ConfigClient using the 
+The peer device/application configuration can be reset to
+factory defaults through the ConfigClient using the
 `FactoryReset()` method call.
 
-**NOTE:** This is a no-reply call, so its success cannot be 
+**NOTE:** This is a no-reply call, so its success cannot be
 determined directly.
 
 ```cpp
@@ -946,10 +946,10 @@ configClient->FactoryReset(busname.c_str(), id);
 
 #### Restart the peer
 
-The peer application can be restarted though the ConfigClient 
+The peer application can be restarted though the ConfigClient
 using the Restart() method call.
 
-**NOTE:** This is a no-reply call, so its success cannot be 
+**NOTE:** This is a no-reply call, so its success cannot be
 determined directly.
 
 ```cpp
@@ -958,9 +958,9 @@ configClient->Restart(busname.c_str(), id);
 
 #### Setting a passcode on the peer
 
-The peer application can be set to have a different passcode 
-though the ConfigClient using the `SetPasscode()` method call. 
-This revokes the current encryption keys and regenerates new 
+The peer application can be set to have a different passcode
+though the ConfigClient using the `SetPasscode()` method call.
+This revokes the current encryption keys and regenerates new
 ones based on the new shared secret, namely the passcode.
 
 **NOTE:** The realm name is currently ignored.
@@ -975,13 +975,13 @@ configClient->SetPasscode(busname.c_str(), "MyDeamonRealm", 8, (const uint8_t*) 
 
 ### Delete variables and unregister listeners
 
-Once you are done using the Config Service, Configuration 
-service framework, and the AllJoyn framework, free the variables 
+Once you are done using the Config Service, Configuration
+service framework, and the AllJoyn framework, free the variables
 used in the application.
 
 ```cpp
-if (configClient) { 
-   delete configClient; 
+if (configClient) {
+   delete configClient;
    configClient = NULL;
 }
 busAttachment->Stop();
@@ -989,7 +989,7 @@ delete busAttachment;
 ```
 
 [building-linux]: /develop/building/linux
-[about-api-guide-linux]: /develop/api-guide/about/linux
+[about-api-guide-cpp]: /develop/api-guide/about/cpp
 [about-interface-definition]: /learn/core/about-announcement/interface
 [config-interface-definition]: /learn/base-services/configuration/interface
 [config-interface-data-fields]: #config-interface-data-fields

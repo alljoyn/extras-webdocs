@@ -3,7 +3,7 @@
 <!-- QUESTION FOR GEORGE: I don't understand this first statement. Please resolve.-->
 
 These APIs were added to AllJoyn&trade; 14.12 release for using the About Feature in an
-older release please see: [Legay Linux About API Guide][about-linux-legacy]
+older release please see: [Legay C++ About API Guide][about-cpp-legacy]
 
 ## Reference code
 
@@ -88,7 +88,7 @@ if (ER_OK != status) {
 Bind a session port that will be used to communicate. the value for
 `ASSIGNED_SESSION_PORT` is chosen by the developer.  The value itself is
 unimportant.  What is important is that the session port bound to is part of the
-`Announce` signal. 
+`Announce` signal.
 
 ```cpp
 SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
@@ -113,7 +113,7 @@ For this sample the following xml interface was used.
     <arg name='return_arg' type='s' direction='out' />
   </method>
 </interface>
-``` 
+```
 
 C++ code showing adding the interface to the BusAttachment using xml. The
 `INTERFACE_NAME` is coded to be the string
@@ -287,7 +287,7 @@ Any new language specified, including the default language, is automatically
 added to the `SupportedLanguages` by the `AboutData` implementation.
 
 The `AJSoftwareVersion` is also automatically filled in by the `AboutData`
-implementation. 
+implementation.
 
 ### Create an `AboutObj` and `Announce`
 
@@ -316,7 +316,7 @@ port. See [create a `BusAttachment`][create-a-busattachment]
 ###create an `AboutListener`
 
 The AboutListener interface is responsible for responding to `Announce` signals.
-  
+
 ```cpp
 class MyAboutListener : public AboutListener {
     void Announced(const char* busName, uint16_t version, SessionPort port,
@@ -357,7 +357,7 @@ then all Registered `AboutListeners` will be called.
 
 For example, if you need both `com.example.Audio` *and*
 `com.example.Video` interfaces then do the following.
- 
+
 RegisterAboutListener once:
 ```cpp
 const char* interfaces[] = {"com.example.Audio", "com.example.Video"};
@@ -446,11 +446,11 @@ bus.WhoImplements(org::alljoyn::Icon::InterfaceName);
 ### Using Ping to determine presence
 
 The `BusAttachment` `Ping` member function can be used to determine
-if a device is responsive. Contents of an Announce signal can 
-be stale so it is recommended to ping the device to see if it 
+if a device is responsive. Contents of an Announce signal can
+be stale so it is recommended to ping the device to see if it
 is still present and responsive before attempting to form a connection.
 
-**NOTE:** The `BusAttachment::Ping` member function makes a bus call. If `Ping` 
+**NOTE:** The `BusAttachment::Ping` member function makes a bus call. If `Ping`
 is called inside an AllJoyn callback, `BusAttachment::EnableConcurrentCallbacks`
 must be called first.
 
@@ -472,13 +472,13 @@ announcement, perform the following steps.
 1. Join the session
 
    Create a session with the application by calling `BusAttachment::JoinSession`.
- 
+
    **NOTE:** The variables name and port are obtained from the
    AboutListener::Announced member function.
 
    ```cpp
    SessionId sessionId;
-   SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, 
+   SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false,
                     SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
    QStatus status = bus.JoinSession(name, port, NULL, sessionId, opts);
    if (status == ER_OK) {
@@ -532,7 +532,7 @@ announcement, perform the following steps.
 <!--TODO add section on Making an AboutDataListener from legacy PropertyStore -->
 <!--TODO add section on run time adding and removing BusObjects using `BusObject::SetAnnouceFlag` -->
 
-[about-linux-legacy]: /develop/api-guide/about/linux-legacy
+[about-cpp-legacy]: /develop/api-guide/about/cpp-legacy
 [create-a-busattachment]: #create-a-busattachment-
 [create-interfaces]: #create-interfaces
 [create-busobject]: #create-busobject-s-for-interfaces

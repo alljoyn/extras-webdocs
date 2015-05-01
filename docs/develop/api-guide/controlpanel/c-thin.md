@@ -1,27 +1,27 @@
-# Control Panel API Guide - Thin Linux
+# Control Panel API Guide - C (Thin Core)
 
 ## Obtain the Control Panel service framework
 
-The source code for this service framework can be found on 
-the [AllSeen Alliance gerrit page](https://git.allseenalliance.org/cgit/) as a git project. 
-In addition, the [ajtcl](https://git.allseenalliance.org/cgit/core/ajtcl.git/) project is 
+The source code for this service framework can be found on
+the [AllSeen Alliance gerrit page](https://git.allseenalliance.org/cgit/) as a git project.
+In addition, the [ajtcl](https://git.allseenalliance.org/cgit/core/ajtcl.git/) project is
 needed to compile this service framework.
 
-If the target platform already supports the AllJoyn&trade; 
-Thin Library framework, follow the target platform documentation 
+If the target platform already supports the AllJoyn&trade;
+Thin Library framework, follow the target platform documentation
 for detailed setup and download instructions.
 
-If the target platform does not support the AllJoyn Thin Library 
-framework, porting work is required to support this target. 
-See the [Introduction to AllJoyn Thin Library][intro-thin-library] for more 
+If the target platform does not support the AllJoyn Thin Library
+framework, porting work is required to support this target.
+See the [Introduction to AllJoyn Thin Library][intro-thin-library] for more
 information about the AllJoyn Thin Library framework.
 
 ## Reference code
 
-The reference code consists of several components each including 
-one or more modules. Additionally, included in the sample component 
-is a sample application that implements the Control Panel service 
-framework and contains a simple control panel with one example for 
+The reference code consists of several components each including
+one or more modules. Additionally, included in the sample component
+is a sample application that implements the Control Panel service
+framework and contains a simple control panel with one example for
 each kind of Widget.
 
 | Components | Description |
@@ -40,7 +40,7 @@ each kind of Widget.
 |---|---|
 | ContainerWidget | Container UI element. Allows grouping of widgets together. Must contain at least one child element. |
 | LabelWidget | UI element that functions as a read only label of text. |
-| ActionWidget | UI element represented by a button that either executes code on the Controllee, or opens a Dialog Widget as a confirmation before executing. | 
+| ActionWidget | UI element represented by a button that either executes code on the Controllee, or opens a Dialog Widget as a confirmation before executing. |
 | DialogWidget | UI dialog element. Has a dialog message and up to 3 choices of buttons. |
 | PropertyWidget | UI element used to display a value and possibly edit it. |
 
@@ -54,7 +54,7 @@ each kind of Widget.
 | ControlMarshalUtil | Utility functions used to marshal control panel properties. |
 | DateTimeUtil | Module that enables properties that have a Date or Time value. |
 | HttpControl | Module that allows publicizing of a URL to function as a control panel for the Controllee. |
- 
+
 #### General modules
 
 | Module | Description |
@@ -64,21 +64,21 @@ each kind of Widget.
 
 ### Control Panel Provided component
 
-This component contains the code specific to the device that 
-the Controllee application runs on. The Control Panel Generated 
+This component contains the code specific to the device that
+the Controllee application runs on. The Control Panel Generated
 code will interact with this component to do the following:
 
 * Set property values
 * Get property values
 * Execute actions
- 
-Additionally, it can initiate a refresh on the Controller by 
-calling the Control Panel service framework's appropriate functions. 
+
+Additionally, it can initiate a refresh on the Controller by
+calling the Control Panel service framework's appropriate functions.
 The modules in this component are provided by a third party.
 
-For example, think of a washing machine. The Control Panel 
-Provided component would be the code that communicates with 
-the hardware to perform actions such as setting the water 
+For example, think of a washing machine. The Control Panel
+Provided component would be the code that communicates with
+the hardware to perform actions such as setting the water
 temperature or starting the wash cycle.
 
 ### Control Panel Generator component
@@ -113,22 +113,22 @@ temperature or starting the wash cycle.
 
 The following steps provide the high-level process to build a Controllee.
 
-1. Create the base for the AllJoyn application. See the 
-[Build an Application using the Thin Library][build-app-thin-library] 
+1. Create the base for the AllJoyn application. See the
+[Build an Application using the Thin Library][build-app-thin-library]
 section for instructions.
-2. Create the code handlers necessary to control the device. 
-This includes getters and setters for properties and functions 
+2. Create the code handlers necessary to control the device.
+This includes getters and setters for properties and functions
 to handle execution of actions.
-3. Create the XML definition of the UI. Include calls to the 
+3. Create the XML definition of the UI. Include calls to the
 code handlers in the appropriate places.
-4. Use the code generation tool provided in the SDK to generate 
+4. Use the code generation tool provided in the SDK to generate
 code from XML.
 
 ## Implementing a Controllee
 
 ### Create the base for the AllJoyn application
 
-See the [Build an Application using the Thin Library][build-app-thin-library] 
+See the [Build an Application using the Thin Library][build-app-thin-library]
 section for instructions.
 
 ### Create header file that declares device-specific callbacks
@@ -142,9 +142,9 @@ provided widget casted to a void*
 
 #### Callback for SetCode property
 
-This signature is not determined by the Control Panel service 
-framework and can be chosen based on the specific applications 
-need. The assumption is that one of the parameters will be the 
+This signature is not determined by the Control Panel service
+framework and can be chosen based on the specific applications
+need. The assumption is that one of the parameters will be the
 new value the property should be set to.
 
 For example:
@@ -155,7 +155,7 @@ void SetTemperature(uint16 newTemperature);
 
 #### Callback for code execution of action
 
-This signature is not determined by the service and can be 
+This signature is not determined by the service and can be
 chosen based on the specific application's need.
 
 For example:
@@ -187,18 +187,18 @@ void StartOven();
 
 #### Naming conventions
 
-The name of the unit (detailed in Add include statement(s) 
-for header file that contains device specific callbacks) and 
-the name of each individual Widget contained within a control 
-panel must adhere to the following naming conventions (this 
-is due to the fact that the unit name and widget name are used 
-as part of the AllJoyn BusObject object paths that the Control 
+The name of the unit (detailed in Add include statement(s)
+for header file that contains device specific callbacks) and
+the name of each individual Widget contained within a control
+panel must adhere to the following naming conventions (this
+is due to the fact that the unit name and widget name are used
+as part of the AllJoyn BusObject object paths that the Control
 Panel service framework utilizes).
 
 * Must contain only the ASCII characters "[A-Z][a-z][0-9]_"
 * Cannot be an empty string
 
-See [XML UI Element Descriptions][xml-ui-descriptions] for 
+See [XML UI Element Descriptions][xml-ui-descriptions] for
 samples of names that follow these conventions.
 
 #### Create a controlPanelDevice tag with the XML schema
@@ -216,11 +216,11 @@ Define the name of the unit between the controlPanelDevice tags.
 <name>MyDevice</name>
 ```
 
-#### Add include statement(s) for header file that contains 
+#### Add include statement(s) for header file that contains
 device specific callbacks
 
-Add the include statements after the name tag. More than one 
-header file can be added. See [Create header file that declares 
+Add the include statements after the name tag. More than one
+header file can be added. See [Create header file that declares
 device-specific callbacks][create-header-file] for more information.
 
 ```xml
@@ -229,13 +229,13 @@ device-specific callbacks][create-header-file] for more information.
 
 #### Define the language set for the control panel
 
-Add this after the headerCode tag. This must include a list of 
-languages that the control panel can display labels and 
+Add this after the headerCode tag. This must include a list of
+languages that the control panel can display labels and
 messages in. More than one language set can be defined.
 
-NOTE: For the sake of completeness and integrity of the device's 
-overall user experience, it is recommended to have the textToSend 
-array match the SupportedLanguages list published by the About 
+NOTE: For the sake of completeness and integrity of the device's
+overall user experience, it is recommended to have the textToSend
+array match the SupportedLanguages list published by the About
 feature and provisioned for the PropertyStore in the application.
 
 ```xml
@@ -248,8 +248,8 @@ feature and provisioned for the PropertyStore in the application.
 
 #### Set up the control panel structure
 
-Add this after the languageSets tag. Each control panel needs 
-to define the preferred language set. More than one control 
+Add this after the languageSets tag. Each control panel needs
+to define the preferred language set. More than one control
 panel can be defined.
 
 ```xml
@@ -263,10 +263,10 @@ panel can be defined.
 
 #### Define a root container and its child elements
 
-Add the root container within the controlPanel tags. The 
-rootContainer is the main ContainerWidget used to group together 
-all the widgets that make up the control panel. For more information 
-on Container Widgets and possible child widgets, see [Widget modules][widget-modules] 
+Add the root container within the controlPanel tags. The
+rootContainer is the main ContainerWidget used to group together
+all the widgets that make up the control panel. For more information
+on Container Widgets and possible child widgets, see [Widget modules][widget-modules]
 and [XML UI Element Descriptions][xml-ui-descriptions].
 
 ```xml
@@ -277,14 +277,14 @@ and [XML UI Element Descriptions][xml-ui-descriptions].
 
 ### Run the Code Generator tool
 
-In the CPSAppGenerator directory, run the generator command 
+In the CPSAppGenerator directory, run the generator command
 to produce the Control Panel Generated Code from the XML.
 
 ```sh
 python generateCPSApp.py [nameOfXML] [DirectoryOfApplication]
 ```
 
-This Python script generates the following c and h files in 
+This Python script generates the following c and h files in
 the application directory:
 
 * ControlPanelGenerated.c
@@ -294,25 +294,25 @@ These files will be used to build the Controllee application.
 
 ### Start the Controllee
 
-The Controllee is required to be passed the provisioning by 
+The Controllee is required to be passed the provisioning by
 the application via a call to
 `AJCPS_Start()`.
- 
-An example is in `Controlee_Init()` of ControlPanelSample.c. 
-Both the bus object list and the callbacks are implemented 
-in the ControlPanelGenerated.c and are linked to the business 
+
+An example is in `Controlee_Init()` of ControlPanelSample.c.
+Both the bus object list and the callbacks are implemented
+in the ControlPanelGenerated.c and are linked to the business
 logic in ControlPanelProvided.c.
 
 ```c
 /**
 * Message processor for the ControlPanel generated model.
 */
-AJSVC_ServiceStatus GeneratedMessageProcessor(AJ_BusAttachment* bus, 
+AJSVC_ServiceStatus GeneratedMessageProcessor(AJ_BusAttachment* bus,
    AJ_Message* msg, AJ_Status* msgStatus) {...}
 /**
 * Returns the corresponding widget object attributes for the given identifier.
 */
-void* IdentifyMsgOrPropId(uint32_t identifier, uint16_t* widgetType, 
+void* IdentifyMsgOrPropId(uint32_t identifier, uint16_t* widgetType,
    uint16_t* propType, uint16_t* language) {...}
 /**
 * Returns the corresponding property for the given identifier.
@@ -343,28 +343,28 @@ AJ_Status Controlee_Init()
 
 ### Compile the code
 
-The process to compile varies depending on the host and target 
-platform. Each host and platform needs may require a specific 
-directory and file layout, build tool chains, procedures, 
-and supported AllJoyn service frameworks. Refer to the target 
-platform documentation that contains instructions on how to 
-organize and set up the build process to incorporate the 
+The process to compile varies depending on the host and target
+platform. Each host and platform needs may require a specific
+directory and file layout, build tool chains, procedures,
+and supported AllJoyn service frameworks. Refer to the target
+platform documentation that contains instructions on how to
+organize and set up the build process to incorporate the
 necessary files to compile your Thin Library application.
 
-For more details on how to combine this AllJoyn service 
-framework with other AllJoyn service framework software, 
+For more details on how to combine this AllJoyn service
+framework with other AllJoyn service framework software,
 see the [Build an Application using the Thin Library][build-app-thin-library] section.
 
 ## XML UI Element Descriptions
- 
-This section provides XML UI element samples for each Control 
-Panel interface. See the [Control Panel Interface Definition][controlpanel-interface-definition] 
+
+This section provides XML UI element samples for each Control
+Panel interface. See the [Control Panel Interface Definition][controlpanel-interface-definition]
 for a full description of each interface.
- 
+
 ### Container
- 
+
 #### Sample XML for Container
- 
+
 ```xml
 <container>
    <name>rootContainer</name>
@@ -383,7 +383,7 @@ for a full description of each interface.
    </elements>
 <container>
 ```
- 
+
 #### Container properties
 
 | Property | Possible values | Required | Description |
@@ -397,17 +397,17 @@ for a full description of each interface.
 | elements | <ul><li>Action</li><li>Property</li><li>LabelProperty</li><li>Container</li></ul> | yes | Child widgets. Can be one or more within a Container. |
 
 ### Actions
- 
+
 #### Sample XML for Action
- 
-The onAction tag includes the execute code and dialog options. 
+
+The onAction tag includes the execute code and dialog options.
 Both options cannot be included in the same tag.
- 
+
 ```xml
 <action>
    <name>ovenAction</name>
    <onAction>
-      <executeCode>startOven();</executeCode> 
+      <executeCode>startOven();</executeCode>
          OR
       <dialog>
       //dialog properties here
@@ -425,7 +425,7 @@ Both options cannot be included in the same tag.
    </hints>
 </action>
 ```
- 
+
 #### Action properties
 
 | Property | Possible values | Required | Description |
@@ -451,9 +451,9 @@ Both options cannot be included in the same tag.
       <value type="literal" language="de">Aktuelle Temperatur:</value>
    </label>
    <bgcolor>0x98765</bgcolor>
-   <hints>	
+   <hints>
       <hint>textlabel</hint>
-   </hints>	
+   </hints>
 </labelProperty>
 ```
 
@@ -469,18 +469,18 @@ Both options cannot be included in the same tag.
 
 ### Property
 
-Depending on the signature of the value, there are different 
-ways to construct a property in the XML. Samples and property 
+Depending on the signature of the value, there are different
+ways to construct a property in the XML. Samples and property
 information for each supported signature are provided here.
- 
+
 * String
 * Boolean
 * Date
 * Time
 * Scalar
- 
+
 #### Sample XML for stringProperty
- 
+
 ```xml
 <stringProperty>
    <name>modeStringProperty</name>
@@ -515,7 +515,7 @@ information for each supported signature are provided here.
    </constraintVals>
 </stringProperty>
 ```
- 
+
 #### stringProperty properties
 
 | Property | Possible values | Required | Description |
@@ -532,7 +532,7 @@ information for each supported signature are provided here.
 | constraintVals | List of constraints | no | Constraint Property to a list of values. Each Constraint is made up of a value and its display. |
 
 #### Sample XML for Boolean property
- 
+
 ```xml
 <booleanProperty>
    <name>checkboxProperty</name>
@@ -551,7 +551,7 @@ information for each supported signature are provided here.
    </hints>
 </booleanProperty>
 ```
- 
+
 #### booleanProperty properties
 
 | Property | Possible values | Required | Description |
@@ -567,7 +567,7 @@ information for each supported signature are provided here.
 | hints | checkbox | no | Hint for how the UI should be rendered. |
 
 #### Sample XML for Date property
- 
+
 ```xml
 <dateProperty>
    <name>startDateProperty</name>
@@ -586,7 +586,7 @@ information for each supported signature are provided here.
    </hints>
 </dateProperty>
 ```
- 
+
 #### dateProperty properties
 
 | Property | Possible values | Required | Description |
@@ -602,7 +602,7 @@ information for each supported signature are provided here.
 | hints | datepicker | no | Hint for how the UI should be rendered. |
 
 #### Sample XML for Time property
- 
+
 ```xml
 <timeProperty>
    <name>startTimeProperty</name>
@@ -621,7 +621,7 @@ information for each supported signature are provided here.
    </hints>
 </timeProperty>
 ```
- 
+
 #### timeProperty properties
 
 | Property | Possible values | Required | Description |
@@ -637,10 +637,10 @@ information for each supported signature are provided here.
 | hints | timepicker | no | Hint for how the UI should be rendered. |
 
 #### Sample XML for Scalar property
- 
-The constraintDefs tag includes the value and range example. 
+
+The constraintDefs tag includes the value and range example.
 Both cannot be included in the same tag.
- 
+
 ```xml
 <scalarProperty dataType="UINT16">
    <name>heatProperty</name>
@@ -673,7 +673,7 @@ Both cannot be included in the same tag.
             </display>
             <value>200</value>
          </constraint>
-      </constraintVals> 
+      </constraintVals>
    OR
       <constraintRange>
          <min>0</min>
@@ -687,7 +687,7 @@ Both cannot be included in the same tag.
    </unitMeasure>
 </scalarProperty>
 ```
- 
+
 #### scalarProperty properties
 
 | Property | Possible values | Required | Description |
@@ -706,7 +706,7 @@ Both cannot be included in the same tag.
 | unitMeasure | <ul><li>code</li><li>value</li></ul> | no | <p>Unit of measure for the Property.</p><ul><li>If code, a function pointer to receive the unit measure text.<ul><li>code</li><li>value</li></ul>If value, can be a literal or a constant.</li></ul> |
 
 ### Dialog
- 
+
 #### Sample XML for a Dialog
 
 ```xml

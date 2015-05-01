@@ -1,4 +1,4 @@
-# Control Panel API Guide - Linux
+# Control Panel API Guide - C++
 
 ## Reference code
 
@@ -33,19 +33,19 @@
 
 ### Obtain the Control Panel service framework
 
-See the [Building Linux][building-linux] section for 
-instructions on compiling the ControlPanel service framework. 
+See the [Building Linux][building-linux] section for
+instructions on compiling the ControlPanel service framework.
 The Control Panel Service is made up of several components.
 
 #### Control Panel Service components
 
-Components that allow for interaction between Controllees and 
-Controllers are defined below. This is the service layer and 
+Components that allow for interaction between Controllees and
+Controllers are defined below. This is the service layer and
 does not have any application-specific code.
 
 ##### Widget modules
 
-The following widget modules are contained in the Control 
+The following widget modules are contained in the Control
 Panel Service component used to create a ControlPanel.
 
 | Module | Description |
@@ -58,35 +58,35 @@ Panel Service component used to create a ControlPanel.
 
 ##### Control Panel Provided component
 
-This component contains the code specific to the device that 
-the Controllee application runs on. The Control Panel Generated 
+This component contains the code specific to the device that
+the Controllee application runs on. The Control Panel Generated
 code will interact with this component to do the following:
 
 * Set property values
 * Get property values
 * Execute actions.
 
-Additionally, it can initiate a refresh on the Controller by 
-calling the Control Panel service framework's appropriate functions. 
+Additionally, it can initiate a refresh on the Controller by
+calling the Control Panel service framework's appropriate functions.
 The modules in this component are provided by a third party.
 
-For example, think of a washing machine. The Control Panel 
-Provided component would be the code that communicates with 
-the hardware to perform actions such as setting the water 
+For example, think of a washing machine. The Control Panel
+Provided component would be the code that communicates with
+the hardware to perform actions such as setting the water
 temperature or starting the wash cycle.
 
 ##### Control Panel Generator component
 
-A Generator tool that accepts an XML UI definition file, 
-containing the Widgets and their properties that describe the 
-specific Controllee's control panel and generate code into a 
-Control Panel Generated code. For steps on how to generate the 
+A Generator tool that accepts an XML UI definition file,
+containing the Widgets and their properties that describe the
+specific Controllee's control panel and generate code into a
+Control Panel Generated code. For steps on how to generate the
 code, see [Run the Code Generator tool][run-code-generator-tool].
 
 ##### Control Panel Sample component
 
-This component is a template for an application, and responsible 
-for the general flow of the Controllee application including 
+This component is a template for an application, and responsible
+for the general flow of the Controllee application including
 initialization and shutdown. It relies on the generated and the provided code.
 
 ### Build a Controllee
@@ -94,23 +94,23 @@ initialization and shutdown. It relies on the generated and the provided code.
 The following steps provide the high-level process to build a Controllee.
 
 1. Create the base for the AllJoyn application.
-2. Implement the ProperyStore and use this with the AboutService 
-in server mode. See the [About API Guide][about-api-guide-linux] for instructions.
-3. Create the code handlers necessary to control the device. 
-This includes getters and setters for properties and functions 
+2. Implement the ProperyStore and use this with the AboutService
+in server mode. See the [About API Guide][about-api-guide-cpp] for instructions.
+3. Create the code handlers necessary to control the device.
+This includes getters and setters for properties and functions
 to handle execution of actions.
-4. Create the XML definition of the UI. Include calls to the 
+4. Create the XML definition of the UI. Include calls to the
 code handlers in the appropriate places.
-5. Use the code generation tool provided in the SDK to generate 
+5. Use the code generation tool provided in the SDK to generate
 code from XML.
-6. Initialize the Control Panel Service and the Controllee. 
+6. Initialize the Control Panel Service and the Controllee.
 Send an announcement to broadcast the available controlpanels.
- 
+
 ## Implementing a Controllee
 
 ### Initialize the AllJoyn framework
 
-See the [Building Linux][building-linux] section for 
+See the [Building Linux][building-linux] section for
 instructions to set up the AllJoyn framework.
 
 #### Create bus attachment
@@ -123,8 +123,8 @@ BusAttachment* bus = CommonSampleUtil::prepareBusAttachment();
 
 The Control Panel service framework depends on the About feature.
 
-For more information about the About feature, see the 
-[About API Guide][about-api-guide-linux].
+For more information about the About feature, see the
+[About API Guide][about-api-guide-cpp].
 
 #### Create a PropertyStore and fill it with the needed values
 
@@ -149,7 +149,7 @@ propertyStore->setDefaultLang(defaultLanguage);
       CHECK_RETURN(propertyStore->setDeviceName("Mi nombre de dispositivo",
 "sp"));
    }
- 
+
    iter = deviceNames.find(languages[2]);
    if (iter != deviceNames.end()) {
       CHECK_RETURN(propertyStore->setDeviceName(iter->second.c_str(), languages[2]));
@@ -157,26 +157,26 @@ propertyStore->setDefaultLang(defaultLanguage);
       CHECK_RETURN(propertyStore->setDeviceName("Mon nom de l'appareil", "fr"));
 
    }
-```   
+```
 
 #### Implement a BusListener and SessionPortListener
 
-In order to bind a SessionPort and accept sessions, a new 
-class must be created that inherits from the AllJoyn BusListener 
+In order to bind a SessionPort and accept sessions, a new
+class must be created that inherits from the AllJoyn BusListener
 and SessionPortListener classes.
 
 The class must contain the following function:
 
 ```cpp
-bool AcceptSessionJoiner(SessionPort sessionPort, 
+bool AcceptSessionJoiner(SessionPort sessionPort,
    const char* joiner, const SessionOpts& opts)
 ```
 
-The AcceptSessionJoiner function will be called any time a 
-joinsession request is received; the Listener class needs 
-to dictate whether the joinsession request should be accepted 
-or rejected by returning true or false, respectively. 
-These considerations are application-specific and can 
+The AcceptSessionJoiner function will be called any time a
+joinsession request is received; the Listener class needs
+to dictate whether the joinsession request should be accepted
+or rejected by returning true or false, respectively.
+These considerations are application-specific and can
 include any of the following:
 
 * The SessionPort the request was made on
@@ -186,13 +186,13 @@ include any of the following:
 Here is an example of a full class declaration for the listener class.
 
 ```cpp
-class CommonBusListener : public ajn::BusListener, 
+class CommonBusListener : public ajn::BusListener,
    public ajn::SessionPortListener
 {
 
    public: CommonBusListener();
       ~CommonBusListener();
-      bool AcceptSessionJoiner(ajn::SessionPort sessionPort, 
+      bool AcceptSessionJoiner(ajn::SessionPort sessionPort,
          const char* joiner, const ajn::SessionOpts& opts);
       void setSessionPort(ajn::SessionPort sessionPort);
       ajn::SessionPort getSessionPort();
@@ -204,15 +204,15 @@ class CommonBusListener : public ajn::BusListener,
 #### Instantiate a BusListener and initialize the About feature
 
 ```cpp
-busListener = new CommonBusListener(); 
+busListener = new CommonBusListener();
 AboutServiceApi::Init(*bus, *propertyStore);
 AboutServiceApi* aboutService = AboutServiceApi::getInstance();
 
 busListener->setSessionPort(port);
-bus->RegisterBusListener(*busListener); 
-TransportMask transportMask = TRANSPORT_ANY; 
+bus->RegisterBusListener(*busListener);
+TransportMask transportMask = TRANSPORT_ANY;
 SessionPort sp = port;
-SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, 
+SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false,
    SessionOpts::PROXIMITY_ANY, transportMask);
 bus->BindSessionPort(sp, opts, *busListener);
 aboutService->Register(port);
@@ -222,9 +222,9 @@ bus->RegisterBusObject(*aboutService);
 ### Initialize the Control Panel service and the Controllee
 
 ```cpp
-ControlPanelService* controlPanelService = ControlPanelService::getInstance(); 
-ControlPanelControllee* controlPanelControllee = 0; 
-ControlPanelGenerated::PrepareWidgets(controlPanelControllee); 
+ControlPanelService* controlPanelService = ControlPanelService::getInstance();
+ControlPanelControllee* controlPanelControllee = 0;
+ControlPanelGenerated::PrepareWidgets(controlPanelControllee);
 controlPanelService->initControllee(bus, controlPanelControllee);
 ```
 
@@ -240,15 +240,15 @@ aboutService->Announce();
 #### Callback signature for GetCode of property
 
 ```cpp
-uint16_t getTemperature() - Returns the property value. 
+uint16_t getTemperature() - Returns the property value.
 dataType is specific to the applications needs
 ```
 
 #### Callback for SetCode property
 
-This signature is not determined by the Control Panel service 
-framework and can be chosen based on the specific application's 
-need. The assumption is that one of the parameters will be 
+This signature is not determined by the Control Panel service
+framework and can be chosen based on the specific application's
+need. The assumption is that one of the parameters will be
 the new value the property should be set to.
 
 For example:
@@ -259,9 +259,9 @@ void SetTemperature(uint16 newTemperature);
 
 #### Callback for code execution of action
 
-This signature is not determined by the Control Panel service 
+This signature is not determined by the Control Panel service
 framework and can be chosen based on the specific application's need.
- 
+
 For example:
 
 ```cpp
@@ -291,18 +291,18 @@ void StartOven();
 
 #### Naming conventions
 
-The name of the unit (detailed in [Add include statements 
-for header file that contains device-specific callbacks][add-include-statements]) 
-and the name of each individual Widget contained within a 
-control panel must adhere to the following naming conventions 
-(this is due to the fact that the unit name and widget name 
-are used as part of the AllJoyn BusObject object paths 
+The name of the unit (detailed in [Add include statements
+for header file that contains device-specific callbacks][add-include-statements])
+and the name of each individual Widget contained within a
+control panel must adhere to the following naming conventions
+(this is due to the fact that the unit name and widget name
+are used as part of the AllJoyn BusObject object paths
 that the Control Panel service framework utilizes).
 
 * Contain only the ASCII characters "[A-Z][a-z][0-9]_"
 * Cannot be an empty string
 
-See [XML UI Element Descriptions][xml-ui-element-descriptions] for 
+See [XML UI Element Descriptions][xml-ui-element-descriptions] for
 samples of names that follow these conventions.
 
 #### Create a controlPanelDevice tag with the XML schema
@@ -318,12 +318,12 @@ Define the name of the unit between the controlPanelDevice tags.
 
 ```xml
 <name>MyDevice</name>
-``` 
+```
 
 #### Add include statements for header file that contains device-specific callbacks
 
-Add the include statements after the name tag. More than one 
-header file can be added. See [Initialize the Control Panel 
+Add the include statements after the name tag. More than one
+header file can be added. See [Initialize the Control Panel
 service and the Controllee][initialize-controlpanel-service-controllee] for more information.
 
 ```xml
@@ -332,8 +332,8 @@ service and the Controllee][initialize-controlpanel-service-controllee] for more
 
 #### Define the language set for the control panel
 
-Add this after the headerCode tag. This must include a list of 
-languages that the control panel can display labels and messages 
+Add this after the headerCode tag. This must include a list of
+languages that the control panel can display labels and messages
 in. More than one language set can be defined.
 
 ```xml
@@ -346,7 +346,7 @@ in. More than one language set can be defined.
 
 #### Set up the control panel structure
 
-Add this after the languageSets tag. Each control panel must 
+Add this after the languageSets tag. Each control panel must
 define the preferred language set. More than one control panel can be defined.
 
 ```xml
@@ -360,10 +360,10 @@ define the preferred language set. More than one control panel can be defined.
 
 #### Define a root container and its child elements
 
-Add the root container within the controlPanel tags. The 
-rootContainer is the main ContainerWidget used to group together 
-all the widgets that make up the control panel. For more 
-information on Container Widgets and possible child widgets, 
+Add the root container within the controlPanel tags. The
+rootContainer is the main ContainerWidget used to group together
+all the widgets that make up the control panel. For more
+information on Container Widgets and possible child widgets,
 see [Widget modules][widget-modules] and [XML UI Element Descriptions][xml-ui-element-descriptions].
 
 ```xml
@@ -374,38 +374,38 @@ see [Widget modules][widget-modules] and [XML UI Element Descriptions][xml-ui-el
 
 ### Run the Code Generator tool
 
-In the CPSAppGenerator directory, run the generator command 
+In the CPSAppGenerator directory, run the generator command
 to produce the Control Panel Generated Code from the XML.
 
 ```sh
-python generateCPSApp.py <XML file the generate code from> 
+python generateCPSApp.py <XML file the generate code from>
    -p <destination path for generated files>
-``` 
-This Python script generates the following c and h files in 
+```
+This Python script generates the following c and h files in
 the application directory:
 
 * ControlPanelGenerated.cc
 * ControlPanelGenerated.h
 
-In addition, it generates a class for every property and action 
-defined in the XML. 
+In addition, it generates a class for every property and action
+defined in the XML.
 
 These files will be used to build the Controllee application.
 
 ### Compile the code
 
-The process to compile varies depending on the host and target 
-platform. Each host and platform needs may require a specific 
-directory and file layout, build toolchains, procedures, and 
-supported AllJoyn service frameworks. Refer to the target 
-platform documentation that contains instructions on how 
-to organize and set up the build process to incorporate 
+The process to compile varies depending on the host and target
+platform. Each host and platform needs may require a specific
+directory and file layout, build toolchains, procedures, and
+supported AllJoyn service frameworks. Refer to the target
+platform documentation that contains instructions on how
+to organize and set up the build process to incorporate
 the necessary files to compile your application.
 
 ## XML UI Element Descriptions
 
-This section provides XML UI element samples for each Control 
-Panel interface. See the [Control Panel Interface Definition][controlpanel-interface-definition] 
+This section provides XML UI element samples for each Control
+Panel interface. See the [Control Panel Interface Definition][controlpanel-interface-definition]
 for a full description of each interface.
 
 ### Container
@@ -447,14 +447,14 @@ for a full description of each interface.
 
 #### Sample XML for Action
 
-The onAction tag includes the execute code and dialog options. 
+The onAction tag includes the execute code and dialog options.
 Both options cannot be included in the same tag.
 
 ```xml
 <action>
    <name>ovenAction</name>
    <onAction>
-      <executeCode>startOven();</executeCode> 
+      <executeCode>startOven();</executeCode>
          OR
       <dialog>
       //dialog properties here
@@ -498,9 +498,9 @@ Both options cannot be included in the same tag.
       <value type="literal" language="de">Aktuelle Temperatur:</value>
    </label>
    <bgcolor>0x98765</bgcolor>
-   <hints>	
+   <hints>
       <hint>textlabel</hint>
-   </hints>	
+   </hints>
 </labelProperty>
 ```
 
@@ -516,8 +516,8 @@ Both options cannot be included in the same tag.
 
 ### Property
 
-Depending on the signature of the value, there are different 
-ways to construct a property in the XML. Samples and property 
+Depending on the signature of the value, there are different
+ways to construct a property in the XML. Samples and property
 information for each supported signature are provided here.
 
 * String
@@ -685,7 +685,7 @@ information for each supported signature are provided here.
 
 #### Sample XML for Scalar property
 
-The constraintDefs tag includes the value and range example. 
+The constraintDefs tag includes the value and range example.
 Both cannot be included in the same tag.
 
 ```xml
@@ -720,7 +720,7 @@ Both cannot be included in the same tag.
             </display>
             <value>200</value>
          </constraint>
-      </constraintVals> 
+      </constraintVals>
    OR
       <constraintRange>
          <min>0</min>
@@ -805,9 +805,9 @@ Both cannot be included in the same tag.
 | hints | alertdialog | no | Hint for how the UI should be rendered. |
 | button | Label and executeCode | Yes - can have up to 3 | <p>Each button must contain the following:</p><ul><li>A Label tag that contains the text that appears on the button.</li><li>An executeCode tag which contains the code to be executed on the Controllee when the button is pressed.</li></ul> |
 
-[building-linux]:  /develop/building/linux 
+[building-linux]:  /develop/building/linux
 [run-code-generator-tool]: #run-the-code-generator-tool
-[about-api-guide-linux]: /develop/api-guide/about/linux
+[about-api-guide-cpp]: /develop/api-guide/about/cpp
 [add-include-statements]: #add-include-statements-for-header-file-that-contains-device-specific-callbacks
 [initialize-controlpanel-service-controllee]: #initialize-controlpanel-service-controllee
 [xml-ui-element-descriptions]: #xml-ui-element-descriptions

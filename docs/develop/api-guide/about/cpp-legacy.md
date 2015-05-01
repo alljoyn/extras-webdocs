@@ -1,4 +1,4 @@
-# About API Guide - Linux
+# About API Guide - C++
 
 The About Feature was integrated with the core library with the
 AllJoyn&trade; 14.12 release.  The reference code found in this document refers
@@ -7,9 +7,9 @@ to the About Feature code developed before the the About Feature integration.
 As a developer you are encouraged to discontinue use of these APIs and move to
 the newer About Feature API.
 
-[Linux][about-linux]
+[Current About API C++ Guide][about-cpp]
 
-    
+
 ## Reference code
 
 ### Classes used to send AboutData
@@ -36,17 +36,17 @@ the newer About Feature API.
 
 ## Build an application that uses AboutService
 
-The following steps provide the high-level process to build an 
+The following steps provide the high-level process to build an
 application that will broadcast AboutData.
 
-1. Implement PropertyStore to produce an AboutStore. 
+1. Implement PropertyStore to produce an AboutStore.
 (See [Create a PropertyStore implementation][create-propertystore-implementation].)
 2. Instantiate an AboutStore.
 3. Create and register the AboutService, providing it with the AboutStore.
 
 ## Build an application that uses AboutClient
 
-The following steps provide the high-level process to build an 
+The following steps provide the high-level process to build an
 application that will receive AboutData.
 
 1. Create the base for the AllJoyn application.
@@ -58,8 +58,8 @@ application that will receive AboutData.
 
 ### Create instance of BusAttachment
 
-To use the About feature, an AllJoyn object call the BusAttachment 
-is needed that is used internally by the service to leverage 
+To use the About feature, an AllJoyn object call the BusAttachment
+is needed that is used internally by the service to leverage
 the AllJoyn API calls.
 
 ```cpp
@@ -68,10 +68,10 @@ BusAttachment* msgBus = new BusAttachment("AboutService", true);
 
 ### Create password for the bundled router
 
-NOTE: Thin libraries at AllSeen Alliance version 14.06 or 
+NOTE: Thin libraries at AllSeen Alliance version 14.06 or
 higher do not require this step.
 
-To allow thin libraries to connect to the bundled router, 
+To allow thin libraries to connect to the bundled router,
 the router requires a password.
 
 ```cpp
@@ -81,7 +81,7 @@ PasswordManager::SetCredentials("ALLJOYN_PIN_KEYX", PassCode);
 
 ### Start and connect the BusAttachment
 
-Once created, the BusAttachment must be connected to the 
+Once created, the BusAttachment must be connected to the
 AllJoyn framework.
 
 ```cpp
@@ -89,26 +89,26 @@ QStatus status = msgBus->Start();
 if( status == ER_OK ) {
    status = msgBus->Connect(NULL);
 }
-``` 
+```
 ## Implementing an Application that Uses AboutService
 
-Implementing an AboutServer requires creating and registering 
+Implementing an AboutServer requires creating and registering
 an instance of the AboutService class.
 
-NOTE: Verify the BusAttachment has been created, started and 
-connected before implementing the AboutService. See [Setting 
-Up the AllJoyn Framework][set-up-alljoyn-framework] for the 
-code snippets. Code in this section references a variable 
+NOTE: Verify the BusAttachment has been created, started and
+connected before implementing the AboutService. See [Setting
+Up the AllJoyn Framework][set-up-alljoyn-framework] for the
+code snippets. Code in this section references a variable
 `msgBus` (the BusAttachment variable name).
 
 ### Declare listener class
 
 Declare a listener class to receive the SessionPortListener callback.
 
-Typically, an AcceptSessionJoiner callback in SessionPortListener 
-has a check to allow or disallow access. Since the AboutService 
-requires access to any application using AboutClient, return 
-true when this callback is triggered. Use the SessionJoined 
+Typically, an AcceptSessionJoiner callback in SessionPortListener
+has a check to allow or disallow access. Since the AboutService
+requires access to any application using AboutClient, return
+true when this callback is triggered. Use the SessionJoined
 handler to set the session timeout to 20 seconds.
 
 ```cpp
@@ -121,10 +121,10 @@ class MyListener : public SessionPortListener {
          mMsgBus = msgBus;
    }
 
-      bool AcceptSessionJoiner( SessionPort sessionPort, const 
+      bool AcceptSessionJoiner( SessionPort sessionPort, const
          char* joiner, const SessionOpts& opts ) {
 
-         printf("Accepting join session request from %s (opts.proximity=%x, 
+         printf("Accepting join session request from %s (opts.proximity=%x,
             opts.traffic=%x, opts.transports=%x)\n",
                joiner, opts.proximity, opts.traffic, opts.transports);
 
@@ -139,7 +139,7 @@ joiner ) {
          QStatus status = mMsgBus->SetLinkTimeout(id, timeout);
          if( status == ER_OK ) {
             printf("Link timeout has been set to %ds\n", timeout);
- 
+
          } else {
             printf("SetLinkTimeout(%d) failed\n", timeout);
          }
@@ -149,12 +149,12 @@ joiner ) {
 
 ### Bind session port
 
-To allow incoming connections, the formation of a session is 
-needed. The AllJoyn framework must be told that connections 
+To allow incoming connections, the formation of a session is
+needed. The AllJoyn framework must be told that connections
 are allowed.
 
 ```cpp
-SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, 
+SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false,
     SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
 SessionPort sPort = SERVICES_PORT;
 if( status == ER_OK )
@@ -163,13 +163,13 @@ if( status == ER_OK )
 
 ### Create a PropertyStore implementation
 
-The PropertyStore interface is required by the AboutService to 
-store the provisioned values for the About interface data fields. 
+The PropertyStore interface is required by the AboutService to
+store the provisioned values for the About interface data fields.
 See the [About Interface Definition][about-interface-definition] for more information.
 
 #### About interface data fields
 
-| Field name | Required | Announced | Signature | 
+| Field name | Required | Announced | Signature |
 |---|---|---|---|
 | AppId | yes | yes | ay |
 | DefaultLanguage | yes | yes | s |
@@ -186,40 +186,40 @@ See the [About Interface Definition][about-interface-definition] for more inform
 | HardwareVersion | no | no | s |
 | SupportUrl | no | no | s |
 
-An example PropertyStore implementation (AboutPropertyStoreImp) 
-is provided. All fields above can easily be set by calling the 
+An example PropertyStore implementation (AboutPropertyStoreImp)
+is provided. All fields above can easily be set by calling the
 appropriate setter function.
 
 ```cpp
-aboutStore = new AboutPropertyStoreImpl(); 
-aboutStore ->setDeviceId("1231232145667745675477"); 
-aboutStore ->setDeviceName("MyDeviceName", "en"); 
-aboutStore ->setDeviceName("NombreDeMiDispositivo", "es"); 
-aboutStore ->setDeviceName("NomDispositif", "fr"); 
-aboutStore ->setAppId("000102030405060708090A0B0C0D0E0C"); 
+aboutStore = new AboutPropertyStoreImpl();
+aboutStore ->setDeviceId("1231232145667745675477");
+aboutStore ->setDeviceName("MyDeviceName", "en");
+aboutStore ->setDeviceName("NombreDeMiDispositivo", "es");
+aboutStore ->setDeviceName("NomDispositif", "fr");
+aboutStore ->setAppId("000102030405060708090A0B0C0D0E0C");
 aboutStore ->setDefaultLang("en");
 
-aboutStore ->setAppName("AboutConfig", "en"); 
-aboutStore ->setAppName("AboutConfig", "es"); 
-aboutStore ->setAppName("AboutConfig", "fr"); 
-aboutStore ->setModelNumber("Wxfy388i"); 
+aboutStore ->setAppName("AboutConfig", "en");
+aboutStore ->setAppName("AboutConfig", "es");
+aboutStore ->setAppName("AboutConfig", "fr");
+aboutStore ->setModelNumber("Wxfy388i");
 aboutStore ->setDateOfManufacture("10/1/2199");
-aboutStore ->setSoftwareVersion("12.20.44 build 44454"); 
-aboutStore ->setAjSoftwareVersion(ajn::GetVersion()); 
+aboutStore ->setSoftwareVersion("12.20.44 build 44454");
+aboutStore ->setAjSoftwareVersion(ajn::GetVersion());
 aboutStore ->setHardwareVersion("355.499. b");
 
 std::vector<qcc::String> languages(3);
-languages[0] = "en"; 
-languages[1] = "es"; 
+languages[0] = "en";
+languages[1] = "es";
 languages[2] = "fr";
 aboutStore ->setSupportedLangs(languages);
 
-aboutStore ->setDescription("This is an AllJoyn application", "en"); 
-aboutStore ->setDescription("Esta es una AllJoyn aplicacion", "es"); 
+aboutStore ->setDescription("This is an AllJoyn application", "en");
+aboutStore ->setDescription("Esta es una AllJoyn aplicacion", "es");
 aboutStore ->setDescription("C'est une AllJoyn application", "fr");
 
-aboutStore ->setManufacturer("Company", "en"); 
-aboutStore ->setManufacturer("Empresa", "es"); 
+aboutStore ->setManufacturer("Company", "en");
+aboutStore ->setManufacturer("Empresa", "es");
 aboutStore ->setManufacturer("Entreprise", "fr");
 
 aboutStore ->setSupportUrl("http://www.allseenalliance.org");
@@ -227,9 +227,9 @@ aboutStore ->setSupportUrl("http://www.allseenalliance.org");
 
 ### Create the AboutService object
 
-For an application to send AboutData, it requires an instance 
-of the AboutService class. AboutService is an implementation 
-wrapper around AllJoyn native calls that handle the interactions 
+For an application to send AboutData, it requires an instance
+of the AboutService class. AboutService is an implementation
+wrapper around AllJoyn native calls that handle the interactions
 between AboutServer and AboutClient.
 
 ```cpp
@@ -258,15 +258,15 @@ msgBus->RegisterBusObject(*aboutService);
 
 ### Add an AboutIconService (optional)
 
-An applicaton that sends AboutData can be extended to 
-broadcast a device icon using an instance of the AboutIconService 
-class. AboutIconService is an implementation wrapper around 
-AllJoyn native calls that handle the interactions between 
+An applicaton that sends AboutData can be extended to
+broadcast a device icon using an instance of the AboutIconService
+class. AboutIconService is an implementation wrapper around
+AllJoyn native calls that handle the interactions between
 applications that use the AboutIconClient class.
 
 #### Provision for the Icon content and URL
 
-An Icon is published directly as a byte array or a reference 
+An Icon is published directly as a byte array or a reference
 URL, and must be provisioned as follows:
 
 ```cpp
@@ -287,17 +287,17 @@ aboutService->AddObjectDescription("/About/DeviceIcon", interfaces);
 
 ```cpp
 AboutIconService* aboutIconService = NULL;
-aboutIconService = new AboutIconService(msgBus, mimeType, url, 
-   aboutIconContent, sizeof(aboutIconContent) / sizeof (*aboutIconContent)); 
+aboutIconService = new AboutIconService(msgBus, mimeType, url,
+   aboutIconContent, sizeof(aboutIconContent) / sizeof (*aboutIconContent));
 aboutIconService->Register();
 msgBus->RegisterBusObject(*aboutIconService);
-``` 
+```
 
 ### Advertise name
 
 ```cpp
 if( status == ER_OK )
-   status = msgBus->AdvertiseName(msgBus->GetUniqueName().c_str(), 
+   status = msgBus->AdvertiseName(msgBus->GetUniqueName().c_str(),
       opts.transports);
 ```
 
@@ -310,8 +310,8 @@ status = aboutService->Announce();
 
 ### Unregister and delete AboutService, AboutStore, and AboutIconService
 
-When your process is done with the AboutService and no 
-longer wishes to send announcements, unregister the process 
+When your process is done with the AboutService and no
+longer wishes to send announcements, unregister the process
 from the AllJoyn bus and then delete variables used.
 
 ```cpp
@@ -326,77 +326,77 @@ if( aboutIconService != NULL ) {
    msgBus->UnregisterBusObject(*aboutIconService);
    delete aboutIconService;
 }
-``` 
+```
 
 ## Implementing an Application that Uses AboutClient
 
-To implement an application to receive AboutData, use the 
-AboutClient class. By using the AboutClient class, your 
-application is notified when AboutServer instances send 
+To implement an application to receive AboutData, use the
+AboutClient class. By using the AboutClient class, your
+application is notified when AboutServer instances send
 announcements.
 
-NOTE: Verify the BusAttachment has been created, started 
-and connected before using an AboutClient. See [Setting Up 
-the AllJoyn Framework][set-up-alljoyn-framework] for the code 
-snippets. Code in this section references a variable msgBus 
+NOTE: Verify the BusAttachment has been created, started
+and connected before using an AboutClient. See [Setting Up
+the AllJoyn Framework][set-up-alljoyn-framework] for the code
+snippets. Code in this section references a variable msgBus
 (the BusAttachment variable name).
 
 ### Setup to receive the Announce signal
 
-In order to receive the Announce signal, implement a class 
+In order to receive the Announce signal, implement a class
 that inherits from the
 AnnounceHandler base class.
 
 #### Create class to implement AnnounceHandler
 
-This declaration of a class will allow for the signals to be 
+This declaration of a class will allow for the signals to be
 received. It needs to implement pure virtual function Announce.
 
 ```cpp
 class AnnounceHandlerImpl : public ajn::services::AnnounceHandler (){
    void Announce(unsigned short version, unsigned short port,
-      const char* busName, const ObjectDescriptions& objectDescs, 
+      const char* busName, const ObjectDescriptions& objectDescs,
          const AboutData& aboutData);
 }
 ```
 
 #### Implement the Announce method that handles the Announce signal
 
-With everything linked up using the AllJoyn framework, the 
-method registered with the AllJoyn framework will be executed 
+With everything linked up using the AllJoyn framework, the
+method registered with the AllJoyn framework will be executed
 upon receipt of an Announce signal.
 
-Because every application is different, as a developer you 
+Because every application is different, as a developer you
 will need to process the
 AboutData and determine the following:
 
 * How in the UI it should be rendered
 * When to request the data that is not contained in the Announce signal
 * Any logic that is needed
- 
+
 #### Register the announceHandler using the AnnouncementRegistrar class
 
-When registering an announcement listener, specify which 
-interfaces the application is interested in. The code below 
-shows a listener registered to receive Announce signals that 
+When registering an announcement listener, specify which
+interfaces the application is interested in. The code below
+shows a listener registered to receive Announce signals that
 include an object implementing the INTERFACE_NAME interface.
 
 ```cpp
-AnnounceHandlerImpl* announceHandlerImpl = new AnnounceHandlerImpl(); 
-const char* interfaces[] = { INTERFACE_NAME }; 
-AnnouncementRegistrar::RegisterAnnounceHandler(*busAttachment, 
+AnnounceHandlerImpl* announceHandlerImpl = new AnnounceHandlerImpl();
+const char* interfaces[] = { INTERFACE_NAME };
+AnnouncementRegistrar::RegisterAnnounceHandler(*busAttachment,
    *announceHandlerImpl, interfaces, 1);
 ```
 
 ### Using Ping to determine presence
 
-The BusAttachment Ping member function can be used to determine 
-if a device is responsive. Contents of an Announce signal can 
-be stale so it is recommended to ping the device to see if it 
+The BusAttachment Ping member function can be used to determine
+if a device is responsive. Contents of an Announce signal can
+be stale so it is recommended to ping the device to see if it
 is still present and responsive before attempting to form a connection.
 
-NOTE: The BusAttachment.Ping method makes a bus call. If `Ping` 
-is called inside an AllJoyn callback, `BusAttachment.EnableConcurrentCallbacks` 
+NOTE: The BusAttachment.Ping method makes a bus call. If `Ping`
+is called inside an AllJoyn callback, `BusAttachment.EnableConcurrentCallbacks`
 must be called first.
 
 ```cpp
@@ -411,20 +411,20 @@ msgBus->EnableConcurrentCallbacks();
 
 ### Request non-announced data
 
-If there is a need to request information that is not contained 
+If there is a need to request information that is not contained
 in the announcement, perform the following steps.
 
 1. Join the session
 
-   Create a session with the application by using the 
+   Create a session with the application by using the
    BusAttachment JoinSession API.
- 
-   NOTE: The variables name and port are set from the AboutData 
+
+   NOTE: The variables name and port are set from the AboutData
    from the Announce method.
 
    ```cpp
    SessionId sessionId;
-      SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, 
+      SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false,
          SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
       QStatus status = msgBus->JoinSession(name, port, NULL, sessionId, opts);
       if (status == ER_OK) {
@@ -436,20 +436,20 @@ in the announcement, perform the following steps.
 
 2. Create AboutClient
 
-   Generate an AboutProxyBusObject from the org.alljoyn.About 
-   Introspection XML and create an instance passing ButAttachment 
+   Generate an AboutProxyBusObject from the org.alljoyn.About
+   Introspection XML and create an instance passing ButAttachment
    and sessionId.
 
    ```cpp
-   AboutProxyBusObject * aboutClient = new AboutProxyBusObject 
+   AboutProxyBusObject * aboutClient = new AboutProxyBusObject
       (msgBus, sender_name,"\About", sessionId);
    aboutClient->GetAboutData("");
    ```
 
 3. Create AboutIconClient
 
-   Generate an IconProxyBusObject from the org.alljoyn.Icon 
-   Introspection XML and create an instance passing 
+   Generate an IconProxyBusObject from the org.alljoyn.Icon
+   Introspection XML and create an instance passing
    ButAttachment, port, and sessionId.
 
    ```cpp
@@ -460,18 +460,18 @@ in the announcement, perform the following steps.
 
 ### Shutdown
 
-Once you are done using the About feature and the AllJoyn 
+Once you are done using the About feature and the AllJoyn
 framework, free the variables used in the application.
 
-NOTE: The AboutClient object must be deleted before the 
+NOTE: The AboutClient object must be deleted before the
 BusAttachment object.
 
 ```cpp
-delete aboutClient; 
-delete aboutIconClient; 
+delete aboutClient;
+delete aboutIconClient;
 delete msgBus;
 ```
-[about-linux]: /develop/api-guide/about/linux
+[about-cpp]: /develop/api-guide/about/cpp
 [create-propertystore-implementation]: #create-a-propertystore-implementation
 [set-up-alljoyn-framework]: #setting-up-the-alljoyn-framework
 [about-interface-definition]: /learn/core/about-announcement/interface

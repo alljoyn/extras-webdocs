@@ -22,6 +22,7 @@ var os = require('os');
 var isBinaryFileSync = require('isbinaryfile');
 
 var app = express();
+app.disable('etag');
 
 app.get(/^(.*)$/, function(req, res) {
   var path = 'out/public' + req.params[0];
@@ -41,6 +42,9 @@ app.get(/^(.*)$/, function(req, res) {
           if (path.substring(path.length-4) == '.pdf') {
             res.contentType('application/pdf')
           }
+          if (path.substring(path.length-4) == '.xml') {
+            res.contentType('text/xml')
+          }
 
       } else {
           path = path + '/index';
@@ -58,7 +62,7 @@ app.get(/^(.*)$/, function(req, res) {
 });
 
 var port = 8000;
-if (process.argv.length >= 3) { 
+if (process.argv.length >= 3) {
     port = process.argv[2];
 }
 

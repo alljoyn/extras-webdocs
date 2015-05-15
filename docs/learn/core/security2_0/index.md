@@ -8,12 +8,9 @@ The Security Manager is optional service that helps the user with key management
 
 ## Learn More
 
-* [Learn more about the About Interface Definition][security2_0-interface]
 * [Security 2.0 High Level Design (HLD)][security2_0-hld]
 * [Download the SDK][download], [build][build]
-* [Learn more about the About APIs][api-guide]
 
-[security2_0-interface]: /learn/core/security2_0/interface
 [security2_0-hld]: /learn/core/security2_0/hld
 [download]: /download
 [build]: /develop/building

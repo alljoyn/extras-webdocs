@@ -142,10 +142,10 @@ will not have to wait as long for a `JoinSession` timeout failure.
 
 
 
-[about-android]: /develop/api-guide/about/android
-[about-android-legacy]: /develop/api-guide/about/android-legacy
-[about-linux]: /develop/api-guide/about/linux
-[about-linux-legacy]: /develop/api-guide/about/linux-legacy
-[about-ios]: /develop/api-guide/about/ios
-[about-thin-linux]: /develop/api-guide/about/thin-linux
+[about-java]: /develop/api-guide/about/java
+[about-java-legacy]: /develop/api-guide/about/java-legacy
+[about-cpp]: /develop/api-guide/about/cpp
+[about-cpp-legacy]: /develop/api-guide/about/cpp-legacy
+[about-objc]: /develop/api-guide/about/objc
+[about-c-thin]: /develop/api-guide/about/c-thin
 [api-guide]: /docs/develop/api-guide/index

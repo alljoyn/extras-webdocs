@@ -118,7 +118,7 @@ is shown with one certificate authority and an identity certificate.
 The following is a high level presentation of certificates and policy entries
 used in the flows in this section.
 
-![sample-certificates-and-policy-entries][]
+![sample-certificates-and-acl-entries][]
 
 **Figure:** Sample Certificates and ACL entries
 
@@ -233,7 +233,7 @@ the application for the detailed information of securable interfaces and secured
 objects, and prompt the user to select the permissions to include in the policy.
 
 A policy may contain a number of ACLs.  Please refer to section
-[(Authorization data format)][authorization-data-format] for more information.
+[(Policy ACL format)][policy-acl-format] for more information.
 
 ### Install a policy
 
@@ -794,7 +794,7 @@ The following diagram describes the format structure of the ACL data.
 
 | Name | Data type | Required | Description |
 |---|---|---|---|
-| peers | array of objects | no | List of peers.  There are multiple types of peers.  A peer object has the following fields:<br><table><tr><th>Name</th><th>Data Type</th><th>Required</th><th>Description</th></tr><tr><td>type</td><td>number</td><td>yes</td><td>The peer type. The following are the valid type of peers:<ul><li>ALL – matches all peers including anonymous peers</li><li>ANY_TRUSTED – matches any peer trusted by the application</li><li>FROM_CERTIFICATE_AUTHORITY -- matches all peers with certificates issued by the specified certificate authority</li><li>WITH_PUBLIC_KEY – a single peer identified by the public key</li><li>WITH_MEMBERSHIP  -- all members of the security group</li></ul></td></tr><tr><td>publicKey</td><td>Public Key</td><td>no</td><td>The peer key info data. Depending on peer type, the publicKey is:<br><ul><li>ALL – not applicable</li><li>•	ANY_TRUSTED – not applicable</li><li>FROM_CERTIFICATE_AUTHORITY – the public key of the certificate authority</li><li>WITH_PUBLIC_KEY – the public key of the peer</li><li>WITH_MEMBERSHIP – the public key of the security group authority</li></ul></td></tr><tr><td>sgID</td><td>GUID</td><td>No</td><td>Security group ID.  This is applicable only the type WITH_MEMBERSHIP.</td></tr></table> |
+| peers | array of objects | no | List of peers.  There are multiple types of peers.  A peer object has the following fields:<br><table><tr><th>Name</th><th>Data Type</th><th>Required</th><th>Description</th></tr><tr><td>type</td><td>number</td><td>yes</td><td>The peer type. The following are the valid type of peers:<ul><li>ALL – matches all peers including anonymous peers</li><li>ANY_TRUSTED – matches any peer trusted by the application</li><li>FROM_CERTIFICATE_AUTHORITY -- matches all peers with certificates issued by the specified certificate authority</li><li>WITH_PUBLIC_KEY – a single peer identified by the public key</li><li>WITH_MEMBERSHIP  -- all members of the security group</li></ul></td></tr><tr><td>publicKey</td><td>Public Key</td><td>no</td><td>The peer key info data. Depending on peer type, the publicKey is:<br><ul><li>ALL – not applicable</li><li>ANY_TRUSTED – not applicable</li><li>FROM_CERTIFICATE_AUTHORITY – the public key of the certificate authority</li><li>WITH_PUBLIC_KEY – the public key of the peer</li><li>WITH_MEMBERSHIP – the public key of the security group authority</li></ul></td></tr><tr><td>sgID</td><td>GUID</td><td>No</td><td>Security group ID.  This is applicable only the type WITH_MEMBERSHIP.</td></tr></table> |
 | rules | array of rules | no | <p>List of allowed rules. The peer application is allowed to perform the actions specified in the given rules.</p><p>The default rule is to allow nothing.</p> |
 
 **Rule Record**
@@ -1190,4 +1190,4 @@ considered in future releases of Security 2.0.
 [rfc7251]: http://tools.ietf.org/html/rfc7251
 
 [policy-templates]: #policy-templates
-[authorization-data-format]: #authorization-data-format
+[policy-acl-format]: #policy-acl-format

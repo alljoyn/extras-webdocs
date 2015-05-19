@@ -6,14 +6,14 @@ About Feature can access more information. Making it possible to fill in some
 fields for the developer. If your application is still using the older APIs the
 legacy API guides can be used as reference.
 
-* [Android][about-android]
-* [Linux][about-linux]
-* [iOS][about-ios]
-* [Thin Linux][about-thin-linux]
+* [Java][about-java]
+* [C++][about-cpp]
+* [Objective-C][about-objc]
+* [C (Thin Core)][about-c-thin]
 
 _Legacy API Guides_
-* [Android][about-android-legacy]
-* [Linux][about-linux-legacy]
+* [Java][about-java-legacy]
+* [C++][about-cpp-legacy]
 
 
 ## Common Best Practices
@@ -29,7 +29,7 @@ connection between the AllJoyn&trade; app and the AllJoyn router is lost.
 This can happen in the following scenarios:
 
 * The standalone router is restarted (manually or otherwise)
-* The Onboarding service framework forces a restart of the 
+* The Onboarding service framework forces a restart of the
   standalone router after onboarding a device.
 
 After `BusListener::BusDisconnected` is invoked:
@@ -142,10 +142,10 @@ will not have to wait as long for a `JoinSession` timeout failure.
 
 
 
-[about-android]: /develop/api-guide/about/android
-[about-android-legacy]: /develop/api-guide/about/android-legacy
-[about-linux]: /develop/api-guide/about/linux
-[about-linux-legacy]: /develop/api-guide/about/linux-legacy
-[about-ios]: /develop/api-guide/about/ios
-[about-thin-linux]: /develop/api-guide/about/thin-linux
+[about-java]: /develop/api-guide/about/java
+[about-java-legacy]: /develop/api-guide/about/java-legacy
+[about-cpp]: /develop/api-guide/about/cpp
+[about-cpp-legacy]: /develop/api-guide/about/cpp-legacy
+[about-objc]: /develop/api-guide/about/objc
+[about-c-thin]: /develop/api-guide/about/c-thin
 [api-guide]: /docs/develop/api-guide/index

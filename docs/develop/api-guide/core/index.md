@@ -1,11 +1,11 @@
 # Core API Guide
 
-No general API guide exists at this moment. Below are some links that will get you on your way. For information about the API itself, refer to the API Reference Guides. 
+No general API guide exists at this moment. Below are some links that will get you on your way. For information about the API itself, refer to the API Reference Guides.
 
 ## Core API Guides
 
-* [Android][core-android]
-* [iOS][core-ios]
+* [Java][core-java]
+* [Objective-C][core-objc]
 * [AllJoyn Transports Best Practices][best-practices]
 
 ## API Guides for Specific Features
@@ -17,8 +17,8 @@ No general API guide exists at this moment. Below are some links that will get y
   reduced network traffic and improved application responsiveness.
   (C++/C/Java/Objective-C)
 
-[core-android]: /develop/api-guide/core/android
-[core-ios]: /develop/api-guide/core/ios
+[core-java]: /develop/api-guide/core/java
+[core-objc]: /develop/api-guide/core/objc
 [core-autoping]: /develop/api-guide/core/auto-ping
 [core-observer]: /develop/api-guide/core/observer
 [core-propcache]: /develop/api-guide/core/propcache

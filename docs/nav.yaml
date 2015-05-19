@@ -32,7 +32,7 @@
           contents:
         - name: Thin Core
           path: /learn/core/thin-core
-          contents:          
+          contents:
         - name: System Description
           path: /learn/core/system-description
           contents:
@@ -62,7 +62,13 @@
               contents:
             - name: Events and Actions
               path: /learn/core/system-description/events-actions
-              contents:         
+              contents:
+        - name: Security 2.0
+          path: /learn/core/security2_0
+          contents:
+            - name: High-Level Design
+              path: /learn/core/security2_0/hld
+              contents:
     - name: Base Services
       path: /learn/base-services
       contents:
@@ -298,11 +304,11 @@
         - name: Core
           path: /develop/api-guide/core
           contents:
-            - name: Android
-              path: /develop/api-guide/core/android
+            - name: java
+              path: /develop/api-guide/core/java
               contents:
-            - name: iOS
-              path: /develop/api-guide/core/ios
+            - name: Objective-C
+              path: /develop/api-guide/core/objc
               contents:
             - name: Alljoyn Transports Best Practices
               path: /develop/api-guide/core/alljoyn-transports-best-practices
@@ -319,86 +325,86 @@
         - name: About
           path: /develop/api-guide/about
           contents:
-            - name: Android
-              path: /develop/api-guide/about/android
+            - name: java
+              path: /develop/api-guide/about/java
               contents:
-            - name: Linux
-              path: /develop/api-guide/about/linux
+            - name: C++
+              path: /develop/api-guide/about/cpp
               contents:
-            - name: iOS
-              path: /develop/api-guide/about/ios
+            - name: Objective-C
+              path: /develop/api-guide/about/objc
               contents:
-            - name: Thin Linux
-              path: /develop/api-guide/about/thin-linux
+            - name: C (Thin Core)
+              path: /develop/api-guide/about/c-thin
               contents:
-            - name: Android Legacy
-              path: /develop/api-guide/about/android-legacy
+            - name: java Legacy
+              path: /develop/api-guide/about/java-legacy
               contents:
-            - name: Linux Legacy
-              path: /develop/api-guide/about/linux-legacy
+            - name: C++ Legacy
+              path: /develop/api-guide/about/cpp-legacy
               contents:
-            - name: iOS Legacy
-              path: /develop/api-guide/about/ios-legacy
+            - name: Objective-C Legacy
+              path: /develop/api-guide/about/objc-legacy
               contents:
         - name: Onboarding
           path: /develop/api-guide/onboarding
           contents:
-            - name: Android
-              path: /develop/api-guide/onboarding/android
+            - name: java
+              path: /develop/api-guide/onboarding/java
               contents:
-            - name: iOS
-              path: /develop/api-guide/onboarding/ios
+            - name: Objective-C
+              path: /develop/api-guide/onboarding/objc
               contents:
         - name: Configuration
           path: /develop/api-guide/config
           contents:
-            - name: Android
-              path: /develop/api-guide/config/android
+            - name: java
+              path: /develop/api-guide/config/java
               contents:
-            - name: Linux
-              path: /develop/api-guide/config/linux
+            - name: C++
+              path: /develop/api-guide/config/cpp
               contents:
-            - name: iOS
-              path: /develop/api-guide/config/ios
+            - name: Objective-C
+              path: /develop/api-guide/config/objc
               contents:
-            - name: Thin Linux
-              path: /develop/api-guide/config/thin-linux
+            - name: C (Thin Core)
+              path: /develop/api-guide/config/c-thin
               contents:
         - name: Notification
           path: /develop/api-guide/notification
           contents:
-            - name: Android
-              path: /develop/api-guide/notification/android
+            - name: java
+              path: /develop/api-guide/notification/java
               contents:
-            - name: Linux
-              path: /develop/api-guide/notification/linux
+            - name: C++
+              path: /develop/api-guide/notification/cpp
               contents:
-            - name: iOS
-              path: /develop/api-guide/notification/ios
+            - name: Objective-C
+              path: /develop/api-guide/notification/objc
               contents:
-            - name: Thin Linux
-              path: /develop/api-guide/notification/thin-linux
+            - name: C (Thin Core)
+              path: /develop/api-guide/notification/c-thin
               contents:
         - name: Control Panel
           path: /develop/api-guide/controlpanel
           contents:
-            - name: Android
-              path: /develop/api-guide/controlpanel/android
+            - name: java
+              path: /develop/api-guide/controlpanel/java
               contents:
-            - name: Linux
-              path: /develop/api-guide/controlpanel/linux
+            - name: C++
+              path: /develop/api-guide/controlpanel/cpp
               contents:
-            - name: iOS
-              path: /develop/api-guide/controlpanel/ios
+            - name: Objective-C
+              path: /develop/api-guide/controlpanel/objc
               contents:
-            - name: Thin Linux
-              path: /develop/api-guide/controlpanel/thin-linux
+            - name: C (Thin Core)
+              path: /develop/api-guide/controlpanel/c-thin
               contents:
         - name: Audio Streaming
           path: /develop/api-guide/audio-streaming
           contents:
-            - name: Linux
-              path: /develop/api-guide/audio-streaming/linux
+            - name: C++
+              path: /develop/api-guide/audio-streaming/cpp
               contents:
         - name: Events and Actions
           path: /develop/api-guide/events-and-actions

@@ -205,4 +205,4 @@ service side are simple:
     that fails, the Observer will ignore the bus objects your application
     announces.
 
-[api-ref]: /develop/api-reference/index
+[api-ref]: /develop/api-reference

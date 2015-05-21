@@ -260,6 +260,14 @@ possibility of cyclic Method invocation (e.g. Participant A calls a method on Pa
 B, which in turn calls a method on A, which in turn calls a method on B...), blocking the
 single Provider callback thread in either A or B could result in a distributed deadlock.
 
+### The lifetime of proxy objects
+
+The useful lifetime of the proxy objects returned by an Observer is constrained
+to the lifetime of that Observer. Make sure that all references to such proxy
+objects are released before the application releases its last reference to the
+Observer that created them. Failure to do so, may result in segmentation
+faults.
+
 ## Build the Application
 
 The README.md file that is part of the source code distribution of the DDAPI
@@ -275,25 +283,39 @@ when constructing and destructing an ObjectAdvertiser and Observer
 
 #### Create the Bus Attachment Using Core AllJoyn.
 
-You must create the attachment using the regular Core AllJoyn API.
+You must create the attachment using the regular Core AllJoyn API, and pass it
+along as an argument when creating an Observer or ObjectAdvertiser. Make sure
+to call BusAttachment::Start() and BusAttachment::Connect() before passing the
+BusAttachment on to the DDAPI.
 
-#### Create the Property Store Using Core AllJoyn
+#### Set up the About infrastructure for your application.
 
-If the application uses the AboutService, you must create a property store
-using the AllJoyn API.
+If you want to have control over the application metadata that is announced in
+the About announcements for a provider application, you have to manage the
+About data yourself. That means that you have supply the following parameters
+when creating an ObjectAdvertiser:
 
-#### Pass the Bus Attachment and Property Store as Arguments
+* an AboutData object containing the application metadata.
+* an AboutObj object that will be used to announce the data on the bus.
+* a SessionOpts struct that will be used when binding the session port for
+  DDAPI interactions.
+* the session port you want to have advertised in the About announcements.
 
-Pass the created bus attachment and property store (optional as
-arguments when creating any ObjectAdvertiser or Observer in the application.
+The DDAPI code will still take care of binding the session port and calling
+AboutObj::Announce at the appropriate times.
 
 ~~~cpp
-BusAttachment* bus = NULL;
-AboutPropertyStoreImpl* store = NULL;
+BusAttachment* bus = new BusAttachment("foo");
+bus->Start();
+bus->Connect();
 
-/* ... create bus attachment and/or property store */
+AboutData* aboutData = new AboutData();
+/* ... set application metadata in aboutData */
 
-shared_ptr<datadriven::ObjectAdvertiser> advertiser = datadriven::ObjectAdvertiser::Create(bus, store);
+AboutObj* aboutObj = new AboutObj(*bus);
+SessionOpts opts = { /* ... */ };
+
+shared_ptr<datadriven::ObjectAdvertiser> advertiser = datadriven::ObjectAdvertiser::Create(bus, aboutData, aboutObj, &opts, 42);
 shared_ptr<datadriven::Observer<DoorProxy> > observer = Observer::Create(&dl, bus);
 
 /* ... */
@@ -301,10 +323,10 @@ shared_ptr<datadriven::Observer<DoorProxy> > observer = Observer::Create(&dl, bu
 
 #### Stop the Bus Attachment Before ObjectAdvertiser or Observer Cleanup
 
-When stopping the application, the bus attachment should be stopped before
-cleaning up any ObjectAdvertiser or Observer.  This is needed to prevent the
-arrival of any pending signals or method calls while destructing the
-data-driven API objects.
+When stopping the application, the bus attachment should be stopped (but not
+destroyed!) before cleaning up any ObjectAdvertiser or Observer.  This is
+needed to prevent the arrival of any pending signals or method calls while
+destructing the data-driven API objects.
 
 ~~~cpp
 /* ... stop bus attachment */
@@ -317,8 +339,6 @@ bus->Join();
 
 advertiser.reset();
 observer.reset();
-
-/* ... */
 ~~~
 
 ### Using the Data-Driven API to Talk to a Core AllJoyn Service
@@ -337,7 +357,7 @@ prerequisites need to be taken into account:
 
    * The special 'SESSION_ID_ALL_HOSTED' session ID to emit on all sessions
      hosted by the bus attachment
-   * The session ID zero to broadcast
+   * The session ID zero to broadcast (this is not recommended).
 
 
 ## Example: a simple home security system

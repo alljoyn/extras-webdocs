@@ -83,6 +83,7 @@ function check(root, start) {
 					file = indexedFile;
 				}
 			}
+            var dirname = path.dirname(file);
 
 			if(fileStatus[file].visited) {
 				return;
@@ -101,14 +102,16 @@ function check(root, start) {
 							if(("a" == name) && (attribs["href"])){
 								var href = url.parse(attribs["href"]);
 								if((!href.hostname) && (href.pathname)) {
-									newFile = path.resolve(file, href.pathname).replace(/^[A-Z]:/,'');
+                                    /* resolve against dirname, so we can deal with relative links */
+									newFile = path.resolve(dirname, href.pathname).replace(/^[A-Z]:/,'');
 									visit(newFile, file);
 								}
 							}
 							if("img" == name) {
 								var src = url.parse(attribs["src"]);
 								if(!src.hostname) {
-									var img = path.resolve(file, src.pathname).replace(/^[A-Z]:/,'');
+                                    /* resolve against dirname, so we can deal with relative links */
+									var img = path.resolve(dirname, src.pathname).replace(/^[A-Z]:/,'');
 									if(fileStatus[img]) {
 										fileStatus[img].used = true;
 									} else {
@@ -160,6 +163,36 @@ function check(root, start) {
 }
 var initialroot = path.normalize ('out/public');
 var initialstart = path.normalize ('/developers/index');
+
+function parse_cmdline_args() {
+    var root_dir="../../interfaces/";
+
+    var i = 0;
+    for (i = 2; i < process.argv.length; ++i) {
+        var arg = process.argv[i];
+        if (arg == '-r' && ++i < process.argv.length) {
+            initialroot = path.normalize(process.argv[i]);
+        } else if (arg == '-s' && ++i < process.argv.length) {
+            initialstart = path.normalize(process.argv[i]);
+        } else {
+            console.log("Usage:");
+            console.log("  ", process.argv[1], "[-r renderer_output_dir] [-s start_url]");
+            console.log("Arguments:");
+            console.log("\t-r renderer_output_dir: output path of the rendering script");
+            console.log("\t                        (default: out/public/)");
+            console.log("\t                        Normally, you shouldn't have to change this.");
+            console.log("\t-s start_url: URL path from which to start validation.");
+            console.log("\t              For webdocs: /developers/index");
+            console.log("\t              For interface definitions: /interfaces/index");
+            console.log("\t              (default: /developers/index)");
+            process.exit(1);
+        }
+    }
+
+    docs_dir = root_dir + 'interfaces/';
+}
+
+parse_cmdline_args();
 console.log ("root: "+initialroot);
 console.log ("start at: "+initialstart);
 

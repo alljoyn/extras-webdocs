@@ -21,6 +21,8 @@ functions are subject to change without notice.
 | Rev 1 Update 4 | December 23, 2014 | Update the Certificate section and changes listed in JIRA tickets ASACORE-1170, 1256, 1259, 1260. |
 | Rev 1 Update 5 | January 15, 2015 | Update the rule enforcing table after the conference call on Janurary 13, 2015 by the Security2.0 working group. |
 | Rev 1 Update 6 | March 31, 2015 | <p>Update the authorization data after the conference call on Janurary 20, 2015 by the Security2.0 working group. Updated the permission matrix to reflect the concept of Provide permission.</p><p>Updated based on review comments by the Security 2.0 working group on March 6, 2015.</p><p>Add the updated information on Security Manager and manifest from the Wiki</p><p>Updated based on review comments by the Security 2.0 working group on March 13, 2015 and on March 19, 2015.</p><p>Updated based on open issue discussion on March 23, 2015. Updated based on comments on March 31, 2015 short review.</p><p>Updated the authorization data search algorithm section based on reviews comment.</p><p>Updated based on discussion on April 28, 2015.</p><p>Updated based on discussion on May 5, 2015.</p> |
+| Rev 1 Update 7 | May 28, 2015 | <p> Simplified access rule selection by removing priority and enforcement explicit deny rules regardless of degree of match. Simplifying to aid in comprehension</p><p>Corrected text describing policy generated after being claimed to match the specified policy; outgoing messages are allowed for ANY_TRUSTED.</p><p>Corrected generated policy to indicate there are two entries for members under the ANY_TRUSTED ACL</p><p>Changed the description of the generated policy to indicate it is not an example, it is the policy to be generated, and recommend certification test be created to verify this.</p><p>Corrected a couple of places, in definition and description of session establishment, to indicate that membership certificate trust requies a signature chain including the security group authority rather than any certificate authority.</p> |
+| Future revisions | June 12, 2015 | <p> See git submissions for change notes.
 
 ## Acronyms and terms
 
@@ -97,7 +99,7 @@ The following Table lists the premises for the Security 2.0 features.
 | Admin | An admin (or administrator) is a security principal with administrator privilege for the application | <ul><li>An admin is a member of the admin security group which has full access to any object and interface in the application</li></ul> |
 | Claim | Incorporate a factory-reset application with the Permission Module | <ul><li>A factory-reset application has no list of certificate authorities for AllJoyn security.</li><li>A factory-reset application has no admin for AllJoyn security.</li><li>Anyone can claim a factory-reset application.</li><li>The Claimer installs a certificate authority</li><li>The Claimer installs an admin security group</li></ul> |
 | Policy | <p>A policy is a list of ACLs governing  the behavior of an application</p><p>A policy template is a list of rules defined by the application developer to guide the admin for policy building.</p> | <ul><li>An admin can install, update, or remove a policy.</li><li>A newer policy can be installed by any authorized peer. Developers can define policy templates to help the admin with policy building.</li><li>Security group specific policy specifies the permissions granted to members of the group. The security group authority becomes a certificate authority for that particular group.</li><li>A policy may exist at the producer or consumer side. Policy enforcement applies wherever it resides.</li><li>A policy is considered private.  It is not exchanged with any peer.</li><li>A keystore has at most one policy.  A complex application with multiple bus attachments can use a shared keystore in one bus attachment and an app-specific keystore for another bus attachment.  In such case, the complex application has in fact more than one policy.</li><li>An admin can query the existing policy installed in the keystore.</li></ul> |
-| Membership certificate | A membership certificate is the proof of a security group membership | <ul><li>Membership certificates are exchanged between peers.  The authorization data signed by this certificate are used for mutual authorization purposes.</li><li>An application trusts a membership certificate if the issuer or any subject in the issuer’s certificate chain is the certificate authority or the security group authority.</li><li>A membership certificate subject can generate additional membership certificates for the given security group if the delegate flag is enabled. This type of membership certificate will not allow further delegation.</li><li>A membership certificate must have a security group ID.</li><li>An application can accept the installation of any number of membership certificates into its keystore.</li></ul> |
+| Membership certificate | A membership certificate is the proof of a security group membership | <ul><li>Membership certificates are exchanged between peers.  The authorization data signed by this certificate are used for mutual authorization purposes.</li><li>An application trusts a membership certificate if the issuer or any subject in the issuer’s certificate chain is the security group authority.</li><li>A membership certificate subject can generate additional membership certificates for the given security group if the delegate flag is enabled. This type of membership certificate will not allow further delegation.</li><li>A membership certificate must have a security group ID.</li><li>An application can accept the installation of any number of membership certificates into its keystore.</li></ul> |
 | Identity certificate | Certificate that signs the identity information. | <ul><li>The Certificate has an identity alias stored in the X.509 SubjectAltName extension field.</li><li>An application trusts identity certificates issued by the application’s certificate authority or any of the security group authorities listed in the application’s policy.</li><li>An identity certificate subject can generate additional identity if the delegate flag is enabled. This type of identity certificate will not allow further delegation.</li></ul> |
 | Manifest data | The permission rules accompanying the identity certificate | <ul><li>Manifest data are not present in the identity certificate. They are accompanied with the identity certificate.</li><li>The manifest data digest is present in the identity certificate.</li><li>The manifest data syntax is the same as the policy syntax.  While the policy stays local the manifest data is presented to the peer along with the identity certificate.</li></ul> |
 | Security Manager | A service used to manage cryptographic keys, and generate certificates. | <ul><li>Security Manager can push policy and certificates to application</li></ul> |
@@ -126,12 +128,12 @@ used in the flows in this section.
 
 #### The peer types
 
-The following peer types are supported in the permission policy
+The following peer types are supported in the permission policy.  A peer may match many of the peer types.
 
 | Peer Type | Description |
 |---|---|
-| ALL | This match all peers including the anonymous peer using ECDHE_NULL key exchange. |
-| ANY_TRUSTED | This matches any peer authenticated via ECDHE_ECDSA key exchange, and its identity certificate’s trust is verified against any of the application’s certificate authorities (including the security group authorities) |
+| ALL | This matches all peers including an anonymous peer using ECDHE_NULL key exchange. |
+| ANY_TRUSTED | This matches any authenticated peer for all authentication methods except ECDHE_NULL key exchange.|
 | FROM_CERTIFICATE_AUTHORITY | This matches any peer authenticated via ECDHE_ECDSA key exchange and its identity certificate’s trust is verified against the specific certificate authority listed in the policy for this type of peer. |
 | WITH_PUBLIC_KEY | This matches a peer with the specific public key.  The peer is authenticated via ECDHE_ECDSA key exchange.  Its identity certificate’s trust is verified against any of the application’s certificate authorities (including the security group authorities). |
 | WITH_MEMBERSHIP | <p>This matches any peer with possession of a membership certificate with the specific security group ID.</p><p>The peer is authenticated via ECDHE_ECDSA key exchange.  Its identity certificate’s trust is verified against any of the application’s certificate authority (including the security group authorities).</p><p>The subject of the membership certificate must be the peer’s public key.</p> |
@@ -166,8 +168,7 @@ authorities listed in the application’s policy.
 
 After the session key is generated, the peers exchange all the membership
 certificates.  Each membership certificate’s trust is checked against the
-certificate authority’s public key or the public key of any of the security
-group authorities.
+public key of the authority of the security group.
 
 ![exchange-manifest-and-membership-certificates][]
 
@@ -238,6 +239,12 @@ A policy may contain a number of ACLs.  Please refer to section
 ### Install a policy
 
 An admin can install a policy for the application.
+
+When a policy is installed, the core framework may expire master secrets
+including existing session keys if it is not able to apply the new policy without
+re-authenticating the peer.  Resource constrained devices are most likely to
+expire master secrets.  Expiring keys will cause existing sessions to terminate.
+
 ![install-a-policy][]
 
 **Figure:** Install a policy
@@ -794,7 +801,7 @@ The following diagram describes the format structure of the ACL data.
 
 | Name | Data type | Required | Description |
 |---|---|---|---|
-| peers | array of objects | no | List of peers.  There are multiple types of peers.  A peer object has the following fields:<br><table><tr><th>Name</th><th>Data Type</th><th>Required</th><th>Description</th></tr><tr><td>type</td><td>number</td><td>yes</td><td>The peer type. The following are the valid type of peers:<ul><li>ALL – matches all peers including anonymous peers</li><li>ANY_TRUSTED – matches any peer trusted by the application</li><li>FROM_CERTIFICATE_AUTHORITY -- matches all peers with certificates issued by the specified certificate authority</li><li>WITH_PUBLIC_KEY – a single peer identified by the public key</li><li>WITH_MEMBERSHIP  -- all members of the security group</li></ul></td></tr><tr><td>publicKey</td><td>Public Key</td><td>no</td><td>The peer key info data. Depending on peer type, the publicKey is:<br><ul><li>ALL – not applicable</li><li>ANY_TRUSTED – not applicable</li><li>FROM_CERTIFICATE_AUTHORITY – the public key of the certificate authority</li><li>WITH_PUBLIC_KEY – the public key of the peer</li><li>WITH_MEMBERSHIP – the public key of the security group authority</li></ul></td></tr><tr><td>sgID</td><td>GUID</td><td>No</td><td>Security group ID.  This is applicable only the type WITH_MEMBERSHIP.</td></tr></table> |
+| peers | array of objects | no | List of peers.  There are multiple types of peers.  A peer object has the following fields:<br><table><tr><th>Name</th><th>Data Type</th><th>Required</th><th>Description</th></tr><tr><td>type</td><td>number</td><td>yes</td><td>The peer type. The following are the valid type of peers:<ul><li>ALL – All secured sessions will match this peer type including peers that match any of the following peer types</li><li>ANY_TRUSTED – Any authenticated peer using any authentication method except ECDHE_NULL.</li><li>FROM_CERTIFICATE_AUTHORITY -- matches all peers with certificates issued by the specified certificate authority</li><li>WITH_PUBLIC_KEY – a single peer identified by the public key</li><li>WITH_MEMBERSHIP  -- all members of the security group</li></ul></td></tr><tr><td>publicKey</td><td>Public Key</td><td>no</td><td>The peer key info data. Depending on peer type, the publicKey is:<br><ul><li>ALL – not applicable</li><li>ANY_TRUSTED – not applicable</li><li>FROM_CERTIFICATE_AUTHORITY – the public key of the certificate authority</li><li>WITH_PUBLIC_KEY – the public key of the peer</li><li>WITH_MEMBERSHIP – the public key of the security group authority</li></ul></td></tr><tr><td>sgID</td><td>GUID</td><td>No</td><td>Security group ID.  This is applicable only the type WITH_MEMBERSHIP.</td></tr></table> |
 | rules | array of rules | no | <p>List of allowed rules. The peer application is allowed to perform the actions specified in the given rules.</p><p>The default rule is to allow nothing.</p> |
 
 **Rule Record**
@@ -811,7 +818,7 @@ The following diagram describes the format structure of the ACL data.
 |---|---|---|---|---|
 | mbr | string | no |  | Member name.  A \* at the end indicates a prefix match.  When there is no \*, it is an exact match. |
 | type | number | no | <ul><li>0: any</li><li>1: method call</li><li>2: signal</li><li>3: property</li></ul> | Message type.<br>Default is any |
-| action | byte | no |  | The action mask flag. The list of valid masks:<br><ul><li>0x01: Provide – allows sending signal, exposing method calls and producing properties</li><li>0x02: Observe – allows receiving signals and getting properties</li><li>0x04: Modify – set properties and make method calls</li></ul> |
+| action | byte | no |  | The action mask flag. The list of valid masks:<br><ul><li>0x00: Deny - Explict deny.  Only enforced when matched in WITH_PUBLIC_KEY ACL, ignored in all other cases</li><li>0x01: Provide – allows sending signal, exposing method calls and producing properties</li><li>0x02: Observe – allows receiving signals and getting properties</li><li>0x04: Modify – set properties and make method calls</li></ul> |
 
 #### Enforcing the rules at message creation or receipt
 
@@ -830,16 +837,17 @@ The following table lists the required action mask base on the message.
 | send signal         | Remote peer has OBSERVE permission for this signal     |
 | receive signal      | Remote peer has PROVIDE permission for this signal     |
 
-##### Default policy after claim
+##### Policy after claim
 
-Right after the application is claimed, the default policy is created
+Right after the application is claimed, a policy is created
 automatically with the following feature:
 1. Admin group has full access
-2. Outgoing messages are authorized
-3. Incoming messages are denied
-4. Allow for self-installation of membership certificates
+2. Outgoing messages are authorized for ANY_TRUSTED
+3. Allow for self-installation of membership certificates
+4. All other messages are implicitly denied
 
-An example of the initial policy is:<br>
+The created policy is below.  It is recommended that a certification test is
+created to verify this is the policy that is generated.<br>
 ```
 peer: WITH_MEMBERSHIP
 pubKey: admin authority key
@@ -855,43 +863,35 @@ pubKey: the application’s public key
 peer: ANY_TRUSTED
     ifn: *
         mbr: *
-        action: 0x01 (PROVIDE)
-        type: 2  (SIGNAL)
-        action: 0x02 (OBSERVE)
+          action: 0x01 (PROVIDE)
+          type: 2  (SIGNAL)
+        mbr: *
+          action: 0x02 (OBSERVE)
 ```
 
-#### Search Algorithm
+#### Rule Search and Selection
 
-Whenever an encrypted message is created or received, the authorization rules
-are searched using the message header data (object path, interface name, and
-member name) and the requested permission listed in the [Action Mask Matrix][action-mask-matrix] Table.
+Whenever an encrypted message is created or received, the access control rules
+are searched for matching rules.  In order for a rule to be considered a match,
+it must meet the following criteria:
+- Be in an access control list matching peer type, public key,
+and/or Security Group ID as specified for the ACL
+- Match message header data based object path, interface name and member
+name as specified for the rule.
+- Match the action mask and not be an explicit deny.
 
-[action-mask-matrix]: #enforcing-the-rules-at-message-creation-or-receipt
+Or the rule must match the following criteria:
+- Be in the ACL of a peer type WITH_PUBLIC_KEY
+- The ACL's key must match the public key of the peer
+- The action mask must be an explicit deny.
+- All other criteris (object path, interface and member names) must be *
 
-#### Search Priorities for Policy ACLs
-Policy ACLs are searched in this order.  Once an authorized match or an explicit
-deny match is found, the search stops.
+The resulting set of matched rules is applied to the message as follows:
+- If any explicit deny rule matches per above then the message is denied.
+- If an explicit deny rule is not matched and at least one matching allow rule
+is found then the message is allowed.
+- Otherwise, the message is denied.
 
-1. ACLs are searched using peer type WITH_PUBLIC_KEY
-2. ACLs are searched using peer type WITH_MEMBERSHIP.  The ACLS are applied in
-   undefined order.  A match found in any of the security group policy ACLs is
-   considered a match is found.
-3. ACLs are searched using peer type FROM_CERTIFICATE_AUTHORITY
-4. ACLs are searched using peer type ANY_TRUSTED
-5. ACLs are searched using peer type ALL
-
-#### Matching Algorithm within the rules of an ACL
-
-The following matching algorithm is used to find a match within the rules of an
-ACL.  Once a match is found with either authorized action or an explicit deny
-action, the search stops.
-- If the rule specifies object path, the message must match the object path.
-- If the rule specifies interface name, the message must match the interface
-  name.
-- If the rule specifies member name, the message must match the member name.
-- If the rule specifies a type, the message must match the type
-- Verify whether the requested permission is allowed by the action mask at the
-  member.  A more specific match has higher precedence than a prefix match.
 
 ## Certificates
 The following subsections detail the supported certificates.  The certificate

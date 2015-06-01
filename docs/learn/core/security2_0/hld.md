@@ -39,7 +39,7 @@ functions are subject to change without notice.
 | ECDHE | Elliptic Curve Diffie-Hellman Ephemeral key exchange |
 | ECDHE_ECDSA | ECDHE key agreement with asymmetric DSA based authentication. |
 | ECDHE_NULL | ECDHE key agreement only. No authentication. |
-| ECDHE_PSK | ECDHE key agreement with symmetric key/pin/password based authentication. |
+| ECDHE_PSK | ECDHE key agreement with pre-shared symmetric key based authentication. |
 | Factory-reset application | An application restored to the original configuration. |
 | Grantee | The application or user who is the subject of a certificate. |
 | GUID | Globally Unique Identifier. A 128 bit identifier generated randomly in a way that the probability of collision is negligible. |

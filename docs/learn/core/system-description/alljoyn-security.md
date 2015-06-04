@@ -56,7 +56,7 @@ for app-to-app level authentication:
 * ALLJOYN_ECDHE_PSK -  Elliptic Curve Diffie-Hellman (ephemeral) key exchange
   authenticated with a pre-shared key (PSK)
 * ALLJOYN_ECDHE_ECDSA - Elliptic Curve Diffie-Hellman (ephemeral) key exchange
-  authenticated with an X.509 ECDSA certifi pre-shared key (PSK)
+  authenticated with an X.509 ECDSA certificate
 
 
 The AllJoyn framework also supports ANONYMOUS and EXTERNAL

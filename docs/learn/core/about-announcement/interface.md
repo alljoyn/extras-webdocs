@@ -183,12 +183,12 @@ Announce signal is a Sessionless signal
          <arg name="aboutData" type="a{sv}" direction="out"/>
       </method>
       <method name="GetObjectDescription">
-         <arg name="objectDescription" type="a(sas)" direction="out"/>
+         <arg name="objectDescription" type="a(oas)" direction="out"/>
       </method>
       <signal name="Announce">
          <arg name="version" type="q"/>
          <arg name="port" type="q"/>
-         <arg name="objectDescription" type="a(sas)"/>
+         <arg name="objectDescription" type="a(oas)"/>
          <arg name="metaData" type="a{sv}"/>
       </signal>
    </interface>

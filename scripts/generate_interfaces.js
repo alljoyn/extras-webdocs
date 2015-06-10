@@ -265,6 +265,18 @@ function render_file(file) {
     // only process .md files
     if (parts.extension != '.md') return;
 
+    // The basename should not contain any dots. If it does, the file is most probably
+    // placed in the wrong directory. Explain this to the user.
+    if (parts.basename.indexOf('.') != -1) {
+        var suggested_dir = parts.dirname + '/' + parts.basename.slice(0, parts.basename.lastIndexOf('.'));
+        var suggested_filename = parts.basename.slice(parts.basename.lastIndexOf('.') + 1) + parts.extension;
+        var suggested = suggested_dir + '/' + suggested_filename;
+        console.log("WARNING: The file '" + parts.path + "' has an invalid name: dots are not allowed in markdown file names.");
+        console.log("         This file will be skipped.");
+        console.log("         Did you mean to create a file called '" + suggested + "' instead?");
+        return;
+    }
+
     var relpath = parts.dirname + '/' + parts.basename;
     var out_file = out_public_dir + deploy_html_dir_prefix + '/' + relpath;
     var for_import_path = deploy_html_dir_prefix + '/' + relpath;
@@ -436,6 +448,7 @@ function copy_redirects() {
 function build_html() {
     console.log("Building html");
     rmdir(out_public_dir);
+    rmdir(gen_dir);
     build_nav_file();
     gen_default_index_files();
     CURRENT_PREFIX = gen_indexes_dir;

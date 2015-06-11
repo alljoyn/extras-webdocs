@@ -9,6 +9,7 @@
 |----------|----------|----------|-----------
 |Source    |[alljoyn-15.04.00-src.tar.gz][source-alljoyn-1504]                  |15.04.00|[Release Notes][core-notes-1504]
 |          |[ajtcl-15.04.00a-src.tar.gz][source-ajtcl-1504a]                    |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Code Generator Source][codegen-1504]                               |15.04.00|[Release Notes][codegen-notes-1504]
 |Android   |[Core SDK - release][android-core-rel-1504]                         |15.04.00|[Release Notes][core-notes-1504]
 |          |[Core SDK - debug][android-core-debug-1504]                         |15.04.00|[Release Notes][core-notes-1504]
 |iOS       |[Core SDK][ios-core-1504]                                           |15.04.00|[Release Notes][core-notes-1504]
@@ -83,6 +84,8 @@
 [core-notes-1504]:            https://wiki.allseenalliance.org/core/core_15.04_release_review
 [source-alljoyn-1504]:        https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-src.tar.gz
 [source-ajtcl-1504a]:         https://allseenalliance.org/releases/alljoyn/15.04/ajtcl-15.04.00a-src.tar.gz
+[codegen-1504]:               https://allseenalliance.org/releases/alljoyn/15.04/AllJoynCodeGenSetup-15.04.tar.gz
+[codegen-notes-1504]:         https://wiki.allseenalliance.org/devtools/developer_tools_15.04_release_review
 [android-core-rel-1504]:      https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-android-sdk-rel.zip
 [android-core-debug-1504]:    https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-android-sdk-dbg.zip
 [ios-core-1504]:              https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-osx_ios-sdk.zip

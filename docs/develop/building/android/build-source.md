@@ -32,7 +32,7 @@ applications to or from an Android device. The 'adb' tool is used to:
 * Run the AllJoyn standalone router
 * Install/uninstall applications
 
-For AllJoyn v15.04, download Android SDK version r20 or later from the
+For AllJoyn v15.08, download Android SDK version r20 or later from the
 following location:
 
 http://developer.android.com/sdk/index.html
@@ -71,8 +71,8 @@ required to build AllJoyn.
 The main tool used from the Android NDK is 'ndk-build', which
 is used to build the native library of the JNI application.
 
-To run Android JNI applications using AllJoyn 15.04, install any
-NDK version 9d or above from http://developer.android.com/tools/sdk/ndk/index.html .
+To run Android JNI applications using AllJoyn 15.08, install any
+NDK version r10e or above from http://developer.android.com/tools/sdk/ndk/index.html .
 
 Install the NDK by following the directions given on the download page.
 
@@ -184,7 +184,7 @@ $ repo start master --all
 
 At this point. you have all of the files and programs required
 to build the AllJoyn framework for Android. The following commands assume
-you have installed the Android NDK at `/usr/local/android-ndk-r9d`,
+you have installed the Android NDK at `/usr/local/android-ndk-r10e`,
 you have downloaded and built the Android source, and it is
 located in `$HOME/android-platform`.
 
@@ -194,7 +194,7 @@ builtin crypto:
 ```sh
 $ export JAVA_HOME="/usr/lib/jvm/java-6-sun" # or java-5-sun
 $ export CLASSPATH="/usr/share/java/junit.jar"
-$ scons OS=android CPU=arm CRYPTO=builtin ANDROID_NDK=/usr/local/android-ndk-r9b
+$ scons OS=android CPU=arm CRYPTO=builtin ANDROID_NDK=/usr/local/android-ndk-r10e
    ANDROID_SRC=$HOME/android-platform WS=off
 ```
 
@@ -203,7 +203,7 @@ To build using OpenSSL crypto functions:
 ```sh
 $ export JAVA_HOME="/usr/lib/jvm/java-6-sun" # or java-5-sun
 $ export CLASSPATH="/usr/share/java/junit.jar"
-$ scons OS=android CPU=arm CRYPTO=openssl ANDROID_NDK=/usr/local/android-ndk-r9b
+$ scons OS=android CPU=arm CRYPTO=openssl ANDROID_NDK=/usr/local/android-ndk-r10e
    ANDROID_SRC=$HOME/android-platform WS=off
 ```
 

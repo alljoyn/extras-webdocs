@@ -372,9 +372,9 @@ AllJoyn framework to test its C++ APIs. Google Test is optional,
 but is required for building the C++ unit tests.
 
 1. Open a browser and navigate to http://code.google.com/p/googletest/downloads/list.
-2. From the googletest download page, download gtest-1.6.0.zip.
-3. Unzip the contents of gtest-1.6.0.zip to a known location
-(e.g., $HOME/gtest/gtest-1.6.0).
+2. From the googletest download page, download gtest-1.7.0.zip.
+3. Unzip the contents of gtest-1.7.0.zip to a known location
+(e.g., $HOME/gtest/gtest-1.7.0).
 
 **IMPORTANT:** Do not use apt-get install libgtest-dev. Download
 the source code from code.google.com.
@@ -567,7 +567,7 @@ option to specify the location of the Google Test source code.
 Example:
 
 ```sh
-$ scons GTEST_DIR=$HOME/gtest/gtest-1.6.0
+$ scons GTEST_DIR=$HOME/gtest/gtest-1.7.0
 ```
 
 ## Running the AllJoyn Applications

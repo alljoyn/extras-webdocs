@@ -139,9 +139,9 @@ the native AllJoyn framework C++ APIs. Google Test is optional,
 but is required for building the C++ unit tests.
 
 1. Open a browser and navigate to http://code.google.com/p/googletest/downloads/list.
-2. From the googletest download page download `gtest-1.6.0.zip`.
-3. Unzip the contents of `gtest-1.6.0.zip` to a known location 
-(e.g., `C:\gtest\gtest-1.6.0`).
+2. From the googletest download page download `gtest-1.7.0.zip`.
+3. Unzip the contents of `gtest-1.7.0.zip` to a known location 
+(e.g., `C:\gtest\gtest-1.7.0`).
 
 ### Apache Ant
 
@@ -540,7 +540,7 @@ option to specify the location of Google Test source code.
 Example:
 
 ```bat
-scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 GTEST_DIR=c:\gtest\gtest-1.6.0
+scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 GTEST_DIR=c:\gtest\gtest-1.7.0
 BINDINGS=cpp
 ``` 
 

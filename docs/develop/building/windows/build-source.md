@@ -420,32 +420,32 @@ release variant. For example:
 scons OS=win7 CPU=x86_64 VARIANT=release MSVC_VERSION=10.0 BINDINGS=core,java
 ``` 
 
-### White space options
+### Whitespace options
 
 The AllJoyn build environment uses uncrustify and a python 
-script that is automatically run each time the AllJoyn 
+script that are automatically run each time the AllJoyn 
 framework is built.
 
-If source code is found that does not match the AllJoyn 
-coding guidelines, the build will fail when it runs the 
-whitespace script. This is the default behavior when building 
-the AllJoyn framework. This behavior can be changed by 
-changing the WS option.
+If source code is found that does not match the AllJoyn coding
+guidelines and whitespace checking is enabled, the build will fail
+when it runs the whitespace script. The WS option controls the
+behavior of the whitespace checker.
 
 The values of the WS option are:
 
-* check - (default option) this option will check the code 
+* off - (Default) Don't check the code for adherence to the 
+AllJoyn whitespace policy. Example:
+* check - This option will check the code 
 to see if it adheres to the AllJoyn white space policy.
-* detail - display what changes are needed to make the 
+* detail - Display what changes are needed to make the 
 code adhere to the AllJoyn white space policy.
-* fix - modify the code to use the AllJoyn white space 
+* fix - Modify the code to use the AllJoyn white space 
 policy. This will automatically apply the changes that 
 are shown when using the detail option.
-* off - don't check the code for adherence to the 
-AllJoyn whitespace policy. Example:
 
+Example:
   ```bat
-  scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 WS=off BINDINGS=cpp,java
+  scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 WS=detail BINDINGS=cpp,java
   ```
 
 ### Generating API documentation

@@ -117,10 +117,11 @@ coding style in the AllJoyn code base. It is not required to build AllJoyn,
 but if you intend to contribute code changes to the AllJoyn project you should
 configure and use the tool.
 
-**NOTE:** Uncrustify v0.61 is required for AllJoyn v15.04. Earlier AllJoyn versions
-require uncrustify v0.57. Since the existing AllJoyn code was formatted with
-a specific version of uncrustify, using any other version of uncrustify
-can cause unexpected build errors when not building with the WS=off option.
+**NOTE:** Uncrustify v0.61 is required for AllJoyn v15.04 and
+later. Earlier AllJoyn versions require uncrustify v0.57. Since the
+existing AllJoyn code was formatted with a specific version of
+uncrustify, using any other version of uncrustify can cause unexpected
+build errors when not building with the WS=off option.
 
 There are two ways to install Uncrustify.
 
@@ -158,7 +159,7 @@ Uncrustify to build:
    struct cp_data cpd;
   ```
 
-2. Install the Uncrustify v0.57 package on Ubuntu:
+* Install the Uncrustify v0.57 package on Ubuntu:
    1. Go to: http://packages.ubuntu.com/precise/uncrustify.
    2. From the website, click in the "Download uncrustify"
    table to select your machine's architecture.
@@ -170,7 +171,7 @@ Uncrustify to build:
    $ sudo dpkg -i uncrustify_0.57-1_amdd64.deb
    $ sudo dpkg -i uncrustify_0.57-1_i386.deb
    ```
-   There is no v0.61 package currently available.
+   Uncrustify v0.61 packages are not currently available.
 
 ## Doxygen
 
@@ -469,12 +470,12 @@ to view the PDF documentation.
 
 ### Whitespace policy checker
 
-By default, the whitespace policy checker runs every time.
-If you continually get build errors associated with the whitespace.py
-script, it can be shut off using this command:
+By default, the whitespace policy checker does not run. If you are
+contributing changes to AllJoyn, you should run your builds with the
+whitespace checker enabled:
 
 ```sh
-$ scons WS=off
+$ scons WS=check
 ```
 
 If the whitespace policy checker reports a whitespace policy

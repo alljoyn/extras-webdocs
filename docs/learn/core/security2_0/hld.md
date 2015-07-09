@@ -940,7 +940,7 @@ AuthorityKeyIdentifier SEQUENCE { 1.2.5.29.35  (id-ce-authorityKeyIdentifier),
 #### AuthorityKeyIdentifier
 The AuthorityKeyIdentifier standard extension field will hold 64 bits of data
 comprising of a four-bit type field with the value 0100 followed by the least
-significant 60 bits of the SHA-256 hash of the value of the BIT STRING
+significant 60 bits of a hash of the value of the BIT STRING
 subjectPublicKey (excluding the tag, length, and number of unused bits).
 
 #### Security 2.0 Custom OIDs

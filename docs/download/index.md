@@ -7,15 +7,22 @@
 ### v15.04
 |Platform  |Package   |Version   |Information
 |----------|----------|----------|-----------
-|Source    |[alljoyn-15.04.00-src.tar.gz][source-alljoyn-1504]                  |15.04.00|[Release Notes][core-notes-1504]
-|          |[ajtcl-15.04.00a-src.tar.gz][source-ajtcl-1504a]                    |15.04.00a|[Release Notes][core-notes-1504]
-|Android   |[Core SDK - release][android-core-rel-1504]                         |15.04.00|[Release Notes][core-notes-1504]
-|          |[Core SDK - debug][android-core-debug-1504]                         |15.04.00|[Release Notes][core-notes-1504]
-|iOS       |[Core SDK][ios-core-1504]                                           |15.04.00|[Release Notes][core-notes-1504]
-|Windows   |[Windows SDK (64-bit) (VS2012)][win-64bit-vs2012-core-1504]         |15.04.00|[Release Notes][core-notes-1504]
-|          |[Windows SDK (32-bit) (VS2012)][win-32bit-vs2012-core-1504]         |15.04.00|[Release Notes][core-notes-1504]
-|          |[Windows SDK (64-bit) (VS2013)][win-64bit-vs2013-core-1504]         |15.04.00|[Release Notes][core-notes-1504]
-|          |[Windows SDK (32-bit) (VS2013)][win-32bit-vs2013-core-1504]         |15.04.00|[Release Notes][core-notes-1504]
+|Source    |[Standard Core Source][source-alljoyn-1504a]                        |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Thin Core Source][source-ajtcl-1504a]                              |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Base Services Source][source-base-services-1504]                   |15.04.00 |[Release Notes][base-services-notes-1504]
+|          |[Code Generator Source][codegen-1504]                               |15.04.00|[Release Notes][codegen-notes-1504]
+|          |[Data Driven API Source][source-ddapi-1504]                         |15.04.00|[Release Notes][ddapi-notes-1504]
+|Android   |[Core SDK - release][android-core-rel-1504a]                        |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Core SDK - debug][android-core-debug-1504a]                        |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Onboarding SDK][android-onboarding-1504]                           |15.04.00 |[Release Notes][base-services-notes-1504]
+|          |[Configuration SDK][android-config-1504]                            |15.04.00 |[Release Notes][base-services-notes-1504]
+|          |[Notification SDK][android-notif-1504]                              |15.04.00 |[Release Notes][base-services-notes-1504]
+|          |[Control Panel SDK][android-controlpanel-1504]                      |15.04.00 |[Release Notes][base-services-notes-1504]
+|iOS       |[Core SDK][ios-core-1504a]                                          |15.04.00a|[Release Notes][core-notes-1504]
+|Windows   |[Windows SDK (64-bit) (VS2012)][win-64bit-vs2012-core-1504a]        |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Windows SDK (32-bit) (VS2012)][win-32bit-vs2012-core-1504a]        |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Windows SDK (64-bit) (VS2013)][win-64bit-vs2013-core-1504a]        |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Windows SDK (32-bit) (VS2013)][win-32bit-vs2013-core-1504a]        |15.04.00a|[Release Notes][core-notes-1504]
 |          |[Windows Thin Core SDK][win-thin-1504a]                             |15.04.00a|[Release Notes][core-notes-1504]
 
 ## Releases and SDKs
@@ -80,17 +87,28 @@
   * [14.02 (zip)][14-02-00-zip]
   * [14.06 (zip)][14-06-00-zip]
 
-[core-notes-1504]:            https://wiki.allseenalliance.org/core/core_15.04_release_review
-[source-alljoyn-1504]:        https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-src.tar.gz
-[source-ajtcl-1504a]:         https://allseenalliance.org/releases/alljoyn/15.04/ajtcl-15.04.00a-src.tar.gz
-[android-core-rel-1504]:      https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-android-sdk-rel.zip
-[android-core-debug-1504]:    https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-android-sdk-dbg.zip
-[ios-core-1504]:              https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-osx_ios-sdk.zip
-[win-64bit-vs2012-core-1504]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-win7x64vs2012-sdk.zip
-[win-32bit-vs2012-core-1504]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-win7x86vs2012-sdk.zip
-[win-64bit-vs2013-core-1504]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-win7x64vs2013-sdk.zip
-[win-32bit-vs2013-core-1504]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00-win7x86vs2013-sdk.zip
-[win-thin-1504a]:             https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-thin_client-sdk-windows.zip
+[ddapi-notes-1504]:           https://wiki.allseenalliance.org/datadriven/ddapi_15.04_release_review
+[source-ddapi-1504]:          https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-ddapi-v15.04-src.tar.gz
+[source-base-services-1504]:   https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-services-15.04.00-src.tar.gz
+[base-services-notes-1504]:    https://wiki.allseenalliance.org/baseservices/base_services_15.04_release_review
+[codegen-1504]:                https://allseenalliance.org/releases/alljoyn/15.04/AllJoynCodeGenSetup-15.04.tar.gz
+[codegen-notes-1504]:          https://wiki.allseenalliance.org/devtools/developer_tools_15.04_release_review
+[android-onboarding-1504]:     https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-onboarding-service-framework-15.04.00-android-sdk-rel.zip
+[android-config-1504]:         https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-config-service-framework-15.04.00-android-sdk-rel.zip
+[android-notif-1504]:          https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-notification-service-framework-15.04.00-android-sdk-rel.zip
+[android-controlpanel-1504]:   https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-controlpanel-service-framework-15.04.00-android-sdk-rel.zip
+
+[core-notes-1504]:             https://wiki.allseenalliance.org/core/core_15.04_release_review
+[source-alljoyn-1504a]:        https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-src.tar.gz
+[source-ajtcl-1504a]:          https://allseenalliance.org/releases/alljoyn/15.04/ajtcl-15.04.00a-src.tar.gz
+[android-core-rel-1504a]:      https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-android-sdk-rel.zip
+[android-core-debug-1504a]:    https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-android-sdk-dbg.zip
+[ios-core-1504a]:              https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-osx_ios-sdk.zip
+[win-64bit-vs2012-core-1504a]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-win7x64vs2012-sdk.zip
+[win-32bit-vs2012-core-1504a]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-win7x86vs2012-sdk.zip
+[win-64bit-vs2013-core-1504a]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-win7x64vs2013-sdk.zip
+[win-32bit-vs2013-core-1504a]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-win7x86vs2013-sdk.zip
+[win-thin-1504a]:              https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-thin_client-sdk-windows.zip
 
 [source-lighting-service_framework-1412]: https://git.allseenalliance.org/cgit/lighting/service_framework.git/snapshot/service_framework-14.12.zip
 [source-lighting-apps-1412]: https://git.allseenalliance.org/cgit/lighting/apps.git/snapshot/apps-14.12.zip

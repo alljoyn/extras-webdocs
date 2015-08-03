@@ -27,6 +27,9 @@
         - name: Events and Actions
           path: /learn/core/events-and-actions
           contents:
+        - name: Routing Node Configuration
+          path: /learn/core/rn_config
+          contents:
         - name: Standard Core
           path: /learn/core/standard-core
           contents:

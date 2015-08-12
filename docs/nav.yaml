@@ -172,6 +172,8 @@
         - name: Thin - Windows
           path: /develop/building/thin-windows
           contents:
+        - name: AllJoyn.js
+          path: /develop/building/alljoyn-js
     - name: Running Samples
       path: /develop/run-sample-apps
       contents:
@@ -301,6 +303,9 @@
             - name: Sessions
               path: /develop/run-sample-apps/test/sessions
               contents:
+        - name: AllJoyn.js
+          path: /develop/run-sample-apps/alljoyn-js
+          contents:
     - name: API Guide
       path: /develop/api-guide
       contents:

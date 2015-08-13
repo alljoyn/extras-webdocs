@@ -7,7 +7,7 @@ Debian/Ubuntu Linux. Equivalent commands are available for other distributions o
 
 * Build tools and libs
 ```sh 
-sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev 
+sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev libcap-dev
 ```
 * Install Python v2.6/2.7 (Python v3.0 is not compatible and will cause errors)
 ```sh

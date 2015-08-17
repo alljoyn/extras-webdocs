@@ -864,10 +864,13 @@ peer: ANY_TRUSTED
     ifn: *
         mbr: *
           action: 0x01 (PROVIDE)
-          type: 2  (SIGNAL)
+          type: 1 (METHOD)
         mbr: *
           action: 0x02 (OBSERVE)
-```
+          type: 2 (SIGNAL)
+        mbr: *
+          action: 0x01 (PROVIDE)
+          type: 3 (PROPERTY)
 
 #### Rule Search and Selection
 
@@ -888,10 +891,9 @@ Or the rule must match the following criteria:
 
 The resulting set of matched rules is applied to the message as follows:
 - If any explicit deny rule matches per above then the message is denied.
-- If an explicit deny rule is not matched and at least one matching allow rule
-is found then the message is allowed.
+- If no deny rules match, then the message is allowed if at least one allow
+rule matches.
 - Otherwise, the message is denied.
-
 
 ## Certificates
 The following subsections detail the supported certificates.  The certificate

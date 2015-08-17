@@ -99,8 +99,8 @@ The following Table lists the premises for the Security 2.0 features.
 | Admin | An admin (or administrator) is a security principal with administrator privilege for the application | <ul><li>An admin is a member of the admin security group which has full access to any object and interface in the application</li></ul> |
 | Claim | Incorporate a factory-reset application with the Permission Module | <ul><li>A factory-reset application has no list of certificate authorities for AllJoyn security.</li><li>A factory-reset application has no admin for AllJoyn security.</li><li>Anyone can claim a factory-reset application.</li><li>The Claimer installs a certificate authority</li><li>The Claimer installs an admin security group</li></ul> |
 | Policy | <p>A policy is a list of ACLs governing  the behavior of an application</p><p>A policy template is a list of rules defined by the application developer to guide the admin for policy building.</p> | <ul><li>An admin can install, update, or remove a policy.</li><li>A newer policy can be installed by any authorized peer. Developers can define policy templates to help the admin with policy building.</li><li>Security group specific policy specifies the permissions granted to members of the group. The security group authority becomes a certificate authority for that particular group.</li><li>A policy may exist at the producer or consumer side. Policy enforcement applies wherever it resides.</li><li>A policy is considered private.  It is not exchanged with any peer.</li><li>A keystore has at most one policy.  A complex application with multiple bus attachments can use a shared keystore in one bus attachment and an app-specific keystore for another bus attachment.  In such case, the complex application has in fact more than one policy.</li><li>An admin can query the existing policy installed in the keystore.</li></ul> |
-| Membership certificate | A membership certificate is the proof of a security group membership | <ul><li>Membership certificates are exchanged between peers.  The authorization data signed by this certificate are used for mutual authorization purposes.</li><li>An application trusts a membership certificate if the issuer or any subject in the issuer’s certificate chain is the security group authority.</li><li>A membership certificate subject can generate additional membership certificates for the given security group if the delegate flag is enabled. This type of membership certificate will not allow further delegation.</li><li>A membership certificate must have a security group ID.</li><li>An application can accept the installation of any number of membership certificates into its keystore.</li></ul> |
-| Identity certificate | Certificate that signs the identity information. | <ul><li>The Certificate has an identity alias stored in the X.509 SubjectAltName extension field.</li><li>An application trusts identity certificates issued by the application’s certificate authority or any of the security group authorities listed in the application’s policy.</li><li>An identity certificate subject can generate additional identity if the delegate flag is enabled. This type of identity certificate will not allow further delegation.</li></ul> |
+| Membership certificate | A membership certificate is the proof of a security group membership | <ul><li>Membership certificates are exchanged between peers.</li><li>An application trusts a membership certificate if the issuer or any subject in the issuer’s certificate chain is the security group authority.</li><li>A membership certificate subject can generate additional membership certificates for the given security group if the cA flag is true.</li><li>A membership certificate must have a security group ID.</li><li>An application can accept the installation of any number of membership certificates into its keystore.</li></ul> |
+| Identity certificate | Certificate that signs the identity information. | <ul><li>The Certificate has an identity alias stored in the X.509 SubjectAltName extension field.</li><li>An application trusts identity certificates issued by the application’s certificate authority or any of the security group authorities listed in the application’s policy.</li><li>An identity certificate subject can generate additional identity if the cA flag is true.</li></ul> |
 | Manifest data | The permission rules accompanying the identity certificate | <ul><li>Manifest data are not present in the identity certificate. They are accompanied with the identity certificate.</li><li>The manifest data digest is present in the identity certificate.</li><li>The manifest data syntax is the same as the policy syntax.  While the policy stays local the manifest data is presented to the peer along with the identity certificate.</li></ul> |
 | Security Manager | A service used to manage cryptographic keys, and generate certificates. | <ul><li>Security Manager can push policy and certificates to application</li></ul> |
 
@@ -513,12 +513,12 @@ The followings are the limitations of using delegation.
   to differentiate between kids and parents.
 
 
-###### Delegating membership certificate Flow
+###### Delegating certificate Flow
 
-In the X.509 membership certificate, the delegate concept is represented by the
-basicConstraints extension CA flag.  If a grantee receives a membership
-certificate with the X.509 basicConstraints extension CA flag equal to true, the
-grantee can issue a membership certificate to others.  Any peer validating a
+In the X.509 membership and identity certificates, the delegate concept is
+represented by the basicConstraints extension cA flag.  If a grantee receives a
+certificate with the X.509 basicConstraints extension cA flag equal to true, the
+grantee can issue a certificate to others.  If the cA flag is false then a peer validating a
 certificate chain verifies that no further delegation has been done, or the
 chain is considered invalid.
 
@@ -871,6 +871,7 @@ peer: ANY_TRUSTED
         mbr: *
           action: 0x01 (PROVIDE)
           type: 3 (PROPERTY)
+```
 
 #### Rule Search and Selection
 
@@ -900,8 +901,32 @@ The following subsections detail the supported certificates.  The certificate
 format is X.509 v3.  The certificate lifetime will be considered in order to
 avoid having to revoke the certificate.  However, certain devices do not have
 access to a trusted real time clock.  In such cases, applications on those
-devices will not be able to validate the certificate lifetime, thus relying on
-certificate
+devices will not be able to validate the certificate lifetime.
+
+### Certificate Chain validation
+Identity and membership certificate chains will be validated per section 6.1 of
+RFC 5280 with the following additions, limitations and notes:
+- The leaf certificate must have exactly one EKU and it must be the correct EKU
+per the use case.  Certificates used for ECDHE_ECDSA authentication must
+have the identity certificate EKU and certificates exchanged to indicate
+security group memberships must have the membership certificate EKU.
+- Intermediate certificates must have zero, one or both identity and membership
+EKUs.
+- No EKU will be treated as any EKU, per RFC 5280. EKU validation is transitive,
+meaning any certificate with no EKU will inherit those of its parent.
+- Time of validity will only be evaluated if the peer has a time source.
+- The implementation will assume system time is trusted if available.
+- For identity certificates, the associated digest of the leaf certificate
+is validated against the digest of the manifest.
+- The AKI is validated to not be null.
+- CRL check is not implemented as there is no CRL.
+- basicConstraints::pathLenConstraint will NOT be checked.
+
+Certificate chains will be validated...
+- When a certificate is received during claiming.
+- When a certificate is installed.
+- When a certificate is received during ECDHE_ECDSA authentication.
+- When a certificate is received to assert security group membership.
 
 ### 2.6.1 Main Certificate Structure
 All AllSeen X.509 certificates have the following ASN.1 structure.  Currently
@@ -930,11 +955,13 @@ TBSCertificate ::= SEQUENCE {
 Extensions ::= SEQUENCE {
     BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN (FALSE) },
     SubjectAltName SEQUENCE { 2.5.29.17 (id-ce-subjectAltName),
-    SEQUENCE { CHOICE[0] (otherName)
-               SEQUENCE { 1.3.6.1.4.1.44924.1.3 (AllSeen Security Group ID),
+                    SEQUENCE { CHOICE[0] (otherName)
+                      SEQUENCE { 1.3.6.1.4.1.44924.1.3 (AllSeen Security Group ID),
                           OCTET STRING}}},
-AuthorityKeyIdentifier SEQUENCE { 1.2.5.29.35  (id-ce-authorityKeyIdentifier),
-                       SEQUENCE { [0] (keyIdentifier) OCTET STRING}}
+    ExtendedKeyUsage SEQUENCE { 2.5.29.37 (id-ce-extKeyUsage),
+                                SEQUENCE { (KeyPurposeId) OBJECT IDENTIFIER}},
+    AuthorityKeyIdentifier SEQUENCE { 2.5.29.35  (id-ce-authorityKeyIdentifier),
+                                      SEQUENCE { [0] (keyIdentifier) OCTET STRING}}
 }
 
 ```
@@ -959,11 +986,11 @@ certificates installed in different keystores.
 The identity alias is encoded in the SubjectAltName field in the extensions.
 
 The extensions include the following fields:
- - CertificateType: the type of certificate within the AllSeen ecosystem.  An
-   identity certificate has certificate type equal to 1.
+ - ExtendedKeyUsage: the type of certificate within the AllSeen ecosystem.  
+ 1.3.6.1.4.1.44924.1.1 is used for Identity certificates.
  - SubjectAltName: the alias for the identity.
  - AssociatedDigest: the digest of the associated manifest data.
-Both the CertificateType and AssociatedDigest have custom OIDs under the
+Both the ExtendedKeyUsage and AssociatedDigest have custom OIDs under the
 Security 2.0 root.
 
 ```
@@ -971,10 +998,15 @@ Extensions ::= SEQUENCE {
 BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN (FALSE) },
 SubjectAltName SEQUENCE { 2.5.29.17 (id-ce-subjectAltName),
      SEQUENCE { CHOICE[0] (otherName)
-                SEQUENCE { 1.3.6.1.4.1.44924.1.3 (AllSeen Security Group ID), OCTET STRING}}},
-AuthorityKeyIdentifier SEQUENCE { 1.2.5.29.35  (id-ce-authorityKeyIdentifier), SEQUENCE { [0] (keyIdentifier) OCTET STRING}},
-CertificateType SEQUENCE { 1.3.6.1.4.1.44924.1.1 (AllSeen Certificate Type), INTEGER (1) },
-AssociatedDigest SEQUENCE { 1.3.6.1.4.1.44924.1.2 (AllSeen Certificate Digest), 2.16.840.1.101.3.4.2.1 (sha-256), OCTET STRING }
+                SEQUENCE { 1.3.6.1.4.1.44924.1.3
+                           (AllSeen Security Group ID), OCTET STRING}}},
+AuthorityKeyIdentifier SEQUENCE { 2.5.29.35
+                                  (id-ce-authorityKeyIdentifier),
+                                   SEQUENCE { [0] (keyIdentifier) OCTET STRING}},
+ExtendedKeyUsage SEQUENCE { 2.5.29.37 (id-ce-extKeyUsage),
+                            SEQUENCE { (KeyPurposeId) 1.3.6.1.4.1.44924.1.1}},
+AssociatedDigest SEQUENCE { 1.3.6.1.4.1.44924.1.2 (AllSeen Certificate Digest),
+                            2.16.840.1.101.3.4.2.1 (hash), OCTET STRING }
 }
 
 ```
@@ -988,22 +1020,31 @@ The security group identifier is encoded with a 16 network byte order octets
 encoded in the SubjectAltName field in the extensions.
 
 The extensions include the following fields:
- - CertificateType: the type of certificate within the AllSeen ecosystem.  A
-   membership certificate has certificate type equal to 2.
- - SubjectAltName: the security group ID.
-
-The CertificateType has a custom OID defined under the Security 2.0 root.
+- ExtendedKeyUsage: the type of certificate within the AllSeen ecosystem.  
+1.3.6.1.4.1.44924.1.5 is used for membership certificates.
+- SubjectAltName: the security group ID.
 
 ```
 Extensions ::= SEQUENCE {
 BasicConstraints SEQUENCE { 2.5.29.19 (basicConstraints), BOOLEAN (FALSE) },
 SubjectAltName SEQUENCE { 2.5.29.17 (id-ce-subjectAltName),
      SEQUENCE { CHOICE[0] (otherName)
-                SEQUENCE { 1.3.6.1.4.1.44924.1.3 (AllSeen Security Group ID), OCTET STRING}}},
-AuthorityKeyIdentifier SEQUENCE { 1.2.5.29.35  (id-ce-authorityKeyIdentifier), SEQUENCE { [0] (keyIdentifier) OCTET STRING}},
-CertificateType SEQUENCE { 1.3.6.1.4.1.44924.1.1 (AllSeen Certificate Type), INTEGER (1) }
+                SEQUENCE { 1.3.6.1.4.1.44924.1.3
+                           (AllSeen Security Group ID), OCTET STRING}}},
+AuthorityKeyIdentifier SEQUENCE { 2.5.29.35
+                                  (id-ce-authorityKeyIdentifier),
+                                   SEQUENCE { [0] (keyIdentifier) OCTET STRING}},
+ExtendedKeyUsage SEQUENCE { 2.5.29.37 (id-ce-extKeyUsage),
+                            SEQUENCE { (KeyPurposeId) 1.3.6.1.4.1.44924.1.5}}
 }
 ```
+### Recommended Best Practices for Certificates
+- Root certificates should include only the ExtendedKeyUsage OIDs for purposes
+for which it will issue certificates.  Currently, these are the AllJoyn
+identity and membership OIDs listed in this document.  Issuing root certificates
+with no ExtendedKeyUsage extension or with the anyExtendedKeyUsage OID is
+not recommended.  Adopting this practice will limit the potential abuse of
+AllJoyn root certificates for unrelated purposes.
 
 ## Sample use cases
 The solution listed here for the use cases is just a typical solution.  It is

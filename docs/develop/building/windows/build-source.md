@@ -1,25 +1,23 @@
-# Build from Source - Windows
+# Building from Source on Windows
 
 ## Configuring a Windows-Specific Environment
 
 It is recommended to note the install location of each tool 
 discussed in this section to complete the system configuration.
 
-### Microsoft Visual Studio 2010, 2012, 2013
+### Microsoft Visual Studio 2012, 2013, or 2015
 
 You should have at least one version of Microsoft Visual Studio 
-installed on your system. Visual Studio 2008 is no longer officially
-supported. If you are still using Visual Studio 2008, you should 
-still be able to build AllJoyn from source. See [Legacy Build Options][legacy-build-options] 
-for instructions for setting up Visual Studio 2008.
+installed on your system. Visual Studio 2010 is no longer officially
+supported.
 
-### Python 2.7.3 for Windows
+### Python 2.7.10 for Windows
 
-**NOTE:** Python 2.6 may also be used. Use the 32-bit version of 
+**NOTE:** Python 2.7.9 may also be used. Use the 32-bit version of 
 Python even if you are building the AllJoyn&trade; framework for a 64-bit architecture.
 
 1. Open a browser and navigate to http://www.python.org/download/.
-2. From the Python web page, select **Python 2.7.3 Windows Installer (32-bit)**.
+2. From the Python web page, select **Python 2.7.10 Windows Installer (32-bit)**.
 3. Click **Run** and **Run** again. The Python setup wizard appears.
 4. Click **Finish**, **Yes**, and **Finish** again.
 
@@ -32,42 +30,22 @@ Python even if you are building the AllJoyn&trade; framework for a 64-bit archit
 3. Select "Download scons-2.3.4-setup.exe", and click **Run** and **Run** again. The setup wizard appears.
 4. Proceed through the wizard steps to complete the SCons installation.
 
-### OpenSSL v1.0.1e for Windows
-
-OpenSSL is required if you are building the AllJoyn framework 
-for Windows XP or if your codebase is older than November 2011. 
-For other versions of Windows, see [Visual Studio 2008 Legacy Build - Microsoft Windows SDK 7.x][vs-2008-legacy-build-ms-windows-sdk-7x].
-
-**NOTE:** To avoid error messages, install Visual C++ 2008 Redistributables 
-before installing OpenSSL.
-
-1. Open a browser and navigate to http://www.slproweb.com/products/Win32OpenSSL.html.
-2. From the Win32 OpenSSL web page, click **Visual C++ 2008 Redistributables**.
-3. Click **Download** and **Run**. The setup wizard appears.
-4. Proceed through the wizard steps to complete the C++ installation.
-
-   **NOTE:** It is best to download and use the latest version.
-
-5.  Return to the OpenSSL web page, and click **WinOpenSSL v1.0.1e**.
-6. Click **Run** and **Run** again. The setup wizard appears.
-7. Proceed through the wizard steps to complete the OpenSSL installation.
-
-### Msysgit version 1.8.1.2 for Windows
+### Msysgit version 1.9.5 for Windows
 
 1. Open a browser and navigate to http://code.google.com/p/msysgit/downloads/list.
 2. From the msysgit web page, click the most recent version of git Installer for Windows.
 3. Download the file, click Run and Run again. The setup wizard appears.
 4. Proceed through the wizard steps to complete the git installation.
 
-### Uncrustify version 0.57 for Windows
+### Uncrustify version 0.61 for Windows
 
 Uncrustify is a formatting tool for source code.
 
 1. Open a browser and navigate to 
-http://sourceforge.net/projects/uncrustify/files/uncrustify/uncrustify-0.57/.
-2. From the Uncrustify Code Beautifier web page, click **uncrustify-0.57-win32.zip**.
-3. Download `uncrustify-0.57-win32.zip` and unzip.
-4. Move the contents to `C:\uncrustify-0.57-win32`.
+http://sourceforge.net/projects/uncrustify/files/uncrustify/uncrustify-0.61/.
+2. From the Uncrustify Code Beautifier web page, click **uncrustify-0.61.3-gf65394e-win32.zip**.
+3. Download `uncrustify-0.61.3-gf6594e-win32.zip` and unzip.
+4. Move the contents to `C:\uncrustify-0.61-win32`.
 
 ### Doxygen for Windows
 
@@ -175,9 +153,8 @@ known location (e.g., `C:\apache-ant-1.9.0`).
       to account for the install location):
       
       ```bat
-      C:\Python27;C:\Python27\Scripts;C:\Program Files\doxygen\bin; 
-      C:\Program Files\Graphviz2.30.1\bin;C:\OpenSSL-Win32\bin; 
-      C:\Program Files\Git\cmd;C:\uncrustify-0.57-win32;
+      C:\Python27;C:\Python27\Scripts;C:\Program Files\doxygen\bin;
+      C:\Program Files\Git\cmd;C:\uncrustify-0.61-win32
       ```
 
    2. If there is a 'PATH' under User variables, select it, and click **Edit**.
@@ -187,9 +164,8 @@ known location (e.g., `C:\apache-ant-1.9.0`).
       to account for the install location):
 
       ```bat
-      C:\Python27;C:\Python27\Scripts;C:\Program Files\doxygen\bin; 
-      C:\Program Files\Graphviz2.30.1\bin;C:\OpenSSL-Win32\bin; 
-      C:\Program Files\Git\cmd;C:\uncrustify-0.57-win32;
+      C:\Python27;C:\Python27\Scripts;C:\Program Files\doxygen\bin;
+      C:\Program Files\Git\cmd;C:\uncrustify-0.61-win32
       ```
 
 8. If you are generating the API documentation using Doxygen:
@@ -219,14 +195,14 @@ following commands:
 
 ```bat
 C:\>python --version
-Python 2.7.1
+Python 2.7.10
 
 C:\>scons --version
 SCons by Steven Knight et al.: engine: v2.3.4, 2014/09/27 12:51:43, by garyo on lubuntu
 Copyright (c) 2001 - 2014 The SCons Foundation
 
 C:\>git --version
-git version 1.7.4.msysgit.0
+git version 1.9.5.msysgit.0
 
 C:\>doxygen --version
 1.7.4
@@ -234,17 +210,8 @@ C:\>doxygen --version
 C:\>dot -V
 dot - graphviz version 2.26.3 (20100126.1600)
 
-C:\>openssl version
-OpenSSL 1.0.0d 8 Feb 2011
-```
-
-**NOTE:** OpenSSL not needed for all installations see 
-[openSSL v1.0.1e for Windows][openssl-version-windows] and 
-[Msysgit version 1.8.1.2 for Windows][msysgit-version-windows] for more information
-
-```bat
 C:\>uncrustify -v
-uncrustify 0.57
+uncrustify 0.61
 ```
 
 ### Obtaining AllJoyn source code from the Git repository
@@ -302,7 +269,7 @@ the AllJoyn framework for Windows. Use 'scons -h' for some
 basic settings. In the examples below, any of the scons 
 variables default values can be set as environment variables.
 
-#### Building for Windows 7 (use this for Windows Vista)
+#### Building for Windows 7
 
 For 32-bit x86 target using Visual Studio 2013:
 
@@ -318,53 +285,6 @@ C:\>cd allseen\core\alljoyn
 C:\allseen\core\alljoyn>scons OS=win7 CPU=x86_64 MSVC_VERSION=12.0 BINDINGS=cpp
 ```
 
-**NOTE:** If you are building a version older than 2.6, then 
-CPU=x86_64 will be required to build a 64-bit version of 
-the AllJoyn framework.
-
-#### Building for Windows XP
-
-For 32-bit x86 target:
-
-```bat
-C:\>cd allseen\core\alljoyn
-C:\allseen\core\alljoyn>scons OS=winxp CPU=x86 MSVC_VERSION=10.0 BINDINGS=cpp
-OPENSSL_BASE=<openssl_base_directory>
-```
-
-A 64-bit version of the AllJoyn framework cannot be built on Windows XP.
-
-#### Building the AllJoyn framework if the codebase is older than November 2011
-
-For 32-bit x86 target:
-
-```bat
-C:\>cd allseen\core\alljoyn
-C:\allseen\core\alljoyn>scons OS=windows CPU=x86 MSVC_VERSION=10.0 BINDINGS=cpp
-OPENSSL_BASE=<openssl_base_directory>
-```
-
-For 64-bit x86-64 target:
-
-```bat
-C:\>cd allseen\core\alljoyn
-C:\allseen\core\alljoyn>scons OS=windows CPU=x86_64 MSVC_VERSION=10.0
-BINDINGS=cpp OPENSSL_BASE=<openssl_base_directory>
-``` 
-
-The transition to using the Windows CNG libraries for AllJoyn 
-security was done in September 2011. If you are trying to 
-compile the code from around that time period you may need 
-to specify the OS as either windows, winxp or win7. 
-Type scons -h to see which option to use.
-
-The MSVC_VERSION option is the version of Microsoft Visual C++ 
-that is installed on your system:
-
-* For Microsoft Visual C++ 2008, it will be 9.0 (default value)
-* For Microsoft Visual C++ 2010, it will be 10.0.
-* For Microsoft Visual C++ 2013, it will be 12.0.
-
 **NOTE:** If you are using Windows 7, you may need to run SCons as administrator.
 
 ### Build variants
@@ -374,7 +294,7 @@ and enables code optimization. To build in release mode,
 add the VARIANT build option to your scons command line. 
 The values are:
 
-* debug - (default option) Build the debug variant with all 
+* debug - (default value) Build the debug variant with all 
 symbol information and improved logging features for the 
 AllJoyn framework.
 * release - Build the release variant of the code. This will 
@@ -385,14 +305,14 @@ with the AllJoyn framework.
 Example:
 
 ```bat
-scons OS=win7 CPU=IA64 VARIANT=release MSVC_VERSION=10.0 BINDINGS=cpp
+scons OS=win7 CPU=x86 VARIANT=release MSVC_VERSION=12.0 BINDINGS=cpp
 ```
 
 ### alljoyn_java
 
 When building the Java code for the AllJoyn framework, use 
 the same command as building the AllJoyn core for Windows. 
-The only difference is it is done from the root `allseen\core\alljoyn` 
+The only difference is it must be done from the root `allseen\core\alljoyn` 
 folder or the `alljoyn_java` folder, not the `alljoyn_core` folder. 
 To build the Java code, SCons needs to know where the Java 
 tools and junit are located.
@@ -417,7 +337,7 @@ used to make AllJoyn core for Windows; e.g., a Java for Windows
 release variant. For example:
 
 ```bat
-scons OS=win7 CPU=x86_64 VARIANT=release MSVC_VERSION=10.0 BINDINGS=core,java
+scons OS=win7 CPU=x86_64 VARIANT=release MSVC_VERSION=12.0 BINDINGS=core,java
 ``` 
 
 ### White space options
@@ -445,7 +365,7 @@ are shown when using the detail option.
 AllJoyn whitespace policy. Example:
 
   ```bat
-  scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 WS=off BINDINGS=cpp,java
+  scons OS=win7 CPU=x86_64 MSVC_VERSION=12.0 WS=off BINDINGS=cpp,java
   ```
 
 ### Generating API documentation
@@ -480,7 +400,7 @@ The output will override the output from the HTML option.
 Example:
 
 ```bat
-scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 DOCS=html BINDINGS=cpp,java
+scons OS=win7 CPU=x86_64 MSVC_VERSION=12.0 DOCS=html BINDINGS=cpp,java
 ```
 
 ### Specifying the Microsoft Visual C++ version
@@ -493,41 +413,12 @@ version of Microsoft Visual C++ you are using.
 
 The values are:
 
-* 9.0 - (Default) Use Microsoft Visual C++ 2008
-* 10.0 - Use Microsoft Visual C++ 2010
 * 11.0 - Use Microsoft Visual C++ 2012
-* 11.0Exp - Use Microsoft Visual C++ Express Edition
-
-**NOTE:** Support for Visual Studio 2008 has been deprecated. 
-For the time being the scons script still defaults to 
-Visual Studio 2008. Be sure to use the right value for 
-your version of Visual Studio.
-
-### Build source using the bundled router
-
-The ability to build AllJoyn samples, test code, and unit 
-tests using a bundled router was added to the AllJoyn 2.6 
-release. Building code with the bundled router option (BR=on) 
-is the default value. For most operating systems, including 
-Windows, using a bundled router is the only supported configuration.
-
-Valid values for the BR build option are:
-
-* on - (default option) Build all samples and test code using 
-the built-in bundled router
-* off - Build all samples and test code without using the 
-built-in bundled router
-
-Example:
-
-```bat
-scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 BR=on BINDINGS=cpp,java
-```
-
-**NOTE:** Support for a stand-alone router was removed for Windows 
-with the AllJoyn v2.6 release. Using BR=off on Windows will 
-result in unusable code. See [AllJoyn Router][alljoyn-router] 
-for more information.
+* 11.0Exp - Use Microsoft Visual C++ 2012 Express Edition
+* 12.0 - (Default) Use Microsoft Visual C++ 2013
+* 12.0Exp - Use Microsoft Visual C++ 2013 Express Edition
+* 14.0 - Use Microsoft Visual C++ 2015
+* 14.0Exp - Use Microsoft Visual C++ 2015 Express Edition
 
 ### Build C++ unit tests
 
@@ -540,25 +431,9 @@ option to specify the location of Google Test source code.
 Example:
 
 ```bat
-scons OS=win7 CPU=x86_64 MSVC_VERSION=10.0 GTEST_DIR=c:\gtest\gtest-1.7.0
+scons OS=win7 CPU=x86_64 MSVC_VERSION=12.0 GTEST_DIR=c:\gtest\gtest-1.7.0
 BINDINGS=cpp
 ``` 
-
-## AllJoyn Router
-
-With the AllJoyn v2.6 release and later, running a standalone 
-router is no longer required. All of the functionality of 
-the router is now built into each individual application, which means:
-
-* Users of your program no longer need to install a background 
-service to run a program that runs the AllJoyn framework.
-* Programs get better performance because they no longer 
-need to serialize data and send it to a separate service.
-* Calling `BusAttachment.Connect()` takes a little longer 
-since it now starts up the built-in router.
-* The size of the program using the AllJoyn framework is slightly larger.
-* If port 9955 is unavailable, the program randomly picks 
-another available port to use for device-to-device communication.
 
 ### Verify that the AllJoyn project is built properly
 
@@ -592,9 +467,6 @@ another available port to use for device-to-device communication.
    ```
 
 ## Running Unit Tests
-
-**NOTE:** The following instructions are only valid for AllJoyn 
-version 2.6 and newer.
 
 ### Running C++ unit tests
 
@@ -658,84 +530,3 @@ For all paths and commands, replace {OS}, {CPU}, and {VARIANT}
 with the actual value used when the code was built 
 (i.e., use the same OS, CPU, and VARIANT option specified 
 when running SCons).
-
-## Legacy Build Options
- 
-The following build options can still be accessed, but are 
-no longer officially supported. Support for these options 
-may be completely removed without notice in future versions 
-of the AllJoyn framework.
-
-### Visual Studio 2008 Legacy Build - Microsoft Windows SDK 7.x
-
-The AllJoyn framework uses either the latest version of 
-Windows Cryptography API: Next Generation (CNG) or OpenSSL 
-for the AllJoyn security framework. Use of the CNG is recommended 
-when it is available. You must meet the following requirements 
-to use the CNG for the AllJoyn security framework:
-
-* Running Windows Vista or newer (for Windows XP, see 
-[openSSL v1.0.1e for Windows][openSSL-version-windows])
-* Using AllJoyn codebase checked out since November 2011
-* Using Microsoft Windows SDK 7.x or newer
-
-Currently, Microsoft Visual Studio 2010 uses Windows SDK 7.0a 
-by default. If you are using Microsoft Visual Studio 2010 
-and you meet the other requirements to use the CNG for the 
-AllJoyn security framework, you can skip to the next section. 
-
-Otherwise, use the following instructions to download the 
-latest version of the Windows SDK from Microsoft.
-
-1. Open a browser and navigate to http://msdn.microsoft.com/en-us/windows/bb980924.
-2. Select **install now**.
-3. Proceed through the wizard to complete the Windows SDK installation.
-
-After installing the Windows SDK, set up Microsoft Visual Studio 
-to use the just-installed SDK, as follows.
-
-1. Click **Start > All Programs > Microsoft Windows SDK [version] > Visual Studio Registration > Windows SDK Configuration Tool** 
-to run the Windows SDK configuration tool.
-2. Select the appropriate 7.x version from the **Installed Windows SDK Versions**
-drop-down list.
-3. Click **Make Current**.
-
-### Microsoft Visual Studio 2008 SP1 or Visual C++ 2008 Feature Pack Release
-
-**NOTE:** Microsoft Visual Studio 2008 Service Pack 1 (SP1) or the 
-Visual C++ 2008 Feature Pack Release is only required if you 
-are using Microsoft Visual Studio 2008 to build the AllJoyn framework.
- 
-The AllJoyn framework uses the hash table libraries specified 
-in the C++ Technical Report 1(TR1) (ISO/IEC TR 19768, C++ Library Extensions). 
-The hash table libraries were added to the C++ standard after 
-Visual C++ 2008 was created. For this reason, the Visual Studio 
-2008 SP1 or Visual C++ 2008 Feature Pack release must be 
-installed so the TR1 libraries are available while building 
-the AllJoyn framework.
-
-#### To install Microsoft Visual Studio 2008 Service Pack 1
-
-1. Open a browser and navigate to http://www.microsoft.com/en-us/download/details.aspx?id=10986.
-2. Select **Download**.
-3. Select Run.
-4. Proceed though the wizard to complete the Microsoft 
-Visual Studio 2008 Service Pack 1 installation.
-5. After installing SP1, you may have to re-set the SDK Version 
-used by Visual Studio to 7.x 
-(see [Visual Studio 2008 Legacy Build - Microsoft Windows SDK 7.x][vs-2008-legacy-build-ms-windows-sdk-7x]). 
-
-#### To install Visual C++ 2008 Feature Pack Release
-
-1. Open a browser and navigate to http://www.microsoft.com/en-us/download/details.aspx?id=6922.
-2. Select **Download**.
-3. Select **Run**.
-4. Proceed though the wizard to complete the Visual C++ 2008 
-Feature Pack Release installation.
-
-[legacy-build-options]: #legacy-build-options
-[vs-2008-legacy-build-ms-windows-sdk-7x]: #visual-studio-2008-legacy-build-microsoft-windows-sdk-7-x
-[openssl-version-windows]: #openssl-v101e-for-windows
-[msysgit-version-windows]: #msysgit-version-1-8-1-2-for-windows
-[adding-environment-variables]: #adding-environment-variables
-[alljoyn-router]: #alljoyn-router

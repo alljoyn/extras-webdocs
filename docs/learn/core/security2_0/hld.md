@@ -97,7 +97,7 @@ The following Table lists the premises for the Security 2.0 features.
 |---|---|---|
 | Identity | The application security principal | Each peer is identified by an authentication GUID  and a cryptographic public key |
 | Admin | An admin (or administrator) is a security principal with administrator privilege for the application | <ul><li>An admin is a member of the admin security group which has full access to any object and interface in the application</li></ul> |
-| Claim | Incorporate a factory-reset application with the Permission Module | <ul><li>A factory-reset application has no list of certificate authorities for AllJoyn security.</li><li>A factory-reset application has no admin for AllJoyn security.</li><li>Anyone can claim a factory-reset application.</li><li>The Claimer installs a certificate authority</li><li>The Claimer installs an admin security group</li></ul> |
+| Claim | Incorporate a factory-reset application with the Permission Module | <ul><li>A factory-reset application has no list of certificate authorities for AllJoyn security.</li><li>A factory-reset application has no admin for AllJoyn security.</li><li>Anyone can claim a factory-reset application.</li><li>The Claimer installs a FROM_CERTIFICATE_AUTHORITY ACL for an identity certificate authority</li><li>The Claimer installs an admin security group</li></ul> |
 | Policy | <p>A policy is a list of ACLs governing  the behavior of an application</p><p>A policy template is a list of rules defined by the application developer to guide the admin for policy building.</p> | <ul><li>An admin can install, update, or remove a policy.</li><li>A newer policy can be installed by any authorized peer. Developers can define policy templates to help the admin with policy building.</li><li>Security group specific policy specifies the permissions granted to members of the group. The security group authority becomes a certificate authority for that particular group.</li><li>A policy may exist at the producer or consumer side. Policy enforcement applies wherever it resides.</li><li>A policy is considered private.  It is not exchanged with any peer.</li><li>A keystore has at most one policy.  A complex application with multiple bus attachments can use a shared keystore in one bus attachment and an app-specific keystore for another bus attachment.  In such case, the complex application has in fact more than one policy.</li><li>An admin can query the existing policy installed in the keystore.</li></ul> |
 | Membership certificate | A membership certificate is the proof of a security group membership | <ul><li>Membership certificates are exchanged between peers.</li><li>An application trusts a membership certificate if the issuer or any subject in the issuer’s certificate chain is the security group authority.</li><li>A membership certificate subject can generate additional membership certificates for the given security group if the cA flag is true.</li><li>A membership certificate must have a security group ID.</li><li>An application can accept the installation of any number of membership certificates into its keystore.</li></ul> |
 | Identity certificate | Certificate that signs the identity information. | <ul><li>The Certificate has an identity alias stored in the X.509 SubjectAltName extension field.</li><li>An application trusts identity certificates issued by the application’s certificate authority or any of the security group authorities listed in the application’s policy.</li><li>An identity certificate subject can generate additional identity if the cA flag is true.</li></ul> |
@@ -826,16 +826,25 @@ The following table lists the required action mask base on the message.
 
 **Table:** Action Mask Matrix
 
-| Message Action      | <p>Local Policy</p><p>Remote peer’s manifest</p>       |
-|---------------------|--------------------------------------------------------|
-| send GetProperty    | Remote peer has PROVIDE permission for this property   |
-| receive GetProperty | Remote peer has OBSERVE permission for this property   |
-| send SetProperty    | Remote peer has PROVIDE permission for this property   |
-| receive SetProperty | Remote peer has MODIFY permission for this property    |
-| send method call    | Remote peer has PROVIDE permission for this method call|
-| receive method call | Remote peer has MODIFY permission for this method call |
-| send signal         | Remote peer has OBSERVE permission for this signal     |
-| receive signal      | Remote peer has PROVIDE permission for this signal     |
+| Message Action           | <p>Local Policy</p><p>Remote peer’s manifest</p>  |
+|--------------------------|---------------------------------------------------|
+| send GetProperty         | Remote peer has PROVIDE permission for this property |
+| receive GetProperty      | Remote peer has OBSERVE permission for this property |
+| send GetAllProperties    | Remote peer has PROVIDE permission for * properties |
+| receive GetAllProperties | Only properties for which the remote peer has OBSERVE permission are returned |
+| send SetProperty         | Remote peer has PROVIDE permission for this property   |
+| receive SetProperty      | Remote peer has MODIFY permission for this property    |
+| send method call         | Remote peer has PROVIDE permission for this method call|
+| receive method call      | Remote peer has MODIFY permission for this method call |
+| send signal              | Remote peer has OBSERVE permission for this signal     |
+| receive signal           | Remote peer has PROVIDE permission for this signal     |
+
+Sending GetAllProperties requires that the remote peer has a PROVIDE ACL rule
+for * interface members of type PROPERTY or ALL.
+
+Receiving GetAllProperties is allowed but only properties for which the
+remote peer has OBSERVE permission are returned. Other properties are treated
+as unreadable.
 
 ##### Policy after claim
 
@@ -849,14 +858,16 @@ automatically with the following feature:
 The created policy is below.  It is recommended that a certification test is
 created to verify this is the policy that is generated.<br>
 ```
+peer: FROM_CERTIFICATE_AUTHORITY
+    pubKey: Identity_Auth_Key
 peer: WITH_MEMBERSHIP
-pubKey: admin authority key
-sgID: admin group ID
+    pubKey: admin authority key
+    sgID: admin group ID
     ifn: *
         mbr: *
         action: 0x07 (PROVIDE | OBSERVE | MODIFY)
 peer: WITH_PUBLIC_KEY
-pubKey: the application’s public key
+    pubKey: the application’s public key
     ifn: org.alljoyn.Bus.Security.ManagedApplication
         mbr: InstallMembership
         action: 0x04   (MODIFY)

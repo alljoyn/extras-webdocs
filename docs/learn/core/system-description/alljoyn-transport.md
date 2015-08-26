@@ -199,25 +199,20 @@ used in the underlying OSI layer 4 mechanism.
 
 An AllJoyn applications may select the AllJoyn Transport that 
 is actually used by choosing one or more TransportMask bits 
-in the appropriate AllJoyn APIs. The currently defined 
+in the appropriate AllJoyn APIs. The currently available 
 TransportMask bits are shown in the following table. 
 
 #### AllJoyn TransportMask definition
 
 |Transport name | Value | Description |
 |---|:---:|---|
-| TRANSPORT_NONE | 0x0000 | No transport. |
-| TRANSPORT_LOCAL | 0x0001 | The local transport. |
-| TRANSPORT_BLUETOOTH | 0x0002 | Bluetooth transport. |
-| TRANSPORT_WLAN | 0x0004 | Wireless local area network transport. |
-| TRANSPORT_WWAN | 0x0008 | Wireless wide area network transport (not currently supported). |
-| TRANSPORT_LAN | 0x0010 | Wired local area network transport. |
-| TRANSPORT_ICE | 0x0020 | ICE (Interactive Connectivity Establishment) transport (not supported). | 
-| TRANSPORT_WFD | 0x0080 | Wi-Fi Direct transport (not currently supported). |
-| TRANSPORT_ANY | 0xFFFF & ~TRANSPORT_WFD | Any transport except Wi-Fi Direct. |
-
-**NOTE:** Currently, the AllJoyn system's WWAN, WLAN and LAN transports 
-are supported by a single underlying TCP transport. 
+| TRANSPORT_NONE         | 0x0000 | No transport. |
+| TRANSPORT_LOCAL        | 0x0001 | The local transport. |
+| TRANSPORT_TCP          | 0x0004 | Transport using TCP as the underlying mechanism. |
+| TRANSPORT_UDP          | 0x0100 | Transport using UDP as the underlying mechanism. |
+| TRANSPORT_EXPERIMENTAL | 0x8000 | Select a release-specific experimental transport. |
+| TRANSPORT_IP           | 0x0104 | Allow the system to decide between TCP or UDP. |
+| TRANSPORT_ANY          | 0x0105 | Allow the system to choose any appropriate transport. |
 
 If an AllJoyn application desires to only use TCP as the 
 underlying layer 4 mechanism, it can do so by specifying 

@@ -4,11 +4,12 @@
 * [Git Repository][git-repo]
 * [Info on downloading source][download-source-info]
 
+## Releases and SDKs
 ### v15.04
 |Platform  |Package   |Version   |Information
 |----------|----------|----------|-----------
 |Source    |[Standard Core Source][source-alljoyn-1504b]                        |15.04.00b|[Release Notes][core-notes-1504]
-|          |[Thin Core Source][source-ajtcl-1504a]                              |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Thin Core Source][source-ajtcl-1504b]                              |15.04.00b|[Release Notes][core-notes-1504]
 |          |[Base Services Source][source-base-services-1504]                   |15.04.00 |[Release Notes][base-services-notes-1504]
 |          |[Code Generator Source][codegen-1504]                               |15.04.00|[Release Notes][codegen-notes-1504]
 |          |[Data Driven API Source][source-ddapi-1504]                         |15.04.00|[Release Notes][ddapi-notes-1504]
@@ -23,9 +24,8 @@
 |          |[Windows SDK (32-bit) (VS2012)][win-32bit-vs2012-core-1504b]        |15.04.00b|[Release Notes][core-notes-1504]
 |          |[Windows SDK (64-bit) (VS2013)][win-64bit-vs2013-core-1504b]        |15.04.00b|[Release Notes][core-notes-1504]
 |          |[Windows SDK (32-bit) (VS2013)][win-32bit-vs2013-core-1504b]        |15.04.00b|[Release Notes][core-notes-1504]
-|          |[Windows Thin Core SDK][win-thin-1504a]                             |15.04.00a|[Release Notes][core-notes-1504]
+|          |[Windows Thin Core SDK][win-thin-1504b]                             |15.04.00b|[Release Notes][core-notes-1504]
 
-## Releases and SDKs
 ### v14.12
 |Platform  |Package   |Version   |Information
 |----------|----------|----------|-----------
@@ -100,7 +100,7 @@
 
 [core-notes-1504]:             https://wiki.allseenalliance.org/core/core_15.04_release_review
 [source-alljoyn-1504b]:        https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00b-src.tar.gz
-[source-ajtcl-1504a]:          https://allseenalliance.org/releases/alljoyn/15.04/ajtcl-15.04.00a-src.tar.gz
+[source-ajtcl-1504b]:          https://allseenalliance.org/releases/alljoyn/15.04/ajtcl-15.04.00b-src.tar.gz
 [android-core-rel-1504b]:      https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00b-android-sdk-rel.zip
 [android-core-debug-1504b]:    https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00b-android-sdk-dbg.zip
 [ios-core-1504b]:              https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00b-osx_ios-sdk.zip
@@ -108,7 +108,7 @@
 [win-32bit-vs2012-core-1504b]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00b-win7x86vs2012-sdk.zip
 [win-64bit-vs2013-core-1504b]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00b-win7x64vs2013-sdk.zip
 [win-32bit-vs2013-core-1504b]: https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00b-win7x86vs2013-sdk.zip
-[win-thin-1504a]:              https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00a-thin_client-sdk-windows.zip
+[win-thin-1504b]:              https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-15.04.00b-thin_client-sdk-windows.zip
 
 [source-lighting-service_framework-1412]: https://git.allseenalliance.org/cgit/lighting/service_framework.git/snapshot/service_framework-14.12.zip
 [source-lighting-apps-1412]: https://git.allseenalliance.org/cgit/lighting/apps.git/snapshot/apps-14.12.zip

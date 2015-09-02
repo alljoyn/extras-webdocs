@@ -138,8 +138,6 @@ ThreadX, Linux with limited memory.
 
 ## Programming Models
 
-### AllSeen Core Framework
-
 Typically, applications will be written using the AllJoyn Service
 Framework APIs so that the applications can be compatible with devices
 using the same Service Frameworks. Only by using AllJoyn Service
@@ -154,15 +152,6 @@ ad hoc interactions between other AllJoyn devices.
 
 The application can use both the Service Framework and Core APIs
 side by side.
-
-### Data-Driven API
-
-The Data-driven API (DDAPI) for AllJoyn is an alternative API for the AllJoyn Core
-framework. It is built on top of the AllJoyn Core API and  is specifically
-tailored to use cases for the Internet of Things. Instead of the Core
-framework's service-oriented paradigm, it uses the publish/subcribe paradigm.
-
-For more Information, go [here][ddapi].
 
 [Learn more about Events and Actions][events-and-actions].
 
@@ -187,5 +176,3 @@ For more Information, go [here][ddapi].
 
 [wiki]: https://wiki.allseenalliance.org/
 [gateway-agent]: https://wiki.allseenalliance.org/gateway/gatewayagent
-
-[ddapi]: /learn/ddapi

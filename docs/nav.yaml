@@ -118,9 +118,6 @@
             - name: Interface
               path: /learn/base-services/audiostreaming/interface
               contents:
-    - name: Data-Driven API
-      path: /learn/ddapi
-      contents:
     - name: Glossary
       path: /learn/glossary
       contents:
@@ -408,9 +405,6 @@
               contents:
         - name: Events and Actions
           path: /develop/api-guide/events-and-actions
-          contents:
-        - name: Data-Driven API
-          path: /develop/api-guide/ddapi
           contents:
     - name: API Reference
       path: /develop/api-reference

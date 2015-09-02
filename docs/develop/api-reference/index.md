@@ -10,7 +10,6 @@
 |Control Panel   |[C++][cp-cpp]   |[Java][cp-java]    |&nbsp;                   |&nbsp;        |[C (Thin)][cp-thin-c]
 |Services Common |[C++][sc-cpp]   |&nbsp;             |&nbsp;                   |&nbsp;        |[C (Thin)][sc-thin-c]
 |Sample Apps     |[C++][sa-cpp]   |&nbsp;             |&nbsp;                   |&nbsp;        |&nbsp;
-|DDAPI           |[C++][ddapi-cpp]|&nbsp;             |&nbsp;                   |&nbsp;        |&nbsp;
 |Lighting<br>&nbsp;    |[Controller Client][lsf-cc-cpp]<br>[Controller Service][lsf-cs-cpp]    |[SDK][lsf-sdk-java]<br>&nbsp;    |[SDK][lsf-sdk-objc]<br>&nbsp;    |&nbsp;    |[Lamp Service][lsf-ls-c]<br>&nbsp;
 
 
@@ -39,8 +38,6 @@
 [sc-thin-c]: https://allseenalliance.org/docs/framework/tcl/services_common/index.html
 
 [sa-cpp]: https://allseenalliance.org/docs/framework/cpp/sample_apps/index.html
-
-[ddapi-cpp]: https://allseenalliance.org/docs/ddapi/cpp/index.html
 
 [lsf-cc-cpp]: https://allseenalliance.org/docs/framework/cpp/lighting/controllerclient/index.html
 [lsf-cs-cpp]: https://allseenalliance.org/docs/framework/cpp/lighting/controllerservice/index.html

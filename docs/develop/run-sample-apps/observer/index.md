@@ -21,8 +21,6 @@ remotely open or close doors. It makes use of the Observer to discover all doors
 the `ProxyBusObject::RegisterPropertiesChangedListener` mechanism to keep track
 of the current state of the discovered doors.
 
-These samples are interoperable with the Data-driven API door example.
-
 The data model for the security system is as follows:
 
 ```xml

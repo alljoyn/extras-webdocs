@@ -460,3 +460,7 @@
     - name: Project Lifecycle
       path: /contribute/project-lifecycle
       contents:
+- name: Ambassadors
+  path: /ambassadors
+- name: User Groups
+  path: /user-groups

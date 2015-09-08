@@ -10,7 +10,7 @@ information for detailed test information.
 
 | Platform     | Core | Base Services (planned) | Platform Versions | Toolchain/IDE        |
 |--------------|:----:|:-----------------:|-------------------|----------------------|
-| Windows      |  X   |         X         | Win7, Win8        | VS 2012, VS 2013     |
+| Windows      |  X   |         X         | Windows 7 to 10   | VS 2012, VS 2013     |
 | Android      |  X   |         X         | JB, KK, LP        | Android SDK, NDK r9d |
 | iOS          |  X   |         X         | iOS 8.1           | XCode 6.1            |
 | OS X         |  X   |                   | OS X 10.9         | XCode 6.1            |

@@ -10,6 +10,7 @@ Depending on the target platform, check out the recommended steps to get you up 
 * [Thin - Linux][thin-linux]
 * [iOS/OSX][ios-osx]
 * [Windows][windows]
+* [AllJoyn.js][alljoyn-js]
 
 **NOTE:** If changes are required to the AllJoyn Core, see the relevant section on how to build.
 
@@ -18,3 +19,4 @@ Depending on the target platform, check out the recommended steps to get you up 
 [thin-linux]: /develop/building/thin-linux
 [ios-osx]: /develop/building/ios-osx
 [windows]: /develop/building/windows
+[alljoyn-js]: /develop/building/alljoyn-js

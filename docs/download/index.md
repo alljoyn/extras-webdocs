@@ -13,6 +13,7 @@
 |          |[Base Services Source][source-base-services-1504]                   |15.04.00 |[Release Notes][base-services-notes-1504]
 |          |[Code Generator Source][codegen-1504]                               |15.04.00|[Release Notes][codegen-notes-1504]
 |          |[Data Driven API Source][source-ddapi-1504]                         |15.04.00|[Release Notes][ddapi-notes-1504]
+|          |[AllJoyn JavaScript Source][source-alljoyn-js-1504]                 |15.04.00|[Release Notes][alljoyn-js-notes-1504]
 |Android   |[Core SDK - release][android-core-rel-1504b]                        |15.04.00b|[Release Notes][core-notes-1504]
 |          |[Core SDK - debug][android-core-debug-1504b]                        |15.04.00b|[Release Notes][core-notes-1504]
 |          |[Onboarding SDK][android-onboarding-1504]                           |15.04.00 |[Release Notes][base-services-notes-1504]
@@ -87,8 +88,10 @@
   * [14.02 (zip)][14-02-00-zip]
   * [14.06 (zip)][14-06-00-zip]
 
-[ddapi-notes-1504]:           https://wiki.allseenalliance.org/datadriven/ddapi_15.04_release_review
-[source-ddapi-1504]:          https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-ddapi-v15.04-src.tar.gz
+[ddapi-notes-1504]:            https://wiki.allseenalliance.org/datadriven/ddapi_15.04_release_review
+[alljoyn-js-notes-1504]:       https://git.allseenalliance.org/cgit/core/alljoyn-js.git/tree/ReleaseNotes.txt?h=RB15.04
+[source-ddapi-1504]:           https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-ddapi-v15.04-src.tar.gz
+[source-alljoyn-js-1504]:      https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-js-15.04.00-src.tar.gz
 [source-base-services-1504]:   https://allseenalliance.org/releases/alljoyn/15.04/alljoyn-services-15.04.00-src.tar.gz
 [base-services-notes-1504]:    https://wiki.allseenalliance.org/baseservices/base_services_15.04_release_review
 [codegen-1504]:                https://allseenalliance.org/releases/alljoyn/15.04/AllJoynCodeGenSetup-15.04.tar.gz

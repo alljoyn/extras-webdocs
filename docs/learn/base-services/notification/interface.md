@@ -176,7 +176,7 @@ No methods are exposed by this interface.
 
 ### Signals
 
-#### `Notify('qiqssaysa{ss}a{v}a{ss}')`
+#### `notify('qiqssaysa{ss}a{iv}a(ss)')`
 
 Notify signal is a Sessionless signal.
 
@@ -191,9 +191,9 @@ Notify signal is a Sessionless signal.
 | 4 | `deviceName` | `s` | positive | Name for a given AllJoyn-enabled device. |
 | 5 | `AppId` | `ay` | positive | Globally unique identifier (GUID) for a given AllJoyn application. |
 | 6 | `appName` | `s` | string | Name for a given AllJoyn-enabled device. |
-| 7 | `langText` | `a{ss}` | string | Language-specific notification text. |
-| 8 | `attributes` | `a{v}` | positive | Set of attribute and value pair. This is used to hold optional fields in the notification message payload. See [Attributes][attributes]. |
-| 9 | `customAttributes` | `a{ss}` | positive | Set of attribute and value pair. This can be used by the OEMs to add OEM-specific fields to the notification message. |
+| 7 | `attributes` | `a{iv}` | positive | Set of attribute and value pair. This is used to hold optional fields in the notification message payload. See [Attributes][attributes]. |
+| 8 | `customAttributes` | `a{ss}` | positive | Set of attribute and value pair. This can be used by the OEMs to add OEM-specific fields to the notification message. |
+| 9 | `langText` | `a{ss}` | string | Language-specific notification text. |
 
 ** Description**
 
@@ -253,7 +253,7 @@ attributes field, as per [Attributes][attributes].
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <interface name="org.alljoyn.Notification">
       <property name="Version" type="q" access="read"/>
-      <signal name="Notify">
+      <signal name="notify">
          <arg name="version" type="q"/>
          <arg name="msgId" type="i"/>
          <arg name="msgType" type="q"/>
@@ -261,9 +261,9 @@ attributes field, as per [Attributes][attributes].
          <arg name="deviceName" type="s"/>
          <arg name="appId" type="ay"/>
          <arg name="appName" type="s"/>
-         <arg name="langText" type="a{ss}"/>
          <arg name="attributes" type="a{iv}"/>
          <arg name="customAttributes" type="a{ss}"/>
+         <arg name="langText" type="a(ss)"/>
       </signal>
    </interface>
 </node>

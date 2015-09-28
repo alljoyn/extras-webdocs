@@ -279,7 +279,7 @@ The following XML provides the Notification interface introspection XML.
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <interface name="org.alljoyn.Notification">
       <property name="Version" type="q" access="read"/>
-      <signal name="Notify">
+      <signal name="notify">
          <arg name="version" type="q"/>
          <arg name="msgId" type="i"/>
          <arg name="msgType" type="q"/>
@@ -287,9 +287,9 @@ The following XML provides the Notification interface introspection XML.
          <arg name="deviceName" type="s"/>
          <arg name="appId" type="ay"/>
          <arg name="appName" type="s"/>
-         <arg name="langText" type="a{ss}"/>
          <arg name="attributes" type="a{iv}"/>
          <arg name="customAttributes" type="a{ss}"/>
+         <arg name="langText" type="a(ss)"/>
       </signal>
    </interface>
 </node>

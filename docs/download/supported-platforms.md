@@ -4,6 +4,30 @@ The AllJoyn standard core builds and runs on the following platforms. The depth
 and type of testing for each platform varies, so consult the linked release
 information for detailed test information.
 
+## 15.09 release
+
+#### Platforms
+
+| Platform     | Core | Base Services (planned) | Platform Versions | Toolchain/IDE        |
+|--------------|:----:|:-----------------:|-------------------|-----------------------|
+| Android      |  X   |         X         | JB, KK, LP        | Android SDK, NDK r10e |
+
+
+#### Language Bindings
+
+The table below lists which language bindings are supported on which platforms
+for Core and Base Services
+
+| Platform     | C++         | C    | Java        | Objective-C |
+|--------------|-------------|------|-------------|-------------|
+| Android      | Core        | Core | Core        |             |
+
+15.09 Notes:
+* See the [Core 15.09 Release Review](https://wiki.allseenalliance.org/core/core_15.09_release_review) for details about the depth of testing on various platforms.
+* Sun Java 7 is required for Java bindings.
+
+---
+
 ## 15.04 release
 
 #### Platforms

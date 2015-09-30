@@ -5,6 +5,14 @@
 * [Info on downloading source][download-source-info]
 
 ## Releases and SDKs
+### v15.09
+|Platform  |Package   |Version   |Information
+|----------|----------|----------|-----------
+|Source    |[Standard Core Source][source-alljoyn-1509]                        |15.09.00|[Release Notes][core-notes-1509]
+|          |[Thin Core Source][source-ajtcl-1509]                              |15.09.00|[Release Notes][core-notes-1509]
+|Android   |[Core SDK - release][android-core-rel-1509]                        |15.09.00|[Release Notes][core-notes-1509]
+|          |[Core SDK - debug][android-core-debug-1509]                        |15.09.00|[Release Notes][core-notes-1509]
+
 ### v15.04
 |Platform  |Package   |Version   |Information
 |----------|----------|----------|-----------
@@ -87,6 +95,12 @@
 * Documentation
   * [14.02 (zip)][14-02-00-zip]
   * [14.06 (zip)][14-06-00-zip]
+
+[core-notes-1509]:            https://wiki.allseenalliance.org/core/core_15.09_release_review
+[source-alljoyn-1509]:        https://allseenalliance.org/releases/alljoyn/15.09/alljoyn-15.09.00-src.tar.gz
+[source-ajtcl-1509]:          https://allseenalliance.org/releases/alljoyn/15.09/ajtcl-15.09.00-src.tar.gz
+[android-core-rel-1509]:      https://allseenalliance.org/releases/alljoyn/15.09/alljoyn-15.09.00-android-sdk-rel.zip
+[android-core-debug-1509]:    https://allseenalliance.org/releases/alljoyn/15.09/alljoyn-15.09.00-android-sdk-dbg.zip
 
 [ddapi-notes-1504]:            https://wiki.allseenalliance.org/datadriven/ddapi_15.04_release_review
 [alljoyn-js-notes-1504]:       https://git.allseenalliance.org/cgit/core/alljoyn-js.git/tree/ReleaseNotes.txt?h=RB15.04

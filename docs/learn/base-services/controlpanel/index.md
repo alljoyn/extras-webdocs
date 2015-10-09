@@ -5,7 +5,7 @@ simple way for applications to render a UI widget set to
 interact with remote devices. The framework is composed of
 a standard set of interfaces, that when implemented on specific
 object paths, allows for dynamic rendering of widgets in a UI
-on remote devices. The Control Panel Service abstracts the 
+on remote devices. The Control Panel Service abstracts the
 details of the AllJoyn Control Panel interface by allowing
 the use of higher level APIs and a Code Generator to create
 the widget elements. A Control Panel does not dictate how a
@@ -32,16 +32,16 @@ than one, and can be defined on a per-language basis.
 
 A tool that aids in the generation of code that will represent a
 Control Panel. This tool takes in an XML file that defines
-the control panel widgets and generates corresponding code that 
+the control panel widgets and generates corresponding code that
 implements a specific control panel. Note that XML is not
-used as the internal representation of the widgets in the 
-Control Panel Service, nor is it sent over the wire to the 
-Controller. 
+used as the internal representation of the widgets in the
+Control Panel Service, nor is it sent over the wire to the
+Controller.
 
 ### Types of widgets modules
 
-A Control Panel can be expressed in XML, fed through the Code 
-Generator, and connected to developer software. The following 
+A Control Panel can be expressed in XML, fed through the Code
+Generator, and connected to developer software. The following
 UI elements make up a Control Panel:
 
 * Container. Container UI element. Allows grouping of widgets
@@ -58,11 +58,11 @@ UI elements make up a Control Panel:
 
 ### UI Adaptive Layer
 
-In order to aid in use and interact with a Control Panel, a helper 
+In order to aid in use and interact with a Control Panel, a helper
 library of sorts is available as part of the framework. The purpose
 of this software layer is to facilitate the discovery of the widget
 elements using AllJoyn Introspection which starts at the object
-path of the Control Panel interface found through 
+path of the Control Panel interface found through
 [Service Level Discovery][about]. It then parses each child of
 this path to determine what each child is and creates the native
 platform UI element to interact with each discovered widget.
@@ -76,7 +76,7 @@ generation of the platform widgets to provide a custom look and feel.
 
 Under the hood, there are many interfaces that make up the
 building blocks to create complex widgets. These interfaces,
-when implemented by a BusObject on a specific object path, 
+when implemented by a BusObject on a specific object path,
 determine the language, widget, text, and constraints.
 The service, through the APIs and helper classes, allows
 for simple use of the AllJoyn framework to register BusObjets
@@ -112,12 +112,11 @@ users are interacting with the same device.
 ## Learn More
 
 * [Learn more about the Control Panel Interface Definition][controlpanel-interface]
-* [Download the SDK][download], [build][build] and 
+* Download the SDK, [build][build] and
   [run the sample apps][sample-apps]
 * [Learn more about the APIs][api-guide]
 
 [controlpanel-interface]: /learn/base-services/controlpanel/interface
-[download]: /download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/controlpanel
 [api-guide]: /develop/api-guide/controlpanel

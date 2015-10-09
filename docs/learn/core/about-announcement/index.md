@@ -1,6 +1,6 @@
 # About Announcement
 
-About Announcements enables a device or app to announce itself on the 
+About Announcements enables a device or app to announce itself on the
 AllJoyn&trade; network for other devices and apps to discover. The following information
 is shared:
 
@@ -15,7 +15,7 @@ is shared:
 For a complete list, refer to the [Interface Definiton][about-interface].
 
 The About feature supports multiple languages, so the client can display the language
-that is most appropriate for the user. With the About feature, a client can discover 
+that is most appropriate for the user. With the About feature, a client can discover
 devices and apps on the network, get some meta data about the device/app,
 discover the services it supports, and get an icon to represent the device/app.
 
@@ -29,7 +29,7 @@ Generally speaking, there are two sides to the About feature:
 
 Here's roughly what happens behind the scenes:
 
-1. An About Server announces itself by sending a sessionless signal including: 
+1. An About Server announces itself by sending a sessionless signal including:
    the session port, list of objects and interfaces; and a subset of the About
    Announcement information, including App and Device Name, default language,
    App and Device unique identiers.
@@ -45,12 +45,11 @@ Here's roughly what happens behind the scenes:
 ## Learn More
 
 * [Learn more about the About Interface Definition][about-interface]
-* [Download the SDK][download], [build][build] and 
+* Download the SDK, [build][build] and
   [run the sample apps][sample-apps]
 * [Learn more about the About APIs][api-guide]
 
 [about-interface]: /learn/core/about-announcement/interface
-[download]: /download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/about
 [api-guide]: /develop/api-guide/about

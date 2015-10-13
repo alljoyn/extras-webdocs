@@ -37,10 +37,10 @@ var out_public_dir = out_dir + 'public/';
 var for_import_wrapper_dir = out_dir + 'for_import/';
 var for_import_base_dir = for_import_wrapper_dir + timestamp + '/';
 var for_import_prev_dir = for_import_wrapper_dir + 'latest/';
-var deploy_html_dir_prefix = 'developers/';
-var deploy_files_dir_prefix = 'sites/default/files/developers/';
+var deploy_html_dir_prefix = 'framework/documentation/';
+var deploy_files_dir_prefix = 'sites/default/files/framework/documentation/';
 
-var doImport = false;
+var doImport = true;
 
 // ==========================================================================
 // File/dir manipulation helpers

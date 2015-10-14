@@ -79,11 +79,6 @@ give you ideas for using the AllJoyn Objective-C bindings.
 The Test directory contains a few tests that can be used
 to test the AllJoyn SDK.
 
-#### Unity directory
-
-The Unity directory in this SDK is under construction
-and does not contain any officially supported code.
-
 ### Overview of files in the samples
 
 The following section is common to both BasicService and BasicClient.

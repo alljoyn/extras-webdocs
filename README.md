@@ -1,6 +1,5 @@
 webdocs
 =======
-
 Project contains content for AllSeen Alliance developer website.
 
 Organization

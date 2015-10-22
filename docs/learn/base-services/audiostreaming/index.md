@@ -28,7 +28,7 @@ synchronization between the multiple speakers.
 Prior to being able to send audio, a Source must first tell the Sink
 the details of the audio that it wishes to send. The Source is
 responsible for requesting the capabilities of each Sink in addition
-to the FIFO size. The Source then prefills the FIFO and starts the 
+to the FIFO size. The Source then prefills the FIFO and starts the
 process of sending more data chunks as the song plays.
 
 When media and volume controls are used the function on a separate
@@ -45,10 +45,9 @@ The metadata is optional and not mandatory to a Source application.
 ## Learn More
 
 * [Learn more about the Audio Streaming Interface Definition][audiostreaming-interface]
-* [Download the SDK][download] and [build][build]
+* Download the SDK and [build][build]
 * [Learn more about the APIs][api-guide]
 
 [audiostreaming-interface]: /learn/base-services/audiostreaming/interface
-[download]: /download
 [build]: /develop/building
 [api-guide]: /develop/api-guide/audio-streaming

@@ -162,7 +162,7 @@ function check(root, start) {
 	});
 }
 var initialroot = path.normalize ('out/public');
-var initialstart = path.normalize ('/developers/index');
+var initialstart = path.normalize ('/framework/documentation/index');
 
 function parse_cmdline_args() {
     var root_dir="../../interfaces/";
@@ -182,9 +182,9 @@ function parse_cmdline_args() {
             console.log("\t                        (default: out/public/)");
             console.log("\t                        Normally, you shouldn't have to change this.");
             console.log("\t-s start_url: URL path from which to start validation.");
-            console.log("\t              For webdocs: /developers/index");
+            console.log("\t              For webdocs: /framework/documentation/index");
             console.log("\t              For interface definitions: /interfaces/index");
-            console.log("\t              (default: /developers/index)");
+            console.log("\t              (default: /framework/documentation/index)");
             process.exit(1);
         }
     }

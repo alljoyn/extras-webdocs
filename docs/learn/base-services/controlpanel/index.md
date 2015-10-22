@@ -112,11 +112,12 @@ users are interacting with the same device.
 ## Learn More
 
 * [Learn more about the Control Panel Interface Definition][controlpanel-interface]
-* Download the SDK, [build][build] and
+* [Download the SDK][download], [build][build] and
   [run the sample apps][sample-apps]
 * [Learn more about the APIs][api-guide]
 
 [controlpanel-interface]: /learn/base-services/controlpanel/interface
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/controlpanel
 [api-guide]: /develop/api-guide/controlpanel

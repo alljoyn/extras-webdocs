@@ -35,7 +35,7 @@ When media and volume controls are used the function on a separate
 AllJoyn Interface for each respective part. For example, volume control
 on a Sink specifies the current volume via an AllJoyn Property that is
 read/write and a volume range represented by a structure that defines
-the max, min, and step values.  
+the max, min, and step values.
 
 In addition to providing the audio data a Source can provide the audio
 metadata. For example the icon, album, artist, and/or track name.
@@ -45,9 +45,10 @@ The metadata is optional and not mandatory to a Source application.
 ## Learn More
 
 * [Learn more about the Audio Streaming Interface Definition][audiostreaming-interface]
-* Download the SDK and [build][build]
+* [Download the SDK][download] and [build][build]
 * [Learn more about the APIs][api-guide]
 
 [audiostreaming-interface]: /learn/base-services/audiostreaming/interface
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [api-guide]: /develop/api-guide/audio-streaming

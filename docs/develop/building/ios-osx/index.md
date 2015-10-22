@@ -4,7 +4,7 @@ Note, some of the paths below will need to be adjusted based on the version down
 
 ## Setup
 
-1. Download the following iOS SDKs:
+1. [Download][downlod] the following iOS SDKs:
      * Core SDK (release)
      * Onboarding SDK
      * Configuration SDK
@@ -167,3 +167,5 @@ Compiler Flags__ group and set the following:
     * liballjoyn_onboarding_cpp.a
   * alljoyn-ios/services/alljoyn-onboarding-14.06.00-rel/objc/lib/
     * liballjoyn_onboarding_objc.a
+
+[download]: https://allseenalliance.org/framework/download

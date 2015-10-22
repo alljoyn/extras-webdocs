@@ -58,12 +58,13 @@ the Onboardee device fully onboarded.
 ## Learn More
 
 * [Learn more about the Onboarding Interface Definition][onboarding-interface]
-* Download the SDK, [build][build] and
+* [Download the SDK][download], [build][build] and
   [run the sample apps][sample-apps]
 * [Learn more about the Onboarding APIs][api-guide]
 
 [about-announcement]: /learn/core/about-announcement
 [onboarding-interface]: /learn/base-services/onboarding/interface
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/onboarding
 [api-guide]: /develop/api-guide/onboarding

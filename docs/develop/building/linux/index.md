@@ -21,7 +21,7 @@ sudo apt-get install scons
 ```sh
 sudo apt-get install libssl-dev
 ```
-* Download the AllJoyn Source zip and extract source. The tree
+* Download the [AllJoyn Source zip][download] and extract source. The tree
   should look like below. Note, extra directories may exist.
 ```sh
 root-source-dir/
@@ -86,3 +86,5 @@ export LDFLAGS="$LDFLAGS \
     -L$AJ_DIST/notification/lib \
     -L$AJ_DIST/controlpanel/lib"
 ```
+
+[download]: https://allseenalliance.org/framework/download

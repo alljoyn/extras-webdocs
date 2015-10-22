@@ -145,11 +145,12 @@ In summary, this is how things work:
 ## Learn More
 
 * [Learn more about the Notification Interface Definition][notif-interface]
-* Download the SDK, [build][build] and
+* [Download the SDK][download], [build][build] and
   [run the sample apps][sample-apps]
 * [Learn more about the APIs][api-guide]
 
 [notif-interface]: /learn/base-services/notification/interface
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/notification
 [api-guide]: /develop/api-guide/notification

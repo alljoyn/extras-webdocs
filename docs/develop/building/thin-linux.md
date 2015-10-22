@@ -29,7 +29,7 @@ sudo apt-get install scons
 sudo apt-get install libssl-dev
 ```
 
-* Download the AllJoyn&trade; source zip and extract.
+* Download the [AllJoyn&trade; source zip][download] and extract.
 
 ## Build the samples
 
@@ -64,4 +64,5 @@ The binary for the AC Server sample is located at `$AJ_ROOT/services/sample_apps
 
 See the [Build an Application using the Thin Library][build-app-thin-library] section for instructions.
 
+[download]: https://allseenalliance.org/framework/download
 [build-app-thin-library]:  /develop/tutorial/thin-app

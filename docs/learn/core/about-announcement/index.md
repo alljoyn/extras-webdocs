@@ -45,11 +45,12 @@ Here's roughly what happens behind the scenes:
 ## Learn More
 
 * [Learn more about the About Interface Definition][about-interface]
-* Download the SDK, [build][build] and
+* [Download the SDK][download], [build][build] and
   [run the sample apps][sample-apps]
 * [Learn more about the About APIs][api-guide]
 
 [about-interface]: /learn/core/about-announcement/interface
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/about
 [api-guide]: /develop/api-guide/about

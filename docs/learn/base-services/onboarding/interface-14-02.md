@@ -8,18 +8,18 @@ __Warning: This is not the latest interface definition.__
 
 ### Purpose
 
-This document describes the specification of the AllJoyn&trade; 
-Onboarding interface. This interface is used by an Onboarder 
+This document describes the specification of the AllJoyn&trade;
+Onboarding interface. This interface is used by an Onboarder
 application to provide the Wi-Fi configuration data to another device.
 
 ### Scope
 
-This document is targeted to the developers to build the 
+This document is targeted to the developers to build the
 Onboarding service framework or extend the provided Onboarding service framework codes.
 
 ### References
 
-Except for supporting information, the following are reference 
+Except for supporting information, the following are reference
 documents found on the AllSeen Alliance web site's Docs/Downloads section.
 
 * *AllJoyn&trade; Framework Tutorial*
@@ -39,10 +39,10 @@ documents found on the AllSeen Alliance web site's Docs/Downloads section.
 
 ## Specification Overview
 
-The Onboarding interface is implemented by an application on 
-a target device, referred to as an onboardee. A typical 
-onboardee is an AllJoyn&trade; thin client device. This 
-interface allows the onboarder to send the Wi-Fi credentials 
+The Onboarding interface is implemented by an application on
+a target device, referred to as an onboardee. A typical
+onboardee is an AllJoyn&trade; thin client device. This
+interface allows the onboarder to send the Wi-Fi credentials
 to the onboardee to allow it to join the personal access point.
 Figure 1 illustrates the relationship between an onboardee and an onboarder.
 
@@ -54,7 +54,7 @@ Figure: Onboarding service framework architecture within the AllJoyn framework
 
 ### Onboarding call flow using an Android onboarder
 
-Figure 2 illustrates a call flow for onboarding 
+Figure 2 illustrates a call flow for onboarding
 an onboardee using an Android onboarder.
 
 ![onboarding-android-onboarder][onboarding-android-onboarder]
@@ -63,7 +63,7 @@ Figure: Onboarding a device using an Android onboarder
 
 ### Onboarding call flow using an iOS onboarder
 
-Figure 3 illustrates a call flow for onboarding 
+Figure 3 illustrates a call flow for onboarding
 an onboardee using an iOS onboarder.
 
 ![onboarding-ios-onboarder][onboarding-ios-onboarder]
@@ -72,8 +72,8 @@ Figure: Onboarding a device using an iOS onboarder
 
 ## Error Handling
 
-The method calls in the Onboarding interface use the AllJoyn 
-error message handling feature (ER_BUS_REPLY_IS_ERROR_MESSAGE) 
+The method calls in the Onboarding interface use the AllJoyn
+error message handling feature (ER_BUS_REPLY_IS_ERROR_MESSAGE)
 to set the error name and error message.
 
 Table 1 lists the possible errors raised by the Onboarding interface.
@@ -114,7 +114,7 @@ Table 1 lists the possible errors raised by the Onboarding interface.
 
 ### Methods
 
-The following methods are exposed by a BusObject that 
+The following methods are exposed by a BusObject that
 implements the Onboarding interface.
 
 #### ConfigWifi
@@ -124,7 +124,7 @@ implements the Onboarding interface.
 | Parameter name| Signature | List of values | Description |
 |---|---|---|---|
 | SSID | s | N/A | Access point SSID |
-| passphrase | s | N/A | Access point passphrase | 
+| passphrase | s | N/A | Access point passphrase in hex format |
 | authType | n | * -3 - WPA2_AUTO | Authentication type. |
 | | | * -2 - WPA_AUTO |*When it is equal to any, the onboardee must attempt all possible authentication types it supports to connect to the AP. |
 | | | * -1 - Any |*When it is equal to -3 or -2 (WPA2_AUTO or WPA_AUTO), the onboardee attempts to connect to the AP with TKIP cipher and then AES-CCMP cipher. |
@@ -146,12 +146,12 @@ implements the Onboarding interface.
 
 **Description**
 
-Send the personal AP information to the onboardee. When the 
-authType is equal to -1 (any), the onboardee must try out 
+Send the personal AP information to the onboardee. When the
+authType is equal to -1 (any), the onboardee must try out
 all the possible authentication types it supports to connect to the personal AP.
 
-If authType parameter is invalid, the AllJoyn error code 
-org.alljoyn.Error.OutOfRange will be returned in the 
+If authType parameter is invalid, the AllJoyn error code
+org.alljoyn.Error.OutOfRange will be returned in the
 AllJoyn method call reply.
 
 #### Connect
@@ -162,13 +162,13 @@ None.
 
 **Outputs**
 
-This method does not have any reply message. It's a fire-and-forget 
+This method does not have any reply message. It's a fire-and-forget
 method call.
 
 **Description**
 
-Tell the onboardee to connect to the personal AP. It is 
-recommended that the onboardee use the concurrency feature, 
+Tell the onboardee to connect to the personal AP. It is
+recommended that the onboardee use the concurrency feature,
 if it is available.
 
 #### Offboard
@@ -179,12 +179,12 @@ None.
 
 **Outputs**
 
-This method does not have any reply message. It's a fire-and-forget 
+This method does not have any reply message. It's a fire-and-forget
 method call.
 
 **Description**
 
-Tell the onboardee to disconnect from the personal AP, clear 
+Tell the onboardee to disconnect from the personal AP, clear
 the personal AP configuration fields, and start the soft AP mode.
 
 #### GetScanInfo
@@ -204,8 +204,8 @@ None.
 
 Scan all the Wi-Fi access points in the onboardee's proximity.
 
-Some devices may not support this feature. In such a case, 
-the AllJoyn error code org.alljoyn.Error.FeatureNotAvailable 
+Some devices may not support this feature. In such a case,
+the AllJoyn error code org.alljoyn.Error.FeatureNotAvailable
 will be returned in the AllJoyn response.
 
 ###Signals
@@ -223,11 +223,11 @@ will be returned in the AllJoyn response.
 
 **Description**
 
-This signal is emitted when the connection attempt against 
-the personal AP is completed. The signal is sent over the 
+This signal is emitted when the connection attempt against
+the personal AP is completed. The signal is sent over the
 AllJoyn session established over the SoftAP link.
 
-This signal will be received only if the concurrency feature 
+This signal will be received only if the concurrency feature
 is supported by the onboardee.
 
 ##Introspect XML
@@ -270,9 +270,3 @@ The following XML defines the Onboarding interface.
 [onboarding-arch]: /files/learn/onboarding-arch.png
 [onboarding-android-onboarder]: /files/learn/onboarding-android-onboarder.png
 [onboarding-ios-onboarder]: /files/learn/onboarding-ios-onboarder.png
-
-
-
-
-
-

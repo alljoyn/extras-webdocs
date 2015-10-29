@@ -1,11 +1,11 @@
-#AllJoyn™ Security 2.0 Feature High-Level Design
+# AllJoyn&trade; Security 2.0 Feature High-Level Design
 
 # Introduction
 
 ## Purpose and scope
 
 This document captures the system level design for the enhancements to the
-AllJoyn™ framework to support the Security 2.0 feature requirements. Related
+AllJoyn&trade; framework to support the Security 2.0 feature requirements. Related
 interfaces and API design is captured at a functional level. Actual definition
 for interfaces and APIs is outside the scope of this document. Features and
 functions are subject to change without notice.

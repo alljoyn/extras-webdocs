@@ -133,7 +133,7 @@ If required, authentication occurs on demand between the two apps
 when a method is invoked or to receive a signal. Mulitple authentication
 mechanisms are supported: PIN code, PSK, or ECDSA (Elliptical Curve Digital
 Signature Algorithm). Once authenticated, all messages between these
-two devices are encrypted using AES-128 CMM.
+two devices are encrypted using AES-128 CCM.
 
 ## Putting It All Together
 

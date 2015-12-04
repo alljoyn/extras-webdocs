@@ -919,6 +919,29 @@ The resulting set of matched rules is applied to the message as follows:
 rule matches.
 - Otherwise, the message is denied.
 
+#### Policy and Manifest values required to send message
+To successfully send a message of a specific type the policy and manifest must
+provide the following values.
+
+| Action  |Policy of sending peer | Manifest of sending peer | Policy of receiving peer | Manifest of receiving peer |
+|---|---|---|---|---|
+| GetProperty | PROVIDE | OBSERVE | OBSERVE | PROVIDE |
+| SetProperty | PROVIDE | MODIFY | MODIFY | PROVIDE |
+| Signal | OBSERVE | PROVIDE | PROVIDE | OBSERVE |
+| Method | PROVIDE | MODIFY | MODIFY | PROVIDE |
+
+Sending peer means:
+ - Peer calls GetProperty
+ - Peer calls SetProperty
+ - Peer calls Method
+ - Peer emits Signal
+
+Receiving peer means:
+ - Peer implements Get property handler
+ - Peer implements Set property handler
+ - Peer implements Method handler
+ - Peer registers signal handler
+
 ## Certificates
 The following subsections detail the supported certificates.  The certificate
 format is X.509 v3.  The certificate lifetime will be considered in order to

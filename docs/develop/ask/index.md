@@ -1,8 +1,8 @@
 # Ask Forum
 
-Ask is a community supported Q&A site for AllSeen related projects. Go there to ask your question and/or to search for answers.
+Stack Overflow is a community supported Q&A site for many projects. Go there to ask your question and/or to search for answers about AllJoyn.
 
-[Ask Forum][ask]
+[Stack Overflow AllJoyn tag][stackoverflow]
 
-[ask]: https://ask.allseenalliance.org/
+[stackoverflow]: http://stackoverflow.com/questions/tagged/alljoyn
 

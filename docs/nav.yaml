@@ -435,11 +435,11 @@
         - name: Videos
           path: /develop/tutorial/videos
           contents:
-    - name: Ask Forum
-      path: /develop/ask
+    - name: Stack Overflow
+      path: /develop/stackoverflow
       contents:
         - name: Popular
-          path: /develop/ask/popular
+          path: /develop/stackoverflow/popular
           hidden: 1
           contents:
 - name: Platforms

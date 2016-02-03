@@ -8,7 +8,7 @@ This will contain information about developing for the AllJoyn&trade; framework.
 * [API Reference Guide][ref-guide]
 * [Tutorial][tutorial]
 * [Debug][debug]
-* [Ask Forum][ask]
+* [Stack Overflow][stackoverflow]
 
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps
@@ -16,4 +16,4 @@ This will contain information about developing for the AllJoyn&trade; framework.
 [ref-guide]: /develop/api-reference
 [tutorial]: /develop/tutorial
 [debug]: /develop/debug
-[ask]: /develop/ask
+[stackoverflow]: /develop/stackoverflow

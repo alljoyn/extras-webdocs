@@ -471,6 +471,19 @@ The security manager allows the following operations:
     - manage policy (ACL's) of applications
     - force application to become un-managed again
 
+Some of these operations can be disruptive for an application's functionality.
+Also the Security Manager might need to perform a series of operations -
+e.g., update the application's group membership certificates, followed by
+updating the application's manifest. To minimize the disruptions to the
+application's functionality, the Security Manager can notify the application
+before and after it starts to perform disruptive operations. When the
+application receives a Start Management notification, it should gracefully
+shut down any ongoing work, if needed. As soon as the Start Management callback
+to the application returns, the Security Manager can start applying the
+disruptive changes. Then, the Security Manager sends an End Management
+notification to the application. That means the application can safely resume
+its work.
+
 #### Inter Security Manager Interaction
 When applications interact with each other, they check if the interaction is
 allowed by their policies as previously set by their security manager. In

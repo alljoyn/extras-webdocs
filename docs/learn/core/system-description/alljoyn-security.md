@@ -187,6 +187,20 @@ no longer has a connection with that peer.
 **NOTE:** In future releases, group keys may be persisted to
 support encryption for sessionless signals.
 
+**NOTE:** Signals encrypted with the group key are confidential to all members
+of the group, i.e., only members of the group can decrypt and read the payload.
+However, authenticity of the signal is weaker than in point-to-point
+communication.  The recipient of a signal has assurance that a member of the
+group sent it, but nothing more about the sender is assured.  Since all members of the
+group share the same key, and broadcast messages use only this key for
+authenticity, any group member can create an encrypted signal with an arbitrary
+sender identifier.  The trust model for encrypted signals is that if a group
+member has the group key, they are trusted, and trusted peers will only send
+signals with a group key they created, and with their sender identifier.  
+Because of this strong trust assumption, it is recommended that applications do
+not rely on broadcast signals for security-critical commands, but instead use
+secure method calls, which authenticate a specific peer as the sender.
+
 ### Key store
 
 The key store is a local storage used to persistently store

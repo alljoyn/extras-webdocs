@@ -1,4 +1,4 @@
-# AllJoyn&trade; Security 2.0 Feature High-Level Design
+﻿# AllJoyn&trade; Security 2.0 Feature High-Level Design
 
 # Introduction
 
@@ -1176,35 +1176,53 @@ Users:  Dad, Mom, and son
 
 # Enhancements to Existing Framework
 
-## Crypto Agility Exchange
+## Cryptographic Agility
 
-In order to provide the AllJoyn peers to express the desire to pick some
-particular cryptographic cipher suite to use in the key exchange and the
-encryption of the messages, new key exchange suite identifiers will be added to
-the framework to express the choice of cipher and MAC algorithms.  The new
-identifiers may come from the list of TSL cipher suites specified in
-[Appendix A.5 of TLS RFC5246][rfc5246] , [RFC6655][rfc6655], and
-[RFC7251][rfc7251].
+*Cryptographic agility* refers to the ability of a protocol or system to
+support multiple cryptographic primitives, and to negotiate one or a set of
+primitives for use at runtime.  Some benefits of agile implementations include
+the ability to gracefully transition away from weak algorithms, and the
+potential to accommodate a wider range of devices. Supporting a larger set of
+algorithms (in an agile way) lets constrained devices favor algorithms that
+perform well on their hardware. On the other hand, providing too many choices
+increases complexity and testing costs, and may harm developer experience.  In
+either case, to ensure interoperability, a subset of primitives must be
+mandatory to implement for all peers.  RFC 7696 [rfc7696] is detailed
+discussion of agility from the perspective of Internet protocols. 
 
-The following table shows the list of existing key exchange suites:
+AllJoyn currently provides a limited amount of cryptographic agility, when
+compared to, e.g.,  TLS version 1.2 [rfc5246]. AllJoyn has a small set of key exchange
+suites (analogous to *cipher suites* in TLS), given in the following table. 
 
 | AllJoyn Key Exchange Suite | Crypto Parameters | Availability |
 |---|---|---|
-| ALLJOYN_ECDHE_NULL | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
-| ALLJOYN_ECDHE_PSK | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
-| ALLJOYN_ECDHE_ECDSA | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
+| ALLJOYN_ECDHE_NULL | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_16</li><li>SHA256</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
+| ALLJOYN_ECDHE_PSK | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_16</li><li>SHA256</li></ul> | <ul><li>Standard Client (deprecated in version 16.04)</li><li>Thin Client (deprecated in version 16.04)</li></ul> |
+| ALLJOYN_ECDHE_SPEKE | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_16</li><li>SHA256</li></ul> | <ul><li>Standard Client version 16.04 or newer </li><li>Thin Client verion 16.04 or newer</li></ul> |
+| ALLJOYN_ECDHE_ECDSA | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_16</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
 | ALLJOYN_RSA_KEYX | <ul><li>AES_128_CCM_8</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client version 14.02 or older</li></ul> |
 | ALLJOYN_PIN_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client version 14.12 or older</li><li>Thin Client version 14.02 or older</li></ul> |
-| ALLJOYN_SRP_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client</li></ul> |
-| ALLJOYN_SRP_LOGON | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client</li></ul> |
+| ALLJOYN_SRP_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client (deprecated in version 15.09)</li></ul> |
+| ALLJOYN_SRP_LOGON | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client (deprecated in version 15.09)</li></ul> |
 
-The following table shows the potential list of TLS cipher suites to be
-supported.  Other suites will be added as codes are available.
+In AllJoyn version 15.04 peers began using AES_128_CCM_16, by default,
+previously AES_128_CCM_8 was used. Compared to TLS, AllJoyn does not allow
+negotiation of elliptic curve parameters, hash functions or certificate
+algorithms.  These are fixed to P-256, SHA-256 and ECDSA with P-256 and
+SHA-256. 
 
-| TLS cipher suite | Additional Crypto Parameters | Availability | RFC |
-|---|---|---|---|
-| TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 | <ul><li>Curve NIST P-256 (secp256r1)</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> | [7251][rfc7251] |
-| TLS_RSA_WITH_AES_128_CCM_8 | <ul><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li></ul> | [6655][rfc6655] |
+A future AllJoyn version could add support for additional algorithms by adding
+new key exchange suites. Alternatively, future versions may allow finer-grained
+negotiation with existing suites, e.g., allow negotiation of curve parameters,
+the hash function and the authenticated encryption algorithm with
+ALLJOYN_ECDHE_ECDSA.  Even if actually supporting multiple algorithms is deemed
+too expensive in the short term (since many code paths in the current
+implementation do not support multiple algorithms), there may be value in
+enhancing negotiation capabilities earlier.  Changes to algorithm negotiation may
+require changes to the wire format, and doing it earlier may be less
+disruptive. Having better support for negotiation will also facilitate
+experimentation with new algorithms. Finally, this will give future designs
+greater flexibility, at low cost.  
 
 ## Application State Announcement
 
@@ -1287,9 +1305,8 @@ considered in future releases of Security 2.0.
 
 [about-interface]: /learn/core/about-announcement/interface
 [rfc3610]: http://tools.ietf.org/html/rfc3610
-[rfc5246]: http://tools.ietf.org/html/rfc5246#page-75
-[rfc6655]: http://tools.ietf.org/html/rfc6655
-[rfc7251]: http://tools.ietf.org/html/rfc7251
+[rfc5246]: http://tools.ietf.org/html/rfc5246
+[rfc7696]: http://tools.ietf.org/html/rfc7696
 
 [policy-templates]: #policy-templates
 [policy-acl-format]: #policy-acl-format

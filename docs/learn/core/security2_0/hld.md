@@ -970,27 +970,31 @@ rule matches.
 - Otherwise, the message is denied.
 
 #### Policy and Manifest values required to send message
-To successfully send a message of a specific type the policy and manifest must
-provide the following values.
+To successfully send a message of a specific type, the policy and manifests on
+both the sending and the receiving peer must supply the necessary permission. The
+sending peer is the peer that calls GetProperty, SetProperty, calls a method, or
+emits a signal. The receiving peer is the peer that implements the Get property
+handler, the Set property handler, implements the method handler, or registers 
+the signal handler.
 
-| Action  |Policy of sending peer | Manifest of sending peer | Policy of receiving peer | Manifest of receiving peer |
-|---|---|---|---|---|
-| GetProperty | PROVIDE | OBSERVE | OBSERVE | PROVIDE |
-| SetProperty | PROVIDE | MODIFY | MODIFY | PROVIDE |
-| Signal | OBSERVE | PROVIDE | PROVIDE | OBSERVE |
-| Method | PROVIDE | MODIFY | MODIFY | PROVIDE |
+The sending peer performs an access check before sending the message. Both
+its local policy and the manifests it has received from the peer must allow
+the receiving peer to receive the message. 
 
-Sending peer means:
- - Peer calls GetProperty
- - Peer calls SetProperty
- - Peer calls Method
- - Peer emits Signal
+When the receiving peer receives the message, it also performs an access check. 
+Both its local policy and the manifests it has received from the peer must 
+allow the sending peer to have sent the message.
 
-Receiving peer means:
- - Peer implements Get property handler
- - Peer implements Set property handler
- - Peer implements Method handler
- - Peer registers signal handler
+The following table lists the permissions that must be granted. The second
+column lists the permissions required during the sending peer's check, and the
+third column lists the permissions required during the receiving peer's check.
+
+| Action  |<p>Policy of sending peer</p> <p>and manifest of receiving peer</p> | <p>Policy of receiving peer</p> <p>and manifest of sending peer</p> |
+|---------|--------------------------------------------------------------------|--------------------------------------------------------------------|
+| GetProperty | PROVIDE | OBSERVE |
+| SetProperty | PROVIDE | MODIFY |
+| Signal | OBSERVE | PROVIDE |
+| Method | PROVIDE | MODIFY |
 
 ## Certificates
 The following subsections detail the supported certificates.  The certificate

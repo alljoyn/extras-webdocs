@@ -28,14 +28,14 @@ synchronization between the multiple speakers.
 Prior to being able to send audio, a Source must first tell the Sink
 the details of the audio that it wishes to send. The Source is
 responsible for requesting the capabilities of each Sink in addition
-to the FIFO size. The Source then prefills the FIFO and starts the 
+to the FIFO size. The Source then prefills the FIFO and starts the
 process of sending more data chunks as the song plays.
 
 When media and volume controls are used the function on a separate
 AllJoyn Interface for each respective part. For example, volume control
 on a Sink specifies the current volume via an AllJoyn Property that is
 read/write and a volume range represented by a structure that defines
-the max, min, and step values.  
+the max, min, and step values.
 
 In addition to providing the audio data a Source can provide the audio
 metadata. For example the icon, album, artist, and/or track name.
@@ -49,6 +49,6 @@ The metadata is optional and not mandatory to a Source application.
 * [Learn more about the APIs][api-guide]
 
 [audiostreaming-interface]: /learn/base-services/audiostreaming/interface
-[download]: /download
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [api-guide]: /develop/api-guide/audio-streaming

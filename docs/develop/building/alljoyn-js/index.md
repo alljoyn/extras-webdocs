@@ -54,7 +54,7 @@ uses the AllJoyn Standard Client. You will need to have both building in
 order to both run AllJoyn.js and use the console.
 
 Instructions for getting Thin Client sources can be found
-[here](https://allseenalliance.org/developers/develop/building/thin-linux)
+[here](/develop/building/thin-linux)
 
 Note: Use version 15.04b or later of the AllJoyn Thin Client
 

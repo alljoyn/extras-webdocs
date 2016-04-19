@@ -8,13 +8,9 @@ devices and apps to communicate with one another ushering a new
 wave of interoperable devices to make the Internet of Things a
 reality.
 
-Use above navigation to [learn][learn] more about AllJoyn
-concepts and architecture, to [download][download] the SDKs,
-to learn more about [developing][develop] for AllJoyn, and
-to learn how to [contribute][contribute] to the AllJoyn
+Use above navigation to [learn][learn] more about AllJoyn concepts and
+architecture, to learn more about [developing][develop] for AllJoyn, and
 open-source project.
 
 [learn]: /learn
-[download]: /download
 [develop]: /develop
-[contribute]: /contribute

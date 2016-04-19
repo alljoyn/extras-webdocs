@@ -2,11 +2,11 @@
 
 ## Setup
 
-**NOTE:** The installation commands below refer specifically to 
+**NOTE:** The installation commands below refer specifically to
 Debian/Ubuntu Linux. Equivalent commands are available for other distributions of Linux.
 
 * Build tools and libs
-```sh 
+```sh
 sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev libcap-dev
 ```
 * Install Python v2.6/2.7 (Python v3.0 is not compatible and will cause errors)
@@ -87,4 +87,4 @@ export LDFLAGS="$LDFLAGS \
     -L$AJ_DIST/controlpanel/lib"
 ```
 
-[download]: /download
+[download]: https://allseenalliance.org/framework/download

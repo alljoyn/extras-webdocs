@@ -4,7 +4,7 @@ Note, some of the paths below will need to be adjusted based on the version down
 
 ## Setup
 
-1. [Download][download] the following iOS SDKs:
+1. [Download][downlod] the following iOS SDKs:
      * Core SDK (release)
      * Onboarding SDK
      * Configuration SDK
@@ -56,7 +56,7 @@ launchctl setenv ALLSEEN_BASE_SERVICES_ROOT `pwd`
 ```
 
 ## Build the samples
-Open each of the following sample iOS applications in Xcode and build 
+Open each of the following sample iOS applications in Xcode and build
 them by selecting __Project > Build__ from the Xcode menu.
 
 * alljoyn-ios/core/alljoyn/alljoyn_objc/samples/iOS/
@@ -67,9 +67,9 @@ them by selecting __Project > Build__ from the Xcode menu.
 * alljoyn-ios/services/alljoyn-onboarding-14.06.00-rel/objc/samples/
 
 ### Install samples on an iOS device
-Make sure you have an iOS device connected to your computer, then use 
-Xcode to __Run__ the desired sample application. This will install 
-the application onto your device. 
+Make sure you have an iOS device connected to your computer, then use
+Xcode to __Run__ the desired sample application. This will install
+the application onto your device.
 
 **TIP:** This command can also be used to build a sample application from a terminal
 
@@ -78,9 +78,9 @@ the application onto your device.
 
 ## Add the AllJoyn&trade; framework to an iOS application
 
-1. Make sure you know the location of the AllJoyn SDK folder. 
+1. Make sure you know the location of the AllJoyn SDK folder.
 The AllJoyn SDK folder contains your build, services, and alljoyn_objc folders.
-2. Open Xcode, open your project, and select the root of the tree in 
+2. Open Xcode, open your project, and select the root of the tree in
 Project Navigator. Then select the app's target under __Targets__.
 
 #### Add the AllJoyn Core library and dependencies:
@@ -110,7 +110,7 @@ Project Navigator. Then select the app's target under __Targets__.
 9.  Look through the Build Settings table until you see the __Apple LLVM 5.0 - Custom
 Compiler Flags__ group and set the following:
   * Enter the following in the __Other C Flags__ field for Debug field:
-  
+
       `-DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN`
 
   * Enter the following in the __Other C Flags__ field for Release field:
@@ -136,10 +136,10 @@ Compiler Flags__ group and set the following:
 2. Under __Link Binary with Libraries__, click on the '+' button, choose __Add Other...__, and add the following:
 
   __General libs__ (needed by all apps using one or more service frameworks):
-  * alljoyn-ios/services/<alljoyn-service-framework>/cpp/lib/ 
-    * liballjoyn_services_common_cpp.a 
+  * alljoyn-ios/services/<alljoyn-service-framework>/cpp/lib/
+    * liballjoyn_services_common_cpp.a
     * liballjoyn_about_cpp.a
-  * alljoyn-ios-directory/services/<alljoyn-service-framework>/objc/lib/ 
+  * alljoyn-ios-directory/services/<alljoyn-service-framework>/objc/lib/
     * liballjoyn_services_common_objc.a
     * liballjoyn_about_objc.a
     * libAllJoynFramework_iOS.a
@@ -168,4 +168,4 @@ Compiler Flags__ group and set the following:
   * alljoyn-ios/services/alljoyn-onboarding-14.06.00-rel/objc/lib/
     * liballjoyn_onboarding_objc.a
 
-[download]: /download
+[download]: https://allseenalliance.org/framework/download

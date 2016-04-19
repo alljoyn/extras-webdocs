@@ -404,7 +404,7 @@ $ cd $AJ ROOT/core/alljoyn
 For 32-bit:
 
 ```sh
-$ scons BINDINGS=<comma separated list(cpp,java,c,unity,js)>
+$ scons BINDINGS=<comma separated list(cpp,java,c,js)>
 
    ex) $ scons BINDINGS="cpp,java"
 ```
@@ -412,7 +412,7 @@ $ scons BINDINGS=<comma separated list(cpp,java,c,unity,js)>
 For 64-bit:
 
 ```sh
-$ scons CPU=x86_64 BINDINGS=<comma separated list (cpp,java,c,unity,js)>
+$ scons CPU=x86_64 BINDINGS=<comma separated list (cpp,java,c,js)>
 
    ex) $ scons CPU=x86_64 BINDINGS="cpp,java"
 ```
@@ -508,20 +508,17 @@ by default. If you are only interested in a particular language binding,
 the `BINDINGS` option can be used to select the language(s) of interest.
 
 The `BINDINGS` option takes a comma-separated list of languages you
-wish to build. Current valid languages are cpp, c, java, js, and
-Unity. The language is always specified in all lower case with no
-extra spaces between languages. If a dependency is not listed, the
-dependency will automatically be built. For example, java requires
-that cpp is built. If an empty string is used only the core files
-will be built.
+wish to build. Current valid languages are cpp, c, java, and js. The language is
+always specified in all lower case with no extra spaces between languages. If a
+dependency is not listed, the dependency will automatically be built. For
+example, java requires that cpp is built. If an empty string is used only the
+core files will be built.
 
 For example:
 
 ```sh
-$ scons BINDINGS=java #this will build core files and
-   Java language bindings
-$ scons BINDINGS=c,unity,java #this will build C language
-   bindings the Unity Extension and Java language bindings
+$ scons BINDINGS=java #this will build core files and Java language bindings
+$ scons BINDINGS=c,java #this will build C language bindings and Java language bindings
 $ scons BINDINGS= #only build the core files alljoyn_core and common
 ```
 
@@ -806,7 +803,6 @@ that produced the error.
 ### Additional projects
 
 The AllJoyn source code has other projects, such as alljoyn_js
-(javascript), alljoyn_unity (Unity Extension), and alljoyn_c
-(C bindings). These bindings are supported from version 2.6 onward.
-The build instructions for these projects are outside the scope of
-this section. For more information, see https://allseenalliance.org.
+(javascript), and alljoyn_c (C bindings). These bindings are supported from
+version 2.6 onward. The build instructions for these projects are outside the
+scope of this section. For more information, see https://allseenalliance.org.

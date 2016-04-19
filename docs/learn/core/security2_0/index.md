@@ -12,5 +12,5 @@ The Security Manager is optional service that helps the user with key management
 * [Download the SDK][download], [build][build]
 
 [security2_0-hld]: /learn/core/security2_0/hld
-[download]: /download
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building

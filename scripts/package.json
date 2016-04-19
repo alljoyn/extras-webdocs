@@ -2,14 +2,14 @@
   "name": "webdocs",
   "description": "Scripts to generate webdocs",
   "private": true,
-  "engines": { 
+  "engines": {
     "node" : ">=0.10.20",
     "npm" : ">=1.3.11"
   },
   "dependencies": {
     "marked": ">= 0.3.2",
     "express": ">= 4.7.2",
-    "isbinaryfile": ">=2.0.1",
+    "isbinaryfile": ">=2.0.1 <3.0.0",
     "node-watch": ">=0.3.4",
     "escape-html": ">=1.0.1",
     "highlight.js": ">=8.1.0",

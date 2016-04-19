@@ -124,12 +124,6 @@
     - name: Glossary
       path: /learn/glossary
       contents:
-- name: Download
-  path: /download
-  contents:
-    - name: Supported Platforms
-      path: /download/supported-platforms
-      contents:
 - name: Develop
   path: /develop
   contents:
@@ -441,19 +435,19 @@
         - name: Videos
           path: /develop/tutorial/videos
           contents:
-    - name: Ask Forum
-      path: /develop/ask
+    - name: Stack Overflow
+      path: /develop/stackoverflow
       contents:
         - name: Popular
-          path: /develop/ask/popular
+          path: /develop/stackoverflow/popular
           hidden: 1
           contents:
-- name: Contribute
-  path: /contribute
+- name: Platforms
+  path: /supported-platforms
   contents:
-    - name: Project Lifecycle
-      path: /contribute/project-lifecycle
-      contents:
+- name: LifeCycle
+  path: /project-lifecycle
+  contents:
 - name: Ambassadors
   path: /ambassadors
 - name: User Groups

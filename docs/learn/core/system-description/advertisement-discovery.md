@@ -67,7 +67,7 @@ listed in [IANA-registered multicast addresses for the AllJoyn framework][iana-m
 | Address | Port |
 |---|---|
 | IPv4 Multicast group address | 224.0.0.113 |
-| IPv6 Multicast group address	| FF0X::13A |
+| IPv6 Multicast group address | FF02::13A   |
 | Multicast port number | 9956 |
 
 The following figure captures the high-level architecture 

@@ -64,7 +64,7 @@ the Onboardee device fully onboarded.
 
 [about-announcement]: /learn/core/about-announcement
 [onboarding-interface]: /learn/base-services/onboarding/interface
-[download]: /download
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [sample-apps]: /develop/run-sample-apps/onboarding
 [api-guide]: /develop/api-guide/onboarding

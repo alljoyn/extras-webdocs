@@ -2,13 +2,13 @@
 
 ## Setup
 
-**NOTE:** The installation commands below refer specifically to 
+**NOTE:** The installation commands below refer specifically to
 Debian/Ubuntu Linux. Equivalent commands are available for other distributions of Linux.
 
 * Build tools and libs
 
-```sh 
-sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev 
+```sh
+sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev
 ```
 
 * Install Python v2.6/2.7 (Python v3.0 is not compatible and will cause errors)
@@ -64,5 +64,5 @@ The binary for the AC Server sample is located at `$AJ_ROOT/services/sample_apps
 
 See the [Build an Application using the Thin Library][build-app-thin-library] section for instructions.
 
-[download]: /download
+[download]: https://allseenalliance.org/framework/download
 [build-app-thin-library]:  /develop/tutorial/thin-app

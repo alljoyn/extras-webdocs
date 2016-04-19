@@ -1,6 +1,6 @@
 # Configuration Service
 
-The Configuration Service provides an ability to 
+The Configuration Service provides an ability to
 configure a device, like its device name or passcode.
 
 ## Concepts and Terminology
@@ -9,14 +9,14 @@ Two roles exist:
 * **Config Server**. This runs on the device that is being configured,
   the device that is offering the Configuration service.
 
-* **Config Client**. This runs on the device or app that is used to 
+* **Config Client**. This runs on the device or app that is used to
   configure a remote device.
 
 The following configurations can be configured:
 
 * **Factory Reset**. Restores the device to its original
-  factory settings. All configurable data is restored; 
-  if the device supports the Onboarding service, then 
+  factory settings. All configurable data is restored;
+  if the device supports the Onboarding service, then
   the device will enter its original offboarded state.
 
 * **Set Passcode**. Sets the device's passcode, which
@@ -27,8 +27,8 @@ The following configurations can be configured:
 
 * **Device Name**. Sets the device's name.
 
-The Configuration Service exposes a simple secured 
-interface to provide this service. See the 
+The Configuration Service exposes a simple secured
+interface to provide this service. See the
 [Configuration Interface Definition][config-interface]
 for more details.
 
@@ -39,6 +39,6 @@ for more details.
 * [Learn more about the Configuration APIs][api-guide]
 
 [config-interface]: /learn/base-services/configuration/interface
-[download]: /download
+[download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [api-guide]: /develop/api-guide/config

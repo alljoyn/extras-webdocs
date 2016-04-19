@@ -1,11 +1,11 @@
-#AllJoyn™ Security 2.0 Feature High-Level Design
+# AllJoyn&trade; Security 2.0 Feature High-Level Design
 
 # Introduction
 
 ## Purpose and scope
 
 This document captures the system level design for the enhancements to the
-AllJoyn™ framework to support the Security 2.0 feature requirements. Related
+AllJoyn&trade; framework to support the Security 2.0 feature requirements. Related
 interfaces and API design is captured at a functional level. Actual definition
 for interfaces and APIs is outside the scope of this document. Features and
 functions are subject to change without notice.
@@ -471,6 +471,19 @@ The security manager allows the following operations:
     - manage policy (ACL's) of applications
     - force application to become un-managed again
 
+Some of these operations can be disruptive for an application's functionality.
+Also the Security Manager might need to perform a series of operations -
+e.g., update the application's group membership certificates, followed by
+updating the application's manifest. To minimize the disruptions to the
+application's functionality, the Security Manager can notify the application
+before and after it starts to perform disruptive operations. When the
+application receives a Start Management notification, it should gracefully
+shut down any ongoing work, if needed. As soon as the Start Management callback
+to the application returns, the Security Manager can start applying the
+disruptive changes. Then, the Security Manager sends an End Management
+notification to the application. That means the application can safely resume
+its work.
+
 #### Inter Security Manager Interaction
 When applications interact with each other, they check if the interaction is
 allowed by their policies as previously set by their security manager. In
@@ -918,6 +931,29 @@ The resulting set of matched rules is applied to the message as follows:
 - If no deny rules match, then the message is allowed if at least one allow
 rule matches.
 - Otherwise, the message is denied.
+
+#### Policy and Manifest values required to send message
+To successfully send a message of a specific type the policy and manifest must
+provide the following values.
+
+| Action  |Policy of sending peer | Manifest of sending peer | Policy of receiving peer | Manifest of receiving peer |
+|---|---|---|---|---|
+| GetProperty | PROVIDE | OBSERVE | OBSERVE | PROVIDE |
+| SetProperty | PROVIDE | MODIFY | MODIFY | PROVIDE |
+| Signal | OBSERVE | PROVIDE | PROVIDE | OBSERVE |
+| Method | PROVIDE | MODIFY | MODIFY | PROVIDE |
+
+Sending peer means:
+ - Peer calls GetProperty
+ - Peer calls SetProperty
+ - Peer calls Method
+ - Peer emits Signal
+
+Receiving peer means:
+ - Peer implements Get property handler
+ - Peer implements Set property handler
+ - Peer implements Method handler
+ - Peer registers signal handler
 
 ## Certificates
 The following subsections detail the supported certificates.  The certificate

@@ -13,24 +13,24 @@ To access a previous version of this document, click the release version link be
 
 ## Definition Overview
 
-The Onboarding interface is implemented by an application on 
-a target device, referred to as an onboardee. A typical 
-onboardee is an AllJoyn&trade; thin client device. This 
-interface allows the onboarder to send the Wi-Fi credentials 
+The Onboarding interface is implemented by an application on
+a target device, referred to as an onboardee. A typical
+onboardee is an AllJoyn&trade; thin client device. This
+interface allows the onboarder to send the Wi-Fi credentials
 to the onboardee to allow it to join the personal access point.
 
 ![onboarding-arch][onboarding-arch]
 
 **Figure:** Onboarding service framework architecture within the AllJoyn framework
 
-**NOTE:** All methods and signals are considered mandatory to 
-support the AllSeen Alliance Compliance and Certification program. 
+**NOTE:** All methods and signals are considered mandatory to
+support the AllSeen Alliance Compliance and Certification program.
 
 ## Onboarding Call Flows
 
 ### Onboarding call flow using an Android onboarder
 
-The following figure illustrates a call flow for onboarding 
+The following figure illustrates a call flow for onboarding
 an onboardee using an Android onboarder.
 
 ![onboarding-android-onboarder][onboarding-android-onboarder]
@@ -39,7 +39,7 @@ an onboardee using an Android onboarder.
 
 ### Onboarding call flow using an iOS onboarder
 
-The following figure illustrates a call flow for onboarding 
+The following figure illustrates a call flow for onboarding
 an onboardee using an iOS onboarder.
 
 ![onboarding-ios-onboarder][onboarding-ios-onboarder]
@@ -48,8 +48,8 @@ an onboardee using an iOS onboarder.
 
 ## Error Handling
 
-The method calls in the Onboarding interface use the AllJoyn 
-error message handling feature (ER_BUS_REPLY_IS_ERROR_MESSAGE) 
+The method calls in the Onboarding interface use the AllJoyn
+error message handling feature (ER_BUS_REPLY_IS_ERROR_MESSAGE)
 to set the error name and error message.
 
 | Error name | Error message |
@@ -76,7 +76,7 @@ to set the error name and error message.
 
 ### Methods
 
-The following methods are exposed by a BusObject that 
+The following methods are exposed by a BusObject that
 implements the Onboarding interface.
 
 #### `n ConfigWifi('ssn')`
@@ -86,7 +86,7 @@ implements the Onboarding interface.
 | Argument | Parameter name| Signature | List of values | Description |
 |:---:|---|:---:|---|---|---|
 | 0 | `SSID` | `s` | N/A | Access point SSID |
-| 1 | `passphrase` | `s` | N/A | Access point passphrase | 
+| 1 | `passphrase` | `s` | N/A | Access point passphrase  in hex format |
 | 2 | `authType` | `n` | <ul><li>-3 - WPA2_AUTO</li><li>-2 - WPA_AUTO</li><li>-1 - Any</li><li>0 - Open</li><li>1 - WEP</li><li>2 - WPA_TKIP</li><li>3 - WPA_CCMP</li><li>4 - WPA2_TKIP</li><li>5 - WPA2_CCMP</li><li>6 - WPS</li></ul> | <p>Authentication type.</p><ul><li>When it is equal to any, the onboardee must attempt all possible authentication types it supports to connect to the AP.</li><li>When it is equal to -3 or -2 (WPA2_AUTO or WPA_AUTO), the onboardee attempts to connect to the AP with TKIP cipher and then AES-CCMP cipher.</li><li>WPA_TKIP indicates WPA with TKIP cipher.</li><li>WPA2_CCMP indicates WPA2 with AES-CCMP cipher.</li><li>If the value is invalid, the AllJoyn error `org.alljoyn.Error.OutOfRange` will be returned.</li></ul> |
 
 **Reply arguments**
@@ -97,8 +97,8 @@ implements the Onboarding interface.
 
 **Description**
 
-Sends the personal AP information to the onboardee. When the 
-authType is equal to -1 (any), the onboardee must try out 
+Sends the personal AP information to the onboardee. When the
+authType is equal to -1 (any), the onboardee must try out
 all the possible authentication types it supports to connect to the personal AP.
 
 **Error reply**
@@ -115,13 +115,13 @@ None.
 
 **Reply arguments**
 
-This method does not have any reply message. It's a fire-and-forget 
+This method does not have any reply message. It's a fire-and-forget
 method call.
 
 **Description**
 
-Tells the onboardee to connect to the personal AP. It is 
-recommended that the onboardee use the concurrency feature, 
+Tells the onboardee to connect to the personal AP. It is
+recommended that the onboardee use the concurrency feature,
 if it is available.
 
 #### `Offboard`
@@ -132,12 +132,12 @@ None.
 
 **Reply arguments**
 
-This method does not have any reply message. It's a fire-and-forget 
+This method does not have any reply message. It's a fire-and-forget
 method call.
 
 **Description**
 
-Tells the onboardee to disconnect from the personal AP, clear 
+Tells the onboardee to disconnect from the personal AP, clear
 the personal AP configuration fields, and start the soft AP mode.
 
 #### `qa(sn) GetScanInfo`
@@ -178,11 +178,11 @@ ConnectionResult signal is not a Sessionless signal.
 
 **Description**
 
-This signal is emitted when the connection attempt against 
-the personal AP is completed. The signal is sent over the 
+This signal is emitted when the connection attempt against
+the personal AP is completed. The signal is sent over the
 AllJoyn session established over the SoftAP link.
 
-This signal will be received only if the concurrency feature 
+This signal will be received only if the concurrency feature
 is supported by the onboardee.
 
 ##Introspect XML

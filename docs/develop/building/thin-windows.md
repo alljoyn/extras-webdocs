@@ -16,5 +16,5 @@ scons OS=win7 CPU=x86_64 WS=off MSVC_VERSION=11.0
 
 Binaries for the samples are located at `$AJ_ROOT\core\alljoyn\samples\basic`
 
+[download]: https://allseenalliance.org/framework/download
 [build-app-thin-library]:  /develop/tutorial/thin-app
-[download]: /download

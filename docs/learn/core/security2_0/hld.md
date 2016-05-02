@@ -72,7 +72,7 @@ action can be taken.
 
 The Security Manager is a service that helps the user with key management and
 permission rules building.  Using the application manifest template defined by
-the application developer, the Security Manager builds the manifest consisting
+the application developer, the Security Manager builds the manifests consisting
 of access control lists to let the end-user authorize which interactions the
 application can do.  An application developer does not have to build a security
 manager.  The permission can be installed by another application or another
@@ -101,7 +101,7 @@ The following Table lists the premises for the Security 2.0 features.
 | Policy | <p>A policy is a list of ACLs governing  the behavior of an application</p><p>A policy template is a list of rules defined by the application developer to guide the admin for policy building.</p> | <ul><li>An admin can install, update, or remove a policy.</li><li>A newer policy can be installed by any authorized peer. Developers can define policy templates to help the admin with policy building.</li><li>Security group specific policy specifies the permissions granted to members of the group. The security group authority becomes a certificate authority for that particular group.</li><li>A policy may exist at the producer or consumer side. Policy enforcement applies wherever it resides.</li><li>A policy is considered private.  It is not exchanged with any peer.</li><li>A keystore has at most one policy.  A complex application with multiple bus attachments can use a shared keystore in one bus attachment and an app-specific keystore for another bus attachment.  In such case, the complex application has in fact more than one policy.</li><li>An admin can query the existing policy installed in the keystore.</li></ul> |
 | Membership certificate | A membership certificate is the proof of a security group membership | <ul><li>Membership certificates are exchanged between peers.</li><li>An application trusts a membership certificate if the issuer or any subject in the issuer’s certificate chain is the security group authority.</li><li>A membership certificate subject can generate additional membership certificates for the given security group if the cA flag is true.</li><li>A membership certificate must have a security group ID.</li><li>An application can accept the installation of any number of membership certificates into its keystore.</li></ul> |
 | Identity certificate | Certificate that signs the identity information. | <ul><li>The Certificate has an identity alias stored in the X.509 SubjectAltName extension field.</li><li>An application trusts identity certificates issued by the application’s certificate authority or any of the security group authorities listed in the application’s policy.</li><li>An identity certificate subject can generate additional identity if the cA flag is true.</li></ul> |
-| Manifest data | The permission rules accompanying the identity certificate | <ul><li>Manifest data are not present in the identity certificate. They are accompanied with the identity certificate.</li><li>The manifest data digest is present in the identity certificate.</li><li>The manifest data syntax is the same as the policy syntax.  While the policy stays local the manifest data is presented to the peer along with the identity certificate.</li></ul> |
+| Manifest data | The capability-like permission rules given to a peer | <ul><li>Manifest data are not present in a certificate. They are bound to a particular certificate, usually the identity certificate.</li><li>Each manifest is bound to a particular certificate, and the issuer of that certificate also signs the manifest.</li><li>The manifest data syntax is the same as the policy syntax.  While the policy stays local, the manifest data is presented to the peer when using rights granted by it.</li></ul> |
 | Security Manager | A service used to manage cryptographic keys, and generate certificates. | <ul><li>Security Manager can push policy and certificates to application</li></ul> |
 
 ## Typical operations
@@ -155,12 +155,7 @@ acceptable.
 ### Certificate exchange during session establishment
 
 During the AllJoyn ECHDE_ECDSA key exchange and session establishment, the peers
-exchange identity certificates, manifests, and all membership certificates.
-Since all the membership certificates are exchanged, there is a potential
-information disclosure vulnerability.  It is desired to have a more intelligent
-selection algorithm to provide membership certificates on demand and need-to-know
-basis.  This algorithm needs to take into account the latency of the certificate
-exchange during the method call invocation.
+exchange identity certificates and membership certificates.
 
 The bus attachment trusts the peer if the issuer of the peer’s identity
 certificate is any of its certificate authorities and any of the security group
@@ -172,13 +167,24 @@ public key of the authority of the security group.
 
 ![exchange-manifest-and-membership-certificates][]
 
-**Figure:** Exchange manifest and membership certificates
+**Figure:** Exchange certificates and membership certificates
 
 The identity certificate chain is exchanged during the ECDHE_ECDSA key exchange
 process.  The org.alljoyn.Bus.Peer.Authentication interface is not enforced with
 permission.
 
 [exchange-manifest-and-membership-certificates]:/files/learn/security2_0/exchange-manifest-and-membership-certificates.png
+
+### Manifest exchange
+
+Manifests are exchanged at any time after an ECDHE_ECDSA session has been established.
+An initiator, before sending a signal or making a method call, can call the
+SendManifests method on the org.alljoyn.Bus.Peer.Authentication interface to send one
+or more manifests to the remote peer that authorize the operation the initiator is about
+to execute. In response, the responder can send send zero or more manifests back. This
+will typically be used by an initiator to send a manifest granting access to consume one
+or more interfaces, and the responder will return a manifest granting access to produce
+those same interfaces.
 
 ### Claim a factory-reset application
 
@@ -252,15 +258,29 @@ expire master secrets.  Expiring keys will cause existing sessions to terminate.
 [install-a-policy]: /files/learn/security2_0/install-a-policy.png
 
 ### Update a manifest
-An admin can update a manifest for the application.  This involves resigning the
-identity certificate because the new digest of the manifest must be included in
-the identity certificate.
+An admin can update the manifests for the application. New manifests can be created,
+signed, and provided to the application. If existing manifests need to be changed,
+then they must be cleared and re-created.
+
+In the first flow, the UpdateIdentity method is used to install the new manifests. When
+UpdateIdentity is called, all existing manifests on the peer are cleared, so a complete
+set must be provided. 
 
 ![update-manifest][]
 
-**Figure:** Update manifest
+**Figure:** Update manifests
 
 [update-manifest]: /files/learn/security2_0/update-manifest.png
+
+In the second flow, the InstallManifests method is used to install the new manifests.
+In this case, existing manifests are retained, and so this method is ideal for adding
+additional privilege to an application without removing existing manifests.
+
+![install-addl-manifests][]
+
+**Figure:** Install additional manifests
+
+[install-addl-manifests]: /files/learn/security2_0/install-addl-manifests.png
 
 ### Add an application to a security group
 
@@ -466,7 +486,7 @@ The security manager allows the following operations:
       application keystore should only have one identity certificate.
 - application/key management:
     - claim applications: make it managed by this security manager
-    - manage application manifest
+    - manage application manifests
     - manage AllJoyn certificates for these applications
     - manage policy (ACL's) of applications
     - force application to become un-managed again
@@ -582,7 +602,7 @@ policy to allow his friend to have access to the local application.
 
 [add-restricted-user-rules-to-an-application]: /files/learn/security2_0/add-restricted-user-rules-to-an-application.png
 
-### Application Manifest
+### Application Manifests
 When considering where AllSeen enabled applications will run, smartphones are an
 obvious target. A lot of applications are available in various app stores.
 Unfortunately not all of these applications are trustworthy. For example, the
@@ -603,13 +623,26 @@ will be used to enforce that the application cannot produce or consume any
 unwarranted interfaces.
 
 A signed application manifest limits the potential interfaces a malicious
-application can access within a set of well-behaving applications.
+application can access within a set of well-behaving applications, as may be the
+case if a legitimate application is compromised.
 
 The application manifest has a similar goal as an application manifest on an app
 store application, in which an end-user has to accept a list of permissions when
 installing a new application on his phone which are enforced by the app store
 application framework. The implementation is however different, as described
 below.
+
+An application can have and use multiple manifests, and it is up to the security
+manager to determine how to issue them. If all interfaces are placed into a single
+manifest, there is a potential for unwanted information disclosure. For instance,
+a manifest containing known privileged interfaces may disclose the app possesses
+privileged credentials. It may also disclose the presence of other, more sensitive
+apps or devices on the network; for example, there's no reason for a television to
+know there's also a medical device on the network. The recommended
+best practice is for each manifest to contain a single interface or group of
+interfaces that are always produced or consumed together, to allow the peers to
+selectively send only the ones required. A manifest check is satisfied if at least one
+manifest provides the permission.
 
 ##### Requirements
 
@@ -653,8 +686,8 @@ can generate a new manifest for that application.
 
 ##### Implementation Scenario
 This section describes the steps to generate the application manifest.  Once the
-manifest is accepted,  its contents digest will be encoded in a new identity
-certificate.
+security manager decides on the manifest, it will be signed by the security manager
+and associated with the peer's identity certificate, so only that peer can use it.
 
 1. The security manager discovers the remote application through the
    NotifyConfig signal.
@@ -666,10 +699,14 @@ certificate.
    that the HTTPS server location is not yet defined.
 5. The admin accepts (or rejects) the description of the manifest. When the
    admin rejects the manifest, the application will not receive a manifest.
-6. The security manager reissues a new identity certificate with the digest of
-   the requested (& accepted) permissions.
-7. The security manager installs the new identity certificate and manifest on
-   the application.
+6. The admin, or the security manager on the admin's behalf, may choose to split
+   the manifest template into multiple individual manifests.
+7. The security manager sets the application's identity certificate thumbprint in
+   each manifest, and signs the manifests.
+8. The security manager installs the new manifests on the application. If the change
+   only adds new permissions, the security manager can choose to append the new manifests
+   to the peer's current set, but if needed, it can clear out the previous set of
+   manifests first.
 
 ![building-policy-using-manifest][]
 
@@ -933,27 +970,31 @@ rule matches.
 - Otherwise, the message is denied.
 
 #### Policy and Manifest values required to send message
-To successfully send a message of a specific type the policy and manifest must
-provide the following values.
+To successfully send a message of a specific type, the policy and manifests on
+both the sending and the receiving peer must supply the necessary permission. The
+sending peer is the peer that calls GetProperty, SetProperty, calls a method, or
+emits a signal. The receiving peer is the peer that implements the Get property
+handler, the Set property handler, implements the method handler, or registers 
+the signal handler.
 
-| Action  |Policy of sending peer | Manifest of sending peer | Policy of receiving peer | Manifest of receiving peer |
-|---|---|---|---|---|
-| GetProperty | PROVIDE | OBSERVE | OBSERVE | PROVIDE |
-| SetProperty | PROVIDE | MODIFY | MODIFY | PROVIDE |
-| Signal | OBSERVE | PROVIDE | PROVIDE | OBSERVE |
-| Method | PROVIDE | MODIFY | MODIFY | PROVIDE |
+The sending peer performs an access check before sending the message. Both
+its local policy and the manifests it has received from the peer must allow
+the receiving peer to receive the message. 
 
-Sending peer means:
- - Peer calls GetProperty
- - Peer calls SetProperty
- - Peer calls Method
- - Peer emits Signal
+When the receiving peer receives the message, it also performs an access check. 
+Both its local policy and the manifests it has received from the peer must 
+allow the sending peer to have sent the message.
 
-Receiving peer means:
- - Peer implements Get property handler
- - Peer implements Set property handler
- - Peer implements Method handler
- - Peer registers signal handler
+The following table lists the permissions that must be granted. The second
+column lists the permissions required during the sending peer's check, and the
+third column lists the permissions required during the receiving peer's check.
+
+| Action  |<p>Policy of sending peer</p> <p>and manifest of receiving peer</p> | <p>Policy of receiving peer</p> <p>and manifest of sending peer</p> |
+|---------|--------------------------------------------------------------------|--------------------------------------------------------------------|
+| GetProperty | PROVIDE | OBSERVE |
+| SetProperty | PROVIDE | MODIFY |
+| Signal | OBSERVE | PROVIDE |
+| Method | PROVIDE | MODIFY |
 
 ## Certificates
 The following subsections detail the supported certificates.  The certificate
@@ -975,8 +1016,6 @@ EKUs.
 meaning any certificate with no EKU will inherit those of its parent.
 - Time of validity will only be evaluated if the peer has a time source.
 - The implementation will assume system time is trusted if available.
-- For identity certificates, the associated digest of the leaf certificate
-is validated against the digest of the manifest.
 - The AKI is validated to not be null.
 - CRL check is not implemented as there is no CRL.
 - basicConstraints::pathLenConstraint will NOT be checked.
@@ -1048,9 +1087,7 @@ The extensions include the following fields:
  - ExtendedKeyUsage: the type of certificate within the AllSeen ecosystem.  
  1.3.6.1.4.1.44924.1.1 is used for Identity certificates.
  - SubjectAltName: the alias for the identity.
- - AssociatedDigest: the digest of the associated manifest data.
-Both the ExtendedKeyUsage and AssociatedDigest have custom OIDs under the
-Security 2.0 root.
+The ExtendedKeyUsage has a custom OID under the Security 2.0 root.
 
 ```
 Extensions ::= SEQUENCE {
@@ -1063,9 +1100,7 @@ AuthorityKeyIdentifier SEQUENCE { 2.5.29.35
                                   (id-ce-authorityKeyIdentifier),
                                    SEQUENCE { [0] (keyIdentifier) OCTET STRING}},
 ExtendedKeyUsage SEQUENCE { 2.5.29.37 (id-ce-extKeyUsage),
-                            SEQUENCE { (KeyPurposeId) 1.3.6.1.4.1.44924.1.1}},
-AssociatedDigest SEQUENCE { 1.3.6.1.4.1.44924.1.2 (AllSeen Certificate Digest),
-                            2.16.840.1.101.3.4.2.1 (hash), OCTET STRING }
+                            SEQUENCE { (KeyPurposeId) 1.3.6.1.4.1.44924.1.1}}
 }
 
 ```
@@ -1176,35 +1211,53 @@ Users:  Dad, Mom, and son
 
 # Enhancements to Existing Framework
 
-## Crypto Agility Exchange
+## Cryptographic Agility
 
-In order to provide the AllJoyn peers to express the desire to pick some
-particular cryptographic cipher suite to use in the key exchange and the
-encryption of the messages, new key exchange suite identifiers will be added to
-the framework to express the choice of cipher and MAC algorithms.  The new
-identifiers may come from the list of TSL cipher suites specified in
-[Appendix A.5 of TLS RFC5246][rfc5246] , [RFC6655][rfc6655], and
-[RFC7251][rfc7251].
+*Cryptographic agility* refers to the ability of a protocol or system to
+support multiple cryptographic primitives, and to negotiate one or a set of
+primitives for use at runtime.  Some benefits of agile implementations include
+the ability to gracefully transition away from weak algorithms, and the
+potential to accommodate a wider range of devices. Supporting a larger set of
+algorithms (in an agile way) lets constrained devices favor algorithms that
+perform well on their hardware. On the other hand, providing too many choices
+increases complexity and testing costs, and may harm developer experience.  In
+either case, to ensure interoperability, a subset of primitives must be
+mandatory to implement for all peers.  RFC 7696 [rfc7696] is detailed
+discussion of agility from the perspective of Internet protocols. 
 
-The following table shows the list of existing key exchange suites:
+AllJoyn currently provides a limited amount of cryptographic agility, when
+compared to, e.g.,  TLS version 1.2 [rfc5246]. AllJoyn has a small set of key exchange
+suites (analogous to *cipher suites* in TLS), given in the following table. 
 
 | AllJoyn Key Exchange Suite | Crypto Parameters | Availability |
 |---|---|---|
-| ALLJOYN_ECDHE_NULL | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
-| ALLJOYN_ECDHE_PSK | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
-| ALLJOYN_ECDHE_ECDSA | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_8</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
+| ALLJOYN_ECDHE_NULL | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_16</li><li>SHA256</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
+| ALLJOYN_ECDHE_PSK | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_16</li><li>SHA256</li></ul> | <ul><li>Standard Client (deprecated in version 16.04)</li><li>Thin Client (deprecated in version 16.04)</li></ul> |
+| ALLJOYN_ECDHE_SPEKE | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_16</li><li>SHA256</li></ul> | <ul><li>Standard Client version 16.04 or newer </li><li>Thin Client verion 16.04 or newer</li></ul> |
+| ALLJOYN_ECDHE_ECDSA | <ul><li>Curve NIST P-256 (secp256r1)</li><li>AES_128_CCM_16</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> |
 | ALLJOYN_RSA_KEYX | <ul><li>AES_128_CCM_8</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client version 14.02 or older</li></ul> |
 | ALLJOYN_PIN_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client version 14.12 or older</li><li>Thin Client version 14.02 or older</li></ul> |
-| ALLJOYN_SRP_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client</li></ul> |
-| ALLJOYN_SRP_LOGON | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client</li></ul> |
+| ALLJOYN_SRP_KEYX | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client (deprecated in version 15.09)</li></ul> |
+| ALLJOYN_SRP_LOGON | <ul><li>AES_128_CCM_8</li></ul> | <ul><li>Standard Client (deprecated in version 15.09)</li></ul> |
 
-The following table shows the potential list of TLS cipher suites to be
-supported.  Other suites will be added as codes are available.
+In AllJoyn version 15.04 peers began using AES_128_CCM_16, by default,
+previously AES_128_CCM_8 was used. Compared to TLS, AllJoyn does not allow
+negotiation of elliptic curve parameters, hash functions or certificate
+algorithms.  These are fixed to P-256, SHA-256 and ECDSA with P-256 and
+SHA-256. 
 
-| TLS cipher suite | Additional Crypto Parameters | Availability | RFC |
-|---|---|---|---|
-| TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 | <ul><li>Curve NIST P-256 (secp256r1)</li><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li><li>Thin Client</li></ul> | [7251][rfc7251] |
-| TLS_RSA_WITH_AES_128_CCM_8 | <ul><li>SHA256</li><li>X.509 certificate</li></ul> | <ul><li>Standard Client</li></ul> | [6655][rfc6655] |
+A future AllJoyn version could add support for additional algorithms by adding
+new key exchange suites. Alternatively, future versions may allow finer-grained
+negotiation with existing suites, e.g., allow negotiation of curve parameters,
+the hash function and the authenticated encryption algorithm with
+ALLJOYN_ECDHE_ECDSA.  Even if actually supporting multiple algorithms is deemed
+too expensive in the short term (since many code paths in the current
+implementation do not support multiple algorithms), there may be value in
+enhancing negotiation capabilities earlier.  Changes to algorithm negotiation may
+require changes to the wire format, and doing it earlier may be less
+disruptive. Having better support for negotiation will also facilitate
+experimentation with new algorithms. Finally, this will give future designs
+greater flexibility, at low cost.  
 
 ## Application State Announcement
 
@@ -1278,6 +1331,12 @@ Manager to build consumer and producer policies.  A policy template provides the
 following data in:
  - Specification version number
  - List of permission rules
+ 
+### Manifests issued by membership certificate authorities
+Currently, only the issuer of the identity certificate can sign manifests. This works well
+in a single trust domain, but for future roaming scenarios, it may be desirable to allow
+membership authorities to also issue manifests, which can then be used when roaming in
+foreign security domains.
 
 # Future Considerations
 
@@ -1287,9 +1346,8 @@ considered in future releases of Security 2.0.
 
 [about-interface]: /learn/core/about-announcement/interface
 [rfc3610]: http://tools.ietf.org/html/rfc3610
-[rfc5246]: http://tools.ietf.org/html/rfc5246#page-75
-[rfc6655]: http://tools.ietf.org/html/rfc6655
-[rfc7251]: http://tools.ietf.org/html/rfc7251
+[rfc5246]: http://tools.ietf.org/html/rfc5246
+[rfc7696]: http://tools.ietf.org/html/rfc7696
 
 [policy-templates]: #policy-templates
 [policy-acl-format]: #policy-acl-format

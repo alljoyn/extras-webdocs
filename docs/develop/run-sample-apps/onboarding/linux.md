@@ -1,6 +1,6 @@
 # Linux - Running Onboarding Sample Apps
 
-## Running OnboardingClient and OnboardingService Apps
+## Running OnboardingClient and onboarding-daemon Apps
 
 ### Prerequisites
 
@@ -15,15 +15,15 @@ export TARGET_CPU=x86
 export LD_LIBRARY_PATH=$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/cpp/lib:$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/about/lib:$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/onboarding/lib:$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/config/lib:$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/services_common/lib:$LD_LIBRARY_PATH
 ```
 
-### Run the OnboardingService Sample App
+### Run the onboarding-daemon Sample App
 
-In one of the terminal windows, run `OnboardingService`:
+In one of the terminal windows, run `onboarding-daemon`:
 
 ```sh
-$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/onboarding/bin/OnboardingService
+$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/onboarding/bin/onboarding-daemon
 ```
 
-**NOTE:** The `OnboardingService` sample app is just a shell implementation - 
+**NOTE:** The `onboarding-daemon` sample app is just a shell implementation -
 no onboarding actually occurs!
 
 ### Run the OnboardingClient Sample App

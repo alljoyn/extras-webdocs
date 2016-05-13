@@ -1,6 +1,6 @@
 # Running The Notification Samples
 
-There are two types of Notification sample applications, 
+There are two types of Notification applications, 
 a Producer and a Consumer. The power of the [Notification service framework][learn_notif] 
 is its simplicity and ability to allow devices to "talk" 
 to end users to provide meaningful information.

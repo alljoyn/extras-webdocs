@@ -81,16 +81,16 @@ is encouraged to fetch the control panel at the object path and render
 it to the user. Typically this is done to allow the consumer to perform
 an action associated with a notification.
 
-An example is if the oven has been left on for some, in addition to
-sending a notification, it can include a control panel to be rendered
-to provide to the user the option of turning off the oven.
+For example, the oven has been left on for some time. In addition to
+sending a notification, a control panel (to be rendered by the app)
+may be provided to the user to give them the option of turning off the oven.
 
 ### Custom Attributes
 
 A notification can contain any number of custom key/value pair attributes.
 The Consumer can optionally use this information to display a richer
 notification. Custom attributes are application-specific, so
-the Consumer needs to have special informationa about the
+the Consumer needs to have special information about the
 Producer in order to properly use the custom attributes
 
 As an example, imagine a radio sent a notification every time a
@@ -100,7 +100,7 @@ album art URL. A normal Consumer would receive the notification
 and only display the notification text, that is, the artist and
 title. But a Consumer that is aware of this Producer, could also
 get the album art URL and display that along with the
-notification text to provide a richer custom notificaiton.
+notification text to provide a richer custom notification.
 
 ## How It Works
 
@@ -113,8 +113,8 @@ the notification:
 
 * A concept of a TTL.
 
-* A mechanism for new Consumers to join the network to be informed
-  of previously broadcasted notifications whose TTL had not expired.
+* A mechanism for new Consumers to join the network and be informed
+  of previously broadcasted notifications whose TTL has not yet expired.
 
 The sessionless signal contains the full notification, including
 all supported languages, and full metadata. Refer to the [Notification
@@ -132,15 +132,15 @@ In summary, this is how things work:
 * Consumers joining the network later will also receive this signal
   and display the information.
 
-* When the TTL expires, the Procuder will stop broadcasting this
+* When the TTL expires, the Producer will stop broadcasting this
   sessionless signal. Consumers will stop displaying the notification
 
 * At any time, a Producer or Consumer can send a sessionless signal
-  to dismiss the notificaiton. Consumers, upon receiving this, will
+  to dismiss the notification. Consumers, upon receiving this, will
   stop displaying the notification.
 
-* A Consumer can connect to the Producer to request that the
-  notification stop being broadcasted.
+* A Consumer can connect to a Producer to request it to stop
+  broadcasting the notification.
 
 ## Learn More
 

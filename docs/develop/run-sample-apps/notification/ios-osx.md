@@ -10,7 +10,7 @@ Producer and Consumer, simultaneously. If you run the app
 as both a producer and consumer simultaneously, you will be
 able to send and receive notifications on a single iOS device.
 
-Alternately, you can run the app as a Producer on one device,
+Alternatively, you can run the app as a Producer on one device,
 and as a Consumer on another device.
 
 **NOTE:** Both devices must be on the same Wi-Fi network.
@@ -64,7 +64,7 @@ on the same device or on a different device.
 
   ![][consumer-1]
 
-The application will now receive notifications.
+  The application will now receive notifications.
 
   ![][consumer-2]
 

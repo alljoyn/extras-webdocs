@@ -1,42 +1,47 @@
 # Linux - Running Onboarding Sample Apps
 
-## Running OnboardingClient and onboarding-daemon Apps
+## Running OnboardingClient and OnboardingService Apps
 
 ### Prerequisites
 
-Open two terminal windows. In each, navigate to the AllJoyn&trade; root dir, then:
+[Build the linux applications][build-linux] and prepare their running environment. 
+
+Each terminal environment must be prepared with the following steps:
 
 ```sh
+# Navigate to the AllJoyn root directory to begin
 export AJ_ROOT=`pwd`
 
 # <TARGET CPU> can be either x86_64, x86, or whatever value you set for "CPU=" when running SCons.
-export TARGET_CPU=x86
+export TARGET_CPU=$(uname -m)
 
-AJ_CPP_LIB=$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/cpp/lib
-AJ_ONBOARDING_LIB=$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/onboarding/lib
-AJ_SERVICES_COMMON_LIB=$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/services_common/lib
+# <CONFIGURATION> can be either debug or release
+export CONFIGURATION=debug
 
-export LD_LIBRARY_PATH=$AJ_CPP_LIB:$AJ_ONBOARDING_LIB:$AJ_SERVICES_COMMON_LIB:$LD_LIBRARY_PATH
+export AJ_DIST="$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/$CONFIGURATION/dist"
+
+export LD_LIBRARY_PATH=$AJ_DIST/cpp/lib:$AJ_DIST/about/lib:$AJ_DIST/onboarding/lib:$AJ_DIST/config/lib:$AJ_DIST/services_common/lib:$LD_LIBRARY_PATH
 ```
 
-### Run the onboarding-daemon Sample App
+### Run the Onboarding Service Sample
 
-In one of the terminal windows, run `onboarding-daemon`:
+In one terminal window, run the *Onboarding Service* application:
 
 ```sh
-$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/onboarding/bin/onboarding-daemon
+$AJ_DIST/onboarding/bin/onboarding-daemon
 ```
 
-**NOTE:** The `onboarding-daemon` sample app is just a shell implementation -
-no onboarding actually occurs!
+**NOTE:** The *Onboarding Service* sample app is just a stub implementation of onboarding, no Wi-Fi switching actually occurs.
 
-### Run the OnboardingClient Sample App
+### Run the Onboarding Client Sample
 
-In the other terminal window, run `OnboardingClient`:
+In the other terminal window, run the *Onboarding Client* application:
 
 ```sh
-$AJ_ROOT/core/alljoyn/build/linux/$TARGET_CPU/debug/dist/onboarding/bin/OnboardingClient
+$AJ_DIST/onboarding/bin/OnboardingClient
 ```
 
-NOTE: The `OnboardingClient` sample app uses hard-coded Onboarding 
-values (for example, SSID, passcode, authtype).
+**NOTE:** The *Onboarding Client* sample app uses hard-coded configuration values for SSID, passcode, and authtype.
+
+
+[build-linux]: /develop/building/linux

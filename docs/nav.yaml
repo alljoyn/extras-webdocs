@@ -276,8 +276,8 @@
             - name: Linux
               path: /develop/run-sample-apps/onboarding/linux
               contents:
-            - name: iOS/OS X
-              path: /develop/run-sample-apps/onboarding/ios-osx
+            - name: iOS
+              path: /develop/run-sample-apps/onboarding/ios
               contents:
         - name: AC Server
           path: /develop/run-sample-apps/acserver

@@ -1,67 +1,62 @@
 # Android - Onboarding Sample Apps
 
-## Running Android Sample OnboardingServer
 
-The Android OnboardingServer provides a sample Android 
-implementation of an app that uses the Onboarding server, 
-to allow the device to be onboarded by another device's app 
-using the Onboarding client.
+## Prerequisites
 
-1. On the device to be onboarded, first set up your Wi-Fi hotspot settings. 
-Under **Settings** > **Wireless & networks**, select **Tethering & portable hotspot**. 
-By default on some devices, this will be an open AP named "AndroidAP".
+[Build the Android sample apps][build-android] and deploy them to individual Android devices. 
+
+## Running Sample Onboarding Server
+
+The Android *Onboarding Server* (AboutConfOnbServer.apk) provides a sample Android implementation of an app that uses the Onboarding server, to allow the device to be onboarded by another device's app using the Onboarding client.
+
+**NOTE:** The *Onboarding Server* will only work on devices that are capable of acting as a portable hotspot.
+
+1. On the device to be onboarded, first set up your Wi-Fi hotspot settings. Under **Settings** > **Wireless & networks**, select **More**, then select **Tethering & portable hotspot**. By default on some devices, this will be an open Access Point (AP) named "AndroidAP".
 
   ![][1.TetheringAndPortableHotspot]
 
-2. Configure your Wi-Fi hotspot settings.
+2. Configure your Wi-Fi hotspot *name* and *password* by selecting **Set up Wi-Fi hotspot**.
 
   ![][2.SetUpWiFiHotspot]
 
-3. Load AboutConfOnbServer.apk, and start app `Onboarding Server`. 
-You should see Wi-Fi hotspot notification bar icon pop up along 
-with the text "Tethering or hotspot active". This device is now 
-ready to be onboarded.
+3. Load AboutConfOnbServer.apk, and start app *Onboarding Server*. You should see Wi-Fi hotspot notification bar icon pop up along with the text "Tethering or hotspot active". This device is now ready to be onboarded.
 
   ![][3.StartAppEnableHotspot]
 
 
-## Running Android Sample OnboardingClient
-The Android OnboardingClient provides a sample Android 
-implementation of an app that uses the Onboarding client, 
-to allow the app to onboard another device.
+## Running Sample Onboarding Client
+The Android *Onboarding Client* provides a sample Android implementation of an app that uses the Onboarding client, to allow the app to onboard another device.
 
-1. Load OnboardingSampleClient.apk, and start app `Onboarding Client`.
+1. Load OnboardingSampleClient.apk, and start app *Onboarding Client*.
 
   ![][1.StartScreen]
 
-2. Press `Scan WIFI networks`.
+2. Press **Scan WiFi networks**.
 
   ![][2.ScanNetworks]
   ![][3.NetworkList]
 
-3. Select the Wi-Fi hotspot you configured on the device running 
-the `Onboarding Server`, and enter a password if needed, then press **OK**.
+3. Select the Wi-Fi hotspot you configured on the device running the *Onboarding Server*, and enter a password if needed, then press **OK**.
 
   ![][4.EnterAccessPointPasswordIfNeeded]
 
-4. Press the **Connect to AllJoyn** button, then press **OK** in 
-the popup dialog - 'realm name' here is not important.
+4. Press the **Connect to AllJoyn** button, then press **OK** in the popup dialog - 'realm name' here is not important.
 
   ![][5.ChooseNetwork]
   ![][6.PressedConnectToAllJoyn]
 
-5. A list of AllJoyn apps will be displayed. Long press on the `Hello` app, 
+5. A list of AllJoyn apps will be displayed. Long press on the *Hello* app, 
 and select the **Onboarding** option.
 
   ![][7.DeviceList]
   ![][8.LongPressOnDevice]
 
-6. Enter the access point info for the network that is being onboarded to.
+6. Enter the Access Point (AP) configuration information for the network that is being onboarded to.
 
   ![][9.SelectOnboarding]
   ![][10.EnterAccessPointInfoToOnboardTo]
 
-7. Press **Configure** to configure the device with the access point info.
+7. Press **Configure** to configure the device with the AP information.
 
   ![][11.PressConfigure]
 
@@ -69,10 +64,7 @@ and select the **Onboarding** option.
 
   ![][12.PressConnect]
 
-9. If properly configured, the __other__ device running the 
-`Onboarding Server` will be onboarded to the AP, after which 
-the Wi-Fi hotspot notification bar icon disappears and the Wi-Fi 
-icon appears in the notification bar.
+9. If properly configured, the other device running the *Onboarding Server* will be onboarded to the AP, after which the Wi-Fi hotspot notification bar icon disappears and the Wi-Fi icon appears in the notification bar.
 
   ![][4.OnboardedSuccessfully]
 
@@ -93,3 +85,6 @@ icon appears in the notification bar.
 [10.EnterAccessPointInfoToOnboardTo]: /files/develop/run-sample-apps/android-onboardingclient-sample/10.EnterAccessPointInfoToOnboardTo.png
 [11.PressConfigure]: /files/develop/run-sample-apps/android-onboardingclient-sample/11.PressConfigure.png
 [12.PressConnect]: /files/develop/run-sample-apps/android-onboardingclient-sample/12.PressConnect.png
+
+
+[build-android]: /develop/building/android

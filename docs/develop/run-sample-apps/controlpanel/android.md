@@ -6,6 +6,14 @@ Follow the instructions in the [Running - Linux section][run-linux]
 to build and run the Controllee sample app. This will allow 
 you to run the ControlPanelService Controllee sample on a Linux machine.
 
+### Prerequisites
+Open a terminal and navigate to the AllJoyn&trade; root dir, then, with an android device connected:
+
+```sh
+export AJ_ROOT=`pwd`
+adb install $AJ_ROOT/services/base/controlpanel/java/sample_applications/android/ControlPanelBrowser/bin/ControlPanelBrowser.apk
+```
+
 ## Running Android ControlPanelBrowser
 The Android ControlPanelBrowser uses the Control Panel service 
 framework and provides a sample implementation of a Control Panel Controller.

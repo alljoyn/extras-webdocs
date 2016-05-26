@@ -1,14 +1,14 @@
 # Running The Control Panel Samples
 
 There are two Control Panel sample applications, a ‘Controller’ 
-and a ‘Controllable’.  The [Control Panel service framework][learn_control] 
-is a collection of many interfaces and a definition of object path 
+and a ‘Controllee’.  The [Control Panel service framework][learn_control]
+is a collection of many interfaces and a definition of object paths
 where the interfaces are placed.
 
 When an application uses the [Control Panel service][learn_control] 
 to be a Controllable device, it uses the service APIs which wrap up 
 an AllJoyn&trade; feature called [Introspection][learn_introspect].  
-The service provides an [Adaptive UI Layer][learn_control] that 
+The service provides an [Adaptive UI Layer][learn_control_adaptive_layer] that
 is responsible for creating platform widgets that are rendered on a screen.
 
 When an application uses the Controller side of the 
@@ -102,7 +102,7 @@ The ControlPanel interfaces are defined as follows:
 
 Controller samples are available for Android, iOS, and Linux.
 
-Controllable samples are available for Linux and Thin Linux.
+Controllee samples are available for Linux and Thin Linux.
 
 The samples can be run on the following platforms:
 - [Android][android]
@@ -116,4 +116,5 @@ The samples can be run on the following platforms:
 [thin-linux]: /develop/run-sample-apps/controlpanel/thin-linux
 
 [learn_control]: /learn/base-services/controlpanel
+[learn_control_adaptive_layer]: /learn/base-services/controlpanel#ui-adaptive-layer
 [learn_introspect]: /learn/core#introspection

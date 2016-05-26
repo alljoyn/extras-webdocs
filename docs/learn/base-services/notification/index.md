@@ -28,7 +28,7 @@ prudently in situations when extreme attention is required.
 ### Time-to-live (TTL)
 
 Each message is sent with a specific Time-to-live (TTL), in units of
-milliseconds. The message will persist on the network until its TTL
+seconds. The message will persist on the network until its TTL
 expires. If a Consumer joins the network within the TTL, he will
 receive the message.
 

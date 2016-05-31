@@ -68,6 +68,9 @@ on the same device or on a different device.
 
   ![][consumer-2]
 
+**NOTE:** Notifications may not be received immediately when the screen is locked.
+Push notifications are the only way to receive timely notifications on iOS.
+
 **NOTE:** To receive notifications in the app, either run the
 Notification service sample app as a Producer on the same
 device or on a different device, as detailed in

@@ -68,6 +68,9 @@ on the same device or on a different device.
 
   ![][consumer-2]
 
+**NOTE:** Actions are currently unimplemented for the notifications sample for Base 
+Services 16.04.
+
 **NOTE:** To receive notifications in the app, either run the
 Notification service sample app as a Producer on the same
 device or on a different device, as detailed in

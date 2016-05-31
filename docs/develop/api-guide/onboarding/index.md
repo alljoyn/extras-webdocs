@@ -93,5 +93,14 @@ and dynamically generate the UI input widgets to enter these
 values. At a minimum, allow for the text field of "Friendly Name"
 to be entered so end users can name the device that is being onboarded.
 
+### Security 2.0
+
+The onboarding sample application demonstrates the process for claiming a 
+factory-reset application.  Security 2.0 is currently in developer preview.
+You can refer to the process in the high level design document.  
+
+[Security 2.0 High Level Design (HLD)][security2_0-hld]
+
 [onboarding-java]: /develop/api-guide/onboarding/java
 [onboarding-ios]: /develop/api-guide/onboarding/objc
+[security2_0-hld]: /learn/core/security2_0/hld

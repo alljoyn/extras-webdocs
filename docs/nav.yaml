@@ -148,8 +148,11 @@
         - name: iOS/OS X
           path: /develop/building/ios-osx
           contents:
-            - name: Build Source
+            - name: Build Core
               path: /develop/building/ios-osx/build-source
+              contents:
+            - name: Build Base
+              path: /develop/building/ios-osx/build-base
               contents:
         - name: Windows
           path: /develop/building/windows

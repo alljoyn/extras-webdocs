@@ -142,8 +142,11 @@
             - name: OpenWRT
               path: /develop/building/linux/openwrt
               contents:
-            - name: Build Source
+            - name: Build Core
               path: /develop/building/linux/build-source
+              contents:
+            - name: Build Base
+              path: /develop/building/linux/build-base
               contents:
         - name: iOS/OS X
           path: /develop/building/ios-osx

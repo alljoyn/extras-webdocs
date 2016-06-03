@@ -23,42 +23,40 @@ sudo apt-get install python
 sudo apt-get install scons
 ```
 
-* OpenSSL
+* Get AllJoyn&trade; source
+    * Download the [source zip][download] and extract Core source into `$AJ_ROOT/core/ajtcl/` and Base Services source into `$AJ_ROOT/services/base_tcl/`
+    * Alternatively, use git:
+    ```sh
+    $ cd $AJ_ROOT
+    $ mkdir core/
+    $ cd core
+    $ git clone https://git.allseenalliance.org/gerrit/core/ajtcl.git 
+    $
+    $ cd $AJ_ROOT
+    $ mkdir services/
+    $ cd services
+    $ git clone https://git.allseenalliance.org/gerrit/services/base_tcl.git
+    ``` 
+
+## Building
+
+#### Building Core:
 
 ```sh
-sudo apt-get install libssl-dev
+$ cd $AJ_ROOT/core/ajtcl/
+$ scons WS=off
 ```
 
-* Download the [AllJoyn&trade; source zip][download] and extract.
+Binaries for samples are located at `$AJ_ROOT/core/ajtcl/dist/bin/`
 
-## Build the samples
-
-#### Build the core samples:
+#### Building Base Services:
 
 ```sh
-cd $AJ_ROOT/core/ajtcl
-scons WS=off
+$ cd $AJ_ROOT/services/base_tcl/
+$ scons WS=off
 ```
 
-Binaries for samples are located at `$AJ_ROOT/core/ajtcl/samples/`
-
-#### Build the services samples:
-
-```sh
-cd $AJ_ROOT/services/sample_apps
-scons WS=off AJ_TCL_ROOT=../../core/ajtcl
-```
-
-Binaries for service samples are located at `$AJ_ROOT/services/sample_apps/build`
-
-#### Build the complete service sample (AC Server):
-
-```sh
-cd $AJ_ROOT/services/sample_apps/ACServerSample
-scons WS=off AJ_TCL_ROOT=../../../core/ajtcl
-```
-
-The binary for the AC Server sample is located at `$AJ_ROOT/services/sample_apps/ACServerSample/build`
+Binaries for service samples are located at `$AJ_ROOT/services/base_tcl/dist/bin/`
 
 ## Add the AllJoyn framework to an application
 

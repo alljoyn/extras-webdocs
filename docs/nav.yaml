@@ -154,8 +154,11 @@
         - name: Windows
           path: /develop/building/windows
           contents:
-            - name: Build Source
+            - name: Build Core
               path: /develop/building/windows/build-source
+              contents:
+            - name: Build Base
+              path: /develop/building/windows/build-base
               contents:
         - name: Thin - Linux
           path: /develop/building/thin-linux

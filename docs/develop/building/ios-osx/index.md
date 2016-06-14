@@ -1,80 +1,9 @@
-# Building iOS/OS X
+# Building iOS
 
-Note, some of the paths below will need to be adjusted based on the version downloaded
+## Getting Started
 
-## Setup
-
-1. [Download][downlod] the following iOS SDKs:
-     * Core SDK (release)
-     * Onboarding SDK
-     * Configuration SDK
-     * Notification SDK
-     * Control Panel SDK
-
-2. Extract the downloaded packages and setup the directory structure:
-
-```sh
-mkdir alljoyn-ios
-mkdir alljoyn-ios/core
-unzip alljoyn-14.06.00-osx_ios-sdk.zip
-mv alljoyn-14.06.00-osx_ios-sdk alljoyn-ios/core/alljoyn
-unzip alljoyn-config-service-framework-14.06.00-ios-sdk-rel.zip
-unzip alljoyn-controlpanel-service-framework-14.06.00-ios-sdk-rel.zip
-unzip alljoyn-notification-service-framework-14.06.00-ios-sdk-rel.zip
-unzip alljoyn-onboarding-service-framework-14.06.00-ios-sdk-rel.zip
-```
-
-#### Set up OpenSSL dependencies
-
-```sh
-cd <parent directory of alljoyn-ios>
-pushd alljoyn-ios
-git clone git://git.openssl.org/openssl.git
-git clone https://github.com/sqlcipher/openssl-xcode.git
-cp -r openssl-xcode/openssl.xcodeproj openssl
-pushd openssl
-git checkout tags/OpenSSL_1_0_1f #replace this with a newer version as available
-sed -ie 's/\(ONLY_ACTIVE_ARCH.*\)YES/\1NO/' openssl.xcodeproj/project.pbxproj
-xcodebuild -configuration Release -sdk iphonesimulator
-xcodebuild -configuration Release -sdk iphoneos
-xcodebuild -configuration Release
-xcodebuild -configuration Debug -sdk iphonesimulator
-xcodebuild -configuration Debug -sdk iphoneos
-xcodebuild -configuration Debug
-launchctl setenv OPENSSL_ROOT `pwd`
-popd
-popd
-```
-
-#### Define environment variables
-
-```sh
-cd alljoyn-ios
-launchctl setenv ALLJOYN_SDK_ROOT `pwd`
-cd services
-launchctl setenv ALLSEEN_BASE_SERVICES_ROOT `pwd`
-```
-
-## Build the samples
-Open each of the following sample iOS applications in Xcode and build
-them by selecting __Project > Build__ from the Xcode menu.
-
-* alljoyn-ios/core/alljoyn/alljoyn_objc/samples/iOS/
-* alljoyn-ios/core/alljoyn/services/about/ios/samples/
-* alljoyn-ios/services/alljoyn-config-14.06.00-rel/objc/samples/
-* alljoyn-ios/services/alljoyn-controlpanel-14.06.00-rel/objc/samples/
-* alljoyn-ios/services/alljoyn-notification-14.06.00-rel/objc/samples/
-* alljoyn-ios/services/alljoyn-onboarding-14.06.00-rel/objc/samples/
-
-### Install samples on an iOS device
-Make sure you have an iOS device connected to your computer, then use
-Xcode to __Run__ the desired sample application. This will install
-the application onto your device.
-
-**TIP:** This command can also be used to build a sample application from a terminal
-
-<!-- QUESTION FOR WAYNE: Need to insert command -->
-<!-- TODO - insert scons command here -->
+* For instructions on how to obtain and build the AllJoyn&trade; Core source for iOS, go [here][core].
+* For instructions on how to obtain and build the AllJoyn&trade; Base Services source for iOS, go [here][base]. Please note that building Core is a prerequisite for Base Services. 
 
 ## Add the AllJoyn&trade; framework to an iOS application
 
@@ -91,7 +20,7 @@ Project Navigator. Then select the app's target under __Targets__.
 4. Scroll down to the Linking section, and set __Other Linker Flags__ to the following:
 
   `-lalljoyn -lajrouter -lBundledRouter.o -lssl -lcrypto`
-5. Scroll down to the list of settings until see the __Search Paths__ group.
+5. Scroll down to the list of settings until you see the __Search Paths__ group.
 6. Double-click the __Header Search Paths__ field and enter the following:
 
   `$(ALLJOYN_ROOT)/core/alljoyn/build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/cpp/inc`
@@ -136,36 +65,37 @@ Compiler Flags__ group and set the following:
 2. Under __Link Binary with Libraries__, click on the '+' button, choose __Add Other...__, and add the following:
 
   __General libs__ (needed by all apps using one or more service frameworks):
-  * alljoyn-ios/services/<alljoyn-service-framework>/cpp/lib/
-    * liballjoyn_services_common_cpp.a
+  * `$(AJ_ROOT)/core/alljoyn/build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/about/lib/`
     * liballjoyn_about_cpp.a
-  * alljoyn-ios-directory/services/<alljoyn-service-framework>/objc/lib/
-    * liballjoyn_services_common_objc.a
     * liballjoyn_about_objc.a
     * libAllJoynFramework_iOS.a
+  * `$(AJ_ROOT)/services/base/services_common/ios/samples/alljoyn_services_cpp/build/$(PLATFORM)-$(CONFIGURATION)/`
+    * liballjoyn_services_common_cpp.a
+  * `$(AJ_ROOT)/services/base/services_common/ios/samples/alljoyn_services_objc/build/$(PLATFORM)-$(CONFIGURATION)/`
+    * liballjoyn_services_common_objc.a
 
-  __Config libs__:
-  * alljoyn-ios/services/alljoyn-config-14.06.00-rel/cpp/lib/
-    * liballjoyn_config_cpp.a
-  * alljoyn-ios-directory/services/alljoyn-config-14.06.00-rel/objc/lib/
-    * liballjoyn_config_objc.a
+  __Configuration libs__:
+  * `$(AJ_ROOT)/core/alljoyn/build/darwin/$(CURRENT_ARCH)/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/cpp/lib/`
+    * liballjoyn_config.a    
 
   __Control Panel libs__:
-  * alljoyn-ios/services/alljoyn-controlpanel-14.06.00-rel/cpp/lib/
+  * `$(AJ_ROOT)/services/base/controlpanel/ios/samples/alljoyn_services_cpp/build/$(PLATFORM)-$(CONFIGURATION)/`
     * liballjoyn_controlpanel_cpp.a
-  * alljoyn-ios/services/alljoyn-controlpanel-14.06.00-rel/objc/lib/
+  * `$(AJ_ROOT)/services/base/controlpanel/ios/samples/alljoyn_services_objc/build/$(PLATFORM)-$(CONFIGURATION)/`
     * liballjoyn_controlpanel_objc.a
 
   __Notification libs__:
-  * alljoyn-ios/services/alljoyn-notification-14.06.00-rel/cpp/lib/
+  * `$(AJ_ROOT)/services/base/notification/ios/samples/alljoyn_services_cpp/build/$(PLATFORM)-$(CONFIGURATION)/`
     * liballjoyn_notification_cpp.a
-  * alljoyn-ios/services/alljoyn-notification-14.06.00-rel/objc/lib/
+  * `$(AJ_ROOT)/services/base/notification/ios/samples/alljoyn_services_objc/build/$(PLATFORM)-$(CONFIGURATION)/`
     * liballjoyn_notification_objc.a
 
   __Onboarding libs__:
-  * alljoyn-ios/services/alljoyn-onboarding-14.06.00-rel/cpp/lib/
+  * `$(AJ_ROOT)/services/base/onboarding/ios/samples/alljoyn_services_cpp/build/$(PLATFORM)-$(CONFIGURATION)/`
     * liballjoyn_onboarding_cpp.a
-  * alljoyn-ios/services/alljoyn-onboarding-14.06.00-rel/objc/lib/
+  * `$(AJ_ROOT)/services/base/onboarding/ios/samples/alljoyn_services_objc/build/$(PLATFORM)-$(CONFIGURATION)/`
     * liballjoyn_onboarding_objc.a
 
 [download]: https://allseenalliance.org/framework/download
+[core]: /develop/building/ios-osx/build-source
+[base]: /develop/building/ios-osx/build-base

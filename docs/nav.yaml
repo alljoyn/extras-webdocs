@@ -133,8 +133,11 @@
         - name: Android
           path: /develop/building/android
           contents:
-            - name: Build Source
+            - name: Build Core
               path: /develop/building/android/build-source
+              contents:
+            - name: Build Base
+              path: /develop/building/android/build-base
               contents:
         - name: Linux
           path: /develop/building/linux

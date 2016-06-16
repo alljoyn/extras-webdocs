@@ -4,6 +4,8 @@
 * [Build the thin Linux samples][build-thin-linux]
 * [Build the AllJoyn&trade; router][build-linux]. AllJoyn thin 
   apps require an AllJoyn router to connect to in order to function properly.
+* Build alljoyn thin core with the additional parameter `define=ANNOUNCE_BASED_DISCOVERY` provided to scons.
+* Build base thin with the additional parameter `define=CONTROLPANEL_SERVICE` provided to scons.
 
 ## Run Controllee Sample
 

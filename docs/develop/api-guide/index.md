@@ -10,6 +10,7 @@
 |[Control Panel][cp]      |[Java][cp-java]        |[C++][cp-cpp]     |[Objective-C][cp-objc]        |[C (Thin Core)][cp-c-thin]    |
 |[Audio Streaming][as]    |&nbsp;                 |[C++][as-cpp]     |&nbsp;                       |&nbsp;                            |
 |[Events And Actions][ea] |&nbsp;                 |&nbsp;              |&nbsp;                       |&nbsp;                            |
+|[AllJoynJS][alljoynjs]   |&nbsp;                 |&nbsp;              |&nbsp;                       |&nbsp;                            |
 
 
 [core]: /develop/api-guide/core
@@ -48,3 +49,4 @@
 [as-cpp]: /develop/api-guide/audio-streaming/cpp
 
 [ea]: /develop/api-guide/events-and-actions
+[alljoynjs]: /develop/api-guide/alljoyn-js

@@ -89,16 +89,6 @@ the notification. See the Notification API Guide listed at
 the top of this page for the platform you are targeting for
 details on using this capability.
 
-### Can I have more than 1 response action?
-
-The current Notification service framework release supports
-only one response action; however, this may change in future
-updates. Notifications are informative and designed to be
-nonintrusive to a user. If more actions are needed, the
-response action should be to launch a separate application
-that provides the user with more options and greater ability
-to interact with the Producer application/device.
-
 ### How to use the TTL on a producer
 
 The time to live (TTL) of a notification message defines the
@@ -139,20 +129,21 @@ Refer to the NotificationServiceUISample application for example code.
 #### How to handle a notification with response
 
 A notification includes an optional field where the path of
-an AllJoyn BusObject can be specified. This feature is used
-with notifications where a response, such as a yes or no confirmation,
-is associated with the notification and used to interact with the
-producer that sent the notification. From a UI standpoint, the
-notification should include a button whose onclick action will
-invoke the method on the supplied BusObject path.
+a [Control Panel][controlpanel-learn-index] can be specified (the response object path.) 
+This feature is used with notifications where a response, 
+such as a yes or no confirmation,is associated with the notification 
+and used to interact with the producer that sent the notification. 
+From a UI standpoint, the notification should include a button whose 
+onclick action will bring up a new view with the rendered Control Panel.
 
 For example, the user can receive a notification from a smart
 coffee maker that has been on for an hour and not used. The
 notification can include text that gives the user the option
 to turn off the coffee maker, and response options of yes
 or no are presented to the user accompanying the notification
-text. Clicking on "yes" would invoke an AllJoyn BusMethod on
-the coffee machine to turn off the appliance; "no" would dismiss
+text. Clicking on "yes" would invoke a method to render a view
+of the Control Panel at the response object path with the option of 
+turning off the coffee machine; "no" would dismiss
 the notification.
 
 #### Handling first time notification from a new appliance
@@ -179,3 +170,4 @@ applications contained with the Notification service framework.
 [notif-objc]: /develop/api-guide/notification/objc
 [notif-c-thin]: /develop/api-guide/notification/c-thin
 [notification-interface-definition]: /learn/base-services/notification/interface
+[controlpanel-learn-index]: /learn/base-services/controlpanel/index

@@ -291,14 +291,11 @@
             - name: iOS
               path: /develop/run-sample-apps/onboarding/ios
               contents:
-        - name: AC Server
+        - name: Server Sample
           path: /develop/run-sample-apps/acserver
           contents:
             - name: Linux
               path: /develop/run-sample-apps/acserver/linux
-              contents:
-            - name: Thin - Linux
-              path: /develop/run-sample-apps/acserver/thin-linux
               contents:
         - name: Command Line Apps
           path: /develop/run-sample-apps/test

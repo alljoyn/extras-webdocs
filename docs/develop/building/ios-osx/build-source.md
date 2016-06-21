@@ -238,52 +238,59 @@ iOS Device, iPad Simulator, or iPhone simulator as platforms for the build.
 Upon completion of the build, your binaries will be located in the following directory:
 
    ```sh
-   <alljoyn_root_directory>/alljoyn_core/build/darwin/[arm|x86]/[debug|release]/dist
+   $AJ_ROOT/core/alljoyn/build/darwin/[arm|x86]/[debug|release]/dist
    ```
 
    **NOTE:** For OS X builds, the binaries will be located under the `.../darwin/x86/...`
    directory. For iOS builds, the binaries will be located under the `.../darwin/arm/   ` directory.
 
+5. A similar process can be followed for the `alljoyn_about_[cpp|objc]` and `AllJoynFramework_iOS` Xcode projects mentioned below.
+
 ### Command line build
 
 1. Open a terminal window.
-2. Change your directory to `<alljoyn root directory>/alljoyn_objc`
+2. Change your directory to `$AJ_ROOT/core/alljoyn/alljoyn_objc`
 by running the following command:
 
    ```sh
-   $ cd <alljoyn root directory>/alljoyn_objc
+   $ cd $AJ_ROOT/core/alljoyn/alljoyn_objc
    ```
 
-3. To build for:
+3. To build for all iPhone devices:
+   
+   ```sh
+   $ xcodebuild -project alljoyn_darwin.xcodeproj -scheme alljoyn_core_ios -sdk iphoneos -configuration {VARIANT}
+   ```
 
-   * 64-bit iOS devices, run the following command:
+   * For 64-bit iOS devices, run the following command:
+
+      ```sh
+      $ xcodebuild -project alljoyn_darwin.xcodeproj -scheme alljoyn_core_arm64 -sdk iphoneos -configuration {VARIANT}
+      ```
+
+4. To build for the iOS simulator, run the following command:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-      -project alljoyn_darwin.xcodeproj
-      -scheme alljoyn_core_arm64 -sdk iphoneos -configuration Debug
+   $ xcodebuild -project alljoyn_darwin.xcodeproj -scheme alljoyn_core_ios -sdk iphonesimulator -configuration {VARIANT}
    ```
-
-   * For all other iOS devices, run the following command:
+ 
+5. Next build the About libraries:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-      -project alljoyn_darwin.xcodeproj
-      -scheme alljoyn_core_ios -sdk iphoneos -configuration Debug
+   $ cd $AJ_ROOT/core/alljoyn/services/about/ios/samples/alljoyn_services_cpp/
+   $ xcodebuild -project alljoyn_about_cpp.xcodeproj -scheme alljoyn_about_cpp -sdk {PLATFORM} -configuration {VARIANT}
+   $
+   $ cd ../alljoyn_services_objc/
+   $ xcodebuild -project alljoyn_about_objc.xcodeproj -scheme alljoyn_about_objc -sdk {PLATFORM} -configuration {VARIANT}
    ```
 
-   * iOS simulator, run the following command:
+6. Then build the AllJoynFramework_iOS library:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-      -project alljoyn_darwin.xcodeproj
-      -scheme alljoyn_core_ios -sdk iphonesimulator -configuration Debug
+   $ cd $AJ_ROOT/core/alljoyn/alljoyn_objc/AllJoynFramework_iOS/
+   $ xcodebuild -project AllJoynFramework_iOS.xcodeproj -scheme AllJoynFramework_iOS -sdk {PLATFORM} -configuration {VARIANT}
    ```
 
-   * OS X, run the following command:
 
-   ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-      -project alljoyn_darwin.xcodeproj
-      -scheme alljoyn_core_osx
-   ```
+* PLATFORM - Pass `iphoneos` when targeting an iPhone device, or `iphonesimulator` when building for the iOS simulator.
+* VARIANT - Select the build variant to build. For debug, pass `Debug`. For release, pass `Release`.

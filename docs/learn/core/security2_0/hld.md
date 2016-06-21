@@ -961,7 +961,7 @@ Or the rule must match the following criteria:
 - Be in the ACL of a peer type WITH_PUBLIC_KEY
 - The ACL's key must match the public key of the peer
 - The action mask must be an explicit deny.
-- All other criteris (object path, interface and member names) must be *
+- All other criteria (object path, interface and member names) must be *
 
 The resulting set of matched rules is applied to the message as follows:
 - If any explicit deny rule matches per above then the message is denied.

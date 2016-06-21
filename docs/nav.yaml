@@ -36,6 +36,9 @@
         - name: Thin Core
           path: /learn/core/thin-core
           contents:
+        - name: AllJoyn.js
+          path: /learn/core/alljoynjs
+          contents:
         - name: System Description
           path: /learn/core/system-description
           contents:
@@ -420,6 +423,24 @@
         - name: Events and Actions
           path: /develop/api-guide/events-and-actions
           contents:
+        - name: AllJoynJS
+          path: /develop/api-guide/alljoyn-js
+          contents:
+            - name: Core
+              path: /develop/api-guide/alljoyn-js/core
+              contents:
+            - name: Notifications
+              path: /develop/api-guide/alljoyn-js/notifications
+              contents:
+            - name: Control Panel
+              path: /develop/api-guide/alljoyn-js/control_panel
+              contents:
+            - name: IO
+              path: /develop/api-guide/alljoyn-js/io
+              contents:
+            - name: Debugging
+              path: /develop/api-guide/alljoyn-js/debugging
+              contents:
     - name: API Reference
       path: /develop/api-reference
       contents:

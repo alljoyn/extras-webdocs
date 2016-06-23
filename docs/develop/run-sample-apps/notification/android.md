@@ -45,7 +45,9 @@ display the notification text and message type.
 
 ## Additional Tips
 You can select received notifications from the list to dismiss them or execute an action. Dismissing the notification will stop
-the producer from broadcasting the notification. Executing an action will toggle a remote bus objects boolean and display a toast indicating its current state.
+the producer from broadcasting the notification. To receive a notification with an action, run the ServerSample application (which
+runs an air conditioner controllee.) From a controller set the mode to 'Fan'. Wait for your notification consumer to receive a notification
+with the message 'Fan is still running'. Executing the action on this message will present a [Control Panel][controlpanel-learn-index] with additional options.
 
 To receive a notification in a different language change the consumer language dropdown to your preferred choice. Note, this will not update
 notifications that were previously received and are currently displayed in the list.
@@ -60,3 +62,4 @@ Pressing the "Delete" button will stop the producer from broadcasting the notifi
 [3.CheckProducerCheckbox]: /files/develop/run-sample-apps/android-notification-sample/3.CheckProducerCheckbox.png
 [4.ProducerSendsHelloWorld]: /files/develop/run-sample-apps/android-notification-sample/4.ProducerSendsHelloWorld.png
 [5.ConsumerReceivesHelloWorld]: /files/develop/run-sample-apps/android-notification-sample/5.ConsumerReceivesHelloWorld.png
+[controlpanel-learn-index]: /learn/base-services/controlpanel/index 

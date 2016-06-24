@@ -3,11 +3,14 @@
 ## Setup build tools and libs
 
 Refer to instructions for [building Core from source][core].
-The **Installing the Android SDK** section is also necessary for the Base Services. 
+The **Installing the Android SDK** section is also necessary for the Base
+Services.
 
 ## Obtain the AllJoyn Base Services source
 
-* Download the [AllJoyn&trade; Base Services source zip][download] and extract its contents into the `base` directory shown in the tree below. Note, extra directories may exist.
+* Download the [AllJoyn&trade; Base Services source zip][download] and extract
+its contents into the `base` directory shown in the tree below. Note, extra
+directories may exist.
 ```sh
 AJ_ROOT/
   core/
@@ -25,8 +28,12 @@ $ git clone https://git.allseenalliance.org/gerrit/services/base.git
 
 ## Building the Base Services 
 
-NOTE: The Base Services require the following files from AllJoyn Core: `alljoyn.jar`, `alljoyn_about.jar`, `alljoyn_config.jar`, and `liballjoyn_java.so`. These can be located in the `dist` directory created from [building AllJoyn Core from source][core].
-The Android Support Library can be downloaded with the Android SDK Manager. It is found under 'extras' and currently obsolete.
+NOTE: The Base Services require the following files from AllJoyn Core:
+`alljoyn.jar`, `alljoyn_about.jar`, `alljoyn_config.jar`, and
+`liballjoyn_java.so`. These can be located in the `dist` directory created from
+[building AllJoyn Core from source][core].
+The Android Support Library can be downloaded with the Android SDK Manager. It
+is found under 'extras' and currently obsolete.
  
 1. Build the Android Common Utilities library:
 ```sh
@@ -219,7 +226,8 @@ $ popd
 
 
 * ANDROID_SDK - The path to the installed Android SDK.
-* VARIANT - Select the build variant to build. For debug, replace `{VARIANT}` with `debug`. For release, replace `{VARIANT}` with `release`.
+* VARIANT - Select the build variant to build. For debug, replace `{VARIANT}`
+with `debug`. For release, replace `{VARIANT}` with `release`.
 
 
 **NOTE:** For a full list of SCons command line options to build

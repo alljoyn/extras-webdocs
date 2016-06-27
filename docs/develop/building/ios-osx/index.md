@@ -2,8 +2,11 @@
 
 ## Getting Started
 
-* For instructions on how to obtain and build the AllJoyn&trade; Core source for iOS, go [here][core].
-* For instructions on how to obtain and build the AllJoyn&trade; Base Services source for iOS, go [here][base]. Please note that building Core is a prerequisite for Base Services. 
+* For instructions on how to obtain and build the AllJoyn&trade; Core source
+for iOS, go [here][core].
+* For instructions on how to obtain and build the AllJoyn&trade; Base Services
+source for iOS, go [here][base]. Please note that building Core is a
+prerequisite for Base Services. 
 
 ## Add the AllJoyn&trade; framework to an iOS application
 
@@ -14,13 +17,17 @@ Project Navigator. Then select the app's target under __Targets__.
 
 #### Add the AllJoyn Core library and dependencies:
 
-1. Select the __Building Settings__ tab for the app target. Click the __All__ option at the top of the list.
-2. At the top of the Build Settings list, click __Architectures__ and then select __Standard architectures (armv7, armv7s)__.
+1. Select the __Building Settings__ tab for the app target. Click the __All__
+option at the top of the list.
+2. At the top of the Build Settings list, click __Architectures__ and then
+select __Standard architectures (armv7, armv7s)__.
 3. Set __Build Active Architecture only__ to __Yes__.
-4. Scroll down to the Linking section, and set __Other Linker Flags__ to the following:
+4. Scroll down to the Linking section, and set __Other Linker Flags__ to the
+following:
 
   `-lalljoyn -lajrouter -lBundledRouter.o -lssl -lcrypto`
-5. Scroll down to the list of settings until you see the __Search Paths__ group.
+5. Scroll down to the list of settings until you see the __Search Paths__
+group.
 6. Double-click the __Header Search Paths__ field and enter the following:
 
   `$(ALLJOYN_ROOT)/core/alljoyn/build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/cpp/inc`
@@ -31,13 +38,14 @@ Project Navigator. Then select the app's target under __Targets__.
   `$(ALLJOYN_ROOT)/core/alljoyn/build/darwin/$(CURRENT_ARCH)/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/cpp/lib`
   `$(OPENSSL_ROOT)/build/$(CONFIGURATION)-$(PLATFORM_NAME)`
 
-8.  Look through the Build Settings table until you see the __Apple LLVM 5.0 - Language - C++__ group and set the following:
+8.  Look through the Build Settings table until you see the __Apple LLVM 5.0 -
+Language - C++__ group and set the following:
   * __Enable C++ Exceptions__ to __No__.
   * __Enable C++ Runtime Types__ to __No__.
   *	__C++ Language Dialect__ to __Compiler Default__.
 
-9.  Look through the Build Settings table until you see the __Apple LLVM 5.0 - Custom
-Compiler Flags__ group and set the following:
+9.  Look through the Build Settings table until you see the __Apple LLVM 5.0 -
+Custom Compiler Flags__ group and set the following:
   * Enter the following in the __Other C Flags__ field for Debug field:
 
       `-DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN`
@@ -46,13 +54,16 @@ Compiler Flags__ group and set the following:
 
       `-DNS_BLOCK_ASSERTIONS=1 -DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN`
 
-10.  Look through the Build Settings table until you see the __Apple LLVM 5.0 - Language__ group and set the following:
+10.  Look through the Build Settings table until you see the __Apple LLVM 5.0 -
+Language__ group and set the following:
   * __C Language Dialect__ to __Compiler Default__.
   * __Compile Sources As__ to __Objective-C++__.
 11.  Select the __Build Phases__ tab.
-12.  Expand the __Link Binary With Libraries__ group and click the + sign at the lower left corner. A dialog will appear.
+12.  Expand the __Link Binary With Libraries__ group and click the + sign at
+the lower left corner. A dialog will appear.
   1. Select the SystemConfiguration.framework file.
-  2.  Click the + button again and add the following libraries to link against, if not already included:
+  2.  Click the + button again and add the following libraries to link against,
+  if not already included:
     * libstdc++.6.0.9.dylib
     * libstdc++.6.dylib
     * libstdc++.dylib
@@ -61,8 +72,10 @@ Compiler Flags__ group and set the following:
     * libc++.dylib
 
 #### Add the service frameworks
-1. Select the __Build Phases__ tab for the app target. Click the __All__ option at the top of the list.
-2. Under __Link Binary with Libraries__, click on the '+' button, choose __Add Other...__, and add the following:
+1. Select the __Build Phases__ tab for the app target. Click the __All__ option
+at the top of the list.
+2. Under __Link Binary with Libraries__, click on the '+' button, choose __Add
+Other...__, and add the following:
 
   __General libs__ (needed by all apps using one or more service frameworks):
   * `$(AJ_ROOT)/core/alljoyn/build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/about/lib/`

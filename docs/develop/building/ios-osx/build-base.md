@@ -4,10 +4,14 @@
 
 Refer to instructions for [building Core from source][core].
 The **Obtaining OpenSSL** section is also necessary for the Base Services.
+Note that the sample apps provided will by default require all architectures to
+be built for its Core dependencies.
 
 ## Obtain the AllJoyn Base Services source
 
-* Download the [AllJoyn&trade; Base Services source zip][download] and extract its contents into the `base` directory shown in the tree below. Note, extra directories may exist.
+* Download the [AllJoyn&trade; Base Services source zip][download] and extract
+its contents into the `base` directory shown in the tree below. Note, extra
+directories may exist.
 ```sh
 AJ_ROOT/
   core/
@@ -31,10 +35,8 @@ $ cd $AJ_ROOT/services/base/
 $ export ALLSEEN_BASE_SERVICES_ROOT=`pwd`
 $ 
 $ pushd services_common/ios/samples/
-$ xcodebuild -project alljoyn_services_cpp/alljoyn_services_common_cpp.xcodeproj -sdk iphoneos -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
-$ xcodebuild -project alljoyn_services_cpp/alljoyn_services_common_cpp.xcodeproj -sdk iphonesimulator -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
-$ xcodebuild -project alljoyn_services_objc/alljoyn_services_common_objc.xcodeproj -sdk iphoneos -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
-$ xcodebuild -project alljoyn_services_objc/alljoyn_services_common_objc.xcodeproj -sdk iphonesimulator -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
+$ xcodebuild -project alljoyn_services_cpp/alljoyn_services_common_cpp.xcodeproj -sdk {PLATFORM} -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
+$ xcodebuild -project alljoyn_services_objc/alljoyn_services_common_objc.xcodeproj -sdk {PLATFORM} -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
 $ popd
 ```
 2. Navigate to the directory of the service you would like to build:
@@ -46,28 +48,28 @@ $ cd notification/ios/samples/
 ```
 3. Then call `xcodebuild` with the following arguments to build the libraries for that service:
 ```sh
-$ xcodebuild -project alljoyn_services_cpp/alljoyn_<service>_cpp.xcodeproj -sdk iphoneos -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
-$ xcodebuild -project alljoyn_services_cpp/alljoyn_<service>_cpp.xcodeproj -sdk iphonesimulator -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
-$ xcodebuild -project alljoyn_services_objc/alljoyn_<service>_objc.xcodeproj -sdk iphoneos -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
-$ xcodebuild -project alljoyn_services_objc/alljoyn_<service>_objc.xcodeproj -sdk iphonesimulator -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
+$ xcodebuild -project alljoyn_services_cpp/alljoyn_<service>_cpp.xcodeproj -sdk {PLATFORM} -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
+$ xcodebuild -project alljoyn_services_objc/alljoyn_<service>_objc.xcodeproj -sdk {PLATFORM} -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH}
 ```
 4. Next, call `xcodebuild` with the following arguments to build the sample app for that service:
 ```sh
-$ xcodebuild -project sampleApp/<service>.xcodeproj -sdk iphoneos -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH} ENABLE_BITCODE=NO
-$ xcodebuild -project sampleApp/<service>.xcodeproj -sdk iphonesimulator -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH} ENABLE_BITCODE=NO
+$ xcodebuild -project sampleApp/<service>.xcodeproj -sdk {PLATFORM} -configuration {VARIANT} ALLJOYN_SDK_ROOT={PATH} ENABLE_BITCODE=NO
 ```
 
 
-* ALLJOYN_SDK_ROOT - Replace `{PATH}` with the path to the root `alljoyn` directory once [building AllJoyn Core from source][core] has been completed.
-
-
-* VARIANT - Select the build variant to build. For debug, replace `{VARIANT}` with `Debug`. For release, replace `{VARIANT}` with `Release`.
+* PLATFORM - Pass `iphoneos` when targeting an iPhone device, or
+`iphonesimulator` when building for the iOS simulator.
+* ALLJOYN_SDK_ROOT - Replace `{PATH}` with the path to the root `alljoyn`
+directory once [building AllJoyn Core from source][core] has been completed.
+* VARIANT - Select the build variant to build. For debug, replace `{VARIANT}`
+with `Debug`. For release, replace `{VARIANT}` with `Release`.
 
 
 **NOTE:** For a full list of SCons command line options to build
 the AllJoyn Base Services, enter `scons --help`.
 
-The libraries and sample apps that have been built can be found in the following directories:
+The libraries and sample apps that have been built can be found in the
+following directories:
 ```sh
 $ # Sample apps
 $ $AJ_ROOT/services/base/<service>/ios/samples/sampleApp/build/{VARIANT}-{SDK}/

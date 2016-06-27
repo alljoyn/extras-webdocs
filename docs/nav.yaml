@@ -27,6 +27,16 @@
         - name: Events and Actions
           path: /learn/core/events-and-actions
           contents:
+        - name: Configuration
+          path: /learn/core/configuration
+          contents:
+            - name: Interface
+              path: /learn/core/configuration/interface
+              contents:
+            - name: Interface 14.02
+              path: /learn/core/configuration/interface-14-02
+              hidden: 1
+              contents:
         - name: Routing Node Configuration
           path: /learn/core/rn_config
           contents:
@@ -88,16 +98,6 @@
               path: /learn/base-services/onboarding/interface-14-02
               hidden: 1
               contents:
-        - name: Configuration
-          path: /learn/base-services/configuration
-          contents:
-            - name: Interface
-              path: /learn/base-services/configuration/interface
-              contents:
-            - name: Interface 14.02
-              path: /learn/base-services/configuration/interface-14-02
-              hidden: 1
-              contents:
         - name: Notification
           path: /learn/base-services/notification
           contents:
@@ -117,12 +117,6 @@
             - name: Interface 14.02
               path: /learn/base-services/controlpanel/interface-14-02
               hidden: 1
-              contents:
-        - name: Audio Streaming
-          path: /learn/base-services/audiostreaming
-          contents:
-            - name: Interface
-              path: /learn/base-services/audiostreaming/interface
               contents:
     - name: Glossary
       path: /learn/glossary

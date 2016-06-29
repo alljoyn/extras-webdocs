@@ -94,10 +94,6 @@
             - name: Interface
               path: /learn/base-services/onboarding/interface
               contents:
-            - name: Interface 14.02
-              path: /learn/base-services/onboarding/interface-14-02
-              hidden: 1
-              contents:
         - name: Notification
           path: /learn/base-services/notification
           contents:

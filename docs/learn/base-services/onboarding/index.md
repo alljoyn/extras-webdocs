@@ -1,70 +1,68 @@
-# Onboarding Service
+# AllJoyn&trade; Onboarding Framework
 
-The Onboarding service provides a common and simple way for new device
-to be brought onto the Wi-Fi network. This is especially useful for
-devices that have a limited user interface, like a SmartPlug.
+The onboarding framework provides a common and simple way for new device to be
+brought onto the AllJoyn&trade; network. This is especially useful for devices
+that have a limited user interface, like a SmartPlug.
 
 ## How Does it Work?
 
-The current onboarding mechanism leverages Wi-Fi only, though the system
-can evolve to leverages additional hardware (like BTLE) as they become
-more prelevant in these class of devices.
+Onboarding currently supports Wi-Fi only, though the system can evolve to
+leverage additional protocols (like BTLE) as they become more prevalent in this
+class of devices.
 
-Two roles are supported:
+### Device Roles:
 
-* **Onboardee**. This is the device that is unconfigured and needs to be
-  brought onto the Wi-Fi network.
+* _**Onboardee**_ &ndash; This is the device that needs to be brought onto the
+target network.
 
-* **Onboarder**. This is the device is configuring the Onboardee device,
-  typically a mobile application or PC.
+* _**Onboarder**_ &ndash; This is the device that will provide the onboardee
+with the information it needs to connect to the target network. This is
+typically a mobile or desktop application.
 
-The following are the steps to onboard a device.
+## The Onboarding Process
 
-### 1. Onboardee broadcasts its SSID
+### 1. Onboardee Broadcasts its SSID
 
-When an Onboardee device is first plugged in, it will advertise its SSID
-over Wi-Fi. The SSID is either prefixed with "AJ\_" or postfixed with "\_AJ"
-to help indicate that this device that supports the AllJoyn&trade; Onboarding service.
+When an onboardee device is first plugged in, it initiates a SoftAP network. It
+then advertises an SSID prefixed with `AJ_` to indicate that this device
+supports the AllJoyn&trade; onboarding service.
 
-### 2. Onboarder connects to Onboardee
+### 2. Onboarder Connects to Onboardee
 
-The Onboarder will scan for unconfigured AllJoyn devices by looking for
-SSID names with "AJ\_" or "\_AJ". A user can then choose to onboard a specific
-Onboardee device. The first step is to connect to the Onboardee device's
-SSID. Depending on the Onboarder platform, this may be done
-automatically by the application.
+The onboarder will scan for available AllJoyn&trade; devices by looking for
+specially prefixed SSID names. A user can then choose to onboard a specific
+onboardee device. The onboarder will then connect to the onboardee device.
+Depending on the onboarder's platform, this may be done automatically by the
+application.
 
-### 3. Onboarder sends Wi-Fi credentials
+### 3. Onboarder Sends Network Information to Onboardee
 
-After connecting to the Onboardee's SSID, the Onboarder will listen for
-[AllJoyn About announcements][about-announcement]. Then, the Onboarder will
-use the Onboarding service interfaces to send the target Wi-Fi network
-credentials to the Onboardee device.
+After connecting to the onboardee's SoftAP, the onboarder will listen for
+[AllJoyn&trade; About announcements][_r_about]. Then, the onboarder will use the
+onboarding service interface to send the target network information to the
+onboardee device.
 
-### 4. Switch to target Wi-Fi network
+### 4. Switch to Target Network
 
-Both devices will then switch to the target Wi-Fi network.
+Both devices then switch to the target network.
 
-### 5. Onboarder listens for Onboardee device
+### 5. Onboarder Listens for Onboardee Device
 
-As a final step, the Onboader will listen to receive About announcements
-from the Onboardee device. When received, the Onboarder considers
-the Onboardee device fully onboarded.
+As a final step, the onboarder will listen for receive About announcements from
+the onboardee device. When received, the onboarder considers the onboardee
+device fully onboarded.
 
-![][onboarding-state-diagram]
-
-[onboarding-state-diagram]: /files/learn/onboarding-state-diagram.png
+![Onboarding State Diagram](/files/learn/onboarding-state-diagram.png)
 
 ## Learn More
 
-* [Learn more about the Onboarding Interface Definition][onboarding-interface]
-* [Download the SDK][download], [build][build] and
-  [run the sample apps][sample-apps]
-* [Learn more about the Onboarding APIs][api-guide]
+* [Learn more about the Onboarding Interface Definition][_r_interface]
+* [Download the source][_r_download], [build][_r_build] and [run the sample apps][_r_samples]
+* [Learn more about the Onboarding APIs][_r_api]
 
-[about-announcement]: /learn/core/about-announcement
-[onboarding-interface]: /learn/base-services/onboarding/interface
-[download]: https://allseenalliance.org/framework/download
-[build]: /develop/building
-[sample-apps]: /develop/run-sample-apps/onboarding
-[api-guide]: /develop/api-guide/onboarding
+[_r_about]: /learn/core/about-announcement
+[_r_interface]: /learn/base-services/onboarding/interface
+[_r_download]: https://allseenalliance.org/framework/download
+[_r_build]: /develop/building
+[_r_samples]: /develop/run-sample-apps/onboarding
+[_r_api]: /develop/api-guide/onboarding

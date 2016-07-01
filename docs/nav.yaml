@@ -104,10 +104,6 @@
             - name: Interface
               path: /learn/base-services/notification/interface
               contents:
-            - name: Interface 14.02
-              path: /learn/base-services/notification/interface-14-02
-              hidden: 1
-              contents:
         - name: ControlPanel
           path: /learn/base-services/controlpanel
           contents:

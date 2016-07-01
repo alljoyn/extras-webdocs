@@ -1,174 +1,109 @@
-# Notification Interface Definition
+# Alljoyn&trade; Notification Framework Interface Definition
 
-## Release History
+## Overview
 
-To access a previous version of this document, click the release version link below.
+The AllJoyn&trade; Notification Framework enables devices to send
+user-presentable information to other devices on the network. _Producers_
+prepare and send notifications; _consumers_ listen, receive, and present these
+notifications for the user's attention and action. Several producers and
+consumers can be active on the AllJoyn&trade; network at the same time.
 
-|Release version | Date | What changed |
-|---|---|---|
-| Pre-14.02 | N/A | Notification interface version 1 was added. |
-| [14.02][notification-14.02] | 2/28/2014 | <p>The following interfaces were added:</p><ul><li>Dismisser interface version 1</li><li>Producer interface version 1</li></ul> |
-| 14.06 | 6/30/2014 | No updates |
-| 14.06 Update 1 | 9/29/2014 | <ul><li>Updated the document title (changed from Specification to Definition)</li><li>Added the release version number to the document title for version tracking.</li><li>Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program.</li><li>Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program.</li></ul> |
-| 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
+The framework supports multilingual text, image icon, and audio message content.
+Integration with the AllJoyn&trade; Control Panel Framework allows the producer
+to supply a control panel object. The consumer can present the controls for
+direct user interaction in response to the notification. It's also possible to
+implement application-specific content via custom attributes.
 
-## Definition Overview
-
-The AllJoyn&trade; Notification service framework is a software layer that 
-enables AllJoyn devices to send notifications to other 
-AllJoyn devices. These devices are categorized as producers 
-and consumers. Producers produce and send notifications, while 
-consumers consume and display these notifications. An end user's 
-home (Wi-Fi) network can have multiple producers connected and 
-generating notification messages, as well as multiple consumers 
-connected and consuming these messages.
-
-The Notification service framework design supports text 
-notification payload as well as rich notification media 
-(icon and audio). For rich media, the notification message 
-payload can include URL links or AllJoyn object path references 
-to rich notification media. The consumer app receiving the 
-notification message will fetch the rich notification media 
-from the object path or the producer device.
-
-The Notification service framework uses the AllJoyn framework 
-sessionless signal to deliver notification messages. The 
-Notification service framework exposes the Notification Service 
-API for application developers to deliver and receive notification 
-messages. The device OEM uses the Notification service framework 
-Producer API to send notification messages. The Notification 
-service framework sends these notification messages over the 
-AllJoyn sessionless signal transport mechanism and makes them 
-available to consumer devices listening for sessionless signals. 
-The consumer running the Notification service framework registers 
-with the AllJoyn framework to receive notification messages. 
-The application developer for the consumer device uses the 
-Notification service framework Consumer API to register and 
-receive notifications from any producer that is sending 
-notification on the Wi-Fi network.
-
-**NOTE:** All methods and signals are considered mandatory to 
-support the AllSeen Alliance Compliance and Certification program. 
+**NOTE:** All methods and signals are considered mandatory to support the
+AllSeen Alliance Compliance and Certification program.
 
 ### Architecture
 
-The Notification service framework implements the Notification 
-interface which is the over-the-wire interface to deliver messages 
-from producers to consumers. Application developers making use of 
-the Notification service framework implement against the
-Notification service framework APIs (producer and consumer side). 
-They do not implement the Notification interface.
+The framework can be divided into three primary components:
 
-The following figure illustrates the Notification service 
-framework API and Notification interface on producers and consumers.
+* Notification Service
+* Producer API
+* Consumer API
 
-![notification-arch][notification-arch]
+The Notification Service implements the Notification Interface which performs
+the work of delivering notification messages.
 
-**Figure:** Notification service framework architecture within the AllJoyn framework
+Depending on the role and capabilities of an application, either or both of the
+Producer and Consumer APIs may be used to interact with the Notification
+Service.
 
-## Typical call flow
+The following diagram shows how the Notification framework and its components
+relate to the AllJoyn&trade; ecosystem.
 
-The following figure illustrates a typical Notification service 
-framework call flow with a single producer app generating a notification 
-message. The message is then acquired by two consumer apps on the 
-AllJoyn network.
+![Notification Framework Architecture](/files/learn/notification-arch.png)
 
-![notification-typical-call-flow][notification-typical-call-flow]
+## A Typical Notification Flow
 
-**Figure:** Typical Notification service framework call flow
+The figure below illustrates the typical flow of activity amongst a producer and
+two consumers.
 
-The AllJoyn framework on the producer device does a sessionless 
-signal broadcast for the notification message. This is received 
-by the AllJoyn framework on the consumer devices. The AllJoyn 
-framework then fetches the notification message over unicast 
-session from the producer AllJoyn core and delivers to the 
-consumer application.
+![Notification Flow](/files/learn/notification-typical-call-flow.png)
+
+The producer sends out a notification, which the service transmits as a
+sessionless signal over the network. Upon receiving the signal broadcast each
+consumer establishes a unicast session with the producer to obtain the message
+content. The producer then delivers the content individually to each consumer
+that requests it.
 
 ## Specification
 
-### Notification messages
+### Notification Structure
 
-The notification message comprises a set of fields including 
-message type and message TTL. These notification fields are 
-specified by the producer app when sending notification message 
-as part of Notification service framework Producer API.
+A notification is comprised of a Type, TTL (Time to Live), and a collection of
+content fields. The producer is responsible for setting the values of all
+necessary fields prior to sending.
 
-#### Message type and TTL fields
+#### Message Type and TTL
 
-The message type defines the type of notification messages 
-(emergency, warning and information). Multiple types of 
-notification messages can be sent at the same time by a producer. 
-The message TTL defines the validity period of the notification message.
-Notification messages can be received by consumers that connect 
-during the defined message TTL value.
+The message type is one of three predefined values that express the import of
+the notification. Multiple notifications of different types may be sent by a
+single producer, but only the most recently sent of each type will be persisted.
 
-Messages with the same message type will overwrite each other 
-on the producer, so a consumer that connects to the network 
-after the notification was sent will receive only the last 
-of each message type.
+The TTL determines how long a notification will persist on the producer.
+Consumers that connect after the initial send will still receive the
+notification if the TTL has not expired. Once the TTL expires, the notification
+is permanently removed. Consumers that connect after a notification's TTL has
+expired will not receive it.
 
-#### Notification message behavior
+See [Notification Service Framework Use Cases][_r_usecases] for use case
+scenarios related to notification message behavior.
 
-The following behavior is supported using the Notification 
-service framework.
+#### Dismissing a Notification
 
-* If another notification message of the same message type 
-is sent by a producer app within the TTL period, the new message 
-overwrites the existing message.
-* If a consumer connects to the network after the TTL period 
-expires, that consumer will not receive the message. For example, 
-when a consumer such as a mobile phone is on the home network 
-and the end user leaves the home; the consumer is no longer on 
-the home network. The mobile phone will not receive notification 
-messages when it reacquires the home network and the TTL of 
-those notifications have expired.
+Consumers can choose to dismiss a notification locally or globally on behalf of
+all consumers on the AllJoyn&trade; network. To dismiss locally a consumer
+simply stops presenting the notification.
 
-**NOTE:** The value is only used for message validity on the producer 
-device. The TTL field is not sent as part of the notification 
-message payload data over the end user's home network.
+Dismissing a notification globally can be useful when there are several
+consumers on a network. Requiring the user to dismiss a notification everywhere
+it may be presented would result in a poor experience. An consumer should only
+dismiss globally in response to user action.
 
-See [Notification Service Framework Use Cases][notification-use-cases] 
-for use case scenarios related to notification message behavior.
-
-#### Dismissing a notification
-
-The dismiss notification is an option for consumers that have 
-received the notification to let the producer know that this 
-notification has been seen and there is no need to continue 
-sending. It also lets other consumers know that the notification 
-can be removed from the user display.
-
-When a consumer attempts to dismiss a notification, the service 
-framework creates a session with the producer using the original 
-sender field sent in the notification.
-
-Using the original sender field confirms that the notification 
-is received by the actual producer and not the super agent in 
-case the consumer received the notification from the super agent.
-
-The producer will then send out a dismiss sessionless signal 
-to notify the rest of the consumers in the network that this 
-notification has been dismissed.
-
-If the producer is not reachable, the consumer will send out 
-the dismiss sessionless signal on its own.
+To dismiss a notification globally, the consumer connects to the producer of the
+notification and directs it to cease its broadcast. The producer removes the
+notification and sends a sessionless signal to all consumers directing them to
+stop presenting the notification. If the producer cannot be reached, the
+consumer will send out the dismiss sessionless signal on its own.
 
 ## Notification Interface
 
-The Notification interface is announced such that when a 
-device scans the network, it can find all producer devices.
+The Notification interface is announced such that when a device scans the
+network, it can find all producer devices.
 
-### Interface name
-
-| Interface name | Version | Secured | Object path |
-|---|:---:|:---:|---|
-| `org.alljoyn.Notification` | 1 | yes | <ul><li>`/emergency`</li><li>`/warning`</li><li>`/info`</li></ul> |
+| Name                       | Version | Secured | Object Paths                                       |
+|:---------------------------|:-------:|:-------:|:---------------------------------------------------|
+| `org.alljoyn.Notification` |    1    | &check; | <ul><li>`/emergency`<li>`/warning`<li>`/info`</ul> |
 
 ### Properties
 
-|Property name | Signature | List of values | Read/Write | Description |
-|---|:---:|---|---|---|
-| Version | `q` | Positive integers | Read-only | Interface version number |
+| Name      | Signature | Values            | R/W | Description       |
+|:----------|:---------:|:------------------|:---:|:------------------|
+| `Version` |    `q`    | [`1`,`USHRT_MAX`] |  R  | Interface version |
 
 ### Methods
 
@@ -176,74 +111,54 @@ No methods are exposed by this interface.
 
 ### Signals
 
-#### `notify('qiqssaysa{ss}a{iv}a(ss)')`
+### `notify('qiqssaysa{ss}a{iv}a{ss}')`
 
-Notify signal is a Sessionless signal.
+#### Message Parameters
 
-**Message arguments**
+| Index | Name               | Signature | Values                                    | Description         |
+|:-----:|:-------------------|:---------:|:------------------------------------------|:--------------------|
+|   0   | `version`          |    `q`    | [`1`,`USHRT_MAX`]                         | Protocol version    |
+|   1   | `msgId`            |    `i`    | [`INT_MIN`,`INT_MAX`]                     | Message ID&sup1;    |
+|   2   | `msgType`          |    `q`    | _see_ [`msgType` table](#-msgtype-values) | Message type        |
+|   3   | `deviceId`         |    `s`    | GUID&sup2; (as `string`)                  | Device ID           |
+|   4   | `deviceName`       |    `s`    |                                           | Device name         |
+|   5   | `AppId`            |   `ay`    | GUID&sup2; (as `byte[]`)                  | Application ID      |
+|   6   | `appName`          |    `s`    |                                           | Application name    |
+|   7   | `attributes`       |  `a{iv}`  | _see_ [Attributes](#attributes)           | Standard attributes |
+|   8   | `customAttributes` |  `a{ss}`  |                                           | Custom attributes   |
+|   9   | `langText`         |  `a{ss}`  | Dictionary&sup3; of message strings       | Message text        |
+&sup1; &ndash; The `msgId` is unique to the producer. It is possible that
+notifications with identical `msgId` values may be broadcast simultaneously, but
+from different producers.
 
-|Argument | Parameter name | Signature | List of values | Description |
-|:---|---|:---:|---|---|
-| 0 | `version` | `q` | positive | Version of the Notification protocol. |
-| 1 | `msgId` | `i` | positive | Unique identification assigned to the notification message by the Notification service framework. |
-| 2 | `msgType` | `q` | integer | <p>Type of notification message.</p><ul><li>0 - Emergency</li><li>1 - Warning</li><li>2 - Information</li></ul> |
-| 3 | `deviceId` | `s` | positive | Globally unique identifier for a given AllJoyn-enabled device. |
-| 4 | `deviceName` | `s` | positive | Name for a given AllJoyn-enabled device. |
-| 5 | `AppId` | `ay` | positive | Globally unique identifier (GUID) for a given AllJoyn application. |
-| 6 | `appName` | `s` | string | Name for a given AllJoyn-enabled device. |
-| 7 | `attributes` | `a{iv}` | positive | Set of attribute and value pair. This is used to hold optional fields in the notification message payload. See [Attributes][attributes]. |
-| 8 | `customAttributes` | `a{ss}` | positive | Set of attribute and value pair. This can be used by the OEMs to add OEM-specific fields to the notification message. |
-| 9 | `langText` | `a{ss}` | string | Language-specific notification text. |
+&sup2; &ndash; GUID must be [RFC 4122][_r_rfc4122]-compliant.
 
-** Description**
+&sup3; &ndash; Dictionary key must contain a [RFC 5646][_r_rfc5646]-compliant
+language code.
 
-AllJoyn signal-carrying notification message.
+#### `msgType` Values
+| Value | Description |
+|:-----:|:------------|
+|   0   | Emergency   |
+|   1   | Warning     |
+|   2   | Informative |
 
-### Data types
+#### Description
 
-| Name | Definition | Signature | Description |
-|---|---|---|---|
-| notificationMsg | version | short | Version of the Notification protocol. |
-| | msgId | integer | Unique identification assigned to the notification message by the Notification service framework. |
-| | msgType | short | <p>Type of notification message.</p><ul><li>0 - Emergency</li><li>1 - Warning</li><li>2 - Information</li></ul> |
-| | deviceId | string | Globally unique identifier for a given AllJoyn-enabled device. |
-| | deviceName | string | Name for a given AllJoyn-enabled device. |
-| | appId | array of bytes | Globally unique identifier for a given AllJoyn application. |
-| | appName | string | Name for a given AllJoyn-enabled device. |
-| | List<langText> | attributes | Set of attribute and value pair. This is used to hold optional fields in the notification message payload. See [Attributes][attributes]. |
-| | List<customAttributes> | customAttributes | Set of attribute and value pair. This can be used by the OEMs to add OEM-specific fields to the notification message. |
-| langText | langTag | string | Language associated with the notification text. This is set as per RFC 5646. |
-| | text | string | Notification message text in UTF-8 character encoding. |
-| attributes | attrName | string | Name of the attribute. |
-| | attrValue | variant | Value of the attribute. |
-| customAttributes | attrName | string | Name of the attribute. |
-| | attrValue | variant | Value of the attribute. |
-
-**NOTE:** If the richIconUrl, richAudioUrl, richIconObjectPath, 
-richAudioObjectPath, or respObjectPath fields were specified 
-by the producer app for a notification message, the Notification 
-service framework sends this information as attributes in the 
-attributes field, as per [Attributes][attributes].
+AllJoyn&trade; signal carrying a notification message.
 
 ### Attributes
 
-| Attribute| Values | 
-|---|---|
-| Rich Notification Url | <ul><li>attrName=0</li><li>attrValue= </li><li>variant signature=s</li><li>value=&lt;Icon URL&gt;</li></ul> |
-| Rich Notification Audio Url | <ul><li>attrName=1</li><li>attrValue= </li><li>variant signature=a{ss}</li><li>value=List&lt;langTag, Audio URL&gt;</li></ul> |
-| Rich Notification Icon Object Path | <ul><li>attrName=2 </li><li>attrValue= (values detailed below)</li></ul> |
-| Rich Notification Audio Object Path | <ul><li>attrName=3</li><li>attrValue= (values detailed below)</li></ul> |
-| Response Object Path | <ul><li>attrName=4</li><li>attrValue= (values detailed below) </li></ul>|
-| Original Sender | <ul><li>attrName=5</li><li>attrValue= (values detailed below) </li></ul> |
-
-**attrValue information**
-
-| Attribute name | Values |
-|---|---|
-| Rich Notification Icon Object Path | <ul><li>variant signature=o</li><li>value=&lt;Rich notification icon object path&gt;</li></ul> |
-| Rich Notification Audio Object Path | <ul><li>variant signature=o</li><li>value=&lt;Rich notification audio object path&gt;</li></ul> |
-| Response Object Path | <ul><li>variant signature=o</li><li>value=&lt;Response object path>&gt;</li></ul> |
-| Original Sender | <ul><li>variant signature=s</li><li>value=&lt;Producer bus name&gt;</li></ul> |
+| Value | Signature | Values                          | Description          |
+|:-----:|:---------:|:--------------------------------|:---------------------|
+|   0   |    `s`    | Valid URL                       | Icon URL             |
+|   1   |  `a{ss}`  | Dictionary&sup1; of valid URLs. | Audio URL            |
+|   2   |    `o`    | Valid Object Path               | Icon Object Path     |
+|   3   |    `o`    | Valid Object Path               | Audio Object Path    |
+|   4   |    `o`    | Valid Object Path               | Response Object Path |
+|   5   |    `s`    | Valid Bus Name                  | Producer Bus Name    |
+&sup1; &ndash; Dictionary key must contain a [RFC 5646][_r_rfc5646]-compliant
+language code.
 
 ### Introspection XML
 
@@ -271,42 +186,40 @@ attributes field, as per [Attributes][attributes].
 
 ## Producer Interface
 
-The Notification Producer interface is announced such that, 
-when a device scans the network, it can find all producer devices.
+The Notification Producer interface is announced such that, when a device scans
+the network, it can find all producer devices.
 
-### Interface name
-
-| Interface name | Version | Secured | Object path |
-|---|:---:|:---:|---|
-| `org.alljoyn.Notification.Producer` | 1 | no | `/notificationProducer` |
+| Name                                | Version | Secured | Object path             |
+|:------------------------------------|:-------:|:-------:|:------------------------|
+| `org.alljoyn.Notification.Producer` |    1    | &check; | `/notificationProducer` |
 
 ### Properties
 
-|Property name | Signature | List of values | Read/Write | Description |
-|---|:---:|---|---|---|
-| Version | `q` | Positive integers | Read-only | Interface version number |
+| Name      | Signature | Values            | R/W | Description       |
+|:----------|:---------:|:------------------|:---:|:------------------|
+| `Version` |    `q`    | [`1`,`USHRT_MAX`] |  R  | Interface version |
 
 ### Methods
 
-The following methods are exposed by the object that implements 
-the `org.alljoyn.Notification.Producer` interface.
+The following methods are exposed by the object that implements this
+interface.
 
-#### `Dismiss('i')`
+### `Dismiss('i')`
 
-**Message arguments**
+#### Message Parameters
 
-| Argument | Parameter name| Signature | List of values | Description |
-|:---:|---|---|---|---|
-| 0 | `msgId` | integer | N/A | A way to notify the producer that a notification was dismissed. |
+| Index | Name    | Signature | Values                | Description                        |
+|:-----:|:--------|:---------:|:----------------------|:-----------------------------------|
+|   0   | `msgId` |    `i`    | [`INT_MIN`,`INT_MAX`] | ID of notification to be dismissed |
 
-**Reply arguments**
+#### Reply arguments
 
 None.
 
-**Description**
+#### Description
 
-The consumer asks the producer to send a dismiss signal and 
-stop advertising a given notification.
+The consumer requests the producer cease broadcasting a notification and send
+out a dismiss signal.
 
 ### Introspection XML
 
@@ -325,42 +238,41 @@ stop advertising a given notification.
 
 ## Dismisser Interface
 
-The Dismiss sessionless signals are sent to notify other 
-consumers on the proximal network that a notification has 
-been dismissed.
+The Dismiss sessionless signals are sent to notify other consumers on the
+proximal network that a notification has been dismissed.
 
-### Interface name
-
-| Interface name | Version | Secured | Object path |
-|---|:---:|:---:|---|
-| `org.alljoyn.Notification.Dismisser` | 1 | no | `/notification/Dismisser` |
+| Name                                 | Version | Secured | Object Path              |
+|:-------------------------------------|:-------:|:-------:|:-------------------------|
+| `org.alljoyn.Notification.Dismisser` |    1    | &cross; | `/notificationDismisser` |
 
 ### Properties
 
-|Property name | Signature | List of values | Read/Write | Description |
-|---|:---:|---|---|---|
-| Version | `q` | Positive integers | Read-only | Interface version number |
+| Name      | Signature | Value             | R/W | Description       |
+|:----------|:---------:|:------------------|:---:|:------------------|
+| `Version` |    `q`    | [`1`,`USHRT_MAX`] |  R  | Interface version |
 
 ### Signals
 
 #### `Dismiss('iay')`
 
-Dismiss signal is a Sessionless signal.
+Dismiss signal is a sessionless signal.
 
-**Message arguments**
+#### Message Parameters
 
-| Argument | Parameter name | Signature | List of values | Description |
-|:---:|---|:---:|---|---|
-| 0 | `msgId` | `i` | positive | |
-| 1 | `appId` | `ay`| positive | |
+| Index | Name    | Signature | Values                   | Description                   |
+|:-----:|:--------|:---------:|:-------------------------|:------------------------------|
+|   0   | `msgId` |    `i`    | [`INT_MIN`,`INT_MAX`]    | ID of notification to dismiss |
+|   1   | `appId` |   `ay`    | GUID&sup1; (as `byte[]`) | ID of producer                |
 
-**Description**
+&sup1; &ndash; GUID must be [RFC 4122][_r_rfc4122]-compliant.
+
+#### Description
 
 Notifies consumers that the notification has been dismissed.
 
 ### Introspect XML
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <node xsi:noNamespaceSchemaLocation="https://www.alljoyn.org/schemas/introspect.xsd"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -376,56 +288,36 @@ Notifies consumers that the notification has been dismissed.
 
 ## Notification Service Framework Use Cases
 
-### Device connecting within and outside the TTL period
+### Device Connecting Within and Outside the TTL Period
 
-The following figure illustrates two consumers (television and 
-tablet) connecting within the notification message TTL period 
-and a third consumer (smartphone) connecting after the TTL period. 
-The first two consumers receive the notification message, the 
-third consumer does not.
+The following figure illustrates two consumers (television and tablet)
+connecting within the notification message TTL period and a third consumer
+(smartphone) connecting after the TTL period. The first two consumers receive
+the notification message, the third consumer does not.
 
-**NOTE:** The AllJoyn core block represents the collective AllJoyn 
+**NOTE:** The _AllJoyn Core_ block represents the collective AllJoyn&trade;
 framework functionality on various producers and consumers.
 
-![notification-use-case-ttl-period][notification-use-case-ttl-period]
+![Notification and TTL](/files/learn/notification-use-case-ttl-period.png)
 
-**Figure:** Notification message behavior within and outside the TTL period
+### Notification Message Handling Based on Message Types
 
-### Notification message handling based on message types
+The following figure illustrates how a notification message overwrites a
+notification message of the same type, and how notification messages of
+different types can coexist using the AllJoyn&trade; framework.
 
-The following figure illustrates how a notification message 
-overwrites a notification message of the same type, and how 
-notification messages of different types can coexist using 
-the AllJoyn framework.
-
-**NOTE:** The AllJoyn core block represents the collective AllJoyn 
+**NOTE:** The _AllJoyn Core_ block represents the collective AllJoyn&trade;
 framework functionality on various producers and consumers.
 
-![notification-use-case-msg_handling][notification-use-case-msg_handling]
+![Notification and Message Types](/files/learn/notification-use-case-msg-handling.png)
 
-**Figure:** Notification message handling based on message type
+### Notifications Dismissed When Producer Is on Network
 
-### Notifications dismissed when producer is on network
+The following figure illustrates the flow of dismissing a notification from the
+consumer until it is received by other consumers on the network.
 
-The following figure illustrates the flow of dismissing a 
-notification from the consumer until it is received by other 
-consumers on the network.
+![Notification and Dismissal](/files/learn/notification-use-case-dismissed-notification-producer.png)
 
-![notification-use-case-dismissed-notification-producer][notification-use-case-dismissed-notification-producer]
-
-**Figure:** Notifications that are dismissed when the producer is on the network
-
-
-[notification-14.02]: /learn/base-services/notification/interface-14-02
-[notificationt-latest]: /learn/base-services/notification/interface
-
-[notification-arch]: /files/learn/notification-arch.png
-[notification-typical-call-flow]: /files/learn/notification-typical-call-flow.png
-[notification-use-case-ttl-period]: /files/learn/notification-use-case-ttl-period.png
-[notification-use-case-msg_handling]: /files/learn/notification-use-case-msg-handling.png
-[notification-use-case-dismissed-notification-producer]: /files/learn/notification-use-case-dismissed-notification-producer.png
-
-[attributes]: #attributes
-[notification-use-cases]: #notification-service-framework-use-cases
-
-
+[_r_usecases]: #notification-service-framework-use-cases
+[_r_rfc4122]: http://tools.ietf.org/html/rfc4122
+[_r_rfc5646]: http://tools.ietf.org/html/rfc5646

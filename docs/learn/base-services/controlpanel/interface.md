@@ -1,44 +1,33 @@
 # Control Panel Interface Definition
 
-## Release History
-
-To access a previous version of this document, click the release version link below.
-
-|Release version | Date | What changed |
-|---|---|---|
-| [14.02][controlpanel-14.02] | 2/28/2014 | <p>The following interfaces were added:</p><ul><li>ControlPanel.ControlPanel interface version 1</li><li>ControlPanel.Container interface version 1</li><li>ControlPanel.SecuredContainer interface version 1</li><li>ControlPanel.Property interface version 1</li><li>ControlPanel.SecuredProperty interface version 1</li><li>ControlPanel.LabelProperty interface version 1</li><li>ControlPanel.Action interface version 1</li><li>ControlPanel.SecuredAction interface version 1</li><li>ControlPanel.NotificationAction interface version 1</li><li>ControlPanel.Dialog interface version 1</li><li>ControlPanel.SecuredDialog interface version 1</li><li>ControlPanel.ListProperty interface version 1</li><li>ControlPanel.SecuredListProperty interface version 1</li><li>ControlPanel.HTTPControl interface version 1</li></ul> |
-| 14.06 | 6/30/2014 | No updates |
-| 14.06 Update 1 | 9/29/2014 | <ul><li>Updated the document title and Overview chapter title (changed Specification to Definition)</li><li>Added the release version number to the document title for version tracking.</li><li>Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program.</li><li>Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program.</li></ul> |
-| 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
-
 ## Definition Overview
 
-The Control Panel interfaces must be implemented by an 
-application on a controllee. The following figure illustrates 
+The Control Panel interfaces must be implemented by an
+application on a controllee. The following figure illustrates
 the relationship between a controllee app and a controller app.
 
 ![controlpanel-arch][controlpanel-arch]
 
-**Figure:** Control Panel service framework architecture within 
+**Figure:** Control Panel service framework architecture within
 the AllJoyn&trade; framework
 
-The OEM is responsible for writing the Control interfaces and 
+The OEM is responsible for writing the Control interfaces and
 the Control Panel service framework metadata.
 
-The UI Toolkit Adaption Layer, a library used to map the metadata 
-to platform-specific UI elements, is made available as part of the 
+The UI Toolkit Adaption Layer, a library used to map the metadata
+to platform-specific UI elements, is made available as part of the
 Control Panel service framework release.
 
-**NOTE:** All methods and signals are considered mandatory to support 
-the AllSeen Alliance Compliance and Certification program. 
+**NOTE:** All methods and signals are considered mandatory to support
+the AllSeen Alliance Compliance and Certification program.
 
 ## Discovery
 
-Controllees are discovered via an AllJoyn announcement. Each AllJoyn 
-device uses the About feature to announce basic app information like 
-app name, device name, manufacturer, and model number. The announcement 
-also contains the list of object paths and service interfaces to allow 
-the controller to determine whether the controllee provides 
+Controllees are discovered via an AllJoyn announcement. Each AllJoyn
+device uses the About feature to announce basic app information like
+app name, device name, manufacturer, and model number. The announcement
+also contains the list of object paths and service interfaces to allow
+the controller to determine whether the controllee provides
 functionality of interest.
 
 The About announcement is propagated using a sessionless signal.
@@ -47,7 +36,7 @@ The About announcement is propagated using a sessionless signal.
 
 ### Static Control Panel flow
 
-The following figure illustrates a typical call flow for a control 
+The following figure illustrates a typical call flow for a control
 panel that does not change once rendered.
 
 ![controlpanel-static-call-flow][controlpanel-static-call-flow]
@@ -56,7 +45,7 @@ panel that does not change once rendered.
 
 ### Dynamic Control Panel flow
 
-The following figure illustrates a call flow for a control panel that 
+The following figure illustrates a call flow for a control panel that
 changes as the end user interacts with the widgets.
 
 ![controlpanel-dynamic-call-flow][controlpanel-dynamic-call-flow]
@@ -65,8 +54,8 @@ changes as the end user interacts with the widgets.
 
 ## Error Handling
 
-The method calls in the Control Panel interfaces use the AllJoyn 
-error message handling feature (ER_BUS_REPLY_IS_ERROR_MESSAGE) 
+The method calls in the Control Panel interfaces use the AllJoyn
+error message handling feature (ER_BUS_REPLY_IS_ERROR_MESSAGE)
 to set the error name and error message.
 
 |Error name | Error message |
@@ -81,28 +70,28 @@ to set the error name and error message.
 
 ### BusObject structure
 
-The following figure shows the tree structure diagram that 
-represents the basic organization of AllJoyn objects used in 
-the support of the Control Panel service framework. A control 
+The following figure shows the tree structure diagram that
+represents the basic organization of AllJoyn objects used in
+the support of the Control Panel service framework. A control
 panel is implemented using several AllJoyn objects.
 
 ![controlpanel-busobject-map][controlpanel-busobject-map]
 
 **Figure:** BusObject map
 
-The objects are organized to support multiple units and multiple 
+The objects are organized to support multiple units and multiple
 languages. Only the top-level panels should be listed in the announcement.
 
-Since the IETF language tag allows for hyphen (-) which is not 
-allowed in the bus object path, any language tag in the object 
-path replaces a hyphen (-) with an underscore (_).
+Since the IETF language tag allows for hyphen (-) which is not
+allowed in the bus object path, any language tag in the object
+path replaces a hyphen (-) with an underscore (\_).
 
-In addition to the control panels, the Control Panel service 
-framework can also support other panels such as a notification 
+In addition to the control panels, the Control Panel service
+framework can also support other panels such as a notification
 panel. These panels are not required to be advertised in the announcement.
 
-It is the controller's job to introspect and walk the object 
-tree of a control panel to retrieve all the metadata for that 
+It is the controller's job to introspect and walk the object
+tree of a control panel to retrieve all the metadata for that
 control panel.
 
 ### BusObject map examples
@@ -121,14 +110,14 @@ control panel.
 
 ## ControlPanel Interface
 
-This interface indicates whether the object is a control panel. 
-This object will support at least one language. The service only 
-needs to advertise this type of object in the About announcement. 
-No other objects in the Control Panel service framework tree 
+This interface indicates whether the object is a control panel.
+This object will support at least one language. The service only
+needs to advertise this type of object in the About announcement.
+No other objects in the Control Panel service framework tree
 should be announced.
 
-**NOTE:** It's the responsibility of the controller to introspect 
-the children objects to locate the corresponding root container 
+**NOTE:** It's the responsibility of the controller to introspect
+the children objects to locate the corresponding root container
 of the given panel for the specific language code.
 
 ### Interface name
@@ -157,7 +146,7 @@ of the given panel for the specific language code.
 
 ## Container Interface
 
-This interface provides all the metadata to guide the 
+This interface provides all the metadata to guide the
 controller to render the UI for a container widget.
 
 | Interface name | Version | Secured | Object path |
@@ -210,7 +199,7 @@ None.
 
 **Description**
 
-The metadata has changed. This can occur due to changes in 
+The metadata has changed. This can occur due to changes in
 any of the property objects.
 
 ### Introspect XML
@@ -229,7 +218,7 @@ any of the property objects.
 
 ## Property Interface
 
-This interface provides the control mechanism for the property widget. 
+This interface provides the control mechanism for the property widget.
 Each widget is represented by an AllJoyn object implementing this interface.
 
 ### Interface name
@@ -375,13 +364,13 @@ The property's value has changed.
 ```
 
 ## LabelProperty Interface
- 
-This interface provides the control mechanism for the label 
-property widget (a text label). Each widget is represented 
+
+This interface provides the control mechanism for the label
+property widget (a text label). Each widget is represented
 by an AllJoyn object implementing this interface.
- 
+
 ### Interface name
- 
+
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
 | `org.alljoyn.ControlPanel.LabelProperty` | 1 | no | <p>`/ControlPanel/{unit}/{panel}/{language}/.../ {object name}`</p><p>Example:</p><p>/ControlPanel/airconditioner/consolel/Warning</p> |
@@ -449,16 +438,16 @@ The metadata has changed. This can occur due to changes in any of the property o
 
 ## Action Interface
 
-This interface provides the control mechanism for the Action widget. 
-Each Action widget is represented by an AllJoyn object implementing 
-this interface. An action widget can optionally provide a confirmation 
-dialog widget in its object sub-tree to allow for a pop-up dialog to 
-appear whenever the UI presentation of this action is activated. 
-The action taken on the confirmation dialog will take place instead 
+This interface provides the control mechanism for the Action widget.
+Each Action widget is represented by an AllJoyn object implementing
+this interface. An action widget can optionally provide a confirmation
+dialog widget in its object sub-tree to allow for a pop-up dialog to
+appear whenever the UI presentation of this action is activated.
+The action taken on the confirmation dialog will take place instead
 of the `Exec` method call for this Action widget.
 
 ### Interface name
- 
+
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
 | `org.alljoyn.ControlPanel.Action` | 1 | no | <p>`/ControlPanel/{unit}//{panel}/{language}/.../{object name}`</p><p>Example:</p><p>/ControlPanel/{unit}/{panel}/{language}/.../{object name}</p>  |
@@ -496,7 +485,7 @@ of the `Exec` method call for this Action widget.
 
 #### `Exec`
 
-**Message arguments** 
+**Message arguments**
 
 None.
 
@@ -539,22 +528,22 @@ The metadata has changed. This can occur due to changes in any of the property o
 
 ## NotificationAction Interface
 
-This interface indicates whether the object is a notification 
-action object. A notification object is typically referenced 
-in a notification message. Upon receiving such notification, 
-the controller can generate the notification action panel 
-based on the metadata provided by this type of object. 
-This object is different from a regular control panel since 
-it allows the controllee to send a signal to tell the controller 
+This interface indicates whether the object is a notification
+action object. A notification object is typically referenced
+in a notification message. Upon receiving such notification,
+the controller can generate the notification action panel
+based on the metadata provided by this type of object.
+This object is different from a regular control panel since
+it allows the controllee to send a signal to tell the controller
 to dismiss the panel.
 
-This object supports at least one language. It's the responsibility 
-of the controller to introspect the children objects to locate 
-the corresponding root container of the given panel for the 
+This object supports at least one language. It's the responsibility
+of the controller to introspect the children objects to locate
+the corresponding root container of the given panel for the
 specific language code.
 
 ### Interface name
- 
+
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
 | `org.alljoyn.ControlPanel.NotificationAction` | 1 | no | <p>`/NotificationPanel/{unit}/{actionPanelName}`</p><p>Example:</p><p>/NotificationPanel/washing/CycleCompleted</p> |
@@ -593,12 +582,12 @@ The controller must dismiss this notification panel.
 
 ## Dialog Interface
 
-This interface provides all the metadata to guide the controller 
-to render the UI for a dialog widget. A dialog widget typically 
+This interface provides all the metadata to guide the controller
+to render the UI for a dialog widget. A dialog widget typically
 has a message and up to three action buttons.
 
 ### Interface name
- 
+
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
 | `org.alljoyn.ControlPanel.Dialog` | 1 | no | <p>`/ControlPanel/{unit)/{panelName}/{language}/.../{dialogName}`</p><p>Example:</p><p>/ControlPanel/washing/mainPanel/en/Confirmation</p> |
@@ -665,7 +654,7 @@ None.
 
 **Description**
 
-Executes the action number 2. 
+Executes the action number 2.
 
 **Error reply**
 
@@ -685,7 +674,7 @@ None.
 
 **Description**
 
-Executes the action number 3. 
+Executes the action number 3.
 
 **Error reply**
 
@@ -728,13 +717,13 @@ The metadata has changed. This can occur due to changes in any of the property o
 
 ## ListProperty Interface
 
-This interface provides the control mechanism for the list 
-property widget. A list property widget holds a list of 
-records and a container representing the UI of the record 
+This interface provides the control mechanism for the list
+property widget. A list property widget holds a list of
+records and a container representing the UI of the record
 display/input form.
 
 ### Interface name
- 
+
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
 | `org.alljoyn.ControlPanel.ListProperty` | 1 | no | <p>`/ControlPanel/{unit}/{language}/{panel}/{object name}`</p><p>Example:</p><p>/ControlPanel/sprinkler/mainPanel/en/Schedules</p> |
@@ -783,13 +772,13 @@ None.
 
 **Description**
 
-Prepares the input form for adding a new record to the list. 
+Prepares the input form for adding a new record to the list.
 UI requirements follow:
 
-* The controller must present an OK button and tie it to the 
-`Confirm` method call. Completing the add action on the input 
+* The controller must present an OK button and tie it to the
+`Confirm` method call. Completing the add action on the input
 form will add the new record to the list.
-* The controller must present a Cancel button and tie to the 
+* The controller must present a Cancel button and tie to the
 `Cancel` method call to allow for discarding the operation.
 
 #### `Delete('q')`
@@ -806,12 +795,12 @@ None.
 
 **Description**
 
-Prepares the form for view the record prior to the delete action. 
+Prepares the form for view the record prior to the delete action.
 UI requirements follow:
-* The controller must present an OK button and tie it to the 
-`Confirm` method call. A confirm action deletes the record 
+* The controller must present an OK button and tie it to the
+`Confirm` method call. A confirm action deletes the record
 from the list.
-* The controller must present a Cancel button and tie to the 
+* The controller must present a Cancel button and tie to the
 `Cancel` method call to allow for discarding the operation.
 
 #### `View('q')`
@@ -828,7 +817,7 @@ None.
 
 **Description**
 
-Prepares the display form to view the record identified by the recordID. 
+Prepares the display form to view the record identified by the recordID.
 
 The controller must present an OK button to dismiss the view form.
 
@@ -846,14 +835,14 @@ None.
 
 **Description**
 
-Prepares the input form to view the record identified by the 
-recordID and allow the end user to modify the fields. 
+Prepares the input form to view the record identified by the
+recordID and allow the end user to modify the fields.
 UI requirements follow:
 
-* The controller must present an OK button and tie it to the 
-`Confirm` method call. A confirm action updates the given 
+* The controller must present an OK button and tie it to the
+`Confirm` method call. A confirm action updates the given
 record with new information.
-* The controller must present a Cancel button and tie to the 
+* The controller must present a Cancel button and tie to the
 `Cancel` method call to allow for discarding the operation.
 
 #### `Confirm`
@@ -912,7 +901,7 @@ None.
 
 **Description**
 
-The property's value has changed. Because the list data can 
+The property's value has changed. Because the list data can
 be large, the signal does not send the current value.
 
 ### Introspect XML
@@ -948,15 +937,15 @@ be large, the signal does not send the current value.
 
 ## Support of Existing HTTP Control Pages
 
-Should a device already have HTTP control pages hosted 
-on the device itself, it can advertise those pages using 
+Should a device already have HTTP control pages hosted
+on the device itself, it can advertise those pages using
 the HTTPControl interface.
 
-This interface provides all the information about the 
+This interface provides all the information about the
 hosted HTTP control pages on the device.
 
 ### Interface name
- 
+
 | Interface name | Version | Secured | Object path |
 |---|:---:|:---:|---|
 | `org.alljoyn.ControlPanel.HTTPControl` | 1 | no | `/Control/{unit}/HTTPControl` |

@@ -1,4 +1,4 @@
-# Control Panel API Guide
+# AllJoyn&trade; Control Panel Framework API Guide
 
 * [Java][controlpanel-java]
 * [C++][controlpanel-cpp]
@@ -60,7 +60,7 @@ This is due to the fact that the unit name and widget name
 are used as part of the AllJoyn&trade; BusObject paths that the Control
 Panel service framework utilizes. The naming conventions are as follows:
 
-* Contain only the ASCII characters "[A-Z][a-z][0-9]_"
+* Contain only the ASCII characters "[A-Z][a-z][0-9]\_"
 * Cannot be an empty string
 
 #### Control panel structure and layout

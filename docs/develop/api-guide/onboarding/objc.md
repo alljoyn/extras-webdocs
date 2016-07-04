@@ -1,4 +1,4 @@
-# Onboarding API Guide - Objective-C
+# AllJoyn&trade; Onboarding Framework API Guide &ndash; Objective-C
 
 ## Reference code
 
@@ -14,9 +14,9 @@ service framework libraries:
 
 ### Reference Objective-C application code
 
-| Application | Description |
-|---|---|
-| AboutConfOnboardingClient | UI-based application that can be used to onboard an AllJoyn&trade; device to a personal AP. This application includes also the About capability. |
+_**AboutConfOnboardingClient**_ &ndash; UI-based application that can be used to
+onboard an AllJoyn&trade; device to a personal AP. This application includes
+also the About capability.
 
 ## Obtain the Onboarding service framework
 
@@ -30,7 +30,7 @@ Onboarding application.
 
 1. Create the base for the AllJoyn application. See the
 [About API Guide][about-api-guide-objc] for more information.
-2. Set your iOS device network to connect to an AJ_ or _AJ network.
+2. Set your iOS device network to connect to an `AJ_` network.
 3. Initialize the AboutService in client mode and provide it
 with the AnnouncementHandler object.
 
@@ -72,13 +72,15 @@ For additional details, see the [About API Guide][about-api-guide-objc].
 ##### Create, start, connect, and register a Bus attachment
 
 ```objc
-clientBusAttachment = [[AJNBusAttachment alloc] initWithApplicationName:APPNAME
-allowRemoteMessages:ALLOWREMOTEMESSAGES];
+clientBusAttachment =
+    [[AJNBusAttachment alloc] initWithApplicationName:APPNAME
+                                  allowRemoteMessages:ALLOWREMOTEMESSAGES];
 [clientBusAttachment start];
-//Set a password for the daemon so Thin Clients can connect to it,
-   before you connect the bus attachment.
+
+//Set a password for the daemon so Thin Clients can connect to it
+// before you connect the bus attachment.
 [AJNPasswordManager setCredentialsForAuthMechanism:@"ALLJOYN_PIN_KEYX"
-   usingPassword:@"000000"];
+                                     usingPassword:@"000000"];
 [clientBusAttachment connectWithArguments:@""];
 [clientBusAttachment registerBusListener:self];
 ```
@@ -86,12 +88,16 @@ allowRemoteMessages:ALLOWREMOTEMESSAGES];
 ##### Register to receive announcements and sessionless signals
 
 ```objc
-announcementReceiver = [[AJNAnnouncementReceiver alloc]
-initWithAnnouncementListener:self andBus:self.clientBusAttachment];
+announcementReceiver =
+    [[AJNAnnouncementReceiver alloc] initWithAnnouncementListener:self
+                              andBus:self.clientBusAttachment];
+
 [announcementReceiver registerAnnouncementReceiver];
+
 [clientBusAttachment addMatchRule:@"sessionless='t',type='error'"];
-// Advertise the name with a quite prefix for TC to find it
-[clientBusAttachment advertiseName:@"quiet@org.alljoyn.BusNode.CPSService.542e8562- e29b-89c2-b456-334455667788"]
+
+// Advertise the name with a quiet prefix for TC to find it
+[clientBusAttachment advertiseName:@"quiet@org.alljoyn.BusNode.CPSService.542e8562-e29b-89c2-b456-334455667788"]
 ```
 
 #### Listen for announcements from Onboardee devices
@@ -110,31 +116,31 @@ the Onboarding interface. If it does, save it as an onboardee
 device for later use.
 
 ```objc
-- (void)announceWithVersion:(uint16_t)version port:(uint16_t)port
-                    busName:(NSString *)busName
-         objectDescriptions:(NSMutableDictionary *)objectDescs
-                  aboutData:(NSMutableDictionary **)aboutData
+- (void)announceWithVersion:(uint16_t)version
+                       port:(uint16_t)port
+                    busName:(NSString*)busName
+         objectDescriptions:(NSMutableDictionary*)objectDescs
+                  aboutData:(NSMutableDictionary**)aboutData
 {
 // Save the announcement in a AJNAnnouncement
-AJNAnnouncement *announcement = [[AJNAnnouncement alloc]
-initWithVersion:version port:port busName:busName
+AJNAnnouncement* announcement = [[AJNAnnouncement alloc] initWithVersion:version port:port busName:busName
 objectDescriptions:objectDescs aboutData:aboutData];
 
-NSMutableDictionary *announcementObjDecs = [announcement objectDescriptions];
+NSMutableDictionary* announcementObjDecs = [announcement objectDescriptions];
 
-// See if this announcment is from a controller device for
-     (NSString *key in announcementObjDecs.allKeys) {
-   if ([key hasPrefix: @"/Onboarding/"]) {
-      for (NSString *intf in[announcementObjDecs valueForKey:key]) {
-         if ([intf isEqualToString: @"org.alljoyn.Onboarding"]) {
-            hasOnboarding = true;
-         }
-      }
-   }
+// See if this announcment is from a controller device
+for (NSString* key in announcementObjDecs.allKeys) {
+    if ([key hasPrefix: @"/Onboarding/"]) {
+        for (NSString* intf in[announcementObjDecs valueForKey:key]) {
+            if ([intf isEqualToString: @"org.alljoyn.Onboarding"]) {
+                hasOnboarding = true;
+            }
+        }
+    }
 }
 
 if(hasOnboarding == true)
-NSLog(@"This announcement has the onboarding service");
+    NSLog(@"This announcement has the onboarding service");
 ```
 
 ### Use the Onboarding service framework
@@ -143,8 +149,7 @@ NSLog(@"This announcement has the onboarding service");
 in the About Announcement.
 
 ```objc
-onboardingClient =	[[AJOBSOnboardingClient alloc]
-initWithBus:clientBusName];
+onboardingClient = [[AJOBSOnboardingClient alloc] initWithBus:clientBusName];
 ```
 
 2. Provide a UI for the user to input/select the personal AP,
@@ -152,17 +157,19 @@ then send via OnboardingClient.
 
 ```objc
 AJOBInfo obInfo;
-obInfo.SSID =ssidTextField.text;
-obInfo.passcode =ssidPassTextField.text;
+obInfo.SSID = ssidTextField.text;
+obInfo.passcode = ssidPassTextField.text;
 obInfo.authType = ANY;
-[onboardingClient configureWiFi:onboardeeBus obInfo:obInfo
-resultStatus:resultStatus sessionId:sessionId];
+[onboardingClient configureWiFi:onboardeeBus
+                         obInfo:obInfo
+                   resultStatus:resultStatus
+                      sessionId:sessionId];
 ```
 
 3. Tell the Onboardee to join the network provided.
 
 ```objc
-[onboardingClient connectTo:onboardeeBus sessionId:sessionId] ;
+[onboardingClient connectTo:onboardeeBus sessionId:sessionId];
 ```
 
 **NOTE:** To see the device on the target AP, the user must connect

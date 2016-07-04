@@ -1,4 +1,4 @@
-# Notification Service API Guide - Objective-C
+# AllJoyn&trade; Notification Framework API Guide &ndash; Objective-C
 
 ## Using the Notification Service
 
@@ -23,17 +23,17 @@ An application can be a consumer, a producer, or both.
 
 ### Source code
 
-| Component | Description |
-|---|---|
-| AllJoyn&trade; | The AllJoyn Standard Library code |
-| NotificationService | Notification service framework code |
-| ServiceCommons | Code that is common to the AllJoyn service frameworks |
-| SampleApps | Code that is common to the AllJoyn service framework sample applications |
+| Component           | Description                                                              |
+|:--------------------|:-------------------------------------------------------------------------|
+| AllJoyn&trade;      | The AllJoyn Standard Library code                                        |
+| NotificationService | Notification service framework code                                      |
+| ServiceCommons      | Code that is common to the AllJoyn service frameworks                    |
+| SampleApps          | Code that is common to the AllJoyn service framework sample applications |
 
 ### Reference iOS application code
 
-| Application | Description |
-|---|---|
+| Application         | Description                                         |
+|:--------------------|:----------------------------------------------------|
 | NotificationService | An iOS application of both a producer and consumer. |
 
 ## Prerequisites
@@ -110,8 +110,7 @@ self.aboutService = [QASAboutServiceApi sharedInstance];
   self.producerService =  [[AJNSNotificationService alloc] init];
 ```
 
-#### Start the Notification producer, providing the bus attachment
-and About property store implementation
+#### Start the Notification producer, providing the bus attachment and About property store implementation
 
 ```objc
   AJNSNotificationSender *Sender;
@@ -127,7 +126,7 @@ and About property store implementation
 
 #### Create a Notification
 
-  Required parameters are `Message Type` and `Notification Text`
+Required parameters are `Message Type` and `Notification Text`
 
 ```objc
   AJNSNotification *notification;
@@ -135,9 +134,9 @@ and About property store implementation
      andNotificationText:self.notificationTextArr];
 ```
 
-  Set the `DeviceId` `DeviceName` `AppId` `AppName` and
-  `Sender` so that applications that receive and consumer the
-  notification know where it came from and who sent it.
+Set the `DeviceId` `DeviceName` `AppId` `AppName` and
+`Sender` so that applications that receive and consumer the
+notification know where it came from and who sent it.
 
 ```objc
   [self.notification setDeviceId:nil];
@@ -149,7 +148,7 @@ and About property store implementation
 
 #### Send the Notification
 
-  Provide a valid TTL.
+Provide a valid TTL.
 
 ```objc
   QStatus sendStatus = [self.Sender send:self.notification ttl:nttl];

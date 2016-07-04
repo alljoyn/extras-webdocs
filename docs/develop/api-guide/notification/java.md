@@ -1,19 +1,19 @@
-# Notification API Guide - Java
+# AllJoyn&trade; Notification Framework API Guide &ndash; Java
 
 ## Reference code
 
 ### Source code
 
-| Package | Description |
-|---|---|
-| NotificationService | Notification service framework code, not platform-dependent. |
-| NotificationServiceCommons | Code that is common to all Java AllJoyn&trade; service frameworks. |
-| NotificationServiceNativePlatformAndroid | Code that is Android-specific. |
+| Package                                  | Description                                                        |
+|:-----------------------------------------|:-------------------------------------------------------------------|
+| NotificationService                      | Notification service framework code, not platform-dependent.       |
+| NotificationServiceCommons               | Code that is common to all Java AllJoyn&trade; service frameworks. |
+| NotificationServiceNativePlatformAndroid | Code that is Android-specific.                                     |
 
 ### Reference Java application code
 
-| Application | Description |
-|---|---|
+| Application                 | Description                                                                                              |
+|:----------------------------|:---------------------------------------------------------------------------------------------------------|
 | NotificationServiceUISample | UI-based application that can be used as a producer and/or a consumer to send and receive notifications. |
 
 ## Obtain the Notification service framework
@@ -91,6 +91,7 @@ try {
 }
 catch (Exception e) {
    Log.e(TAG, "AboutConfigService failed, Error: " + e.getMessage());
+}
 ```
 
 ### Initialize the Notification service framework
@@ -143,11 +144,11 @@ The following optional parameters can be added to the notification:
 notification. Each audio URL is set per language.
 
   ```java
-   List< RichAudioUrl> audioUrl = new LinkedList< RichAudioUrl>();
-   audioUrl.add(new NotificationText("en", "http://audioUrl.com/notif_en.wav"));
-   audioUrl.add(new NotificationText("de", "http://audioUrl.com/notif_de.wav""));
+  List< RichAudioUrl> audioUrl = new LinkedList< RichAudioUrl>();
+  audioUrl.add(new NotificationText("en", "http://audioUrl.com/notif_en.wav"));
+  audioUrl.add(new NotificationText("de", "http://audioUrl.com/notif_de.wav"));
 
-      notif.setRichAudioUrl(audioUrl);
+  notif.setRichAudioUrl(audioUrl);
   ```
 
 * Icon object path - Set an icon object path so that the receiver
@@ -169,7 +170,7 @@ be used to interact with a bus object to allow the user to
 perform a control action as a result of a notification.
 
   ```java
-   notif.setResponseObjectPath(/CPS/OBJ/PATH);
+   notif.setResponseObjectPath("/CPS/OBJ/PATH");
   ```
 
 #### Send the notification
@@ -183,7 +184,7 @@ notificationSender.send(notif, ttl);
 Once a notification was sent out and the application writer
 would like to cancel it, for example, if the notification was
 sent for an event that no longer occurs, and the TTL is still
-valid, use the deleteLastMsg API to delete the last notification
+valid, use the `deleteLastMsg` API to delete the last notification
 for a given messageType.
 
 ```java
@@ -283,9 +284,9 @@ List<NotificationText> text	= notification.getText();
 List<RichAudioUrl> richAudioUrlL = notification.getRichAudioUrl();
 
 String richIconUrl	= notification.getRichIconUrl();
-   String richIconObjPath	= notification.getRichIconObjPath();
-   String richAudioObjPath	= notification.getRichAudioObjPath();
-   String responseObjectPath = notification.getResponseObjectPath();
+String richIconObjPath	= notification.getRichIconObjPath();
+String richAudioObjPath	= notification.getRichAudioObjPath();
+String responseObjectPath = notification.getResponseObjectPath();
 ```
 
 For more details, refer to the API documentation.

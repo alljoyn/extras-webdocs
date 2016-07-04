@@ -1,4 +1,4 @@
-# Notification API Guide
+# AllJoyn&trade; Notification Framework API Guide
 
 * [Java][notif-java]
 * [C++][notif-cpp]
@@ -38,7 +38,7 @@ An application making use of the Notification service framework
 should never assume that a specific application designed to be
 the Notification Consumer side is the only instance in the
 proximal network. Again, every message will travel to all
-Nofication Consumer applications to be displayed.
+Notification Consumer applications to be displayed.
 
 ### When to send an Emergency notification
 
@@ -129,12 +129,12 @@ Refer to the NotificationServiceUISample application for example code.
 #### How to handle a notification with response
 
 A notification includes an optional field where the path of
-a [Control Panel][controlpanel-learn-index] can be specified (the response object path.) 
-This feature is used with notifications where a response, 
-such as a yes or no confirmation,is associated with the notification 
-and used to interact with the producer that sent the notification. 
-From a UI standpoint, the notification should include a button whose 
-onclick action will bring up a new view with the rendered Control Panel.
+a [Control Panel][controlpanel-learn-index] can be specified (the response object path.)
+This feature is used with notifications where a response,
+such as a yes or no confirmation,is associated with the notification
+and used to interact with the producer that sent the notification.
+From a UI standpoint, the notification should include a button whose
+`onclick` action will bring up a new view with the rendered Control Panel.
 
 For example, the user can receive a notification from a smart
 coffee maker that has been on for an hour and not used. The
@@ -142,7 +142,7 @@ notification can include text that gives the user the option
 to turn off the coffee maker, and response options of yes
 or no are presented to the user accompanying the notification
 text. Clicking on "yes" would invoke a method to render a view
-of the Control Panel at the response object path with the option of 
+of the Control Panel at the response object path with the option of
 turning off the coffee machine; "no" would dismiss
 the notification.
 

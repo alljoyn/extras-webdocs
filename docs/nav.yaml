@@ -114,10 +114,6 @@
             - name: Interface
               path: /learn/base-services/controlpanel/interface
               contents:
-            - name: Interface 14.02
-              path: /learn/base-services/controlpanel/interface-14-02
-              hidden: 1
-              contents:
     - name: Glossary
       path: /learn/glossary
       contents:

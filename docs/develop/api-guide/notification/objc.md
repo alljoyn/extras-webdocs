@@ -1,4 +1,4 @@
-# Notification Service API Guide - Objective-C
+# AllJoyn&trade; Notification Framework API Guide &ndash; Objective-C
 
 ## Using the Notification Service
 
@@ -23,17 +23,17 @@ An application can be a consumer, a producer, or both.
 
 ### Source code
 
-| Component | Description |
-|---|---|
-| AllJoyn&trade; | The AllJoyn Standard Library code |
-| NotificationService | Notification service framework code |
-| ServiceCommons | Code that is common to the AllJoyn service frameworks |
-| SampleApps | Code that is common to the AllJoyn service framework sample applications |
+| Component           | Description                                                              |
+|:--------------------|:-------------------------------------------------------------------------|
+| AllJoyn&trade;      | The AllJoyn Standard Library code                                        |
+| NotificationService | Notification service framework code                                      |
+| ServiceCommons      | Code that is common to the AllJoyn service frameworks                    |
+| SampleApps          | Code that is common to the AllJoyn service framework sample applications |
 
 ### Reference iOS application code
 
-| Application | Description |
-|---|---|
+| Application         | Description                                         |
+|:--------------------|:----------------------------------------------------|
 | NotificationService | An iOS application of both a producer and consumer. |
 
 ## Prerequisites
@@ -84,12 +84,11 @@ initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true];
 #### Create a PropertyStore and fill it with the needed values
 
 ```objc
-self.aboutPropertyStoreImpl = [[QASAboutPropertyStoreImpl alloc]
-   init]; setAppId:[[NSUUID UUID] UUIDString];
+self.aboutPropertyStoreImpl = [[QASAboutPropertyStoreImpl alloc] init];
+[self.aboutPropertyStoreImpl setAppId:[[NSUUID UUID] UUIDString];
 [self.aboutPropertyStoreImpl setAppName:@"NotificationApp"];
 [self.aboutPropertyStoreImpl setDeviceId:@"1231232145667745675477"];
 [self.aboutPropertyStoreImpl setDeviceName:@"Screen"];
-NSArray* languages = @[@"en", @"sp", @"de"];
 ```
 
 #### Start the About Service
@@ -97,7 +96,7 @@ NSArray* languages = @[@"en", @"sp", @"de"];
 ```objc
 self.aboutService = [QASAboutServiceApi sharedInstance];
 [self.aboutService startWithBus:self.busAttachment
-   andPropertyStore:self.aboutPropertyStoreImpl];
+  andPropertyStore:self.aboutPropertyStoreImpl];
 ```
 
 ### Create Notification Producer
@@ -105,62 +104,60 @@ self.aboutService = [QASAboutServiceApi sharedInstance];
 #### Initialize the Notification service framework
 
 ```objc
-  AJNSNotificationService *producerService;
-  // Initialize a AJNSNotificationService object
-  self.producerService =  [[AJNSNotificationService alloc] init];
+AJNSNotificationService *producerService;
+// Initialize a AJNSNotificationService object
+self.producerService =  [[AJNSNotificationService alloc] init];
 ```
 
-#### Start the Notification producer, providing the bus attachment
-and About property store implementation
+#### Start the Notification producer, providing the bus attachment and About property store implementation
 
 ```objc
-  AJNSNotificationSender *Sender;
-  // Call initSend
-  self.Sender = [self.producerService startSendWithBus:self.busAttachment
-    andPropertyStore:self.aboutPropertyStoreImpl];
-  if (!self.Sender) {
-      [self.logger fatalTag:[[self class] description]
-        text:@"Could not initialize Sender"];
-      return ER_FAIL;
-  }
+AJNSNotificationSender *Sender;
+// Call initSend
+self.Sender = [self.producerService startSendWithBus:self.busAttachment
+andPropertyStore:self.aboutPropertyStoreImpl];
+if (!self.Sender) {
+  [self.logger fatalTag:[[self class] description]
+    text:@"Could not initialize Sender"];
+  return ER_FAIL;
+}
 ```
 
 #### Create a Notification
 
-  Required parameters are `Message Type` and `Notification Text`
+Required parameters are `Message Type` and `Notification Text`
 
 ```objc
-  AJNSNotification *notification;
-  self.notification = [[AJNSNotification alloc] initWithMessageType:self.messageType
-     andNotificationText:self.notificationTextArr];
+AJNSNotification* notification;
+self.notification = [[AJNSNotification alloc] initWithMessageType:self.messageType
+ andNotificationText:self.notificationTextArr];
 ```
 
-  Set the `DeviceId` `DeviceName` `AppId` `AppName` and
-  `Sender` so that applications that receive and consumer the
-  notification know where it came from and who sent it.
+Set the `DeviceId` `DeviceName` `AppId` `AppName` and
+`Sender` so that applications that receive and consume the
+notification know where it came from and who sent it.
 
 ```objc
-  [self.notification setDeviceId:nil];
-  [self.notification setDeviceName:nil];
-  [self.notification setAppId:nil];
-  [self.notification setAppName:self.appName];
-  [self.notification setSender:nsender];
+[self.notification setDeviceId:nil];
+[self.notification setDeviceName:nil];
+[self.notification setAppId:nil];
+[self.notification setAppName:self.appName];
+[self.notification setSender:nsender];
 ```
 
 #### Send the Notification
 
-  Provide a valid TTL.
+Provide a valid TTL.
 
 ```objc
-  QStatus sendStatus = [self.Sender send:self.notification ttl:nttl];
-  if (sendStatus != ER_OK) {
-    [self.logger infoTag:[[self class] description]
-       text:[NSString stringWithFormat:@"Send has failed"]];
-  }
-  else {
-    [self.logger infoTag:[[self class] description]
-       text:[NSString stringWithFormat:@"Successfully sent!"]];
-  }
+QStatus sendStatus = [self.Sender send:self.notification ttl:nttl];
+if (sendStatus != ER_OK) {
+  [self.logger infoTag:[[self class] description]
+    text:[NSString stringWithFormat:@"Send has failed"]];
+} else {
+  [self.logger infoTag:[[self class] description]
+    text:[NSString stringWithFormat:@"Successfully sent!"]];
+}
 ```
 
 #### Advanced Features
@@ -182,7 +179,8 @@ to set up the AllJoyn framework.
 
 ```objc
 AJNBusAttachment* bus = [[AJNBusAttachment alloc]
-initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true];
+  initWithApplicationName:@"CommonServiceApp"  
+  allowRemoteMessages:true];
 [bus start];
 ```
 
@@ -192,37 +190,37 @@ initWithApplicationName:@"CommonServiceApp" allowRemoteMessages:true];
 #### Initialize the Notification service framework
 
 ```objc
-  AJNSNotificationService *consumerService;
-  self.consumerService = [AJNSNotificationService sharedInstance];
+AJNSNotificationService *consumerService;
+self.consumerService = [AJNSNotificationService sharedInstance];
 ```
 
 #### Implement the `notificationReceiver` interface (`receive` and
 `dismissMsgId` methods)
 
 ```objc
-  - (void)receive:(AJNSNotification *)ajnsNotification
-  {
-    // application logic to handle the received notification
-  }
+- (void)receive:(AJNSNotification*)ajnsNotification
+{
+  // application logic to handle the received notification
+}
 
-  - (void)dismissMsgId:(const int32_t)msgId appId:(NSString*) appId
-  {
-    // application logic to handle the dismissed notification
-  }
+- (void)dismissMsgId:(const int32_t)msgId appId:(NSString*)appId
+{
+  // application logic to handle the dismissed notification
+}
 ```
 
-#### Start the Notification consumer, providing the bus attachment
-and Notification receiver
+#### Start the Notification consumer, providing the bus attachment and Notification receiver
 
 ```objc
-  // Call "initReceive"
-  status = [self.consumerService startReceive:self.busAttachment
-     withReceiver:self];
-  if (status != ER_OK) {
-    [self.logger fatalTag:[[self class] description]
-       text:@"Could not initialize receiver"];
-    return ER_FAIL;
-  }
+// Call "initReceive"
+status =
+  [self.consumerService startReceive:self.busAttachment withReceiver:self];
+
+if (status != ER_OK) {
+  [self.logger fatalTag:[[self class] description]
+    text:@"Could not initialize receiver"];
+  return ER_FAIL;
+}
 ```
 
 Refer to the Notification Service Sample App source code

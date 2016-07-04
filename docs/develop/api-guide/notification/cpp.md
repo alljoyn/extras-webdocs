@@ -1,22 +1,22 @@
-# Notification API Guide - C++
+# AllJoyn&trade; Notification Framework API Guide &ndash; C++
 
 ## Reference code
 
 ### Source code
 
-| Package | Description |
-|---|---|
-| AllJoyn&trade; | The Standard Client AllJoyn code |
-| AboutService | About feature code |
-| NotificationService | Notification service framework code |
-| Services Common | Code that is common to the AllJoyn&trade; service frameworks |
-| Sample Apps | Code that is common to the AllJoyn service framework sample applications
+| Package             | Description                                                              |
+|:--------------------|:-------------------------------------------------------------------------|
+| AllJoyn&trade;      | The Standard Client AllJoyn code                                         |
+| AboutService        | About feature code                                                       |
+| NotificationService | Notification service framework code                                      |
+| Services Common     | Code that is common to the AllJoyn&trade; service frameworks             |
+| Sample Apps         | Code that is common to the AllJoyn service framework sample applications |
 
 ### Reference C++ application code
 
-| Application | Description |
-|---|---|
-| Producer Basic | Basic application that sends a hard-coded notification. |
+| Application      | Description                                                        |
+|:-----------------|:-------------------------------------------------------------------|
+| Producer Basic   | Basic application that sends a hard-coded notification.            |
 | Consumer Service | Simple consumer application that displayed received notifications. |
 
 ### Obtain the Notification service framework
@@ -26,14 +26,15 @@ for instructions on compiling the Notification service framework.
 
 ### Build a Notification Producer
 
-The following steps provide the high-level process to build a Notification Producer.
+The following steps provide the high-level process to build a Notification
+Producer.
 
 1. Create the base for the AllJoyn application.
-2. Implement the ProperyStore and use this with the AboutService
-in server mode. See the [About API Guide][about-api-guide-cpp] for instructions.
+2. Implement the ProperyStore and use this with the AboutService in server mode.
+See the [About API Guide][about-api-guide-cpp] for instructions.
 3. Initialize the Notification service and create a Producer.
-4. Create a notification, populate the necessary fields,
-and use the Producer to send the notification.
+4. Create a notification, populate the necessary fields, and use the Producer to
+send the notification.
 
 ### Build a Notification Consumer
 
@@ -42,8 +43,7 @@ Notification Consumer.
 
 1. Create the base for the AllJoyn application.
 2. Create a class that implements the NotificationReceiver.
-3. Initialize the Notification service and provide the
-receiver implementation.
+3. Initialize the Notification service and provide the receiver implementation.
 4. Start receiving notifications.
 
 ### Setting up the AllJoyn framework and About feature
@@ -89,86 +89,102 @@ propertyStore = new AboutPropertyStoreImpl();
 propertyStore->setDeviceId(deviceId);
 propertyStore->setAppId(appIdHex);
 propertyStore->setAppName(appName);
+
 std::vector<qcc::String> languages(3);
 languages[0] = "en";
 languages[1] = "sp";
 languages[2] = "fr";
+
 propertyStore->setSupportedLangs(languages);
 propertyStore->setDefaultLang(defaultLanguage);
-   DeviceNamesType::const_iterator iter = deviceNames.find(languages[0]);
-   if (iter != deviceNames.end()) {
-      CHECK_RETURN(propertyStore->setDeviceName(iter->second.c_str(), languages[0]));
-   } else {
-      CHECK_RETURN(propertyStore->setDeviceName("My device name", "en"));
-   }
 
-   iter = deviceNames.find(languages[1]);
-   if (iter != deviceNames.end()) {
-      CHECK_RETURN(propertyStore->setDeviceName(iter->second.c_str(), languages[1]));
-   } else {
-      CHECK_RETURN(propertyStore->setDeviceName("Mi nombre de dispositivo",
-"sp"));
-   }
+DeviceNamesType::const_iterator iter = deviceNames.find(languages[0]);
+if (iter != deviceNames.end()) {
+  CHECK_RETURN(propertyStore->setDeviceName(iter->second.c_str(), languages[0]));
+} else {
+  CHECK_RETURN(propertyStore->setDeviceName("My device name", "en"));
+}
 
-   iter = deviceNames.find(languages[2]);
-   if (iter != deviceNames.end()) {
-      CHECK_RETURN(propertyStore->setDeviceName(iter->second.c_str(), languages[2]));
-   } else {
-      CHECK_RETURN(propertyStore->setDeviceName("Mon nom de l'appareil", "fr"));
-   }
+iter = deviceNames.find(languages[1]);
+if (iter != deviceNames.end()) {
+  CHECK_RETURN(propertyStore->setDeviceName(iter->second.c_str(), languages[1]));
+} else {
+  CHECK_RETURN(propertyStore->setDeviceName("Mi nombre de dispositivo", "sp"));
+}
+
+iter = deviceNames.find(languages[2]);
+if (iter != deviceNames.end()) {
+  CHECK_RETURN(propertyStore->setDeviceName(iter->second.c_str(), languages[2]));
+} else {
+  CHECK_RETURN(propertyStore->setDeviceName("Mon nom de l'appareil", "fr"));
+}
 ```
 
 #### Implement a BusListener and SessionPortListener
 
-In order to bind a SessionPort and accept sessions, a new
-class must be created that inherits from the AllJoyn
-BusListener and SessionPortListener classes.
+In order to bind a `SessionPort` and accept sessions, a new class must be created
+that inherits from the `AllJoynBusListener` and `SessionPortListener` classes.
 
 The class must contain the following function:
 
 ```cpp
-bool AcceptSessionJoiner(SessionPort sessionPort,
-   const char* joiner, const
-SessionOpts& opts)
+bool AcceptSessionJoiner(
+    SessionPort sessionPort,
+    const char* joiner,
+    const SessionOpts& opts);
 ```
 
-The AcceptSessionJoiner function will be called any time a
-joinsession request is received; the Listener class needs
-to dictate whether the joinsession request should be accepted
+The `AcceptSessionJoiner` function will be called any time a
+`joinsession` request is received; the Listener class needs
+to dictate whether the `joinsession` request should be accepted
 or rejected by returning true or false, respectively.
 These considerations are application-specific and can include
 any of the following:
 
-* The SessionPort the request was made on
-* Specific SessionOpts limitations
+* The `SessionPort` the request was made on
+* Specific `SessionOpts` limitations
 * The number of sessions already joined.
 
 Here is an example of a full class declaration for the listener class.
 
 ```cpp
-class CommonBusListener : public ajn::BusListener,
-   public ajn::SessionPortListener {
+class CommonBusListener
+: public ajn::BusListener
+, public ajn::SessionPortListener
+{
+  public:
+    CommonBusListener();
+    ~CommonBusListener();
 
-   public: CommonBusListener();
-     ~CommonBusListener();
-      bool AcceptSessionJoiner(ajn::SessionPort sessionPort,
-         const char* joiner, const ajn::SessionOpts& opts);
-   void setSessionPort(ajn::SessionPort sessionPort);
-      ajn::SessionPort getSessionPort();
-   private:
-      ajn::SessionPort m_SessionPort;
+    bool AcceptSessionJoiner(ajn::SessionPort sessionPort
+        , const char* joiner
+        , const ajn::SessionOpts& opts);
+
+    void setSessionPort(ajn::SessionPort sessionPort);
+
+    ajn::SessionPort getSessionPort();
+
+  private:
+    ajn::SessionPort m_SessionPort;
 };
+```
 
 #### Instantiate the BusListener and initialize the About feature
 
 ```cpp
-busListener = new CommonBusListener(); AboutServiceApi::Init(*bus, *propertyStore);
+AboutServiceApi::Init(*bus, *propertyStore);
 AboutServiceApi* aboutService = AboutServiceApi::getInstance();
+
+CommonBusListener* busListener = new CommonBusListener();
 busListener->setSessionPort(port);
 bus->RegisterBusListener(*busListener);
-TransportMask transportMask = TRANSPORT_ANY; SessionPort sp = port;
-SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, SessionOpts::PROXIMITY_ANY, transportMask);
-bus->BindSessionPort(sp, opts, *busListener);
+
+SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES
+    , false
+    , SessionOpts::PROXIMITY_ANY
+    , TRANSPORT_ANY);
+bus->BindSessionPort(port, opts, *busListener);
+
 aboutService->Register(port);
 bus->RegisterBusObject(*aboutService);
 ```
@@ -176,7 +192,7 @@ bus->RegisterBusObject(*aboutService);
 ### Initialize the Notification service framework
 
 ```cpp
-NotificationService* prodService = NotificationService::getInstance()
+NotificationService* prodService = NotificationService::getInstance();
 ```
 
 ### Start the Notification producer
@@ -276,7 +292,7 @@ status = Sender->send(notification, TTL);
 Once a notification was eligible for delivery and the
 application writer wants to cancel it, for example, if the
 notification was sent for an event that no longer occurs,
-and the TTL is still valid, the deleteLastMsg API can be
+and the TTL is still valid, the `deleteLastMsg` API can be
 used to delete the last notification for a given messageType.
 
 ```cpp
@@ -307,18 +323,18 @@ conService = NotificationService::getInstance();
 
 #### Implement the notificationReceiver interface
 
-The notificationReceiver interface has a Receive method that
-gets a notificationObject as an argument.
+The `notificationReceiver` interface has a `Receive` method that
+gets a `notificationObject` as an argument.
 
 When a notification is received by the Notification service
 framework, it will call the Receive method of the implemented
-notificationReceiver interface with the notification.
+`notificationReceiver` interface with the notification.
 
 ```cpp
 public void Receive(ajn::services::Notification const& notification);
 ```
 
-The notificationObject has "getters" for all notification arguments
+The `notificationObject` has "getters" for all notification arguments
 that were sent in the message. Arguments that describe the device
 and the app it was received from follow.
 
@@ -347,19 +363,19 @@ const std::vector<RichAudioUrl>& getRichAudioUrl() const;
 const char* getControlPanelServiceObjectPath() const;
 ```
 
-The Notification Producer interface has a dismiss method that
+The Notification Producer interface has a `dismiss` method that
 is used to dismiss notification.
 
 An application can choose to dismiss the notification, thereby
-removing the notificartion from all entities in the proximal area.
+removing the notification from all entities in the proximal area.
 
 An application that wants to dismiss a notification must call
 the `QStatus dismiss()` method.
 
 ```cpp
-At void 'derived of NotificationReceiver'::receive(Notification conast& notification)
+void NotificationReceiverDerivedType::receive(Notification const& notification)
 {
-   Notification.dismiss()
+   Notification.dismiss();
 }
 ```
 
@@ -371,7 +387,7 @@ receiver = new NotificationReceiverTestImpl();
 
 For more details, refer to the API documentation.
 
-The notificationReceiver interface has a dismiss method that
+The `notificationReceiver` interface has a `dismiss` method that
 gets called when the receiver gets a dismiss signal.
 
 ```cpp
@@ -383,13 +399,13 @@ This method also must be implemented by the derived class.
 When the method is called, the application must dismiss the
 notification it holds.
 
-The identifiers to the notification are - mgsId and appId
+The identifiers to the notification are - `mgsId` and `appId`
 which are the parameters of the method
 
 #### Start the consumer
 
 Start the consumer and pass it the bus attachment and the
-notificationReceiver implmented in [Implement the notificationReceiver interface][implement-notificationreceiver-interface].
+notificationReceiver implemented in [Implement the notificationReceiver interface][implement-notificationreceiver-interface].
 
 ```cpp
 conService->initReceive(busAttachment, Receiver);

@@ -4,6 +4,36 @@ The AllJoyn standard core builds and runs on the following platforms. The depth
 and type of testing for each platform varies, so consult the linked release
 information for detailed test information.
 
+## 16.04 release
+
+#### Platforms
+
+| Platform     | Core | Base Services | Platform Versions | Toolchain/IDE             |
+|--------------|:----:|:-------------:|-------------------|---------------------------|
+| Windows      |  X   |       X       | Windows 7 to 10   | VS 2012, VS 2013, VS 2015 |
+| Android      |  X   |       X       | JB, KK, LP        | Android SDK, NDK r10e     |
+| iOS          |  X   |       X       | iOS 8.1           | XCode 7.1                 |
+| OS X         |  X   |               | OS X 10.9         | XCode 7.1                 |
+| Linux Ubuntu |  X   |       X       | Ubuntu 14.04      |                           |
+| Open WRT     |  X   |       X       | BB, CC            | <br>                      |
+
+
+#### Language Bindings
+
+The table below lists which language bindings are supported on which platforms
+for Core and Base Services
+
+| Platform     | C++         | C    | Java        | Objective-C |
+|--------------|-------------|------|-------------|-------------|
+| Windows      | Core, Base  | Core | Core        |             |
+| Android      | Core, Base  | Core | Core, Base  |             |
+| iOS          | Core        |      |             | Core, Base  |
+| OS X         | Core        |      |             |             |
+| Linux Ubuntu | Core, Base  | Core | Core        |             |
+| Open WRT     | Core, Base  | Core |             | <br>        |
+
+---
+
 ## 15.09 release
 
 #### Platforms

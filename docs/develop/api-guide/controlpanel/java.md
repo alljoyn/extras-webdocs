@@ -1,18 +1,18 @@
-# Control Panel API Guide - Java
+# AllJoyn&trade; Control Panel Framework API Guide &ndash; Java
 
 ## Reference code
 
 ### Control Panel service framework packages
 
-| Package | Description |
-|---|---|
+| Package                 | Description                                                               |
+|:------------------------|:--------------------------------------------------------------------------|
 | ControlPanelService.jar | The service layer does all the work against the AllJoyn&trade; framework. |
-| ControlPanelAdapter.jar | Creates Android-specific user interface views. |
+| ControlPanelAdapter.jar | Creates Android-specific user interface views.                            |
 
 ### Reference Java application code
 
-| Application | Description |
-|---|---|
+| Application             | Description                                                          |
+|:------------------------|:---------------------------------------------------------------------|
 | ControlPanelBrowser.apk | Sample application that uses the service framework and adapter APIs. |
 
 
@@ -180,10 +180,11 @@ with the desired language.
 
 ```java
 Collection<DeviceControlPanel> controlPanels =
-      controlPanelCollection.getControlPanels();
+    controlPanelCollection.getControlPanels();
+
 for(DeviceControlPanel controlPanel : controlPanels) {
    String cpLanguage = controlPanel.getLanguage();
-   if (cpLanguage.equalsIgnoreCase(desired_language){
+   if (cpLanguage.equalsIgnoreCase(desired_language)) {
       //found the desired device control panel
       DeviceControlPanel deviceControlPanel = controlPanel;
    }

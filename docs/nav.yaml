@@ -27,6 +27,12 @@
         - name: Events and Actions
           path: /learn/core/events-and-actions
           contents:
+        - name: Configuration
+          path: /learn/core/configuration
+          contents:
+            - name: Interface
+              path: /learn/core/configuration/interface
+              contents:
         - name: Routing Node Configuration
           path: /learn/core/rn_config
           contents:
@@ -35,6 +41,9 @@
           contents:
         - name: Thin Core
           path: /learn/core/thin-core
+          contents:
+        - name: AllJoyn.js
+          path: /learn/core/alljoynjs
           contents:
         - name: System Description
           path: /learn/core/system-description
@@ -81,45 +90,17 @@
             - name: Interface
               path: /learn/base-services/onboarding/interface
               contents:
-            - name: Interface 14.02
-              path: /learn/base-services/onboarding/interface-14-02
-              hidden: 1
-              contents:
-        - name: Configuration
-          path: /learn/base-services/configuration
-          contents:
-            - name: Interface
-              path: /learn/base-services/configuration/interface
-              contents:
-            - name: Interface 14.02
-              path: /learn/base-services/configuration/interface-14-02
-              hidden: 1
-              contents:
         - name: Notification
           path: /learn/base-services/notification
           contents:
             - name: Interface
               path: /learn/base-services/notification/interface
               contents:
-            - name: Interface 14.02
-              path: /learn/base-services/notification/interface-14-02
-              hidden: 1
-              contents:
         - name: ControlPanel
           path: /learn/base-services/controlpanel
           contents:
             - name: Interface
               path: /learn/base-services/controlpanel/interface
-              contents:
-            - name: Interface 14.02
-              path: /learn/base-services/controlpanel/interface-14-02
-              hidden: 1
-              contents:
-        - name: Audio Streaming
-          path: /learn/base-services/audiostreaming
-          contents:
-            - name: Interface
-              path: /learn/base-services/audiostreaming/interface
               contents:
     - name: Glossary
       path: /learn/glossary
@@ -133,8 +114,11 @@
         - name: Android
           path: /develop/building/android
           contents:
-            - name: Build Source
+            - name: Build Core
               path: /develop/building/android/build-source
+              contents:
+            - name: Build Base
+              path: /develop/building/android/build-base
               contents:
         - name: Linux
           path: /develop/building/linux
@@ -142,20 +126,29 @@
             - name: OpenWRT
               path: /develop/building/linux/openwrt
               contents:
-            - name: Build Source
+            - name: Build Core
               path: /develop/building/linux/build-source
+              contents:
+            - name: Build Base
+              path: /develop/building/linux/build-base
               contents:
         - name: iOS/OS X
           path: /develop/building/ios-osx
           contents:
-            - name: Build Source
+            - name: Build Core
               path: /develop/building/ios-osx/build-source
+              contents:
+            - name: Build Base
+              path: /develop/building/ios-osx/build-base
               contents:
         - name: Windows
           path: /develop/building/windows
           contents:
-            - name: Build Source
+            - name: Build Core
               path: /develop/building/windows/build-source
+              contents:
+            - name: Build Base
+              path: /develop/building/windows/build-base
               contents:
         - name: Thin - Linux
           path: /develop/building/thin-linux
@@ -276,17 +269,14 @@
             - name: Linux
               path: /develop/run-sample-apps/onboarding/linux
               contents:
-            - name: iOS/OS X
-              path: /develop/run-sample-apps/onboarding/ios-osx
+            - name: iOS
+              path: /develop/run-sample-apps/onboarding/ios
               contents:
-        - name: AC Server
+        - name: Server Sample
           path: /develop/run-sample-apps/acserver
           contents:
             - name: Linux
               path: /develop/run-sample-apps/acserver/linux
-              contents:
-            - name: Thin - Linux
-              path: /develop/run-sample-apps/acserver/thin-linux
               contents:
         - name: Command Line Apps
           path: /develop/run-sample-apps/test
@@ -399,15 +389,27 @@
             - name: C (Thin Core)
               path: /develop/api-guide/controlpanel/c-thin
               contents:
-        - name: Audio Streaming
-          path: /develop/api-guide/audio-streaming
-          contents:
-            - name: C++
-              path: /develop/api-guide/audio-streaming/cpp
-              contents:
         - name: Events and Actions
           path: /develop/api-guide/events-and-actions
           contents:
+        - name: AllJoynJS
+          path: /develop/api-guide/alljoyn-js
+          contents:
+            - name: Core
+              path: /develop/api-guide/alljoyn-js/core
+              contents:
+            - name: Notifications
+              path: /develop/api-guide/alljoyn-js/notifications
+              contents:
+            - name: Control Panel
+              path: /develop/api-guide/alljoyn-js/control_panel
+              contents:
+            - name: IO
+              path: /develop/api-guide/alljoyn-js/io
+              contents:
+            - name: Debugging
+              path: /develop/api-guide/alljoyn-js/debugging
+              contents:
     - name: API Reference
       path: /develop/api-reference
       contents:

@@ -1,156 +1,105 @@
-# Notification
+# Alljoyn&trade; Notification Framework
 
-The AllJoyn&trade; Notification Service framework provides a common mechanism for
-devices/apps to send human-readable text to be displayed or otherwise rendered
-(e.g., text to speech can render the text as audio). Notifications are broadcasted
-on the AllJoyn network for all devices/apps to receive, and persists for a
-specified TTL defined by the producer of the notification. In addition to text,
-other metadata like audio, images, control panel objects, or other custom
-attributes can be sent; it is up to the receipient to determine the best
-way to handle and render custom attributes. Also, Notifications can be
-globally dismissed on all consumers.
+The AllJoyn&trade; Notification Framework provides a common way for devices to
+send and receive information intended for presentation to the user.
+
+Notifications are broadcast to all connected devices on the AllJoyn&trade;
+network. A notification persists for a specified duration. Message content
+can include text, audio, image, or AllJoyn&trade; Control Panel objects, as
+well as custom-defined data.
+
+The notification framework leverages the power of AllJoyn&trade; Sessionless
+Signals to deliver messages across the network.
 
 ## Concepts and Terminology
 
-### Producer and Consumer
+### Roles
 
-Two roles exist:
-* Producer. This is who sends the notification.
-* Consumer. This is who receives the notification.
+* _**Producer**_ &ndash; The device that _sends_ the notification.
+* _**Consumer**_ &ndash; The device that _receives_ the notification.
 
 ### Message Types
 
-Notifications can be one of three types: Info, Warning, and Emergency. Info
-should be used most of the time. When appropriate, a Warning can be used to
-draw more attention to the notification. Similary, Emergency can be used
-prudently in situations when extreme attention is required.
+* _**Info**_ &ndash; The most general and most commonly used message type.
+* _**Warning**_ &ndash; Can be used to draw more attention to the message.
+* _**Emergency**_ &ndash; To be used in the most extreme circumstances, where
+lack of action may result in harm to people or property.
 
-### Time-to-live (TTL)
+### TTL (Time to Live)
 
-Each message is sent with a specific Time-to-live (TTL), in units of
-milliseconds. The message will persist on the network until its TTL
-expires. If a Consumer joins the network within the TTL, he will
-receive the message.
+Each notification is sent with a prescribed TTL, in seconds. The notification
+will persist on the network (within the producer) until its TTL expires.
+Consumers that connect to the network after a notification is sent will receive
+the notification if the TTL has not expired.
 
-Additionally, messages using the same Message Type overwrite one
-another. So, at any given time, no more than 1 message from each of
-the 3 Message Types can be valid for a given Producer. For example,
-if a Producer sends an Info message 20 seconds after sending the
-previous Info message that had a 100-second TTL, the new message will
-overwrite the previous message. Consumers from this point forward
-would only receive the new message and not the old message, even
-though the TTL of the old message did not yet expire.
+### One Notification per Message Type per Producer
 
-### Multiple Language Support
+Notifications are not queued. Only one notification of a specific message type
+is persisted within the producer at a time. When a new notification is sent,
+any existing notification with an equivalent message type is overwritten, even
+if its TTL has not expired.
 
-Like all AllJoyn services, Notification supports multiple languages. The
-Producer sends the notification string in all supported lanugages. The
-Consumer can use whatever supported language is most appropriate for
-its needs.
+### Dismissal
 
-### Dismiss
+A notification may be dismissed:
 
-Dismissing notifications can occur in 3 ways:
+* _**Locally**_ &ndash; An individual consumer removes the notification from its
+UI. The notification remains available to other consumers on the network.
 
-1. A Consumer can dismiss the notification locally by
-   removing the notification from its user interface so that its uses
-   no longer see the notifications. This will have no bearing on if the notification is visibile by other Consumers on the network.
+* _**Connected**_ &ndash; A consumer or producer sends a message to all
+consumers to remove the notification from their respective UIs. The notification
+remains on the producer and may be sent to consumers that connect before the TTL
+expires.
 
-2. Consumers or Producers, can send a signal to all
-   Consumers on the network to dimiss. Consumers, upon receiving this
-   signal, is expected to remove the notification from view.
+* _**Producer**_ &ndash; A consumer connects to the producer and requests that
+it stop broadcasting the notification. The notification will be removed, and new
+consumers will not receive it when they connect to the network.
 
-3. A Consumer can tell the Producer to stop broadcasting the notification
-   Subsequently, new Consumers will no longer receive the notification.
+### Language Support
 
-### Audio and Image
+Notification content can be provided in multiple languages. The producer
+provides content in every language it supports. The consumer then selects the
+content most appropriate for its needs.
 
-Notifications allows for attributes to be specified. This gives the
-notification an extra dimension beyond just text. Most common attributes
-are audio and image. The attribute can either be specified as a URL or as
-an AllJoyn object path. If the URL is provided, the consumer can optionally
-fetch the audio and/or image via the specified URL and render it locally as
-appropriate.
+### Attributes for Audio and Image Content
 
-### Control Panel Object Path
+Attributes provide a flexible means of supplementing the content of a
+notification with more than text.
 
-A special attribute is the control panel object path. The producer fills
-out this attribute to provide extra direction to the consumer. When the
-consumer receives this notificaiton, if it supports the Control Panel service, it
-is encouraged to fetch the control panel at the object path and render
-it to the user. Typically this is done to allow the consumer to perform
-an action associated with a notification.
+Support is pre-defined for supplying icon and audio content. Either can be
+provided via AllJoyn&trade; Object Path or URL. On receiving the notification,
+the consumer may acquire the icon and/or prompt and present it to the user
+alongside the text content.
 
-An example is if the oven has been left on for some, in addition to
-sending a notification, it can include a control panel to be rendered
-to provide to the user the option of turning off the oven.
+### Control Panel Integration
+
+Notifications can also direct consumers to an AllJoyn&trade; Control Panel
+object. If the consumer supports the Control Panel framework, it can present the
+controls to the user for immediate action in response to the notification.
+
+A good example would involve an oven appliance that's been left on for an long
+time and sends a notification to warn the user. With control panel support, the
+consumer of this message can present the controls necessary to turn off the oven
+without requiring the user to find the necessary controls manually.
 
 ### Custom Attributes
 
-A notification can contain any number of custom key/value pair attributes.
-The Consumer can optionally use this information to display a richer
-notification. Custom attributes are application-specific, so
-the Consumer needs to have special informationa about the
-Producer in order to properly use the custom attributes
-
-As an example, imagine a radio sent a notification every time a
-new song was played. This notification contains the artist and
-title as the notification text and a custom attribute for the
-album art URL. A normal Consumer would receive the notification
-and only display the notification text, that is, the artist and
-title. But a Consumer that is aware of this Producer, could also
-get the album art URL and display that along with the
-notification text to provide a richer custom notificaiton.
-
-## How It Works
-
-Under the hood, notifications are sent using AllJoyn Sessionless Signals.
-Sessionless Signals provide everything that is needed to send and receive
-the notification:
-
-* A mechanism for a Producer to broadcast information to AllJoyn
-  apps/devices on the AllJoyn network.
-
-* A concept of a TTL.
-
-* A mechanism for new Consumers to join the network to be informed
-  of previously broadcasted notifications whose TTL had not expired.
-
-The sessionless signal contains the full notification, including
-all supported languages, and full metadata. Refer to the [Notification
-Interface Definition][notif-interface] for more details on the specific
-contents of the signal.
-
-Dismissing notifications are also handled by sessionless signals.
-
-In summary, this is how things work:
-
-* A Producer sends a sessionless signal containing the notification.
-
-* Consumers will receive this signal and display the notification.
-
-* Consumers joining the network later will also receive this signal
-  and display the information.
-
-* When the TTL expires, the Procuder will stop broadcasting this
-  sessionless signal. Consumers will stop displaying the notification
-
-* At any time, a Producer or Consumer can send a sessionless signal
-  to dismiss the notificaiton. Consumers, upon receiving this, will
-  stop displaying the notification.
-
-* A Consumer can connect to the Producer to request that the
-  notification stop being broadcasted.
+Message attributes are key-value pairs. They can be used for just about anything
+that might improve context or control for the user. An AllJoyn&trade;
+application can add any number of custom attributes to a notification. For these
+attributes to be useful, consumers must be aware of them. Thus, custom
+attributes are best suited to systems where the producer and consumer are either
+the same device or made by the same vendor.
 
 ## Learn More
 
-* [Learn more about the Notification Interface Definition][notif-interface]
-* [Download the SDK][download], [build][build] and
-  [run the sample apps][sample-apps]
-* [Learn more about the APIs][api-guide]
+* [Learn more about the Framework Interface Definition][_r_interface]
+* [Download the source][_r_download], [build][_r_build] and
+  [run the sample apps][_r_samples]
+* [Learn more about the APIs][_r_api]
 
-[notif-interface]: /learn/base-services/notification/interface
-[download]: https://allseenalliance.org/framework/download
-[build]: /develop/building
-[sample-apps]: /develop/run-sample-apps/notification
-[api-guide]: /develop/api-guide/notification
+[_r_interface]: /learn/base-services/notification/interface
+[_r_download]: https://allseenalliance.org/framework/download
+[_r_build]: /develop/building
+[_r_samples]: /develop/run-sample-apps/notification
+[_r_api]: /develop/api-guide/notification

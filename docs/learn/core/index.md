@@ -174,6 +174,7 @@ client application.
 * [Learn more about the low-level details of the AllJoyn system][aj-system]
 
 [about]: /learn/core/about-announcement
+[alljoynjs]: /learn/core/alljoynjs
 [events-and-actions]: /learn/core/events-and-actions
 [alljoyn-core-sessions]: /files/learn/alljoyn-core-sessions.png
 [alljoyn-core-busobject]: /files/learn/alljoyn-core-busobject.png

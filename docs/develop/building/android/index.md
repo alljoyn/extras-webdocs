@@ -1,34 +1,24 @@
 # Building Android
 
-## Setup
+## Getting Started
 
- 1. [Download][download] the following Android SDKs:
-     * Core SDK (release)
-     * Onboarding SDK
-     * Configuration SDK
-     * Notification SDK
-     * Control Panel SDK
-
- 2. Extract all ZIP files to one directory.
-
-## Build Samples
-
-Note, you may need to adjust the below paths based on the version you downloaded
-
- 1. Import projects from:
-     * alljoyn-android/core/alljoyn-14.06.00-rel/java/samples
-     * alljoyn-android/services
-
- 2. Add Support Library
-
-     To add "android-support-v4.jar", right-click on the project,
-     select "Android Tools" > "Add Support Library"
+* For instructions on how to obtain and build the AllJoyn&trade; Core source
+for Android, go [here][core].
+* For instructions on how to obtain and build the AllJoyn&trade; Base Services
+source for Android, go [here][base]. Please note that building Core is a
+prerequisite for Base Services.
 
 ## Building the AllJoyn&trade; framework for an existing app:
 
- 1. In your project, create a "libs/armeabi" dir if it doesn't already exist.
- 2. Copy "alljoyn-android/core/alljoyn-14.06.00-rel/java/lib/liballjoyn_java.so" to the "libs/armeabi" dir.
- 3. Copy "alljoyn-android/core/alljoyn-14.06.00-rel/java/jar/alljoyn.jar" to the "libs" dir.
- 4. If using a Service Framework, copy the jars from the "alljoyn-android/services/&lt;SERVICE FRAMEWORK&gt;/java/libs/*.jar" to the "libs" dir.
+ 1. In your project, create a `libs/armeabi` dir if it doesn't already exist.
+ 2. Copy `$AJ_ROOT/core/alljoyn/build/android/arm/{VARIANT}/dist/java/lib/
+ liballjoyn_java.so` to the `libs/armeabi` dir.
+ 3. Copy `$AJ_ROOT/core/alljoyn/build/android/arm/{VARIANT}/dist/java/jar/
+ alljoyn.jar` to the `libs` dir.
+ 4. If using a Service Framework, copy the jars from the
+ `$AJ_ROOT/services/base/<SERVICEFRAMEWORK>/java/
+ <SERVICE>/{build/deploy,bin}/*.jar` to the `libs` dir.
 
 [download]: https://allseenalliance.org/framework/download
+[core]: /develop/building/android/build-source
+[base]: /develop/building/android/build-base

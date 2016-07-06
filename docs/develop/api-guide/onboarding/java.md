@@ -1,22 +1,22 @@
-# Onboarding API Guide - Java
+# AllJoyn&trade; Onboarding Framework API Guide &ndash; Java
 
-## Reference code
+## Reference Code
 
-### Onboarder application components
+### Onboarder Application Components
 
-| Component | Description |
-|---|---|
-| AllJoyn&trade; Standard Library framework | <ul><li>alljoyn.jar</li><li>alljoyn_about.jar</li></ul> |
-| Onboarding service framework package | <ul><li>alljoyn_onboarding.jar</li><li>alljoyn_onboarding_sdk.jar</li></ul> |
-| SampleApps utility package | alljoyn_apps_android_utils.jar |
+| Component                           | Description                     |
+|:------------------------------------|:--------------------------------|
+| AllJoyn&trade; Standard Core        | alljoyn.jar<p>alljoyn_about.jar |
+| AllJoyn&trade; Onboarding Framework | OnboardingService.jar           |
+| Android Sample Utilities            | alljoyn_apps_android_utils.jar  |
 
-### Reference Java application code
+### Reference Java Application Code
 
-| Application | Description |
-|---|---|
-| OnboardingSDKSampleClient | A sample Android application that utilizes the Onboarding SDK to retrieve potential Onboardees and personal APs, and bring an Onboardee on the user's personal AP. |
+_**OnboardingSampleClient**_ &ndash; Android application demonstrating the
+process of selecting an onboardee and a target network and onboarding the
+new device onto the target network.
 
-## Setting up the AllJoyn framework
+## Setting Up AllJoyn&trade;
 
 The steps required for this service framework are universal
 to all applications that use the AllJoyn framework and for
@@ -88,7 +88,7 @@ For additional details, see the [About API Guide][about-api-guide-android].
 AboutService aboutService = AboutServiceImpl.getInstance();
 aboutService.startAboutClient(busAttachment);
 
-// Listen to AllJoyn device announcments
+// Listen to AllJoyn device announcements
 aboutService.addAnnouncementHandler(this, new
 String[]{OnboardingTransport.INTERFACE_NAME});
 ```
@@ -313,10 +313,10 @@ The following figure illustrates the AllJoyn device state during the onboarding 
 
 ### Onboarding process connection points
 
-| Field name | Required |
-|---|---|
-| SoftAP availability | <p>SoftAP is available when the device is in any of the following states:</p><ul><li>Personal AP Not Configured</li><li>Personal AP Configured/Not Validated</li><li>Personal AP Configured/Error</li><li>Personal AP Configured/Retry</li></ul> |
-| Automatic connection to validated personal | At startup time, the device will automatically connect to the personal AP if is configured and validated. |
+| Field name                                     | Required                                                                                                                                                                                                                                                                                                                                                                                                              |
+|:-----------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SoftAP availability                            | <p>SoftAP is available when the device is in any of the following states:</p><ul><li>Personal AP Not Configured</li><li>Personal AP Configured/Not Validated</li><li>Personal AP Configured/Error</li><li>Personal AP Configured/Retry</li></ul>                                                                                                                                                                      |
+| Automatic connection to validated personal     | At startup time, the device will automatically connect to the personal AP if is configured and validated.                                                                                                                                                                                                                                                                                                             |
 | AP Failed connection attempts with personal AP | If the device is in personal AP Configured/Validated state but the device fails to connect after a configurable number of delayed attempts, it will move to state Personal AP Configured/Retry. In this state, the SoftAP is enabled to allow the device to be reconfigured. After a timer expires, the device goes back to the Personal AP Configured/Validated and it will try to connect to the Personal AP again. |
 
 ## Best Practices
@@ -364,7 +364,7 @@ for a password/passphrase.
 #### Use the Wi-Fi scan list from the Onboardee device
 
 Once the Wi-Fi list is generated per [Use the Wi-Fi scan list
-from the device running the Onboarder application][use-wifi-scan-list-onboarder], use the 
+from the device running the Onboarder application][use-wifi-scan-list-onboarder], use the
 Onboarding service framework API to request the list of APs
 that the Onboardee device can detect.  This will ensure
 that the consumer selected/entered AP is detected by both

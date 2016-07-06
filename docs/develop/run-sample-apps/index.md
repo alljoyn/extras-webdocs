@@ -17,8 +17,8 @@ or be written in a different language binding.
   service framework as a Producer and a Consumer.
 * [Control Panel][controlpanel] These samples show how to use the two sides of
   the Control Panel service framework, the Controller and the Controllable.
-* [AC Server][acserver] This sample shows how to use multiple service frameworks
-  together in a single application.
+* [Server Sample][acserver] This sample shows how to use multiple service frameworks
+  together in a single application to simulate an air conditioner.
 * [Command Line Apps][cli] These command line samples are useful during development.
 * [AllJoyn.js][alljoyn-js] This shows how to run AllJoyn.js and the Console
 

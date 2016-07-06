@@ -16,7 +16,8 @@ Install the following on your OS X 10.9 or above system:
 1. Open a browser and navigate to
 http://itunes.apple.com/us/app/xcode/id497799835?mt=12.
 2. Download and install the free Xcode application.
-3. After successful installation, from your Applications folder, select and open Xcode.
+3. After successful installation, from your Applications folder, select and
+open Xcode.
 4. Select the **Xcode > Preferences** menu item.
 5. Select the **Downloads** tab.
 6. Select the **Components** tab.
@@ -64,8 +65,8 @@ $ brew install git
 **NOTE:** Appledoc is not required if you do not want to generate
 the API Reference Manual.
 
-The appledoc tool generates documentation for the AllJoyn
-Objective-C language binding. For more information, see http://gentlebytes.com/appledoc/.
+The appledoc tool generates documentation for the AllJoyn Objective-C language
+binding. For more information, see http://gentlebytes.com/appledoc/.
 
 1. Open a browser and navigate to https://github.com/tomaz/appledoc.
 
@@ -164,23 +165,24 @@ openssl.xcodeproj folder you downloaded from GitHub into this folder.
  Make sure of the following :
 
   * 'Valid Architectures' field has 'arm64' as one of the values.
-  * Under Architectures you have 'Standard architectures (armv7, arm64)' selected
+  * Under Architectures you have 'Standard architectures (armv7, arm64)'
+  selected
   * 'Build Active Architecture Only = No'
 
 
-6.  In Xcode, build the crypto target (libssl.a and libcrypto.a)
-for each combination of configuration (debug|release) and
-platform (iphoneos|iphonesimulator) that you need for your
-iOS project by selecting **Product > Build For > (your desired configuration)**.
-7. Create a new folder called **build** under the top-level
-OpenSSL folder created in step 2 (i.e., `/Development/openssl/openssl-1.0.1/build`).
-8. Locate your OpenSSL build products folders (i.e., Debug-iphoneos)
-in the /Users/<your username>/Library/Developer/Xcode/DerivedData/XXXXXXXXXXXXX-openssl/Build/Products folder,
-and copy all the <configuration>-<platform> folders, like Debug-iphoneos,
-to the build folder created in step 7.
-   You should now have a folder structure similar to the
-   following, containing libssl and libcrypto for each $(CONFIGURATION)-$(PLATFORM_NAME)
-   you built in step 6:
+6. In Xcode, build the crypto target (libssl.a and libcrypto.a) for each
+combination of configuration (debug|release) and platform
+(iphoneos|iphonesimulator) that you need for your iOS project by selecting
+**Product > Build For > (your desired configuration)**.
+7. Create a new folder called **build** under the top-level OpenSSL folder
+created in step 2 (i.e., `/Development/openssl/openssl-1.0.1/build`).
+8. Locate your OpenSSL build products folders (i.e., Debug-iphoneos) in the
+`/Users/<username>/Library/Developer/Xcode/DerivedData/XXXXXXXXXXXXX-openssl
+/Build/Products` folder, and copy all the <configuration>-<platform> folders,
+like Debug-iphoneos, to the build folder created in step 7.
+   You should now have a folder structure similar to the following, containing
+   libssl and libcrypto for each $(CONFIGURATION)-$(PLATFORM_NAME) you built in
+   step 6:
 
    ```sh
    openssl-1.0.1c build
@@ -188,18 +190,20 @@ to the build folder created in step 7.
    Debug-iphonesimulator libssl.a libcrypto.a
    ```
 
-9. Define an environment variable OPENSSL_ROOT=<path to the OpenSSL source top folder>
-   This environment variable needs to be present whenever you build projects using the
-   AllJoyn SDK.
+9. Define an environment variable `OPENSSL_ROOT=<path to the OpenSSL source top
+folder>`. This environment variable needs to be present whenever you build
+projects using the AllJoyn SDK.
 
-    9a. For Mac OS X 10.7 to 10.9, to set the environment variable, open a Terminal window and type the following:
+    9a. For Mac OS X 10.7 to 10.9, to set the environment variable, open a
+    Terminal window and type the following:
     ````sh
     launchctl setenv OPENSSL_ROOT <path to top level folder containing openssl>
     ````
-    9b. With Mac OS X 10.10, environment variable processing changed. Most importantly, OPENSSL_ROOT
-    must be defined before launching Xcode (Xcode will not pick up new or changed variables
-    after launching). Therefore, to set the environment variable, open a Terminal window and type
-    the following:
+    9b. With Mac OS X 10.10, environment variable processing changed. Most
+    importantly, `OPENSSL_ROOT` must be defined before launching Xcode
+    (Xcode will not pick up new or changed variables after launching).
+    Therefore, to set the environment variable, open a Terminal window and
+    type the following:
 
     ```sh
     launchctl setenv OPENSSL_ROOT <path to top level folder containing openssl>
@@ -217,8 +221,9 @@ AllJoyn binaries for OS X or iOS.
 
 1. Do one of the following:
 
-   1. Navigate in Finder to the `<alljoyn root directory>/alljoyn_objc` directory,
-   and double-click the `alljoyn_darwin.xcodeproj` file to launch Xcode.
+   1. Navigate in Finder to the `<alljoyn root directory>/alljoyn_objc`
+   directory, and double-click the `alljoyn_darwin.xcodeproj` file to launch
+   Xcode.
    OR
    2. Open Xcode, select **File > Open**, and choose the
    `<alljoyn root directory>/alljoyn_objc/alljoyn_darwin.xcodeproj` file.
@@ -233,57 +238,68 @@ menu of all schemes configured for the Xcode project and
 allow you to select the platform to build. For instance,
 when building the AllJoyn framework on iOS, you might select
 iOS Device, iPad Simulator, or iPhone simulator as platforms for the build.
-4. Once you select a scheme and a platform to build against, select
-**Product > Build** from the Xcode menu to build the AllJoyn framework.
-Upon completion of the build, your binaries will be located in the following directory:
+4. Once you select a scheme and a platform to build against, select **Product >
+Build** from the Xcode menu to build the AllJoyn framework. Upon completion of
+the build, your binaries will be located in the following directory:
 
    ```sh
-   <alljoyn_root_directory>/alljoyn_core/build/darwin/[arm|x86]/[debug|release]/dist
+   $AJ_ROOT/core/alljoyn/build/darwin/[arm|x86]/[debug|release]/dist
    ```
 
-   **NOTE:** For OS X builds, the binaries will be located under the `.../darwin/x86/...`
-   directory. For iOS builds, the binaries will be located under the `.../darwin/arm/   ` directory.
+   **NOTE:** For OS X builds, the binaries will be located under the
+   `.../darwin/x86/...` directory. For iOS builds, the binaries will be located
+   under the `.../darwin/arm/...` directory.
+
+5. A similar process can be followed for the `alljoyn_about_[cpp|objc]` and
+`AllJoynFramework_iOS` Xcode projects mentioned below.
 
 ### Command line build
 
 1. Open a terminal window.
-2. Change your directory to `<alljoyn root directory>/alljoyn_objc`
+2. Change your directory to `$AJ_ROOT/core/alljoyn/alljoyn_objc`
 by running the following command:
 
    ```sh
-   $ cd <alljoyn root directory>/alljoyn_objc
+   $ cd $AJ_ROOT/core/alljoyn/alljoyn_objc
    ```
 
-3. To build for:
+3. To build for all iPhone devices:
+   
+   ```sh
+   $ xcodebuild -project alljoyn_darwin.xcodeproj -scheme alljoyn_core_ios -sdk iphoneos -configuration {VARIANT}
+   ```
 
-   * 64-bit iOS devices, run the following command:
+   * For 64-bit iOS devices, run the following command:
+
+      ```sh
+      $ xcodebuild -project alljoyn_darwin.xcodeproj -scheme alljoyn_core_arm64 -sdk iphoneos -configuration {VARIANT}
+      ```
+
+4. To build for the iOS simulator, run the following command:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-      -project alljoyn_darwin.xcodeproj
-      -scheme alljoyn_core_arm64 -sdk iphoneos -configuration Debug
+   $ xcodebuild -project alljoyn_darwin.xcodeproj -scheme alljoyn_core_ios -sdk iphonesimulator -configuration {VARIANT}
    ```
-
-   * For all other iOS devices, run the following command:
+ 
+5. Next build the About libraries:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-      -project alljoyn_darwin.xcodeproj
-      -scheme alljoyn_core_ios -sdk iphoneos -configuration Debug
+   $ cd $AJ_ROOT/core/alljoyn/services/about/ios/samples/alljoyn_services_cpp/
+   $ xcodebuild -project alljoyn_about_cpp.xcodeproj -scheme alljoyn_about_cpp -sdk {PLATFORM} -configuration {VARIANT}
+   $
+   $ cd ../alljoyn_services_objc/
+   $ xcodebuild -project alljoyn_about_objc.xcodeproj -scheme alljoyn_about_objc -sdk {PLATFORM} -configuration {VARIANT}
    ```
 
-   * iOS simulator, run the following command:
+6. Then build the AllJoynFramework_iOS library:
 
    ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-      -project alljoyn_darwin.xcodeproj
-      -scheme alljoyn_core_ios -sdk iphonesimulator -configuration Debug
+   $ cd $AJ_ROOT/core/alljoyn/alljoyn_objc/AllJoynFramework_iOS/
+   $ xcodebuild -project AllJoynFramework_iOS.xcodeproj -scheme AllJoynFramework_iOS -sdk {PLATFORM} -configuration {VARIANT}
    ```
 
-   * OS X, run the following command:
 
-   ```sh
-   $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-      -project alljoyn_darwin.xcodeproj
-      -scheme alljoyn_core_osx
-   ```
+* PLATFORM - Pass `iphoneos` when targeting an iPhone device, or
+`iphonesimulator` when building for the iOS simulator.
+* VARIANT - Select the build variant to build. For debug, pass `Debug`. For
+release, pass `Release`.

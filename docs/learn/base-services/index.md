@@ -1,28 +1,21 @@
 # Base Services
 
-Base Services are common services used by many devices, providing a 
-set of interfaces for different devices to interact and interoperate
-with one another. Below are the currently supported base services. 
-This list will continue to expand as more contributions are made to 
-the AllSeen Alliance project.
+Base Services is a collection of common services useful to nearly all devices.
+Through common interfaces, these services allow device interaction and
+interoperation without requiring foreknowledge of every possible device type.
 
-* [Onboarding][onboarding]. Provide a consistent way to bring a new device onto 
-  the Wi-Fi network.
+The following services are provided in the current release:
 
-* [Configuration][configuration]. Allows one to configure certain attributes of 
-  an application/device, such as its friendly name.
+* [_**Onboarding**_][_r_onboard] &ndash; Simplify the process of bringing a new
+device onto the AllJoyn&trade; network.
 
-* [Notification][notification]. Allows text-based notifications to be sent and 
-  received by devices on the AllJoyn&trade; network. Also supports audio and images
-  via URLs.
+* [_**Notification**_][_r_notify] &ndash; Provide a uniform method for sending
+and receiving notifications on the AllJoyn&trade; network, with support for
+text, image, and audio message content.
 
-* [Control Panel][controlpanel]. Allows devices to advertise a virtual control
-  panel to be controlled remotely.
-  
-* [Audio Streaming][audiostreaming]. Allows for synchronized audio playback on one or many Sinks.
+* [_**Control Panel**_][_r_control] &ndash; Support remote control of devices
+through a standard service description.
 
-[onboarding]: /learn/base-services/onboarding
-[configuration]: /learn/base-services/configuration
-[notification]: /learn/base-services/notification
-[controlpanel]: /learn/base-services/controlpanel
-[audiostreaming]: /learn/base-services/audiostreaming
+[_r_onboard]: /learn/base-services/onboarding
+[_r_notify]: /learn/base-services/notification
+[_r_control]: /learn/base-services/controlpanel

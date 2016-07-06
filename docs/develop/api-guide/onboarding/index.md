@@ -1,7 +1,7 @@
 # AllJoyn&trade; Onboarding Framework API Guide
 
-* [Java](java)
-* [Objective-C](objc)
+* [Java][onboarding-java]
+* [Objective-C][onboarding-objc]
 
 ## Best Practices: Onboardee
 
@@ -63,3 +63,6 @@ factory-reset application.  Security 2.0 is currently in developer preview. You
 can refer to the process in the high level design document.  
 
 [Security 2.0 High Level Design (HLD)](/learn/core/security2_0/hld)
+
+[onboarding-java]: /develop/api-guide/onboarding/java
+[onboarding-objc]: /develop/api-guide/onboarding/objc 

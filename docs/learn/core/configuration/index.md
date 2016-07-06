@@ -38,7 +38,7 @@ for more details.
 * [Download the SDK][download] and [build][build]
 * [Learn more about the Configuration APIs][api-guide]
 
-[config-interface]: /learn/base-services/configuration/interface
+[config-interface]: /learn/core/configuration/interface
 [download]: https://allseenalliance.org/framework/download
 [build]: /develop/building
 [api-guide]: /develop/api-guide/config

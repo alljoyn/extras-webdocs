@@ -33,10 +33,6 @@
             - name: Interface
               path: /learn/core/configuration/interface
               contents:
-            - name: Interface 14.02
-              path: /learn/core/configuration/interface-14-02
-              hidden: 1
-              contents:
         - name: Routing Node Configuration
           path: /learn/core/rn_config
           contents:
@@ -392,12 +388,6 @@
               contents:
             - name: C (Thin Core)
               path: /develop/api-guide/controlpanel/c-thin
-              contents:
-        - name: Audio Streaming
-          path: /develop/api-guide/audio-streaming
-          contents:
-            - name: C++
-              path: /develop/api-guide/audio-streaming/cpp
               contents:
         - name: Events and Actions
           path: /develop/api-guide/events-and-actions

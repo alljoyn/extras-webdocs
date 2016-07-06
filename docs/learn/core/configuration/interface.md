@@ -1,16 +1,5 @@
 # Configuration Interface Definition
 
-## Release History
-
-To access a previous version of this document, click the release version link below.
-
-|Release version | Date | What changed |
-|---|---|---|
-| [14.02][config-14.02] | 2/28/2014 | Config interface version 1 was added. |
-| 14.06 | 6/30/2014 | No updates |
-| 14.06 Update 1 | 9/29/2014 | <ul><li>Updated the document title and Overview chapter title (changed from Specification to Definition).</li><li>Added the release version number to the document title for version tracking.</li><li>Added a note in the Definition Overview chapter to address the AllSeen Alliance Compliance and Certification program.</li><li>Added a Mandatory column for method and signal parameters to support the AllSeen Alliance Compliance and Certification program.</li><li>Added configData output parameter information to the GetConfigurations method.</li></ul> |
-| 14.12 | 12/17/2014 | Cleanup to make requirements for methods and signals more clear. |
-
 ## Definition Overview
 
 The Configuration service framework exposes device-specific 
@@ -267,8 +256,6 @@ xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect
 </node>
 ```
 
-
-[config-14.02]: /learn/base-services/configuration/interface-14-02
 
 [config-arch]: /files/learn/config-arch.png
 [config-device-config]: /files/learn/config-device-config.png

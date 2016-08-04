@@ -73,7 +73,7 @@ action can be taken.
 The Security Manager is a service that helps the user with key management and
 permission rules building.  Using the application manifest template defined by
 the application developer, the Security Manager builds the manifests consisting
-of access control lists to let the end-user authorize which interactions the
+of rules to let the end-user authorize which interactions the
 application can do.  An application developer does not have to build a security
 manager.  The permission can be installed by another application or another
 security manager.
@@ -167,7 +167,7 @@ public key of the authority of the security group.
 
 ![exchange-manifest-and-membership-certificates][]
 
-**Figure:** Exchange certificates and membership certificates
+**Figure:** Exchange membership certificates
 
 The identity certificate chain is exchanged during the ECDHE_ECDSA key exchange
 process.  The org.alljoyn.Bus.Peer.Authentication interface is not enforced with
@@ -1012,8 +1012,10 @@ have the identity certificate EKU and certificates exchanged to indicate
 security group memberships must have the membership certificate EKU.
 - Intermediate certificates must have zero, one or both identity and membership
 EKUs.
-- No EKU will be treated as any EKU, per RFC 5280. EKU validation is transitive,
-meaning any certificate with no EKU will inherit those of its parent.
+- In non-leaf certificates, no EKU will be treated as any EKU, per RFC 5280. 
+EKU validation is transitive, meaning any certificate with no EKU will inherit
+those of its parent. As stated above, leaf certificates that do not have exactly
+one EKU are rejected. 
 - Time of validity will only be evaluated if the peer has a time source.
 - The implementation will assume system time is trusted if available.
 - The AKI is validated to not be null.

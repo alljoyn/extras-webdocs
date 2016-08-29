@@ -234,6 +234,8 @@ Sets variables for various timeouts and connection limits to an unsigned,
 |max_completed_connections|The maximum number of connections (inbound and outbound) allowed for each tranport.  This means that the total number of completed connections allowed for TCP and UDP is twice this value.<br><br>If starting to process a new connection would mean exceeding this number, then the new connection will be dropped.|50 (connections) |
 |max_remote_clients_tcp|The maximum number of remote clients using TCP.<br><br>Note:  this value _must_ be overridden when using an external configuration file in order to enable TCP connections to leaf nodes.  The default internal configuration file already overrides this value.<br><br>Note that this setting may be useful for applications that have a specific requirement to prevent leaf nodes from connecting; however, for generic RNs, this value should not be zero.|0 (connections)|
 |max_remote_clients_udp|The maximum number of remote clients using UDP.<br><br>Note:  this value _must_ be overridden when using an external configuration file in order to enable UDP connections to leaf nodes.  The default internal configuration file already overrides this value.<br><br>Note that this setting may be useful for applications that have a specific requirement to prevent leaf nodes from connecting; however, for generic RNs, this value should not be zero.|0 (connections)|
+|udp_link_timeout|ARDP is very interested in quickly determining when a link has gone down, idle or not. The idea is to guarantee that some data is present on the link at least once over a given interval. This may be data, ACK for that data, or a special NUL keep-alive packet.This parameter provides the default overall timeout period during which a broken link for a connection must be detected. The link timeout, together with the number of keepalive retries, is used to compute the keep-alive interval for sending periodic keep-alive probes. The formula is: interval = udp_link_timeout / udp_keepalive_retries. The minimum value of the timeout, and the minimum value of the interval, is 1000 msec. The udp_link_timeout value is used only if the link timeout was not set by the app, otherwise the link timeout from the app is used.|30000 msec|
+|udp_keepalive_retries|Provides the total number of times keep-alive probes will be sent before declaring the link as broken and terminating the ARDP connection.|5|
 
 ##### Test hooks _only_
 Many of the limits found in the source code are hooks for
@@ -256,8 +258,7 @@ behavior.
 |udp_min_data_retries|tcp_default_probe_timeout|
 |udp_persist_interval|tcp_min_idle_timeout|
 |udp_total_app_timeout|tcp_max_idle_timeout|
-|udp_link_timeout|tcp_default_idle_timeout|
-|udp_keepalive_retries|tcp_max_probe_timeout|
+|tcp_default_idle_timeout|tcp_max_probe_timeout|
 |udp_delayed_ack_timeout|dt_min_idle_timeout|
 |dt_max_idle_timeout|dt_default_idle_timeout|
 |dt_max_probe_timeout|dt_default_probe_timeout|

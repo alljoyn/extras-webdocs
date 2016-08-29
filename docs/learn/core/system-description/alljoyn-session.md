@@ -596,6 +596,8 @@ remote router.
 
 The AllJoyn router provides a `SetLinkTimeout()` API which
 can be invoked by the application to detect missing routers.
+
+#### TCP transport
 The application provides an idle timeout value as part of the
 API, which should be greater than or equal to the minimum value
 (40 sec) defined at the router. A single probe is sent to the
@@ -604,9 +606,37 @@ If no response is received in probe timeout period (10 sec), that
 router is disconnected and all associated connection slots,
 active advertisements and sessions are cleaned up.
 
-This functionality to detect missing routers is not enabled
+For TCP transport, this functionality to detect missing routers is not enabled
 by default. An app needs to call the `SetLinkTimeout()` API
 to enable it.
+
+#### UDP transport
+For UDP transport, the probing mechanism is controlled by two settings: 
+`udp_link_timeout` and `udp_keepalive_retries`. `udp_link_timeout` is 
+the timeout period (in milliseconds) during which a broken link must be
+detected: if no traffic from a given remote router has been observed
+for `udp_link_timeout` milliseconds, the link to that router and the
+associated session are considered dead.  
+To detect if the remote router is active, keepalive packets (or probes) are sent 
+periodically. `udp_keepalive_retries` is the maximum number of retries 
+when no responses to probes are received. For example, if `udp_keepalive_retries` 
+is equal to 5, the link will be considered dead after five consecutive probes 
+have not been replied to.  
+Both parameters determine the interval at which the probes are sent. The formula is:  
+`interval` = `udp_link_timeout` / `udp_keepalive_retries`.  
+For example, when `udp_link_timeout` is 30000 ms and `udp_keepalive_retries` 
+is 5, a probe will be sent to the remote router once every six seconds. If there
+has been no reply to five consecutive probes, we have reached the timeout
+and the link and the session are dead.  
+The values of `udp_link_timeout` and `udp_keepalive_retries` are read from
+the router configuration XML when the router starts. After a session
+has been established, the timeout value for that session can be changed
+by calling the `SetLinkTimeout()` API function. The given timeout (in seconds)
+will override the default `udp_link_timeout` setting for the session.
+The probe interval will also be adjusted, according to the above formula.
+
+For UDP transport, the probing mechanism is always enabled, i.e. there
+is no need to call `SetLinkTimeout()` to trigger the sending of the probes.
 
 ### Probing mechanism for detecting missing applications
 

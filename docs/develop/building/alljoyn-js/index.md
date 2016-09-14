@@ -5,7 +5,7 @@ The primary goal of AllJoyn.js is to make it easy to develop AllJoyn application
 
 AllJoyn.js is a deep integration of the AllJoyn Thin Core Library (AJTCL) and base services with Duktape (www.duktape.org), an ECMAScript 5.0 compliant compiler and runtime specifically designed for running in small-footprint embedded microcontrollers. Although designed to work within the limited resources of embedded mocrocontrollers, Alljoyn.js is not limited to this use case and can also be used for general AllJoyn programming on Windows, Linux, and other high-level operating systems.
 
-The AllJoyn.js runtime environment includes a "ScriptConsole" service that provides support for installing new scripts and interacting with a running JavaScript application. The ScriptConsole service is an AllJoyn service and like any other AllJoyn service can be accessed over the network from another device running a corresponding client application. The current code base includes a command line ScriptConsolse client on Linux and Windows. This command line tool can be used to install new scripts into a running AllJoyn.js instance and also allows JavaScript code to be entered in real time. The ScriptConsole also supports remote logging of string data passed to the `print()` and `alert()` JavaScript functions.
+The AllJoyn.js runtime environment includes a "ScriptConsole" service that provides support for installing new scripts and interacting with a running JavaScript application. The ScriptConsole service is an AllJoyn service and like any other AllJoyn service can be accessed over the network from another device running a corresponding client application. The current code base includes a command line ScriptConsolse client on Linux and Windows. This command line tool can be used to install new scripts into a running AllJoyn.js instance and also allows JavaScript code to be entered in real time. The ScriptConsole also supports remote logging of string data passed to the **print()** and **alert()** JavaScript functions.
 
 Over time the plan is to add additional features to the ScriptConsole to support debugging features such as breakpoints, single-stepping, and navigation up the callstack.
 
@@ -16,7 +16,7 @@ Building AllJoyn.js from source has external dependencies. The AllJoyn functiona
 
 ## Duktape
 
-AllJoyn.js depends on the Duktape ECMAScript compiler. That source code can be found [here](http://www.duktape.org). AllJoyn.js v16.04 depends on Duktape v1.2.1. After downloading, extract the archive and note the location. AllJoyn Thin Client compiles and links against the Duktape source so an environment variable needs to be set to Duktape's location.
+AllJoyn.js depends on the Duktape ECMAScript compiler. That source code can be found [here](http://www.duktape.org/download.html). AllJoyn.js v16.04 depends on Duktape v1.2.1. After downloading, extract the archive and note the location. AllJoyn Thin Client compiles and links against the Duktape source so an environment variable needs to be set to Duktape's location.
 
 #### Windows
 
@@ -142,7 +142,7 @@ Building the Python GUI on Windows is not quite as easy as Linux and may require
 
 1. Download [Python 3.4](https://www.python.org/downloads/release/python-342/) (preferably 64 bit)
 
-2. Download [Python extensions for Windows](http://sourceforge.net/projects/pywin32/files/) (same architecture as Python 3.4)
+2. Download [Python extensions for Windows](https://sourceforge.net/projects/pywin32/files/pywin32/) (same architecture as Python 3.4)
 
 3. Install Python 3.4 first, then Python extensions for Windows
 

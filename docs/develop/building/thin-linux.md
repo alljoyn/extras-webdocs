@@ -130,7 +130,7 @@ $ git clone https://git.allseenalliance.org/gerrit/services/base_tcl.git
 ```
 
 
-## Building Thin Core 
+## Building Thin Core
 
 Use the following commands to build the AllJoyn framework for Linux.
 

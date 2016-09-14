@@ -664,16 +664,16 @@ $ $AJ_ROOT/core/alljoyn/build/linux/x86_64/debug/test/cpp/bin/ajtest
 
 ### Running the Java junit tests
 
-The junit tests are always built at the same time as the Java bindings. The junit tests are specifically designed to test the Java bindings.
+The junit tests will be built when building Java bindings.
 
-Open a terminal window, type the following commands:
+To run the tests, open a terminal window and type the following commands:
 
 ```sh
 $ cd $AJ_ROOT/core/alljoyn/
 $ ant test -DOS=linux -DCPU=x86_64 -DVARIANT=debug
 ```
 
-Find the HTML version of the results in the following location:
+This will generate results formatted in an HTML document. This can be found in the following location:
 * $AJ_ROOT/core/alljoyn/build/linux/x86_64/debug/test/java/reports/junit/
 
 ### Additional projects

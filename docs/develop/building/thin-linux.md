@@ -24,6 +24,13 @@ sudo apt-get install python
 sudo apt-get install scons
 ```
 
+* Define AJ_ROOT
+
+```sh
+mkdir $HOME/alljoyn_src
+export AJ_ROOT=$HOME/alljoyn_src
+```
+
 * Get AllJoyn&trade; source
     * Download the [source zip][download] and extract Core source into
     `$AJ_ROOT/core/ajtcl/` and Base Services source into
@@ -33,13 +40,13 @@ sudo apt-get install scons
     $ cd $AJ_ROOT
     $ mkdir core/
     $ cd core
-    $ git clone https://git.allseenalliance.org/gerrit/core/ajtcl.git 
+    $ git clone https://git.allseenalliance.org/gerrit/core/ajtcl.git
     $
     $ cd $AJ_ROOT
     $ mkdir services/
     $ cd services
     $ git clone https://git.allseenalliance.org/gerrit/services/base_tcl.git
-    ``` 
+    ```
 
 ## Building
 

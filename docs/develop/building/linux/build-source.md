@@ -296,7 +296,7 @@ These are various flags to be run with SCons.  These are optional.  Unless you'r
 To see a list of SCons build flags, use the following:
 
 ```sh
-scons -h
+$ scons -h
 ```
 
 ### Whitespace policy checker
@@ -339,7 +339,7 @@ For example:
 * C: scons BINDINGS=c
 * C++: scons BINDINGS=cpp
 * Java: scons BINDINGS=java
-* Javascript: scons=js
+* Javascript: scons BINDINGS=js
 * Multiple: scons BINDINGS=cpp,java
 
 ### Crypto options
@@ -511,7 +511,7 @@ These variables result in the following path:
 The SCons script builds a shared library and links against that shared library. Add the library to the link path.
 
 ```sh
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AJ_ROOT/core/alljoyn/build/linux/x86_64/debug/dist/cpp/lib
+$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AJ_ROOT/core/alljoyn/build/linux/x86_64/debug/dist/cpp/lib
 ```
 
 This will prevent the error:
@@ -551,7 +551,7 @@ Open a terminal window and run the following commands:
 
 ```sh
 $ cd $AJ_ROOT/core/alljoyn/build/linux/x86_64/debug/dist/cpp/bin
-$ ./alljoyn-daemon –-internal
+$ ./alljoyn-daemon --internal
 ```
 
 **NOTE:** Press **Ctrl-c** at any time to stop the alljoyn-daemon process.
@@ -570,15 +570,16 @@ Some of the more common options include:
   * --config-file=FILE
 * Print the socket address to STDOUT.
   * --print-address
-* Disable the Bluetooth transport (override config file setting.
+* Disable the Bluetooth transport (override config file setting).
   * --no-bt
 * Set the logging level to LEVEL.
   * --verbosity=LEVEL
 * Print the version and copyright string, and exit.
   * --version
 
+Example:
 ```sh
-EXAMPLE: alljoyn-daemon [--config-file=FILE] [--print-address] [--verbosity=LEVEL] [--no-bt] [--version]
+$ alljoyn-daemon [--config-file=FILE] [--print-address] [--verbosity=LEVEL] [--no-bt] [--version]
 ```
 
 An example configuration file can be found in this directory:

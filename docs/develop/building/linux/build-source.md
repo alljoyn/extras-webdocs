@@ -337,15 +337,15 @@ The BINDINGS option takes a comma-separated list of languages to build. Current 
 For example:
 
 * alljoyn_core and common only: scons BINDINGS=
-* C: scons BINDINGS=c
-* C++: scons BINDINGS=cpp
-* Java: scons BINDINGS=java
-* Javascript: scons BINDINGS=js
-* Multiple: scons BINDINGS=cpp,java
+* C: **scons BINDINGS=c**
+* C++: **scons BINDINGS=cpp**
+* Java: **scons BINDINGS=java**
+* Javascript: **scons BINDINGS=js**
+* Multiple: **scons BINDINGS=cpp,java**
 
 ### Crypto options
 
-AllJoyn v15.04 and above adds a CRYPTO option to the scons command line. To build AllJoyn without dependencies on OpenSSL libcrypto, use CRYPTO=builtin:
+AllJoyn v15.04 and above adds a CRYPTO option to the scons command line. To build AllJoyn without dependencies on OpenSSL libraries, use CRYPTO=builtin:
 
 ```sh
 $ scons CRYPTO=builtin
@@ -382,6 +382,8 @@ $ scons GTEST_DIR=$HOME/googletest
 It is possible to bundle the routing node in an AllJoyn application, which means the alljoyn-daemon does not have to be run separately
 
 ### Install AllJoyn Framework
+
+The following commands install the alljoyn-daemon program and AllJoyn libraries to the system
 
 ```sh
 $ sudo cp $AJ_ROOT/core/alljoyn/build/linux/x86_64/debug/dist/cpp/bin/alljoyn-daemon /usr/bin

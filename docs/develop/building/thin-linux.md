@@ -9,19 +9,19 @@ of Linux.
 * Build tools and libs
 
 ```sh
-sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev
+$ sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev
 ```
 
 * Install Python v2.6/2.7 (Python v3.0 is not compatible and will cause errors)
 
 ```sh
-sudo apt-get install python
+$ sudo apt-get install python
 ```
 
 * Installl SCons v2.0.
 
 ```sh
-sudo apt-get install scons
+$ sudo apt-get install scons
 ```
 
 * Get AllJoyn&trade; source
@@ -29,17 +29,17 @@ sudo apt-get install scons
     `$AJ_ROOT/core/ajtcl/` and Base Services source into
     `$AJ_ROOT/services/base_tcl/`
     * Alternatively, use git:
-    ```sh
+```sh
     $ cd $AJ_ROOT
     $ mkdir core/
     $ cd core
-    $ git clone https://git.allseenalliance.org/gerrit/core/ajtcl.git 
+    $ git clone https://git.allseenalliance.org/gerrit/core/ajtcl.git
     $
     $ cd $AJ_ROOT
     $ mkdir services/
     $ cd services
     $ git clone https://git.allseenalliance.org/gerrit/services/base_tcl.git
-    ``` 
+```
 
 ## Building
 

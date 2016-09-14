@@ -188,11 +188,10 @@ Your output should look similar to this:
 Junit is a testing framework for Java and 4.9 or newer is required when building the Alljoyn Java bindings.
 
 1. Navigate to https://github.com/junit-team/junit/wiki/Download-and-Install
-2. Download the jar file "junit-4.12.jar" and copy it to usr/share/java/junit-4.12 from the Downloads folder:
-3. Click on junit.jar link.
-4. Click on the ‘jar’ link next version 4.12.
-5. Save the file to Downloads.
-6. Open a terminal window and run the following commands.
+2. Click on junit.jar link.
+3. Click on the ‘jar’ link next version 4.12.
+4. Save the file to Downloads.
+5. Open a terminal window and run the following commands.
 
 ```sh
 $ cd $HOME/Downloads
@@ -222,7 +221,7 @@ $ git checkout release-1.7.0
 
 **NOTE:** Do not use apt-get install libgtest-dev. Download the source code from github.com.
 
-## Environmental Variables
+## Environment Variables
 
 **NOTE:** These will be added individually in this document, but to save time you can add these to your shell config file ($HOME/.bashrc).
 
@@ -235,10 +234,10 @@ $ export CLASSPATH=/usr/share/java/junit-4.12.jar
 $ export GECKO_BASE=$HOME/xulrunner-sdk
 ```
 
-**NOTE:** For CPU, select your architecture.  Use x86 for 32bit, x86_64 for 64bit, arm for ARM, etc.  
-**NOTE:** The path specified for the JAVA HOME environment variable is the path to the jdk directory.  
-**NOTE:** The path specified for the CLASSPATH environment variable is the full path name to the junit jar file that was downloaded earlier.  
-**NOTE:** GECKO_BASE is only needed if building with Javascript (js) bindings.  
+**NOTE:** For CPU, select your architecture.  Use x86 for 32bit, x86_64 for 64bit, arm for ARM, etc.
+**NOTE:** The path specified for the JAVA HOME environment variable is the path to the jdk directory.
+**NOTE:** The path specified for the CLASSPATH environment variable is the full path name to the junit jar file that was downloaded earlier.
+**NOTE:** GECKO_BASE is only needed if building with Javascript (js) bindings.
 
 ## Obtain the AllJoyn source
 
@@ -379,7 +378,7 @@ $ scons GTEST_DIR=$HOME/googletest
 
 ## Running the AllJoyn Applications
 
-It is possible to bundle the routing node in an AllJoyn application, which means:  Each application that you run will have its own built-in router.
+It is possible to bundle the routing node in an AllJoyn application, which means the alljoyn-daemon does not have to be run separately
 
 ### Install AllJoyn Framework
 
@@ -509,7 +508,7 @@ These variables result in the following path:
 
 * $AJ_ROOT/core/alljoyn/build/linux/x86_64/debug/
 
-The SCons scripts builds a shared library and links against that shared library. Add the library to the link path.
+The SCons script builds a shared library and links against that shared library. Add the library to the link path.
 
 ```sh
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AJ_ROOT/core/alljoyn/build/linux/x86_64/debug/dist/cpp/lib

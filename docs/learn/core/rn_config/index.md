@@ -37,8 +37,44 @@ As of v15.09, a user may compile AllJoyn with the scons variable `TEST_CONFIG`
 set to an absolute or relative path to a config file.  However, as suggested by
 the scons variable name, this method is intended for debug and test purposes.
 
-If the user does not provide a config file, then the bundled RN relies on a
-hardcoded configuration contained in the file `BundledRouter.cc`.
+From v16.10 onwards, it is possible to provide a custom configuration XML
+by means of a function call. A user may call `AllJoynRouterInitWithConfig`
+instead of `AllJoynRouterInit` (or, for the C language binding, 
+`alljoyn_routerinitwithconfig` instead of `alljoyn_routerinit`).
+For example:
+```cpp
+static const char myConfig[] =
+"<busconfig>"
+"  <type>alljoyn_bundled</type>"
+"  <listen>tcp:iface=*,port=0</listen>"
+"  <listen>udp:iface=*,port=0</listen>"
+"  <limit name=\"auth_timeout\">20000</limit>"
+"  <limit name=\"max_incomplete_connections\">48</limit>"
+"  <limit name=\"max_completed_connections\">64</limit>"
+"  <limit name=\"max_remote_clients_tcp\">48</limit>"
+"  <limit name=\"max_remote_clients_udp\">48</limit>"
+"  <limit name=\"udp_link_timeout\">60000</limit>"
+"  <limit name=\"udp_keepalive_retries\">6</limit>"
+"  <property name=\"router_power_source\">Battery powered and chargeable</property>"
+"  <property name=\"router_mobility\">Intermediate mobility</property>"
+"  <property name=\"router_availability\">3-6 hr</property>"
+"  <property name=\"router_node_connection\">Wireless</property>"
+"</busconfig>";
+
+QStatus status = AllJoynInit();
+if (status != ER_OK) {
+    return status;
+}
+status = AllJoynRouterInitWithConfig(myConfig);
+if (status != ER_OK) {
+    AllJoynShutdown();
+    return status;
+}
+```
+
+If the user does not provide a custom configuration, or the provided configuration XML
+is invalid, then the bundled RN relies on a hardcoded configuration contained 
+in the file `BundledRouter.cc`.
 
 Note that all config settings that apply to the standalone RN also apply to the
 bundled RN.

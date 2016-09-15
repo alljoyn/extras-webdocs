@@ -232,6 +232,7 @@ $ export OS=linux
 $ export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 $ export CLASSPATH=/usr/share/java/junit-4.12.jar
 $ export GECKO_BASE=$HOME/xulrunner-sdk
+$ source $HOME/.bashrc
 ```
 
 **NOTE:** For CPU, select your architecture.  Use x86 for 32bit, x86_64 for 64bit, arm for ARM, etc.
@@ -519,6 +520,8 @@ This will prevent the error:
 ```sh
 error while loading shared libraries: liballjoyn.so: cannot open shared object file: No such file or directory
 ```
+
+**Note**: This will only apply to the current terminal session. It will have to be run for each new terminal.
 
 ## Running a Sample Application
 

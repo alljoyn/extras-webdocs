@@ -16,18 +16,20 @@ Building AllJoyn.js from source has external dependencies. The AllJoyn functiona
 
 ## Duktape
 
+*Note:*  SCons will automatically download Duktape. This step is only required if specific version of Duktape is needed.
+
 AllJoyn.js depends on the Duktape ECMAScript compiler. That source code can be found [here](http://www.duktape.org). AllJoyn.js v16.04 depends on Duktape v1.2.1. After downloading, extract the archive and note the location. AllJoyn Thin Client compiles and links against the Duktape source so an environment variable needs to be set to Duktape's location.
 
 #### Windows
 
 ```
-set DUKTAPE_DIST="C:\Path\to\duktape\root"
+set DUKTAPE_SRC="C:\Path\to\duktape\root"
 ```
 
 #### Linux
 
 ```
-export DUKTAPE_DIST=/Path/to/duktape/root
+export DUKTAPE_SRC=/Path/to/duktape/root
 ```
 
 ## AllJoyn Thin Client

@@ -88,7 +88,29 @@ index 2635189..7aba76d 100644
 EOF
 ```
 
-Press enter, then run make install again.
+* Define AJ_ROOT
+
+```sh
+mkdir $HOME/alljoyn_src
+export AJ_ROOT=$HOME/alljoyn_src
+```
+
+* Get AllJoyn&trade; source
+    * Download the [source zip][download] and extract Core source into
+    `$AJ_ROOT/core/ajtcl/` and Base Services source into
+    `$AJ_ROOT/services/base_tcl/`
+    * Alternatively, use git:
+    ```sh
+    $ cd $AJ_ROOT
+    $ mkdir core/
+    $ cd core
+    $ git clone https://git.allseenalliance.org/gerrit/core/ajtcl.git
+    $
+    $ cd $AJ_ROOT
+    $ mkdir services/
+    $ cd services
+    $ git clone https://git.allseenalliance.org/gerrit/services/base_tcl.git
+    ```
 
 ```sh
 $ sudo make install
@@ -130,7 +152,7 @@ $ git clone https://git.allseenalliance.org/gerrit/services/base_tcl.git
 ```
 
 
-## Building Thin Core 
+## Building Thin Core
 
 Use the following commands to build the AllJoyn framework for Linux.
 

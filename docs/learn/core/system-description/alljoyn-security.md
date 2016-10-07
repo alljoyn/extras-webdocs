@@ -49,12 +49,12 @@ for exchanging authentication related data.
 The AllJoyn framework supports the following auth mechanisms
 for app-to-app level authentication:
 
-* ALLJOYN_SRP_KEYX - Secure Remote Password (SRP) key exchange
-* ALLJOYN_SRP_LOGON - Secure Remote Password (SRP) logon with username and password
 * ALLJOYN_ECDHE_NULL - Elliptic Curve Diffie-Hellman (ephemeral) key exchange
   with no authentication
 * ALLJOYN_ECDHE_PSK -  Elliptic Curve Diffie-Hellman (ephemeral) key exchange
   authenticated with a pre-shared key (PSK)
+* ALLJOYN_ECDHE_SPEKE -  Elliptic Curve Diffie-Hellman (ephemeral) key exchange
+  authenticated with a password
 * ALLJOYN_ECDHE_ECDSA - Elliptic Curve Diffie-Hellman (ephemeral) key exchange
   authenticated with an X.509 ECDSA certificate
 
@@ -101,6 +101,23 @@ of the [Security HLD](https://wiki.allseenalliance.org/core/security_enhancement
 In the 15.04 release, the ALLJOYN_PIN_KEYX and ALLJOYN_RSA_KEYX authentication
 mechanisms have been removed from the standard client.  Support for ECDSA X.509
 was added.
+
+### Security changes in the 15.09 release
+
+In the 15.09 release, the ALLJOYN_SRP_KEYX and ALLJOYN_SRP_LOGON authentication
+mechanisms have been marked deprecated in the standard client. They were never
+supported in the thin client.  Security 2.0 is feature complete, and considered
+ready for developer preview.
+
+### Security changes in the 16.04 release
+
+In the 16.04 release, the ALLJOYN_ECDHE_SPEKE authentication mechanism has been 
+added to the standard and thin clients. The ALLJOYN_ECDHE_PSK mechanism has been 
+marked deprecated. Security 2.0 is improved with minor features, changes
+and bug fixes. Security 2.0 remains developer preview.
+
+### Security changes in the 16.10 release
+Security 2.0 is ready for production.
 
 ## Security concepts
 
@@ -385,170 +402,10 @@ AllJoyn peer applications authenticate each other using
 one of the auth mechanisms detailed in this section.
 These auth mechanisms are designed based on the security
 constructs in [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt) and
-[RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt). Applicable RFC
-sections are listed when describing details for these auth mechanisms.
-
-**NOTE:** For the authentication message flows captured in this section,
-the consumer and provider apps are also referred to as client
-and server respectively, to correspond with terminology used
-in [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt) and
-[RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt).
-
-### Use of D-Bus SASL protocol
-
-The AllJoyn framework implements the D-Bus SASL exchange protocol
-[D-Bus Specification](http://dbus.freedesktop.org/doc/dbus-specification.html) to exchange
-authentication-related data. All authentication-related
-exchanges are done using the AuthChallenge method call/reply
-defined as part of the org.alljoyn.Bus.Peer.Authentication
-interface implemented by the AllJoyn core library.
-
-Auth data to be exchanged is generated as a SASL string
-based on the D-Bus SASL exchange protocol. Auth data inside
-the SASL string is sent in the hex form. The generated string
-is then passed as a parameter to the AuthChallenge method call
-or method reply.
-
-For example, to initiate authentication for ALLJOYN_SRP_KEYX,
-generated string would be:
-
-```
-"AUTH ALLJOYN_SRP_KEYX <c_rand in hex>"
-```
-
-This includes the SASL AUTH command, auth mechanism, and auth data in hex form.
-
-The following table captures the D-Bus SASL commands supported
-by the AllJoyn framework.
-
-#### D-Bus SASL commands supported by the AllJoyn framework
-
-| Command | Direction | Description |
-|---|---|---|
-| AUTH [mechanism] [initial-response] | Consumer->Provider | Start the authentication. |
-| CANCEL | Consumer->Provider | Cancel the authentication. |
-| BEGIN | <ul><li>Consumer->Provider</li><li>Provider->Consumer</li></ul> | <ul><li>On the consumer side, acknowledge that the consumer has received an OK command from the provider, and that the stream of messages is about to begin.</li><li>From the provider side, sent by the provider as response to BEGIN command from the consumer.</li></ul> |
-| DATA | <ul><li>Consumer->Provider</li><li>Provider->Consumer</li></ul> | On the consumer or provider side, contains a hex-encoded block of data to be interpreted according to the auth mechanism in use. |
-| OK | Consumer->Provider  | The client has been authenticated. |
-| REJECTED | Consumer->Provider | On the consumer side, indicates that the current authentication exchange has failed, and further exchange of DATA is inappropriate. The consumer tries another mechanism, or tries providing different responses to challenges. |
-| ERROR | <ul><li>Consumer->Provider</li><li>Provider->Consumer</li></ul> | On the consumer or provider side, either the provider or consumer did not know a command, does not accept the given command in the current context, or did not understand the arguments to the command. |
-
-### ALLJOYN_SRP_KEYX
-
-The following figure shows the message flow for the ALLJOYN_SRP_KEYX
-auth mechanism. This auth mechanism is primarily designed for use
-cases where a one-time use password is generated by both sides.
-
-![alljoyn-srp-keyx-auth-mechanism][alljoyn-srp-keyx-auth-mechanism]
-
-**Figure:** ALLJOYN_SRP_KEYX auth mechanism
-
-The message flow steps are described below.
-
-1. The consumer app generates a 28 bytes client random string c_rand.
-2. The consumer (client) app generates an AuthChallenge METHOD_CALL
-message and passes "AUTH ALLJOYN_SRP_KEYX &lt;c_rand&gt;" as parameter
-in that message. The consumer app sends the method call to the
-provider (server) app via the AllJoyn router.
-3. The provider app invokes the AuthListener callback registered
-by the application to request for a password. The AuthListener
-returns the password. A username of "anonymous" is used in this case.
-4. The provider app computes the server's public value B as
-per the algorithm in section 2.5.3 of [RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt).
-5. The provider app generates an AuthChallenge METHOD_RETURN
-message to send a server key exchange message to the client.
-The provider app passes "DATA &lt;N:g:s:B&gt;" as parameter to that
-message. Refer to section 2.5.3 of [RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt).
-The 's' is a 40 bytes random salt value. The provider app
-sends method reply to the consumer app via the AllJoyn router.
-6. The consumer app validates the values of N, g, s and B per
-section 2.5.3 of [RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt).
-7. The consumer app computes the client's public value A per
-section 2.5.4 of [RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt).
-8. The consumer (client) app generates an AuthChallenge METHOD_CALL
-message and passes "DATA &lt;A&gt;" as parameter in that message.
-The consumer app sends the method call to the provider (server)
-app via the AllJoyn router.
-9. The provider app generates a 28 bytes server random string s_rand.
-10. The provider app computes a premaster secret using the
-algorithm in section 2.6 of [RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt).
-The premaster secret is based on the client's public value (A),
-the server's public value (B), and password among other parameters.
-11. The provider app computes a master secret based on
-the premaster secret, c_rand, and s_rand as per the algorithm
-in section 8.1 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt).
-12. The provider app computes a "server finish" s_verifier as
-per the algorithm in section 7.4.9 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt).  
-The s_verifier is generated based on master secret, hash of
-handshake messages, and "server finish" label.
-13. The provider app generates an AuthChallenge METHOD_RETURN
-message and passes "DATA &lt;s_rand:s_verfier&gt;" as parameter
-to that message. The provider app sends the method reply
-to the consumer app via the AllJoyn router.
-14. The consumer app invokes the AuthListener callback
-registered by the application to request for a password.
-The AuthListener returns the password. A username of "anonymous"
-is used in this case.
-15. The consumer app computes a premaster secret using the
-algorithm in section 2.6 of [RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt).
-The premaster secret is based on the client's public value (A),
-the server's public value (B), and the password among other parameters.
-16. The consumer app computes a master secret based on the
-premaster secret, c_rand, and s_rand as per the algorithm
-in section 8.1 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt).
-17. The consumer app generates the "server finish" verifier
-using the same algorithm as the provider app and verifies
-that the computed value is same as the received s_verifier.
-18. The consumer app computes a "client finish" c_verifier
-as per the algorithm in section 7.4.9 of [RFC 5246](http://www.rfc-base.org/txt/rfc-5246.txt).
-The c_verifier is generated based on the master secret,
-hash of handshake messages, and "client finish" label.
-19. The consumer app generates an AuthChallenge METHOD_CALL
-message to send the c_verifier to the server. The consumer app
-passes "DATA &lt;c_verifier&gt;" as parameter to the method call.
-The consumer app sends the method call to the provider (server)
-app via the AllJoyn router.
-20. The provider app generates the "client finish" verifier
-using the same algorithm as the consumer app and verifies
-that the computed value is same as the received c_verifier.
-   At this point, the client and server have authenticated with each other.
-21. The provider app generates an AuthChallenge METHOD_RETURN
-message indicating that authentication is complete. The provider
-app passes "OK &lt;s_GUID&gt;" as parameter in that message, where s_GUID
-is the auth GUID of the provider app. The provider app sends
-the method reply to the consumer app via the AllJoyn router.
-22. The consumer app sends an AuthChallenge METHOD_CALL to t
-he provider app specifying "BEGIN &lt;c_GUID&gt;" as parameter.
-This indicates to the provider that the client has received
-the OK message, and the stream of data messages is about to begin.
-The c_GUID is auth GUID of the consumer app.
-23. The provider app sends an AuthChallenge METHOD_RETURN
-message, specifying "BEGIN" as parameter.
-
-### ALLJOYN_SRP_LOGON
-
-The following figure shows the message flow for the ALLJOYN_SRP_LOGON
-auth mechanism. This auth mechanism is designed for client-server use
-cases where server maintains username and password, and the client
-uses this information for authentication. This mechanism is quite
-similar to the AllJoyn_SRP_KEYX auth mechanism with the following differences:
-
-* The consumer app invokes the AuthListener callback up front
-to request the username and password from the application.
-The consumer app then passes the username in the first AuthChallenge
-message sent to the provider app.
-* The provider app uses the received username to request for
-password from the AuthListener.
-
-![alljoyn-srp-logon-auth-mechanism][alljoyn-srp-logon-auth-mechanism]
-
-**Figure:** ALLJOYN_SRP_LOGON auth mechanism
-
-### ECDHE key exchanges
-
-In the 14.06 release, new Elliptic Curve Diffie-Hellman Ephemeral
-(ECDHE) based auth mechanism were added. For details on ECDHE-based
-auth mechanisms, see the latest version of the [Security HLD](https://wiki.allseenalliance.org/core/security_enhancements#high-level-design-documents).
+[RFC 5054](http://www.rfc-editor.org/rfc/rfc5054.txt). Some details of 
+the authentication mechanisms and their use are given in 
+the [Security HLD](https://wiki.allseenalliance.org/core/security_enhancements#high-level-design-documents).
+ 
 
 ## Generation of the session key
 The follwing figure shows the message flow for the generation

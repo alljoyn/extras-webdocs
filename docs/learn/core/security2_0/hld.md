@@ -42,6 +42,7 @@ functions are subject to change without notice.
 | ECDHE_ECDSA | ECDHE key agreement with asymmetric DSA based authentication. |
 | ECDHE_NULL | ECDHE key agreement only. No authentication. |
 | ECDHE_PSK | ECDHE key agreement with pre-shared symmetric key based authentication. |
+| ECDHE_SPEKE | ECDHE key agreement with password-based authentication. |
 | Factory-reset application | An application restored to the original configuration. |
 | Grantee | The application or user who is the subject of a certificate. |
 | GUID | Globally Unique Identifier. A 128 bit identifier generated randomly in a way that the probability of collision is negligible. |
@@ -147,8 +148,8 @@ users) using a Security Manager. When the user specifies a security group name
 
 ### Required Key Exchanges
 
-The framework requires either ECHDE_NULL or ECDHE_PSK key exchange for the claim
-process.  Once the application is claimed, only the ECDHE_ECDSA key exchange is
+The framework requires either ECHDE_NULL or ECDHE_SPEKE key exchange for the claim
+process. Once the application is claimed, only the ECDHE_ECDSA key exchange is
 allowed unless the policy allows for anonymous user; in such case, ECDHE_NULL is
 acceptable.
 
@@ -219,7 +220,7 @@ exchange.
 #### Claim factory-reset application using out-of-band registration data
 
 An application manufacturer can provision a key or the application can
-dynamically generate a key to support the claiming process. The ECDHE_PSK key
+dynamically generate a key to support the claiming process. The ECDHE_SPEKE key
 exchange is used in this scenario. The key is provided to the user out of band.
 An example is a QR code or a token delivered via email or text messaging. The
 user is prompted for the key when establishing a connection with the

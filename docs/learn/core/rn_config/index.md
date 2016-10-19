@@ -324,7 +324,7 @@ warning message).
 |Protocol or Transport Name|Description|Format|Example|
 |--------------------------------------------------------|
 |tcp|AllJoyn over TCP|`tcp:(iface=<interface>` &#124; `addr=<IPv4 address),port=<port number>`|`tcp:iface=lo,port=9955`|
-|udp|AllJoyn over UDP|`udp:(iface=<interface>` &#124; `addr=<IPv4 address),port=<port number>`|`udp:iface=*,port=9955`|
+|udp|AllJoyn over UDP|`udp:(iface=<interface>` &#124; `addr=<IPv4 or IPv6 address),port=<port number>`|`udp:iface=*,port=9955`|
 |unix|Unix domain socket.  Applicable only for standalone routing nodes on POSIX platforms.|`unix:(abstract` &#124 `path)=<named socket>`|`unix:abstract=alljoyn`|
 |slap|Serial Line over AllJoyn Protocol. Used to provide an interface between an AllJoyn embedded platform and a POSIX-based routing node.|`slap:type=<com interface type>,dev=<serial port>,baud=<baud rate>`|`slap:type=uart,dev=/dev/ttyUSB0,baud=115200`|
 |npipe|Windows 10 named pipe protocol|`npipe:`<br>(Note: no options or other parameters available)|`npipe:`|
@@ -334,13 +334,34 @@ warning message).
 |Option Name|Content|Use Wildcard?|Notes|
 |--------------------------------|
 |iface|Valid network interface name (see definition of `ifName` in RFC 2863) on the device that is hosting the RN.  For example, `eth0` on Linux, or `Ethernet_32803` on Windows. |Yes|`iface` and `addr` are mutually exclusive<br>`iface` is preferred over `addr`|
-|addr|Valid IPv4 address|Yes|`iface` and `addr` are mutually exclusive<br>`addr` primarily exists for backward compatibility.  Prefer `iface`, instead.|
+|addr|Valid IPv4 or IPv6 (UPD only) address|Yes|`iface` and `addr` are mutually exclusive<br>`iface` is preferred over `addr`|
 |port|Valid TCP or UDP port number|No|`port=0` indicates that the transport will use an ephemeral port.|
 |abstract|Named socket|No|Linux only.<br>`unix:abstract=alljoyn` is the default because applications look for the "alljoyn" socket name by default|
 |path|POSIX named socket|No|The specified path must refer to an existing named socket.|
 |type|Communications interface type.|No|At this time, only `uart` is supported. |
 |dev|Serial port|No|POSIX platform specific.<br>Only tested on Linux.|
 |baud|Baud rate of the specified serial port.|No| |
+
+**IMPORTANT NOTE:** Since 16.10 release, due to introduced support of UDP over IPv6, wildcard listen specifications have different semantics:
+``` xml
+<busconfig>
+    <!-- Before 16.10: listen on every available interface for IPv4 only (IPv6 not supported) -->
+    <!-- Since 16.10: listen on every available interface for IPv4 and IPv6 -->
+    <listen>udp:iface=*,port=0</listen>
+</busconfig>
+
+<busconfig>
+    <!-- Before 16.10: listen on every available interface for IPv4 only (IPv6 not supported) -->
+    <!-- Since 16.10: listen on every available interface for IPv4 only -->
+    <listen>udp:addr=0.0.0.0,port=0</listen>
+</busconfig>
+
+<busconfig>
+    <!-- Before 16.10: listen on every available interface for IPv4 only (IPv6 not supported) -->
+    <!-- Since 16.10: listen on every available interface for IPv6 only -->
+    <listen>udp:addr=::,port=0</listen>
+</busconfig>
+```
 
 ### ``<pidfile>``
 Records the routing node process ID (PID) to the specified file.  If the file

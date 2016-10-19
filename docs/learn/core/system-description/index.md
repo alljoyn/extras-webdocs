@@ -296,7 +296,7 @@ follows the format below:
 Unique Name = ":"<AJ router GUID>"."<Seq #>
 ```
 
-**NOTE:** The ":<AJ router GUID>.1" unique name is always given 
+**NOTE:** The ":&lt;AJ router GUID&gt;.1" unique name is always given 
 to the AllJoyn router local endpoint.
 
 The following figure shows the unique name assignment for three connected 
@@ -548,7 +548,7 @@ router supports the following endpoints:
 AllJoyn router itself. It identifies a connection to self 
 and is used to exchange AllJoyn control messages between 
 AllJoyn routers. This is the first endpoint which gets assigned 
-and always has the unique name ":<AJ router GUID>.1"
+and always has the unique name ":&lt;AJ router GUID&gt;.1"
 * **Remote Endpoint**: A remote endpoint identifies the connection 
 between the application and the AllJoyn router. Messages destined 
 to applications get routed to app endpoints.
@@ -846,9 +846,9 @@ from provider applications that support certain desired AllJoyn
 interfaces. The following sessionless signal enhancements were made:
 
 * The sessionless signal advertised name was enhanced to add 
-<INTERFACE> information from the header of the sessionless signal. 
+&lt;INTERFACE&gt; information from the header of the sessionless signal. 
 Consumers use this to fetch sessionless signals only from those 
-providers that are emitting signals from the <INTERFACE> it 
+providers that are emitting signals from the &lt;INTERFACE&gt; it 
 is interested in. A separate sessionless signal name is advertised 
 one for each unique interface in the sessionless signal cache.
 * A mechanism was added for the consumer app to indicate receiving 

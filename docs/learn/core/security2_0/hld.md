@@ -1314,7 +1314,7 @@ to applications.
 
 An admin uses the Security Manager to generate updated policy and membership
 certificates, encrypt the payload with a session key derived from a nonce value
-and the master secret for the <sender, recipient> pair.  The package including
+and the master secret for the &lt;sender, recipient&gt; pair.  The package including
 the sender public key, recipient public key, nonce, and encrypted payload is
 sent to the Distribution Service to delivery to the recipient.  The recipient
 uses the information in the package to locate the master secret to generate the

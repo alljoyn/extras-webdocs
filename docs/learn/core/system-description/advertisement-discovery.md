@@ -891,15 +891,15 @@ records types that can be present in the query or response messages:
 
 | Name | Type | Record-specific data |
 |---|:---:|---|
-| <ul><li>alljoyn._udp.local.</li><li>alljoyn._tcp.local.</li></ul> | PTR | <p>The service name is alljoyn as allocated through IANA.</p><p>In the 14.06 release, the protocol used in the service description is TCP. When UDP transport is supported in future, the protocol for service name will be UDP.</p><p>The discovery scope is the local network.</p> |
+| <ul><li>_alljoyn._udp.local.</li><li>_alljoyn._tcp.local.</li></ul> | PTR | <p>The service name is alljoyn as allocated through IANA.</p><p>Depending on the configuration of Name Service, the protocol used in the service description can be TCP, UDP, or both can be listed.</p><p>The discovery scope is the local network.</p> |
 
 ##### DNS-SD query: Additional section
 
 | Name | Type | Record-specific data |
 |---|:---:|---|
-| search.&lt;guid&gt;.local. | TXT | <p>Captures the well-known names or interfaces that are being searched. The key notation is as follows:</p><ul><li>txtvrs=0; this represents version of the TXT record.</li><li>n_1, n_2, etc., if multiple well-known names are present, they are logically ANDed; n_# is the key for well-known names.</li><li>i_1, i_2, etc., if multiple interface names are being queried. If multiple interface names are present, they are logically ANDed; i_# is the key for interface names.</li><li>Since the APIs for name-based and interface-based query are different, the search record has either name keys or interface keys.</li></ul><p>If the consumer application intends to perform logical OR operation for interface names, it must call the discovery API with interface name multiple times.</p><p>Example:  i_1 = org.alljoyn.About</p> |
-| sender-info.&lt;guid&gt;.local. | TXT | <p>Captures additional data regarding the sender of the message. The following keys are sent:</p><ul><li>txtvrs=0; represents the version of the TXT record.</li><li>pv (protocol version):  represents the discovery protocol version.</li><li>IPv4 and UDPv4 address: represents the IPv4 address and UDP port.</li><li>bid (burst identifier): represents the burst identifier.</li></ul> | 
-| ping.&lt;guid&gt;.local. | TXT | <p>Captures the names that are being pinged by the consumer application. The key notation is as follows:</p><ul><li>txtvrs=0; represents version of the TXT record.</li><li>n= the well-known name or the unique name.</li></ul><p>Only one key can be present in the ping record.</p>
+| search.&lt;guid&gt;.local. | TXT | <p>Captures the well-known names or interfaces that are being searched. The key notation is as follows:</p><ul><li>txtvers=0; represents the version of the TXT record.</li><li>n_1, n_2, etc., if multiple well-known names are present, they are logically ANDed; n_# is the key for well-known names.</li><li>i_1, i_2, etc., if multiple interface names are being queried. If multiple interface names are present, they are logically ANDed; i_# is the key for interface names.</li><li>Since the APIs for name-based and interface-based query are different, the search record has either name keys or interface keys.</li></ul><p>If the consumer application intends to perform logical OR operation for interface names, it must call the discovery API with interface name multiple times.</p><p>Example:  i_1 = org.alljoyn.About</p> |
+| sender-info.&lt;guid&gt;.local. | TXT | <p>Captures additional data regarding the sender of the message. The following keys are sent:</p><ul><li>txtvers=0; represents the version of the TXT record.</li><li>pv (protocol version):  represents the discovery protocol version.</li><li>ipv4/ipv6: IPv4 or IPv6 address.</li><li>upcv4/upcv6: UDP port.</li><li>bid (burst identifier): represents the burst identifier.</li></ul> |
+| ping.&lt;guid&gt;.local. | TXT | <p>Captures the names that are being pinged by the consumer application. The key notation is as follows:</p><ul><li>txtvers=0; represents the version of the TXT record.</li><li>n= the well-known name or the unique name.</li></ul><p>Only one key can be present in the ping record.</p>
 
 #### DNS-SD response
 
@@ -907,18 +907,18 @@ records types that can be present in the query or response messages:
 
 | Name | Type | Record-specific data |
 |---|:---:|---|
-| _alljoyn._tcp.local. | PTR | &lt;guid&gt;._alljoyn._tcp.local. |
-| &lt;guid&gt;._alljoyn._tcp.local. | TXT | <p>txtvrs=0</p><p>Except for text record version, there is no additional record.</p> |
-| &lt;guid&gt;._alljoyn._tcp.local. | SRV | <p>port, &lt;guid&gt;.local</p><p>port represents TCP port number used for the router-router connection.</p> |
+| <ul><li>_alljoyn._udp.local.</li><li>_alljoyn._tcp.local.</li></ul> | PTR | &lt;guid&gt;._alljoyn._tcp.local. |
+| <ul><li>&lt;guid&gt;._alljoyn._udp.local.</li><li>&lt;guid&gt;._alljoyn._tcp.local.</li></ul> | TXT | <p>txtvers=0</p><p>Except for text record version, there is no additional record.</p> |
+| <ul><li>&lt;guid&gt;._alljoyn._udp.local.</li><li>&lt;guid&gt;._alljoyn._tcp.local.</li></ul> | SRV | <p>port, &lt;guid&gt;.local</p><p>Port represents UDP/TCP port number used for the router-router connection.</p> |
 
 ##### DNS-SD response message: Additional section
 
 | Name | Type | Record-specific data |
 |---|:---:|---|
-| advertise.&lt;guid&gt;.local. | TXT | <p>Captures the well-known names that the provider application is advertising.The key notation is as follows:</p><p>n_1, n_2, etc., if multiple well-known names are being advertised; n_# is the key for well-known names.</p><p>For interface query response, the sessionless signal well-known name that is advertised is as follows:</p><p>n_1=org.alljoyn.About.sl.y&lt;guid&gt;.x&lt;latest change_id&gt;</p> |
-| sender-info.&lt;guid&gt;.local. | TXT | <p>Captures additional data regarding the sender of the message. The following keys are sent:</p><ul><li>txtvrs=0; represents version of the TXT record.</li><li>pv (protocol version):  represents the discovery protocol version.</li><li>IPv4 and UDPv4 address: represents the IPv4 address and UDP port.</li><li>bid (burst identifier): represents the burst identifier.</li></ul> |
-| Ping-reply.&lt;guid&gt;.local. | TXT | <p>Captures the names that are being pinged by the consumer application. The key notation is as follows:</p><ul><li>txtvrs=0; represents version of the TXT record.</li><li>n= well-known name or unique name.</li><li>replycode = reply code as returned by the router.</li></ul> |
-| &lt;guid&gt;.local | A | This resource record sends IPv4 address. It is present in response messages for discovery. |
+| advertise.&lt;guid&gt;local. | TXT | <p>Captures the well-known names that the provider application is advertising. The key notation is as follows:</p><p>n_1, n_2, etc., if multiple well-known names are being advertised; n_# is the key for well-known names.</p><p>For interface query response, the sessionless signal well-known name that is advertised is as follows:</p><p>n_1=org.alljoyn.About.sl.y&lt;guid&gt;.x&lt;latest change_id&gt;</p> |
+| sender-info.&lt;guid&gt;.local. | TXT | <p>Captures additional data regarding the sender of the message. The following keys are sent:</p><ul><li>txtvers=0; represents the version of the TXT record.</li><li>pv (protocol version):  represents the discovery protocol version.</li><li>upcv4/upcv6: UDP port.</li><li>bid (burst identifier): represents the burst identifier.</li></ul> |
+| ping-reply.&lt;guid&gt;.local. | TXT | <p>Captures the names that are being pinged by the consumer application. The key notation is as follows:</p><ul><li>txtvers=0; represents the version of the TXT record.</li><li>n= well-known name or unique name.</li><li>replycode = reply code as returned by the router.</li></ul> |
+| &lt;guid&gt;.local | A / AAAA | This resource record sends IPv4 address (A record) or IPv6 address (AAAA record). It is present in response messages for discovery. |
 
 #### NGNS configuration parameters
 

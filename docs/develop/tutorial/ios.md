@@ -3,7 +3,7 @@
 ## Overview
 
 This content looks at the BasicService and BasicClient
-sample in the SDK. This is a simple demonstration wherein
+samples in the AllJoyn build. This is a simple demonstration wherein
 the client sends two strings to the service, the service
 concatenates the strings sent by the client and returns a single string.
 
@@ -12,8 +12,8 @@ concatenates the strings sent by the client and returns a single string.
 The AllJoyn&trade; Objective-C bindings are based on the fact that
 any AllJoyn Objective C-code that you write will hit the native AllJoyn library.
 
-When you download the AllJoyn SDK for iOS and OS X,
-the typical structure of the SDK and its components is followed:
+When you compile the AllJoyn Source for iOS and OS X,
+the typical structure of the build and its components is followed:
 
 * build
 * alljoyn_objc
@@ -77,7 +77,7 @@ give you ideas for using the AllJoyn Objective-C bindings.
 #### Test directory
 
 The Test directory contains a few tests that can be used
-to test the AllJoyn SDK.
+to test the AllJoyn build.
 
 ### Overview of files in the samples
 

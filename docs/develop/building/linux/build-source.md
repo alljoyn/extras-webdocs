@@ -232,6 +232,13 @@ $ export OS=linux
 $ export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 $ export CLASSPATH=/usr/share/java/junit-4.12.jar
 $ export GECKO_BASE=$HOME/xulrunner-sdk
+```
+
+To reload the shell config file so that the changes are applied to a running terminal session, run the following command:
+
+**NOTE:** Do **NOT** add the following command to your shell config. If you do, all terminal instances will crash as soon as they are launched.
+
+```sh
 $ source $HOME/.bashrc
 ```
 
@@ -336,7 +343,7 @@ The BINDINGS option takes a comma-separated list of languages to build. Current 
 
 For example:
 
-* alljoyn_core and common only: scons BINDINGS=
+* alljoyn_core and common only: **scons BINDINGS=**
 * C: **scons BINDINGS=c**
 * C++: **scons BINDINGS=cpp**
 * Java: **scons BINDINGS=java**
@@ -345,7 +352,7 @@ For example:
 
 ### Crypto options
 
-AllJoyn v15.04 and above adds a CRYPTO option to the scons command line. To build AllJoyn without dependencies on OpenSSL libraries, use CRYPTO=builtin:
+AllJoyn v15.04 and above adds a CRYPTO option to the scons command line. To build AllJoyn without dependencies on OpenSSL libraries, use CRYPTO=builtin
 
 ```sh
 $ scons CRYPTO=builtin
@@ -394,10 +401,15 @@ $ sudo find $AJ_ROOT/core/alljoyn/build -name "*\.so" -exec cp {} /usr/lib \;
 
 To make starting and stopping AllJoyn easier, create an init.d script.
 
-Open a terminal window, copy and paste the following, then press enter:
+Run the following command:
 
 ```sh
-cat <<'EOF' > $HOME/alljoyn.init
+$ sudo gedit /etc/init.d/alljoyn.init
+```
+
+Then copy and paste the following into the text editor and save the document:
+
+```sh
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides: alljoyn-daemon
@@ -482,14 +494,12 @@ case "$1" in
   *)
     echo "Usage: $0 {start|stop|status|restart|uninstall}"
 esac
-EOF
 ```
 
-After the script is created, use the following commands:
+Finally, run the following command to make the initialization script executable:
 
 ```sh
-$ chmod a+x $HOME/alljoyn.init
-$ sudo cp $HOME/alljoyn.init /etc/init.d/alljoyn
+$ sudo chmod a+x /etc/init.d/alljoyn.init
 ```
 
 Test starting and stopping the newly create service.

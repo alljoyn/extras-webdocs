@@ -5,14 +5,17 @@
 The AllJoyn™ build environment requires:
 
 * Apple computer system with OS X 10.11 (El Capitan) or later.
-* Xcode 7.x or higher for AllJoyn 16.04
+* Xcode 8.x or higher for AllJoyn 16.10a
+* Xcode 7.x or higher for AllJoyn 16.04, 16.10
 * Xcode 6.x or higher for AllJoyn 15.04
 
-**NOTE:** This document is based on OS X 10.11.6 with Xcode 7.3.1 newly installed.  Both are the latest versions at time of publication.
+**NOTE:** This document is based on OS X 10.12.3 with Xcode 8.2.1 newly installed. Both are the latest versions at time of publication.
+
+**NOTE:** Pay attention that you could add AllJoyn 16.10a or higher to your project using CocoaPods. You can find more details in [api-guide].
 
 ## Installation
 
-Install the following on your OS X 10.11 or above system:
+Install the following on your OS X 10.12 or above system:
 
 ### Xcode
 
@@ -22,7 +25,7 @@ Install the following on your OS X 10.11 or above system:
 4. Download and install Xcode.
 5. After successful installation, you may open Xcode from your Applications folder.
 
-**NOTE:** This document recommends using Xcode 7 and is written as such.  However, if you are using Xcode 6.x to build AllJoyn 15.04 you may need to run the following command from a terminal window to install the Command Line Tools:
+**NOTE:** This document recommends using Xcode 8 and is written as such.  However, if you are using Xcode 7.x to build AllJoyn 16.04 or Xcode 6.x to build AllJoyn 15.04 you may need to run the following command from a terminal window to install the Command Line Tools:
 
 ```sh
 $ xcode-select --install
@@ -81,6 +84,18 @@ $ brew install graphviz
 
 To download the AllJoyn source code, select the version you'd like, and follow the steps below:
 
+### 16.10
+
+Open a terminal window and type the following commands:
+
+```sh
+$ mkdir ~/alljoyn_src
+$ cd ~/alljoyn_src
+$ git clone https://git.allseenalliance.org/gerrit/core/alljoyn.git
+$ cd alljoyn
+$ git checkout RB16.10
+```
+
 ### 16.04
 
 Open a terminal window and type the following commands:
@@ -112,7 +127,7 @@ $ git apply alljoyn_darwin.patch
 
 OpenSSL is an open source toolkit for implementing the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1).
 
-**NOTE:** OpenSSL is only required if building 15.04.  If you are building 16.04, please skip to Building the Alljoyn Framework.
+**NOTE:** OpenSSL is only required if building 15.04.  If you are building 16.04 or 16.10, please skip to Building the Alljoyn Framework.
 **NOTE:** You may put these files wherever you’d like.  For the purposes of this document, they will be put in their own directories under ~/openssl_src/
 **NOTE:** If you are building for 32 bit, replace step 6 below with ./config.
 
@@ -163,7 +178,29 @@ $ cp -R Debug-iphoneios ~/openssl_src/openssl-xcode/openssl/build/
 
 ## Building the AllJoyn Framework
 
-Using the Xcode Integrated Development Environment (IDE) to build AllJoyn is recommended, but command line instructions are below.
+Using the building scripts is recommended for 16.10a and higher, but Xcode Integrated Development Environment (IDE) or command line instructions for 16.10, 16.04 and 15.04 are below.
+
+### Script build for 16.10a
+
+Open a terminal window and type the following command
+
+* cd $(PATH_TO_ALLJOYN_SDK)/alljoyn/alljoyn_objc/
+
+Run one of the following scripts to build static fat libraries:
+
+for iOS with Objective-C bindings
+* ./build_ios.sh
+
+for iOS with using C++
+* ./build_core_ios.sh
+
+for macOS with Objective-C bindings
+* ./build_macos.sh
+
+for macOS with using C++
+* ./build_core_macos.sh
+
+After that, you will be able to find header files and built libraries for debug and release configuration in `$(PATH_TO_ALLJOYN_SDK)/build/iOS/AllJoynFramework` for iOS and in `$(PATH_TO_ALLJOYN_SDK)/build/darwin/AllJoynFramework` for macOS.
 
 ### Xcode IDE build for 16.04
 
@@ -220,3 +257,5 @@ OS X, run the following command:
 ```sh
 $ /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project alljoyn_darwin.xcodeproj -scheme alljoyn_core_osx
 ```
+
+[api-guide]: /develop/api-guide/core/objc

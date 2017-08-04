@@ -1,7 +1,5 @@
 # Core API Guide - Objective-C
 
-**NOTE:** this API guide is for 16.10a. For 16.04 and earlier check [old api guide].
-
 ## Create a New Xcode iOS Project
 
 1. Open Xcode by selecting it from the Applications folder
@@ -17,89 +15,6 @@ and select **iPhone** as the **Devices**.
 project, and then select **Create**. You now should see
 your HelloAllJoynWorld project loaded in Xcode. You are
 ready to begin your journey into AllJoyn&trade; development.
-
-After that you must add AllJoynFramework to your project. There
-are two ways how it could be done. First of them is using Cocoapods,
-second - to build AllJoynFramework and configurate the Build
-Settings manually. Both of them will build AllJoynFramework from
-sources using SCons (build tool). You can install SCons with homebrew:
-```ssh
-brew install SCons
-```
-
-## Add AllJoynFramework with Cocoapods
-
-CocoaPods is a dependency manager for Swift and Objective-C Cocoa projects.
-More information is avalible [here](https://cocoapods.org/).
-
-You can install cocoapods with homebrew:
-```ssh
-brew install cocoapods
-```
-
-After that you have to create podfile in project directory with content like the following
-```ruby
-platform :ios, '9.0'
-
-target 'iOSapp' do
-	pod 'AllJoyn', :git => 'https://git.allseenalliance.org/gerrit/core/alljoyn.git'
-end
-```
-
-where iOSapp is name of your project.
-For macOS project you should use `platform :osx, '10.10'`
-
-Cocoapods will download all neseccary files, build AllJoyn library and configurate Build Settings of your project.
-
-## Configure the Build Settings
-
-In case of manual adding AllJoynFramework, you have to:
-
-1. Build framework with help of scripts (see [build-source]).
-2. Make sure you know the location of the AllJoyn SDK folder.
-The AllJoyn SDK folder contains your build, services, and
-alljoyn_objc folders.
-3. Open Xcode, open your project, and select the root of the
-tree in **Project Navigator**. Then select the app's target under **Targets**.
-4. Select the **Build Settings** tab for the app target.
-Click the **All** option at the top of the list.
-5. Scroll down to the **Linking** section, and set **Other Linker Flags**
-to the following:
-   ```sh
-   -lalljoyn -lajrouter -lAllJoynFramework_iOS -lc++
-   ```
-Replace -lAllJoynFramework_iOS by -lAllJoynFramework_macOS in case of macOS project.
-6. Scroll down the list of settings until you see the
-**Search Paths** group.
-7. Double-click the **Header Search Paths** field and enter the following for iOS:
-   ```sh
-   "$(PATH_TO_ALLJOYN_SDK)/build/iOS/AllJoynFramework/include/
-   ```
-   and for macOS:
-   ```sh
-   "$(PATH_TO_ALLJOYN_SDK)/build/darwin/AllJoynFramework/include/
-   ```
-
-8. Double-click the **Library Search Paths** field and enter the following for iOS:
-   ```sh
-   $(inherited) "(PATH_TO_ALLJOYN_SDK)/build/iOS/AllJoynFramework/$(CONFIGURATION)/"
-   ```
-   and for macOS:
-   ```sh
-   $(inherited) "$(PATH_TO_ALLJOYN_SDK)/build/darwin/AllJoynFramework/$(CONFIGURATION)/"
-   ```
-9. Scroll down in the **Build Settings** table until you see
-the **Apple LLVM 8.0 - Custom Compiler Flags** group.
-10. Set the **Other C Flags** field for Debug to the following:
-   ```sh
-   -DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN
-   ```
-11. Set the **Other C Flags** field for Release to the following:
-   ```sh
-   -DNS_BLOCK_ASSERTIONS=1 -DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN
-   ```
-12. Select **Product > Build** from the Xcode main menu.
-Your project should build successfully. Congratulations.
 
 ## Define the AllJoyn Object Model
 
@@ -343,6 +258,94 @@ should reside in the `SampleObject.m`. You normally should
 not need to change the code in the `AJN*.h/.mm` files in order
 to implement your application.
 
+## Configure the Build Settings
 
-[old api guide]: /develop/api-guide/core/objc_old
-[build-source]: /develop/building/ios-osx/build-source
+Now you must configure the Xcode project to successfully
+compile and link your app.
+
+1. Make sure you know the location of the AllJoyn SDK folder.
+The AllJoyn SDK folder contains your build, services, and
+alljoyn_objc folders. 
+2. For build 15.04 and earlier follow the directions in the README 
+file in the AllJoyn SDK folder to compile openssl for iOS using Xcode.
+3. Open Xcode, open your project, and select the root of the
+tree in **Project Navigator**. Then select the app's target under **Targets**.
+4. Select the **Build Settings** tab for the app target.
+Click the **All** option at the top of the list.
+5. At the top of the **Build Settings** list, click
+**Architectures** and then select **Other...**.
+6. Click the **+** sign in the window that appears and add
+`armv7`, then close the window.
+7. Set **Build Active Architecture Only** to **Yes**.
+8. Scroll down to the **Linking** section, and set **Other Linker Flags**
+to the following:
+   ```sh
+   -lalljoyn -lajrouter -lBundledRouter.o -lssl -lcrypto
+   ```
+9. Scroll down the list of settings until you see the
+**Search Paths** group.
+10. Double-click the **Header Search Paths** field and enter the following:
+   ```sh
+   "$(SRCROOT)/../alljoyn- sdk/
+   build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/ cpp/inc"
+   "$(SRCROOT)/../alljoyn- sdk/
+   build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/ cpp/inc/alljoyn"
+   ```
+11. Double-click the **Library Search Paths** field and enter the following:
+   ```sh
+   $(inherited) "$(SRCROOT)/../alljoyn- sdk/
+   build/darwin/arm/$(PLATFORM_NAME)/$(CONFIGURATION)/dist/ cpp/lib"
+   "$(SRCROOT)/../alljoyn-sdk/common/crypto/openssl/openssl-
+   1.01/build/$(CONFIGURATION)-$(PLATFORM_NAME)
+   ```
+12. Scroll down in the **Build Settings** table until you see
+the **Apple LLVM compiler 3.1 - Language** group.
+13. Set **Enable C++ Exceptions** to **No**.
+14. Set **Enable C++ Runtime Types** to **No**.
+15. Set the **Other C Flags** field for Debug to the following:
+   ```sh
+   -DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN
+   ```
+16. Set the **Other C Flags** field for Release to the following:
+   ```sh
+   -DNS_BLOCK_ASSERTIONS=1 -DQCC_OS_GROUP_POSIX -DQCC_OS_DARWIN
+   ```
+17. Select the **Build Phases** tab.
+18. Expand the **Link Binary With Libraries** group and click
+the **+** sign at the lower left corner. A dialog will appear.
+19. Select the **SystemConfiguration.framework** file.
+20. Click the **+** button again and add one last library
+to link against, if it is not already included: `libstdc++.dylib`.
+21. Enter "std" into the search text field to view only the
+standard template library binaries. Select the following
+file from the list: `libstdc++.dylib`.
+22. Create a group to hold the AllJoyn framework by right-clicking
+the **HelloAllJoynWorld** group in the **Project Navigator**
+tree and selecting **New Group** from the menu.
+23. Enter "AllJoynFramework" to give your new group a pertinent name.
+24. Select the newly-created group "AllJoynFramework", and
+choose **Add Files...**.
+25. Navigate to the following folder:
+   ```sh
+   <ALLJOYN_SDK_ROOT>/alljoyn_objc/AllJoynFramework/AllJoynFramework
+   ```
+26. Select all the `.h/.m*` files in the directory, and
+be sure to uncheck **Copy items into destination group's folder**,
+and make sure your HelloAllJoynWorld target is checked in
+the **Add to targets** list.
+27. Click **Add** to add the AllJoyn Objective-c framework
+to your AllJoynFramework group in the project.
+28. Select **Product > Build** from the Xcode main menu.
+Your project should build successfully. Congratulations.
+
+Note that there is a template project located in the following
+folder that has the above configuration preloaded for you.
+Check it out at:
+```sh
+<ALLJOYN_SDK_ROOT>/alljoyn_objc/samples/iOS/AllJoyn iOS Project Template
+```
+This is a good starting point for any applications you may
+wish to build. Open the Xcode project for the above template
+and examine the source files within. Allow some time to examine
+the README file included with this project, as it contains
+information on the files included in the project.

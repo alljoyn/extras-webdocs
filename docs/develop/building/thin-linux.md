@@ -10,6 +10,14 @@ Open a terminal window and run the following commands:
 $ sudo apt-get install build-essential libssl-dev xsltproc libxml2-dev
 ```
 
+To build the AllJoyn Thin framework for 32-bit systems on a 64-bit operating system, install these required development libraries:
+
+```sh
+$ sudo apt-get install gcc-multilib g++-multilib libc6-i386 libc6-dev-i386 libssl-dev:i386 libxml2-dev:i386
+```
+
+NOTE: libssl-dev does not have multilib support. If the 32-bit version of libssl-dev is installed, then the 64-bit version is replaced with the 32-bit version. You can delete the 32-bit version of the libraries and reinstall the 64-bit version if you wish to go back to 64-bit. libssl-dev is not required if building AllJoyn with the CRYPTO=builtin option.
+
 ## Python v2.6/2.7
 
 Python is a common part of most Linux distributions. You can determine whether Python is already installed on your system by opening a terminal window and running the following command:
@@ -125,8 +133,8 @@ Open a terminal window and run the following command:
 ```sh
 $ sudo apt-get install doxygen
 ```
-## Environmental Variables
-The build environment variables are explained in [Environment Variables](https://allseenalliance.org/framework/documentation/develop/building/linux/build-source#environmental-variables) of the core build source instructions.
+## Environment Variables
+The build environment variables are explained in the [Environment Variables](https://allseenalliance.org/framework/documentation/develop/building/linux/build-source#environmental-variables) section of the core build source instructions.
 
 ## Obtain the AllJoyn source
 
@@ -153,6 +161,12 @@ $ git clone https://git.allseenalliance.org/gerrit/services/base_tcl.git
 
 
 ## Building Thin Core
+
+**NOTE:** Use if you did not add this to .bashrc earlier.
+
+```sh
+$ export AJ_ROOT=$HOME/alljoyn_src
+```
 
 Use the following commands to build the AllJoyn framework for Linux.
 

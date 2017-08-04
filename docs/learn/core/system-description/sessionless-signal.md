@@ -88,9 +88,9 @@ The following key sessionless signal enhancements made to
 achieve this functionality:
 
 * The sessionless signal advertised name was enhanced to add 
-<INTERFACE> information from the header of the sessionless signal. 
+&lt;INTERFACE&gt; information from the header of the sessionless signal. 
 Consumers use this to fetch sessionless signals only from those 
-providers that are emitting signals from <INTERFACE> specified 
+providers that are emitting signals from &lt;INTERFACE&gt; specified 
 in the consumer side match rules. Multiple sessionless signal 
 names are advertised, one for each unique interface in the 
 sessionless signal cache.
@@ -145,7 +145,7 @@ the associated change_ids, determine what the provider will advertise.
 Prior to the AllJoyn 14.06 release, the SLS module requests 
 and advertises the following sessionless signal well-known name: 
 
-* "org.alljoyn.sl.x<GUID>.x<change_id>"
+* "org.alljoyn.sl.x&lt;GUID&gt;.x&lt;change_id&gt;"
 
   where:
   
@@ -155,14 +155,14 @@ and advertises the following sessionless signal well-known name:
 Starting with the AllJoyn 14.06 release, the SLS module 
 requests and advertises the following sessionless signal well-known names:
 
-* "org.alljoyn.sl.y<GUID>.x<change_id>"
+* "org.alljoyn.sl.y&lt;GUID&gt;.x&lt;change_id&gt;"
 
   where:
   
   * GUID is the GUID of the AllJoyn router
   * change_id is the maximum change_id in the SLS cache.
   
-* "<INTERFACE>.sl.y<GUID>.x<change_id>"
+* "&lt;INTERFACE&gt;.sl.y&lt;GUID&gt;.x&lt;change_id&gt;"
   
   where:
   
@@ -232,7 +232,7 @@ sessionless signal providers implemented in the 14.06 release.
 
 If the AddMatch includes the 'interface' key but no 'implements' 
 key, the SLS module performs name-based discovery to discover 
-the name prefix "<interface>.sl." for the specified interface 
+the name prefix "&lt;interface&gt;.sl." for the specified interface 
 in the match rule.
 
 If the AddMatch includes one or more 'implements' keys, the 
@@ -266,7 +266,7 @@ in the 14.06 release. The fetch logic functionality differences
 are described below.
 
 * Prior to the 14.06 release, the consumer SLS module maintains 
-the List<Provider GUID, last acquired change_id> information 
+the List&lt;Provider GUID, last acquired change_id&gt; information 
 for discovered providers. The consumer SLS module fetch sessionless 
 signals if an updated change_id is received from the provider 
 as part of the sessionless signal advertised name.
@@ -274,7 +274,7 @@ as part of the sessionless signal advertised name.
 advertised names can be received from a given provider. 
 In addition, the associated change_id can be different for 
 each of those sessionless signal advertised names. The consumer 
-SLS module maintains the List<Provider GUID, SLS name, change_id> 
+SLS module maintains the List&lt;Provider GUID, SLS name, change_id&gt; 
 for discovered providers. It also keeps track of the match rules 
 that have been applied for a given provider. 
 
@@ -494,7 +494,7 @@ AllJoyn SIGNAL message with the sessionless flag set to true.
 signal cache and assigns a new sessionless signal change_id number.
 11. The provider AllJoyn router generates a well-known name 
 for the sessionless signal with the latest change_id using 
-the format org.alljoyn.sl.x<GUID>.x<change_id>.
+the format org.alljoyn.sl.x&lt;GUID&gt;.x&lt;change_id&gt;.
 12. The provider AllJoyn router does a RequestName for this 
 well-known name to reserve this name. It then calls the 
 `AdvertiseName` method to advertise this name on the AllJoyn network. 
@@ -633,13 +633,13 @@ signal by invoking the AllJoyn core library's RegisterSignalHandler API.
 4. The consumer app invokes the AllJoyn core library's 
 AddMatch API to add a rule for receiving sessionless signals. 
 The API specifies a signal match rule with type='signal', 
-interface='<INTERFACE>', sessionless='t' and other applicable parameters. 
+interface='&lt;INTERFACE&gt;', sessionless='t' and other applicable parameters. 
 5. The AllJoyn core library invokes the AllJoyn router's 
 AddMatch method to add the sessionless signal filtering 
 rule at the AllJoyn router.
 6. The consumer AllJoyn router invokes the `FindAdvertisedName` 
 method with the SLS WKN prefix "org.alljoyn.sl." to discover 
-providers prior to the 14.06 release and SLS WKN "<INTERFACE>sl." 
+providers prior to the 14.06 release and SLS WKN "&lt;INTERFACE&gt;sl." 
 to discover new providers starting in the 14.06 release. 
 7. The consumer AllJoyn router sends out name-based 
 query messages using the NGNS.
@@ -650,11 +650,11 @@ an AllJoyn SIGNAL message with SESSIONLESS flag set to true.
 10. The provider AllJoyn router stores the signal in the sessionless signal cache.
 11. The provider AllJoyn router generates the following:
    * A well-known name for the sessionless signal of the format 
-   "org.alljoyn.sl.y<GUID>.x<change_id>" with the latest change_id. 
+   "org.alljoyn.sl.y&lt;GUID&gt;.x&lt;change_id&gt;" with the latest change_id. 
    * A second well-known name for the sessionless signal of 
-   the format "<INTERFACE>.y<GUID>.x<change_id>" with the 
+   the format "&lt;INTERFACE&gt;.y&lt;GUID&gt;.x&lt;change_id&gt;" with the 
    latest change_id associated with signals generated 
-   by the given <INTERFACE>.
+   by the given &lt;INTERFACE&gt;.
 12. The provider AllJoyn router invokes the RequestName 
 and AdvertiseName method calls to request and advertise these names. 
 13. The provider AllJoyn router sends out a Name Service 
@@ -662,7 +662,7 @@ response messages to advertise these sessionless signal
 well-known names using NGNS.
 14. The consumer AllJoyn router receives the Name Service 
 response messages which pass the prefix matching for "org.alljoyn.sl." 
-or "<INTERFACE>.y<GUID>.x<change_id>". A FoundAdvertisedName 
+or "&lt;INTERFACE&gt;.y&lt;GUID&gt;.x&lt;change_id&gt;". A FoundAdvertisedName 
 signal gets generated for the advertisements.
 15. The consumer determines that it needs to fetch sessionless 
 signals from the provider, based on the received sessionless 
@@ -764,7 +764,7 @@ The consumer SLS module performs the following steps.
 1. Perform interface name discovery for providers for 
 any new 'implements' key/value pair specified in AddMatch. 
 Fetch the sessionless signals from the discovered providers.
-2. Perform name-based discovery for "<INTERFACE>.sl" for any 
+2. Perform name-based discovery for "&lt;INTERFACE&gt;.sl" for any 
 new interface value specified in AddMatch, for which discovery 
 was not already done. Fetch the sessionless signals from 
 the discovered providers.
@@ -784,7 +784,7 @@ lists the org.alljoyn.sl interface signals.
 | Signal name | Description |
 |---|---|
 | RequestSignals | Requests sessionless signals associated with change_ids in the range [fromId, currentChangeId], where currentChangeId is the most recently advertised change_id of the provider. |
-| RequestRange | <p>A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId).</p><p>**NOTE:** The "toId" is exclusive so a consumer should set toId=<change_id_value>+1 if it wants to get SLS up to the change_id_value.</p><p>This signal appeared in version 6 of the AllJoyn protocol.</p> |
+| RequestRange | <p>A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId).</p><p>**NOTE:** The "toId" is exclusive so a consumer should set toId=&lt;change_id_value&gt;+1 if it wants to get SLS up to the change_id_value.</p><p>This signal appeared in version 6 of the AllJoyn protocol.</p> |
 | RequestRangeMatch | <p>A signal for requesting sessionless signals associated with change_ids in the range [fromId, toId) that match any of the provided match rules.</p><p>The "toId" is exclusive in this signal too.</p><p>This signal appeared in version 10 of the AllJoyn protocol (associated with the 14.06 release).</p> |
 
 ### org.alljoyn.sl.RequestSignals parameters

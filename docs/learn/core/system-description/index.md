@@ -1,6 +1,6 @@
 # AllJoyn&trade; System Description
 
-## Release history
+## Release history (note this is not updated as there are newer releases 15.09, 16.04 and 16.10 as you will find in the source repositories in this GitHub)
 
 | Release version | Date | What changed |
 |---|---|---|
